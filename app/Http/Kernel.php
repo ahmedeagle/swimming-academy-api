@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ChangeLanguage;
 use App\Http\Middleware\CheckCoachStatus;
 use App\Http\Middleware\CheckCoachToken;
 use App\Http\Middleware\CheckPassword;
@@ -66,9 +67,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CheckPassword' => CheckPassword::class,
-        'CheckProviderToken' => CheckCoachToken::class,
+        'ChangeLanguage' => ChangeLanguage::class,
+        'CheckCoachToken' => CheckCoachToken::class,
         'CheckUserStatus' => CheckUserStatus::class,
-        'CheckProviderStatus' => CheckCoachStatus::class,
         'CheckUserToken' => CheckUserToken::class,
     ];
 

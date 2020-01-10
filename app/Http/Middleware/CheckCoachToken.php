@@ -22,7 +22,7 @@ class CheckCoachToken
     {
         $user = null;
         try {
-            $user = $this->auth('provider-api');
+            $user = $this->auth('coach-api');
         } catch (\Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                 return $this->returnError('E331', trans('Unauthenticated'/*'Token is Invalid.'*/));
@@ -42,6 +42,9 @@ class CheckCoachToken
         }
         if(!$user)
             return $this->returnError('E331', trans('Unauthenticated'));
+         if($user -> status == 0)
+             return $this->returnError('E332', trans('unactivated'));
+
 
         return $next($request);
     }

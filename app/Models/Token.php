@@ -8,13 +8,12 @@ class Token extends Model
 {
     public $timestamps = true;
 
-    protected $fillable = ['provider_id', 'api_token'];
+    protected $fillable = ['coach_id', 'api_token'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
-     
-    public function provider()
+    public function coach()
     {
-        return $this->belongsTo('App\Models\Provider');
+        return $this->belongsTo('App\Models\Coach');
     }
 }

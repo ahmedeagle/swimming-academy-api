@@ -58,7 +58,7 @@
                                     <span class="grey darken-2"> الرسائل</span>
                                 </h6>
                             </li>
-                            <li class="ps-container ps-active-y media-list w-100" >
+                            <li class="scrollable-container ps-container ps-active-y media-list w-100" >
                                 @if(takeLastMessage(5))
                                     @foreach(takeLastMessage(5) as $message)
                                         <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">

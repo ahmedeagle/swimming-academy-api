@@ -248,4 +248,9 @@ return [
     'updated reservation'     => 'Update The Reservation ',
     'There is no category with this id'   =>  'There is no category with this id',
     'user name used before'          =>  'User Name Used Before',
+    'replayOnTicket'                        => 'هناك رد علي التذكره الخاصة بكم ',
+    'replayOnTicketBody'                  => 'لقد قامت الاداره برد علي التذكره الخاصم بكم  ',
+    'enterCode'                            => 'Enter The Code',
+    'copythiscode'                => 'Copy and Use This Code To Reset Password',
+    'underRevision'                => 'Your Account Under Revision From Administrator'
 ];

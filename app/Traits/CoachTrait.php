@@ -2,32 +2,41 @@
 
 namespace App\Traits;
 
-use App\Models\Doctor;
-use App\Models\Message;
-use App\Models\Ticket;
-use App\Models\Provider;
-use App\Models\ProviderType;
-use App\Models\Reservation;
+use App\Models\Coach;
 use Carbon\Carbon;
-
 use DB;
 use Illuminate\Support\Facades\Auth;
 
-trait ProviderTrait
+trait CoachTrait
 {
-    public function findProvider($id)
+
+    public function authCoachByMobile($mobile, $password)
     {
-        return Provider::find($id);
+        $coachID = null;
+        $coach = Coach::where('mobile', $mobile)->first();
+        $token = Auth::guard('coach-api')->attempt(['mobile' => $mobile, 'password' => $password]);
+         if (!$coach)
+            return null;
+
+        // to allow open  app on more device with the same account
+        if ($token) {
+            $newToken = new \App\Models\Token(['coach_id' => $coach->id, 'api_token' => $token]);
+            $coach->tokens()->save($newToken);
+            //last access token
+            $coach->update(['api_token' => $token]);
+            return $coach;
+        }
+
+        return null;
     }
 
-    public function checkDoctorInBranch($doctor_id, $branch_id)
+    public function findCoach($id)
     {
-        $doctorInBranch = Doctor::where('provider_id', $branch_id)->where('id', $doctor_id)->first();
-        if ($doctorInBranch == null)
-            return false;
-
-        return true;
+        return Coach::find($id);
     }
+
+
+    ///////////////////////////
 
     public function getProviderByID($id)
     {
@@ -164,58 +173,7 @@ trait ProviderTrait
         return Provider::where('email', $email)->first();
     }
 
-
-    public function authProviderByMobile($mobile, $password, $type = 1)
-    {
-        $providerId = null;
-        if ($type == 1) // main provider
-        {
-            $provider = Provider::where('mobile', $mobile)->where('provider_id', null)->first();
-            $providerId = null; // main provider
-        } else {
-            $provider = Provider::where('mobile', $mobile)->whereNotNull('provider_id')->first();
-            if (!$provider) {
-                return null;
-            }
-            $providerId = $provider->provider_id;
-        }
-
-        $token = Auth::guard('provider-api')->attempt(['mobile' => $mobile, 'password' => $password, 'provider_id' => $providerId]);
-        //$token = Auth::guard('provider-api') ->tokenById($provider->id);
-        if (!$provider)
-            return null;
-
-        // to allow open  app on more device with the same account
-        if ($token) {
-            $newToken = new \App\Models\Token(['provider_id' => $provider->id, 'api_token' => $token]);
-            $provider->tokens()->save($newToken);
-            //last access token
-            $provider->update(['api_token' => $token]);
-            return $provider;
-        }
-
-        if (preg_match("~^0\d+$~", $mobile)) {
-            $mobile = substr($mobile, 1);
-        } else {
-            $mobile = '0' . $mobile;
-        }
-
-        $provider = Provider::where('mobile', $mobile)->first();
-        $token = Auth::guard('provider-api')->attempt(['mobile' => $mobile, 'password' => $password, 'provider_id' => $providerId]);
-
-        // to allow open  app on more device with the same account
-
-        if ($token) {
-            $newToken = new \App\Models\Token(['provider_id' => $provider->id, 'api_token' => $token]);
-            $provider->tokens()->save($newToken);
-            $provider->update(['api_token' => $token]);
-            return $provider;
-        }
-        return null;
-    }
-
-
-    public function authProviderByUserName($username, $password,$type = 1)
+    public function authProviderByUserName($username, $password, $type = 1)
     {
 
         if ($type == 1) // main provider
@@ -230,7 +188,7 @@ trait ProviderTrait
             $providerId = $provider->provider_id;
         }
 
-           $token = Auth::guard('provider-api')->attempt(['username' => $username, 'password' => $password , 'provider_id' => $providerId]);
+        $token = Auth::guard('provider-api')->attempt(['username' => $username, 'password' => $password, 'provider_id' => $providerId]);
         //$token = Auth::guard('provider-api') ->tokenById($provider->id);
         if (!$provider)
             return null;
@@ -256,6 +214,7 @@ trait ProviderTrait
         }
         return false;
     }
+
     public function checkIfUserNameExistsForOtherBranches($username)
     {
         $exists = Provider::whereNotNull('provider_id')->where('username', $username)->first();
@@ -264,7 +223,6 @@ trait ProviderTrait
         }
         return false;
     }
-
 
 
     public function checkIfMobileExistsForOtherProviders($mobile)

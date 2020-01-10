@@ -166,6 +166,7 @@
                         $('#replay_message').val('');
                         $('.adminMsg').last().append(data.content);
                     }
+                    scrollToBottom();
                 }
             });
         });

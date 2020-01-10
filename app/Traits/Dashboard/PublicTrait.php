@@ -2,6 +2,7 @@
 
 namespace App\Traits\Dashboard;
 
+use App\Http\Controllers\PushNotificationController;
 use App\Models\Admin;
 use App\Models\City;
 use App\Models\District;
@@ -10,6 +11,7 @@ use App\Models\InsuranceCompany;
 use App\Models\Manager;
 use App\Models\Nationality;
 use App\Models\Nickname;
+use App\Models\Notification;
 use App\Models\PromoCodeCategory;
 use App\Models\Provider;
 use App\Models\ProviderType;
@@ -21,7 +23,7 @@ use DB;
 use PhpParser\Comment\Doc;
 
 trait PublicTrait
- {
+{
     function getRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -42,6 +44,30 @@ trait PublicTrait
         $filename = $image->hashName();
         $path = 'images/' . $folder . '/' . $filename;
         return $path;
+    }
+
+
+    public function saveNotification(User $user, $notif_data = [])
+    {
+
+        $title = $notif_data['title'];
+        $ticketId = $notif_data['id'];
+        Notification::create([
+            "title_ar" => "هناك رد علي التذكره الخاصة بكم" . " - ( $title )",
+            "title_en" => "Reply On Your Ticket" . " - ( $title )",
+            "content_ar" => "لقد قامت الادارة علي الرد علي التذكره الخاصة بكم  ",
+            "content_en" => "The administration replied on  your ticket",
+            "notification_type" => 1,
+            "notification" => $user->user_id,
+            "notificationable_type" => "App\Models\User",
+            "notificationable_id" => $user->id,
+            "action_id" => $ticketId
+        ]);
+    }
+
+    public function sendPushNotification(User $user, $notif_data = [])
+    {
+        (new PushNotificationController($notif_data))->sendUser($user);
     }
 
 

@@ -25,7 +25,7 @@
                             <form class="form-horizontal" method="POST" action="{{route('admin.confirmcode')}}" novalidate>
                                 @csrf
                                 <fieldset class="form-group position-relative has-icon-left">
-                                    <input type="text" name="activation_code" class="form-control form-control-lg input-lg"
+                                    <input type="text" name="activation_code"  value="{{isset($code) ? $code:''}}" class="form-control form-control-lg input-lg"
                                            id="user-code"
                                            placeholder="أدخل الكود ">
                                     <div class="form-control-position">

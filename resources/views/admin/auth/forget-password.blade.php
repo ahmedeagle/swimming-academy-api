@@ -35,7 +35,7 @@
                                     <span class="text-danger">{{$message}} </span>
                                     @enderror
                                 </fieldset>
-                                <button type="submit" class="btn btn-outline-info btn-lg btn-block"><i
+                                <button type="submit" class="sendCodeToEmail btn btn-outline-info btn-lg btn-block"><i
                                         class="ft-unlock"></i> أرسال ألكود
                                 </button>
                             </form>

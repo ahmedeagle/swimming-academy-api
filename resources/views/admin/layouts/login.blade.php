@@ -71,6 +71,10 @@
 <!-- BEGIN PAGE LEVEL JS-->
 <script src="{{asset('assets/admin/js/scripts/forms/form-login-register.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
+
+<script>
+
+</script>
 @notify_js
 @notify_render
 </body>

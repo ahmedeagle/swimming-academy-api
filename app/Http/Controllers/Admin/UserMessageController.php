@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Message;
+use App\Models\Notification;
 use App\Models\Replay;
 use App\Models\Ticket;
 use App\Models\User;
@@ -60,7 +61,6 @@ class UserMessageController extends Controller
 
     public function reply(Request $request)
     {
-        try {
             $validator = Validator::make($request->all(), [
                 "ticket_id" => "required",
                 "replay_message" => "required",
@@ -69,28 +69,30 @@ class UserMessageController extends Controller
                 return response()->json(['error' => 'لابد من اخال نص الرساله اولا ']);
             }
             DB::beginTransaction();
-            $message = $this->getMessageById($request->ticket_id);
+            $message = $this->getMessageById($request->ticket_id);   // get ticket
             $newMessage = Replay::create([
                 'message' => $request->replay_message,
                 'ticket_id' => $message->id,
                 'FromUser' => 0,
             ]);
 
-            /* send push notification  + regular notification  to inform user by new message */
-
-            //$user = $this->getUser($message->user_id);
-            //$appData = $this->getManager();
-            // Mail::to($appData->email)->send(new NewAdminReplyMail($user->name));
+            $notif_data = array();
+            $push_notif_title = $message->title;
+            $push_notif_content = $newMessage->message;
+            $notif_data['title'] = $push_notif_title;
+            $notif_data['body'] = $push_notif_content;
+            $notif_data['id'] = $request->ticket_id;
+            $notif_data['notification_type'] = 1; // notify about new message reply
+             $user = $message->ticketable;   //get user of this ticket
+            $this->sendPushNotification($user, $notif_data);
+            $this->saveNotification($user, $notif_data);
             DB::commit();
-
             $view = view('admin.includes.content.adminMsg', compact('newMessage'))->renderSections();
             return response()->json([
                 'content' => $view['main'],
             ]);
 
-        } catch (\Exception $ex) {
-            return abort('404');
-        }
+
     }
 
     /////////////////// api //////

@@ -18,15 +18,13 @@ return [
     'sent' => 'We have e-mailed your password reset link!',
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that e-mail address.",
-    'emailRequired'   => "البريد الالكتروني مطلوب ",
-    'emailExists'      => "البريد الالكتروني غير مسجل لدينا ",
-    'email'           => " بريد الكتروني غير صالح ",
-    'activationcoderequired'   => 'لابد من ادخال الكود المرسل علي بريد الالكتروني ',
-    'passwordRequired'   => "لأبد من ادخال كلمه المرور الجديده ",
-    "confirmpassword"     => "كلمتي المرور غير متطابقاتان",
-    "passwordmin"        =>  "كلمة المرور لابد الا تقل عن 6 احرف ",
-    'passwordChanged'    => 'تم أعاده تعيين كلمة المرور بنجاح, قم بدخول '
-
-
+    'emailRequired'   => "Email Is required ",
+    'passwordRequired'   => "Password Is required ",
+    "confirmpassword"     => " the password not match ",
+    'emailExists'      => "This Email not Register To us ",
+    'email'           => "Email Is Invalid",
+    'activationcoderequired'   => 'Activation Code Required',
+    "passwordmin"        =>  'Password must be not less than 6 characters',
+    'passwordChanged'   => 'Password Changed Successfully , please login ',
 
 ];

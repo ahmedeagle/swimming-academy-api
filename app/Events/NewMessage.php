@@ -24,6 +24,8 @@ class NewMessage implements ShouldBroadcast
 
     public $photo;
 
+    public $id;
+
     /**
      * Create a new event instance.
      *
@@ -37,6 +39,8 @@ class NewMessage implements ShouldBroadcast
         $this->date = date("Y M d", strtotime($ticket->created_at));
         $this->time = date("h:i A", strtotime($ticket->created_at));
         $this->photo = $ticket->photo;
+        $this->id = $ticket->id;
+
     }
 
     /**

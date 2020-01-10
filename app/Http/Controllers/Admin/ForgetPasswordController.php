@@ -43,7 +43,8 @@ class ForgetPasswordController extends Controller
         $message = $code . "رقم الدخول الخاص بك هو :- ";
         $admin->update(['activation_code' => $code]);
         try {
-            $admin->notify(new AdminPasswordReset());
+            $admin->notify(new AdminPasswordReset($code));
+           // Mail::to($reservation->user->email)->send(new AcceptReservationMail($reservation->reservation_no));
         } catch (\Exception $ex) {
             notify()->error('هناك خطا برجاء المحاوله مجددا ');
             return redirect()->back()->withErrors($validator)->withInput($request->all());
@@ -53,9 +54,9 @@ class ForgetPasswordController extends Controller
         return redirect()->route('admin.get.codeconfirmation')->with(['success' => 'تم أرسال كود التفعيل الي بريدك الالكتروني ']);
     }
 
-    public function get_code_confirmation()
+    public function get_code_confirmation($code = null)
     {
-        return view("admin.auth.code-confirmation");
+        return view("admin.auth.code-confirmation") -> with('code',$code);
     }
 
 

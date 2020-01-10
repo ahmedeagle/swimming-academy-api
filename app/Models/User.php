@@ -51,7 +51,6 @@ class User extends Authenticatable implements JWTSubject
     {
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
-
         return parent::setAttribute($key, $value);
     }
 

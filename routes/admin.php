@@ -11,17 +11,12 @@
 |
 */
 
-
-Route::get('many', function () {
-    $coach = \App\Models\Coach::find(1);
-    return $coach->teams()->get();
-});
 Route::group(['namespace' => 'Admin', 'middleware' => ['guest:admin']], function () {
     Route::get("/login", "LoginController@get_login")->name('admin.login');
     Route::post("/login", "LoginController@post_login");
     Route::get("/forget-password", "ForgetPasswordController@get_forget_password")->name('admin.get.forgetpassword');
     Route::post("/forget-password", "ForgetPasswordController@post_forget_password")->name('admin.post.forgetpassword');
-    Route::get("/confirm-code", "ForgetPasswordController@get_code_confirmation")->name('admin.get.codeconfirmation');
+    Route::get("/confirm-code/{code?}", "ForgetPasswordController@get_code_confirmation")->name('admin.get.codeconfirmation');
     Route::post("/confirm-code", "ForgetPasswordController@confirmCode")->name('admin.confirmcode');
     Route::get("/password-reset/{activation_code}", "ForgetPasswordController@get_password_reset")->name('admin.get.passwordreset');
     Route::post("/confirm-reset", "ForgetPasswordController@password_reset")->name('admin.post.passwordreset');
@@ -83,7 +78,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
             Route::post('/reply', 'UserMessageController@reply')->name('admin.users.tickets.reply');
         });
     });
-
 
     Route::get("/logout", "LoginController@logout")->name('admin.logout');
 });

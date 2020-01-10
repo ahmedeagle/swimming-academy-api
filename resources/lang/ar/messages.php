@@ -248,6 +248,11 @@ return [
     'updated reservation'                    => 'تحديث موعد الحجز ',
     'There is no category with this id'      => 'لا يوجد القسم المختار ',
     'user name used before'                  => 'أسم المستخدم مستخدم من قبل ',
+    'replayOnTicket'                        => 'هناك رد علي التذكره الخاصة بكم ',
+    'replayOnTicketBody'                  => 'لقد قامت الاداره برد علي التذكره الخاصم بكم  ',
+    'enterCode'                            => 'أدحل الكود',
+    'copythiscode'                => 'من فضلك أنسخ هذا الكود  او قم بالظغط علية لاستخدامة في أعاده كلمة المرور ',
+    'underRevision'               => 'حسابكم موقوف يجب التفعيل من قبل الاداره ',
 
 
 
