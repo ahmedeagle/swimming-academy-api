@@ -387,7 +387,7 @@ trait GlobalTrait
         return $user;
     }
 
-    function getRandomString($length)
+   /* function getRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $string = '';
@@ -399,7 +399,7 @@ trait GlobalTrait
             $this->getRandomString(6);
         }
         return $string;
-    }
+    }*/
 
 
 }
