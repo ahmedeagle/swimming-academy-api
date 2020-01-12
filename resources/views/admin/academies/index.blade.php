@@ -62,7 +62,7 @@
                                                         <td>{{$academy ->name_en}}</td>
                                                         <td>{{$academy -> address_ar}}</td>
                                                         <td>{{$academy -> address_en}}</td>
-                                                        <td>{{$academy -> status}}</td>
+                                                        <td>{{$academy -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                                 <a  href="{{route('admin.academies.edit',$academy->id)}}" class="btn btn-float btn-outline-cyan"><i class="la la-edit"></i>

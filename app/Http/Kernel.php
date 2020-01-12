@@ -2,9 +2,9 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\ChangeLanguage;
-use App\Http\Middleware\CheckCoachStatus;
-use App\Http\Middleware\CheckCoachToken;
+ use App\Http\Middleware\ChangeLanguage;
+ use App\Http\Middleware\CheckCoachStatus;
+ use App\Http\Middleware\CheckCoachToken;
 use App\Http\Middleware\CheckPassword;
 use App\Http\Middleware\CheckUserStatus;
 use App\Http\Middleware\CheckUserToken;
@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'CheckPassword' => CheckPassword::class,
         'ChangeLanguage' => ChangeLanguage::class,
         'CheckCoachToken' => CheckCoachToken::class,
+        'CheckCoachStatus' => CheckCoachStatus::class,
         'CheckUserStatus' => CheckUserStatus::class,
         'CheckUserToken' => CheckUserToken::class,
     ];

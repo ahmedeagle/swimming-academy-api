@@ -98,6 +98,12 @@ return [
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
         ],
+        'events' => [
+            'driver' => 'local',
+            'root' => base_path() . '/images/events/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
 
     ],
 

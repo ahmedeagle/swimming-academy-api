@@ -136,9 +136,9 @@ class UserController extends Controller
             'mobile' => 'required|unique:users,mobile,'.$user->id,
             'email' => 'required|email|unique:users,email,'.$user->id,
             'birth_date' => 'required|date-format:Y-m-d',
-             'academy_id' => 'required|exists:academies,id',
+            'academy_id' => 'required|exists:academies,id',
             'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
-             'team_id' => 'required|exists:teams,id',
+            'team_id' => 'required|exists:teams,id',
 
         ];
 

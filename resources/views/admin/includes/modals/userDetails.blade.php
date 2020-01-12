@@ -20,7 +20,7 @@
                 <p><span class="text-primary">الوزن</span> : {{$user -> weight}} </p>
                 <hr>
                 <p><span class="text-primary"> تاريخ الميلاد </span> : {{$user -> birth_date}} </p>
-                <p><span class="text-primary">الحاله</span> : {{$user -> status}} </p>
+                <p><span class="text-primary">الحاله</span> : {{$user -> getStatus()}} </p>
                 <p><span class="text-primary">الفريق الحالي</span> : {{$user -> team -> name_ar}} </p>
             </div>
             <div class="modal-footer">

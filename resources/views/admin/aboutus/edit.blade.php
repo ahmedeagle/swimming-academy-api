@@ -1,6 +1,9 @@
 @extends('admin.layouts.basic')
 @section('title')
-    تعديل أكاديمية
+     من نحن
+@stop
+@section('style')
+
 @stop
 @section('content')
     <div class="app-content content">
@@ -12,9 +15,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.academies.all')}}"> الأكاديمات </a>
-                                </li>
-                                <li class="breadcrumb-item active"> تعديل
+                                 <li class="breadcrumb-item active"> من نحن
                                 </li>
                             </ol>
                         </div>
@@ -28,7 +29,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل أكاديمية </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> من نحن  </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -44,87 +45,69 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.academies.update',$academy -> id)}}" method="POST">
+                                        <form class="form" action="{{route('admin.postaboutus')}}" method="POST"
+                                              enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-user"></i> بيانات الأكاديمية </h4>
+                                                <h4 class="form-section"><i class="ft-user"></i> البيانات   </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> الاسم بالعربي </label>
-                                                            <input type="text" value="{{$academy -> name_ar}}"
-                                                                   id="name_ar"
+                                                            <label for="projectinput1"> العنوان بالعربي </label>
+                                                            <input type="text" value="{{ @$settings -> title_ar }}" id="title_ar"
                                                                    class="form-control"
-                                                                   placeholder="ادخل الأسم باللغة العربية "
-                                                                   name="name_ar">
-                                                            @error('name_ar')
+                                                                   placeholder="ادخل  العنوان  باللغة العربية "
+                                                                   name="title_ar">
+                                                            @error('title_ar')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> الاسم بالانجليزي </label>
-                                                            <input type="text" value="{{$academy -> name_en}}"
-                                                                   id="name_en"
+                                                            <label for="projectinput1"> العنوان بالانجليزي </label>
+                                                            <input type="text" value="{{  @$settings -> title_en  }}" id="title_en"
                                                                    class="form-control"
-                                                                   placeholder="ادخل الأسم باللغة  الانجليزية  "
-                                                                   name="name_en">
-                                                            @error('name_en')
+                                                                   placeholder="ادخل   العنوان  باللغة  الانجليزية  "
+                                                                   name="title_en">
+                                                            @error('title_en')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">العنوان بالعربي </label>
-                                                            <input type="text" value="{{$academy -> address_ar}}"
-                                                                   id="address_ar"
-                                                                   class="form-control"
-                                                                   placeholder="أدخل ألعنوان بالعربي   "
-                                                                   name="address_ar">
-                                                            @error('address_ar')
+                                                            <label for="projectinput1"> المحتوي بالعربي </label>
+                                                            <textarea  id="ckeditor-language" name="content_ar" rows="10"
+                                                                       name="content_ar">{{  @$settings -> content_ar  }}</textarea>
+                                                            @error('content_ar')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput2">العنوان بالانجليزي </label>
-                                                            <input type="text" value="{{$academy -> address_ar}}"
-                                                                   id="address_en"
-                                                                   class="form-control"
-                                                                   placeholder="أدخل ألعنوان بالانجليوي  "
-                                                                   name="address_en">
-                                                            @error('address_en')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group mt-1">
-                                                                <input type="checkbox" name="status"
-                                                                       id="switcheryColor4"
-                                                                       class="switchery" data-color="success"
-                                                                       @if($academy -> status == 1)checked @endif/>
-                                                                <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> المحتوي بالانجليزي </label>
+                                                            <textarea  id="ckeditor-language2" name="content_en" rows="10"
+                                                                       name="content_en">{{@$settings -> content_en }}</textarea>
+                                                            @error('content_en')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">
                                                         <i class="ft-x"></i> تراجع
                                                     </button>
                                                     <button type="submit" class="btn btn-primary">
-                                                        <i class="la la-check-square-o"></i>  تحديث
+                                                        <i class="la la-check-square-o"></i> حفظ
                                                     </button>
                                                 </div>
                                             </div>
@@ -139,4 +122,25 @@
             </div>
         </div>
     </div>
+@stop
+
+
+@section('script')
+    <script>
+
+        CKEDITOR.replace( 'ckeditor-language', {
+            extraPlugins: 'language',
+            // Customizing list of languages available in the Language drop-down.
+            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
+            height: 350
+        } );
+
+        CKEDITOR.replace( 'ckeditor-language2', {
+            extraPlugins: 'language',
+            // Customizing list of languages available in the Language drop-down.
+            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
+            height: 350
+        } );
+
+    </script>
 @stop

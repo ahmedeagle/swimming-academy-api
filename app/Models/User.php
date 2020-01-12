@@ -6,23 +6,28 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use  DB;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     //
     protected $table = 'users';
-    protected $forcedNullStrings = ['name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'device_token', 'activation_code', 'photo', 'api_token'];
+    protected $forcedNullStrings = ['name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'device_token', 'activation_code', 'photo', 'api_token','subscribed'];
     protected $casts = [
         'status' => 'integer',
+        'team_id' => 'integer',
+        'academy_id' => 'integer',
+        'subscribed'  => 'integer'
     ];
+    protected $appends = ['is_coach'];
 
     protected $fillable = [
         'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'academy_id', 'team_id', 'email', 'tall', 'weight', 'birth_date', 'status', 'device_token',
         'activation_code', 'photo', 'api_token', 'password', 'created_at', 'updated_at'];
 
     protected $hidden = [
-        'updated_at', 'password'
+        'updated_at', 'password','device_token','created_at'
     ];
 
 
@@ -82,14 +87,19 @@ class User extends Authenticatable implements JWTSubject
         return $query->where('status', 1);
     }
 
-    public function getStatusAttribute($status)
+    public function getStatus()
     {
-        return $status == 0 ? 'غير مفعل' : 'مفعل';
+        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function scopeSelection($query)
     {
         return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id', 'device_token', 'photo');
+    }
+
+    public function scopeSelectionByLang($query)
+    {
+        return $query->select('id','team_id',DB::raw('name_' . app()->getLocale() . ' as name'), DB::raw('address_' . app()->getLocale() . ' as address'), 'mobile', 'email', 'tall', 'weight', 'birth_date',  'photo');
     }
 
     public function tickets()
@@ -101,4 +111,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->morphMany('\App\Models\Notification', 'notificationable');
     }
+
+    public function getIsCoachAttribute(){
+        return 0;
+    }
+
+    public function getTranslatedName()
+    {
+        return $this->{'name_' . app()->getLocale()};
+    }
+
 }

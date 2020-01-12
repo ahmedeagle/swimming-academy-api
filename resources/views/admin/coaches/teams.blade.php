@@ -66,7 +66,7 @@
                                                         <td>{{$team ->name_en}}</td>
                                                         <td>{{$team -> quotas}}</td>
                                                         <td><img src="{{$coach -> photo}}" height="40px;"></td>
-                                                        <td>{{$team -> status}}</td>
+                                                        <td>{{$team -> getStatus()}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif

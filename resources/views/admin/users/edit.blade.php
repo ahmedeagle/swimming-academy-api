@@ -273,7 +273,7 @@
                                                             <input type="checkbox" name="status"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if($user -> status == "مفعل") checked @endif/>
+                                                                   @if($user -> status == 1) checked @endif/>
                                                             <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>

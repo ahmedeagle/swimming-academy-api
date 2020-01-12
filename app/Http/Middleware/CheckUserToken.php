@@ -46,29 +46,6 @@ class CheckUserToken
 
         if(!$user)
             return $this->returnError('E331', trans('Unauthenticated'));
-        // check  idle or active user
-        /* if($user ->  token_created_at  && $user ->  token_created_at != null  && \Request::route()->getName() != "user.logout"){
-            $now = Carbon::now();
-            $from = Carbon::createFromFormat('Y-m-d H:i:s', $user -> token_created_at);
-            $diff_in_minutes = $now->diffInMinutes($from);
-                 if($diff_in_minutes > 10 ) {
-                     $token = '';
-
-                     // for apple account test only
-                     if($user -> mobile != '0123456789'){
-                         $activationCode = (string)rand(1000, 9999);
-                         $user->activation_code = $activationCode;
-                     }
-
-                     $user->api_token = $token;
-                     $user->token_created_at = null;
-                     $user->update();
-                     return $this->returnError('E331', trans('Unauthenticated'));
-                  }
-             $user -> update(['token_created_at' => Carbon::now()]) ;
-         }else{
-             $user -> update(['token_created_at' => Carbon::now()]) ;
-         }*/
         return $next($request);
     }
 }

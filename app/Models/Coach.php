@@ -13,9 +13,12 @@ class Coach extends Authenticatable implements JWTSubject
     use Notifiable;
     protected $table = 'coahes';
     public $timestamps = true;
-    //because value may send in 1 or '1'  i ensure it is integr only accept 1 not '1'
+    protected $appends = ['is_coach'];
     protected $casts = [
         'status' => 'integer',
+        'gender'=>'integer',
+        'academy_id' => 'integer',
+        'rate'    =>'integer'
     ];
 
     protected $forcedNullStrings = ['name_ar', 'name_en', 'photo', 'mobile', 'device_token', 'api_token'];
@@ -85,15 +88,15 @@ class Coach extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Models\Token');
     }
 
-    public function getStatusAttribute($status)
+    public function getStatus()
     {
-        return $status == 0 ? 'غير مفعل' : 'مفعل';
+        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
     }
 
 
-    public function getGenderAttribute($status)
+    public function getGender()
     {
-        return $status == 1 ? 'ذكر' : 'أنثي';
+        return  $this -> gender == 1 ? 'ذكر' : 'أنثي';
     }
 
     public function scopeSelection($query)
@@ -104,6 +107,15 @@ class Coach extends Authenticatable implements JWTSubject
     public  function scopeActive($query)
     {
         return $query -> where('status',1);
+    }
+
+    public function getTranslatedName()
+    {
+        return $this->{'name_' . app()->getLocale()};
+    }
+
+    public function getIsCoachAttribute(){
+        return 1;
     }
 
 }

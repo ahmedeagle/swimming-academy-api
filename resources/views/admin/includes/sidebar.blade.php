@@ -67,7 +67,26 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item"><a href="{{route('admin.events.all')}}"><i class="la la-child"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> فعاليات الاكاديمية  </span>
+                    <span
+                        class="badge badge badge-danger  badge-pill float-right mr-2">{{\App\Models\Event::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{route('admin.events.all')}}"
+                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{route('admin.events.create')}}" data-i18n="nav.dash.crypto">أضافة
+                             فاعليات  </a>
+                    </li>
+                </ul>
+            </li>
 
+            <li class="nav-item"><a href="{{route('admin.aboutus')}}">
+                    <i class="la la-book"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> من نحن  </span>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a href="{{route('admin.users.tickets.all')}}"><i class="la la-envelope-o"></i>

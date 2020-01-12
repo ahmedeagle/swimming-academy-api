@@ -2,47 +2,62 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PushNotificationController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/ChangeLanguage.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/NotificationType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EventController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AcademyController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Team/TeamController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckCoachStatus.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Notifications/UserPasswordReset.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Traits/TeamTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Traits/UserTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/coaches/QIShEdIYDj9t0Q4JN5APKUfTc7Gl1R5cyxZ1WmL3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/aboutus/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/events/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/events/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/events/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/NewMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/NewMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ForgetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ForgetPasswordController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckCoachStatus.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckCoachToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckCoachToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Token.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Token.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckUserStatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckUserStatus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckUserToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckUserToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Academy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Academy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Coach.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Message.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Setting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Subscribtion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Notifications/AdminPasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Notifications/AdminPasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/CustomPagesTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/CoachTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/CoachTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/DoctorTrait.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/PhraseTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/PromoCodeTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/ProviderTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/CoachTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/ReservationTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/SearchTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/UserTrait.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/admin/passwords.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/admin/passwords.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/admin/js/scripts/editors/editor-ckeditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/scripts/editors/editor-ckeditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/admin/passwords.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/admin/passwords.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/validation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/auth/code-confirmation.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/auth/code-confirmation.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/auth/forget-password.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/auth/forget-password.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/academies/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/academies/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/academies/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/academies/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/teams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/teams.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/modals/userDetails.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/modals/userDetails.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/messages/users/view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/messages/users/view.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/mail/html/button.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/button.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/mail/html/themes/default.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/themes/default.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/coaches.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/coaches.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
@@ -162,23 +177,23 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers/Api/Coach" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/aboutus" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\resources\views\admin\aboutus" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
+      <recent name="C:\wamp\www\swimming\app\Notifications" />
+      <recent name="C:\wamp\www\swimming\app\Http\Middleware" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
       <recent name="C:\wamp\www\swimming\resources\views\admin" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\includes\alerts" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\dashboard" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\auth" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
-      <recent name="C:\wamp\www\swimming\app\Http\Middleware" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers" />
-      <recent name="C:\wamp\www\swimming\app\Models" />
-      <recent name="C:\wamp\www\swimming\assets\sound" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -224,7 +239,8 @@
       <workItem from="1578481407003" duration="10011000" />
       <workItem from="1578505620698" duration="15114000" />
       <workItem from="1578557355511" duration="33591000" />
-      <workItem from="1578661557400" duration="21441000" />
+      <workItem from="1578661557400" duration="38938000" />
+      <workItem from="1578729436162" duration="24882000" />
     </task>
     <servers />
   </component>
@@ -236,7 +252,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -312,13 +330,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php</url>
-          <line>82</line>
+          <line>101</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/vendor/notifications/email.blade.php</url>
           <line>41</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Traits/CoachTrait.php</url>
+          <line>13</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/events/edit.blade.php</url>
+          <line>54</line>
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/Helpers/helpers.php</url>
@@ -328,15 +356,6 @@
             <option name="methodName" value="\paginate" />
           </properties>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php-line-method">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php</url>
-          <line>628</line>
-          <properties>
-            <option name="className" value="\App\Http\Controllers\CoachController" />
-            <option name="methodName" value="getCurrentReservations" />
-          </properties>
-          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

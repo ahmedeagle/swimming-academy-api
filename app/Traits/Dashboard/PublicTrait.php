@@ -5,6 +5,7 @@ namespace App\Traits\Dashboard;
 use App\Http\Controllers\PushNotificationController;
 use App\Models\Admin;
 use App\Models\City;
+use App\Models\Coach;
 use App\Models\District;
 use App\Models\Doctor;
 use App\Models\InsuranceCompany;
@@ -18,6 +19,7 @@ use App\Models\ProviderType;
 use App\Models\Reservation;
 use App\Models\Specification;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use DB;
 use PhpParser\Comment\Doc;
@@ -70,5 +72,24 @@ trait PublicTrait
         (new PushNotificationController($notif_data))->sendUser($user);
     }
 
+    public function authCoachByMobile($mobile, $password)
+    {
+        $coachID = null;
+        $coach = Coach::where('mobile', $mobile)->first();
+        $token = Auth::guard('coach-api')->attempt(['mobile' => $mobile, 'password' => $password]);
+        if (!$coach)
+            return null;
+
+        // to allow open  app on more device with the same account
+        if ($token) {
+            $newToken = new \App\Models\Token(['coach_id' => $coach->id, 'api_token' => $token]);
+            $coach->tokens()->save($newToken);
+            //last access token
+            $coach->update(['api_token' => $token]);
+            return $coach;
+        }
+
+        return null;
+    }
 
 }

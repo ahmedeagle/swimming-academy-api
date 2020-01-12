@@ -67,7 +67,7 @@
                                                         <td><img src="{{$team -> photo}}" height="40px;"></td>
                                                         <td><a href="{{route('admin.teams.days',$team->id)}}"
                                                                class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">عرض الايام </a></td>
-                                                        <td>{{$team -> status}}</td>
+                                                        <td>{{$team -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">

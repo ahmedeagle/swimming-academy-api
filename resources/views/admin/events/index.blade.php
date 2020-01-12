@@ -1,19 +1,19 @@
 @extends('admin.layouts.basic')
 @section('title')
-     المدربين
+     فعاليات الاكاديمية
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">المدربين  </h3>
+                    <h3 class="content-header-title"> الفاعليات  </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> المدربين
+                                <li class="breadcrumb-item active">  الفاعليات
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  المدربين  </h4>
+                                    <h4 class="card-title">جميع  الفاعليات  </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -45,42 +45,34 @@
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
+                                        <table
+                                            class="table display nowrap table-striped table-bordered ">
                                             <thead>
                                             <tr>
-                                                <th> الاسم بالعربي</th>
-                                                <th>الاسم بالانجليزي</th>
-                                                <th>الأكاديمية</th>
-                                                <th>الهاتف </th>
-                                                <th> صورة الشخصية </th>
-                                                <th> النوع  </th>
+                                                <th>  العنوان  بالعربي</th>
+                                                <th> العنوان  بالانجليزي</th>
+                                                 <th> صورة </th>
                                                 <th>الحالة</th>
-                                                <th>التقييم العام </th>
                                                 <th>الأجراءات</th>
-
-
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(isset($coaches) && $coaches -> count() > 0 )
-                                                @foreach($coaches as $coach)
+                                            @if(isset($events) && $events -> count() > 0 )
+                                                @foreach($events as $event)
                                                     <tr>
-                                                        <td>{{$coach -> name_ar}}</td>
-                                                        <td>{{$coach ->name_en}}</td>
-                                                        <td>{{$coach -> academy -> name_ar}}</td>
-                                                        <td>{{$coach -> mobile}}</td>
-                                                        <td><img src="{{$coach -> photo}}" height="40px;"></td>
-                                                        <td>{{$coach -> gender}}</td>
-                                                        <td>{{$coach -> getStatus()}}</td>
-                                                        <td>{{$coach -> rate}}</td>
+                                                        <td>{{ Str::limit($event -> title_ar,100)}}</td>
+                                                        <td>{{Str::limit($event ->title_en,100)}}</td>
+                                                         <td><img src="{{$event -> photo}}" height="40px;"></td>
+                                                        <td>{{$event -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.coaches.edit',$coach->id)}}"
+                                                                <a href="{{route('admin.events.edit',$event->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <a href="{{route('admin.coaches.teams',$coach->id)}}"  class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">الفرق</a>
-                                                                <a href="{{route('admin.coaches.users',$coach->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">الطلاب</a>
+
+                                                                <a href="{{route('admin.events.delete',$event->id)}}"
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"> حذف</a>
+
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -97,4 +89,7 @@
             </div>
         </div>
     </div>
+    @if(isset($user))
+        @include('admin.includes.modals.userDetails',$user)
+    @endif
 @stop

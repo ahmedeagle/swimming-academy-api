@@ -88,6 +88,7 @@ class CoachController extends Controller
             $coach = Coach::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             if ($coach->id) {
                 $coach->teams()->attach($request->teams);
+                $this -> authCoachByMobile($request->mobile,$request->password);
             }
             DB::commit();
         } catch (\Exception $ex) {

@@ -65,7 +65,7 @@
                                                         <td>{{$user -> mobile}}</td>
                                                         <td>{{$user -> email}}</td>
                                                         <td><img src="{{$user -> photo}}" height="40px;"></td>
-                                                        <td>{{$user -> status}}</td>
+                                                        <td>{{$user -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">

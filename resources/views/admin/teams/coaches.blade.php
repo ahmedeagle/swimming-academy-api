@@ -60,7 +60,7 @@
                                                         <td>{{$coach -> name_ar}}</td>
                                                         <td>{{$coach ->name_en}}</td>
                                                         <td>{{$coach -> mobile}}</td>
-                                                        <td>{{$coach -> gender}}</td>
+                                                        <td>{{$coach -> getGender()}}</td>
                                                         <td><img src="{{$coach -> photo}}" height="40px;"></td>
                                                     </tr>
                                                 @endforeach

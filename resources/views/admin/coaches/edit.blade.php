@@ -191,7 +191,7 @@
                                                                 <input type="checkbox" name="status"
                                                                        id="switcheryColor4"
                                                                        class="switchery" data-color="success"
-                                                                       @if($coach -> status == "مفعل") checked @endif/>
+                                                                       @if($coach -> status == 1) checked @endif/>
                                                                 <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
                                                             </div>
                                                         </div>
@@ -203,7 +203,7 @@
                                                                     <input type="radio" value="1"
                                                                            class="custom-control-input"
                                                                            name="gender" id="radio1"
-                                                                           @if($coach -> gender == "ذكر"  )checked @endif>
+                                                                           @if($coach -> gender == 1  )checked @endif>
                                                                     <label class="custom-control-label" for="radio1"
                                                                            checked> ذكر </label>
 
@@ -212,7 +212,7 @@
                                                                     class="d-inline-block custom-control custom-radio mr-1">
                                                                     <input type="radio" class="custom-control-input"
                                                                            name="gender" value="2" id="radio2"
-                                                                           @if($coach -> gender == "أنثي" )checked @endif>
+                                                                           @if($coach -> gender == 2 )checked @endif>
                                                                     <label class="custom-control-label" for="radio2"
                                                                     >أنثي</label>
                                                                 </div>

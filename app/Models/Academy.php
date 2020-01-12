@@ -23,8 +23,9 @@ class Academy extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function getStatusAttribute($status){
-       return  $status == 0 ? 'غير مفعل'  : 'مفعل';
+    public function getStatus()
+    {
+       return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
     }
 
     public  function scopeActive($query)

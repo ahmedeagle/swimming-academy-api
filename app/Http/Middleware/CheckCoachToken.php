@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Provider;
+use App\Models\Coach;
 use App\Traits\GlobalTrait;
 use Closure;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -42,9 +42,6 @@ class CheckCoachToken
         }
         if(!$user)
             return $this->returnError('E331', trans('Unauthenticated'));
-         if($user -> status == 0)
-             return $this->returnError('E332', trans('unactivated'));
-
 
         return $next($request);
     }

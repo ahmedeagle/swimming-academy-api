@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class CheckUserStatus
+class CheckCoachStatus
 {
     use GlobalTrait;
 
@@ -21,11 +21,9 @@ class CheckUserStatus
      */
     public function handle($request, Closure $next)
     {
-        $user = $this->auth('user-api');
+        $user = $this->auth('coach-api');
         if (!$user->status)
             return $this->returnError('E331', trans('messages.underRevision'));
-        if (!$user->subscribed)
-            return $this->returnError('E331', trans('messages.unsubscribe'));
 
         return $next($request);
     }

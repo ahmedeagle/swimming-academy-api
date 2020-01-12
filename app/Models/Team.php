@@ -64,9 +64,9 @@ class Team extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function getStatusAttribute($status)
+    public function getStatus()
     {
-        return $status == 0 ? 'غير مفعل' : 'مفعل';
+        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function scopeSelection($query)
@@ -77,6 +77,11 @@ class Team extends Model
     public  function scopeActive($query)
     {
         return $query -> where('status',1);
+    }
+
+    public function getTranslatedName()
+    {
+        return $this->{'name_' . app()->getLocale()};
     }
 
 }

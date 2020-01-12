@@ -79,5 +79,16 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         });
     });
 
+    Route::group(['prefix' => 'events'], function () {
+        Route::get("/", "EventController@index")->name('admin.events.all');
+        Route::get("/create", "EventController@create")->name('admin.events.create');
+        Route::post("/store", "EventController@store")->name('admin.events.store');
+        Route::get("/edit/{id}", "EventController@edit")->name('admin.events.edit');
+        Route::post("/update/{id}", "EventController@update")->name('admin.events.update');
+        Route::get("/delete/{id}", "EventController@delete")->name('admin.events.delete');
+    });
+    Route::get('about-us','DashboardController@aboutUs') -> name('admin.aboutus') ;
+    Route::post('about-us','DashboardController@saveAboutUs') -> name('admin.postaboutus');
+
     Route::get("/logout", "LoginController@logout")->name('admin.logout');
 });
