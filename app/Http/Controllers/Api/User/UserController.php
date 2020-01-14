@@ -284,6 +284,63 @@ class UserController extends Controller
         }
     }
 
+
+    public function update_user_profile(Request $request)
+    {
+        $user = $this->auth('user-api');
+        if (!$user) {
+            return $this->returnError('D000', trans('messages.User not found'));
+        }
+
+        try {
+
+            $rules = [
+                "name_ar" => "required|max:255",
+                "name_en" => "required|max:255",
+                "address_ar" => "sometimes|nullable|max:255",
+                "address_en" => "sometimes|nullable|max:255",
+                "mobile" => array(
+                    "required",
+                    "numeric",
+                    "unique:users,mobile," . $user->id
+                ),
+                "email" => "required|email|max:255|unique:users,email," . $user->id,
+                "academy_id" => "required|exists:academies,id",
+                "team_id" => "required|exists:teams,id",
+                "birth_date" => "required|date-format:Y-m-d",
+                "tall" => "sometimes|nullable|max:100",
+                "weight" => "sometimes|nullable|max:100",
+            ];
+
+            if ($request->has('password')) {
+                $rules['password'] = "required|nullable|confirmed||min:6|max:255";
+            }
+
+            if ($request->has('photo')) {
+                $rules['photo'] = "required";
+            }
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            $fileName = $user->photo;
+            if (isset($request->photo) && !empty($request->photo)) {
+                $fileName = $this->saveImage('users', $request->photo);
+            }
+
+            $user->update(['photo' => $fileName] + $request->except('photo'));
+            $user = $this->getAllData($user->id);
+            return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)),
+                trans('messages.User data updated successfully'));
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+
+    }
+
     function getRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

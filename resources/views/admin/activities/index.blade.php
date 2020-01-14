@@ -1,19 +1,19 @@
 @extends('admin.layouts.basic')
 @section('title')
-     فعاليات الاكاديمية
+    أنشطة  الاكاديمية
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> الفاعليات  </h3>
+                    <h3 class="content-header-title"> الانشطة </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">  الفاعليات
+                                <li class="breadcrumb-item active"> الانشطة
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  الفاعليات  </h4>
+                                    <h4 class="card-title">جميع الانشطة </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -49,29 +49,35 @@
                                             class="table display nowrap table-striped table-bordered ">
                                             <thead>
                                             <tr>
-                                                <th>  العنوان  بالعربي</th>
-                                                <th> العنوان  بالانجليزي</th>
-                                                 <th> صورة </th>
+                                                <th> العنوان بالعربي</th>
+                                                <th> العنوان بالانجليزي</th>
+                                                <th> الفيديو</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(isset($events) && $events -> count() > 0 )
-                                                @foreach($events as $event)
+                                            @if(isset($activities) && $activities -> count() > 0 )
+                                                @foreach($activities as $activity)
                                                     <tr>
-                                                        <td>{{ Str::limit($event -> title_ar,100)}}</td>
-                                                        <td>{{Str::limit($event ->title_en,100)}}</td>
-                                                         <td><img src="{{$event -> photo}}" height="40px;"></td>
-                                                        <td>{{$event -> getStatus()}}</td>
+                                                        <td>{{ Str::limit($activity -> title_ar,100)}}</td>
+                                                        <td>{{Str::limit($activity ->title_en,100)}}</td>
+                                                        <td>
+                                                            <div class="embed-responsive embed-responsive-4by3">
+                                                                <iframe class="border-0"
+                                                                        src="{{$activity -> videoLink}}"></iframe>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{$activity -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.events.edit',$event->id)}}"
+                                                                <a href="{{route('admin.activities.edit',$activity->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
-                                                                <a href="{{route('admin.events.delete',$event->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"> حذف</a>
+                                                                <a href="{{route('admin.activities.delete',$activity->id)}}"
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    حذف</a>
 
                                                             </div>
                                                         </td>

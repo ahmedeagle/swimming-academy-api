@@ -31,7 +31,7 @@ trait UserTrait
     public function getUserByTempToken($token)
     {
         $user = null;
-        $user = User::where('api_token',$token )->first();
+        $user = User::where('api_token', $token)->first();
         return $user;
     }
 
@@ -41,4 +41,16 @@ trait UserTrait
         $user = User::where('mobile', $mobile)->first();
         return $user;
     }
+
+    public function getAllData($id)
+    {
+        $user = User::with(['academy' => function ($q) {
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'));
+        }, 'team' => function ($q) {
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'));
+        }])->find($id);
+
+        return $user;
+    }
+
 }

@@ -22,7 +22,6 @@ class Event extends Model
         return parent::setAttribute($key, $value);
     }
 
-
     public function getStatus()
     {
         return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
@@ -31,5 +30,9 @@ class Event extends Model
     public function getPhotoAttribute($val)
     {
         return ($val != "" ? asset($val) : "");
+    }
+
+    public function scopeActive($query){
+         return $query -> where('status',1);
     }
 }

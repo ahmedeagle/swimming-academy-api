@@ -6,7 +6,8 @@
                         class="menu-title" data-i18n="nav.add_on_drag_drop.main">الرئيسية </span></a>
             </li>
 
-            <li class="nav-item"><a href="{{route('admin.academies.all')}}"><i class="la la-home"></i>
+            <li class="nav-item has-sub @if(Request::is('admin/academies*')) open @endif">
+                <a href="{{route('admin.academies.all')}}"><i class="la la-home"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الأكاديميات </span>
                     <span
                         class="badge badge badge-info badge-pill float-right mr-2">{{\App\Models\Academy::count()}}</span>
@@ -22,7 +23,7 @@
             </li>
 
 
-            <li class="nav-item"><a href="{{route('admin.teams.all')}}"><i class="la la-group"></i>
+            <li class="nav-item @if(Request::is('admin/teams*')) open @endif"><a href="{{route('admin.teams.all')}}"><i class="la la-group"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الفرق </span>
                     <span
                         class="badge badge badge-danger badge-pill float-right mr-2">{{\App\Models\Team::count()}}</span>
@@ -37,7 +38,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item"><a href="{{route('admin.coaches.all')}}"><i class="la la-male"></i>
+            <li class="nav-item @if(Request::is('admin/coaches*') ) open @endif"><a href="{{route('admin.coaches.all')}}"><i class="la la-male"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">المدربين  </span>
                     <span
                         class="badge badge badge-success badge-pill float-right mr-2">{{\App\Models\Coach::count()}}</span>
@@ -53,7 +54,7 @@
             </li>
 
 
-            <li class="nav-item"><a href="{{route('admin.users.all')}}"><i class="la la-child"></i>
+            <li class="nav-item @if(Request::is('admin/users*') ) open @endif"><a href="{{route('admin.users.all')}}"><i class="la la-child"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الطلاب  </span>
                     <span
                         class="badge badge badge-warning  badge-pill float-right mr-2">{{\App\Models\User::count()}}</span>
@@ -67,7 +68,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item"><a href="{{route('admin.events.all')}}"><i class="la la-child"></i>
+            <li class="nav-item @if(Request::is('admin/events*')) open @endif"><a href="{{route('admin.events.all')}}"><i class="la la-picture-o"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> فعاليات الاكاديمية  </span>
                     <span
                         class="badge badge badge-danger  badge-pill float-right mr-2">{{\App\Models\Event::count()}}</span>
@@ -82,21 +83,52 @@
                 </ul>
             </li>
 
-            <li class="nav-item @if(Route::current()->getName() == 'admin.aboutus') active @endif"><a href="{{route('admin.aboutus')}}">
-                    <i class="la la-book"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main"> من نحن  </span>
+
+            <li class="nav-item @if(Request::is('admin/activities*')) open @endif"><a href="{{route('admin.activities.all')}}"><i class="la la-video-camera"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">  أنشطة الاكاديمية  </span>
+                    <span
+                        class="badge badge badge-success  badge-pill float-right mr-2">{{\App\Models\Activity::count()}}</span>
                 </a>
+                <ul class="menu-content">
+                    <li class="@if(Route::current()->getName() == 'admin.activities.all') active @endif"><a class="menu-item" href="{{route('admin.activities.all')}}"
+                                                                                                        data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.activities.create') active @endif" href="{{route('admin.activities.create')}}" data-i18n="nav.dash.crypto">أضافة
+                             نشاط  </a>
+                    </li>
+                </ul>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item @if(Request::is('admin/users/tickets*') ) open @endif">
                 <a href="{{route('admin.users.tickets.all')}}"><i class="la la-envelope-o"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">تذاكر المراسلات   </span>
                 </a>
                 <ul class="menu-content">
                     <li class=" @if(Route::current()->getName() == 'admin.users.tickets.all') active @endif"><a class="menu-item" href="{{route('admin.users.tickets.all')}}"
-                                          data-i18n="nav.dash.ecommerce"> تذاكر الطلاب </a>
+                                                                                                                data-i18n="nav.dash.ecommerce"> تذاكر الطلاب </a>
                     </li>
                 </ul>
+            </li>
+
+            <li class="nav-item @if(Request::is('admin/heroes*')) open @endif"><a href="{{route('admin.heroes.all')}}"><i class="la la-star"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> ألابطال   </span>
+                    <span
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{\App\Models\Hero::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="@if(Route::current()->getName() == 'admin.heroes.all') active @endif"><a class="menu-item" href="{{route('admin.heroes.all')}}"
+                                                                                                        data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.heroes.create') active @endif" href="{{route('admin.heroes.create')}}" data-i18n="nav.dash.crypto">أضافة
+                               </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item @if(Route::current()->getName() == 'admin.aboutus') active @endif"><a href="{{route('admin.aboutus')}}">
+                    <i class="la la-book"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> من نحن  </span>
+                </a>
             </li>
 
         </ul>

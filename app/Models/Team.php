@@ -20,7 +20,7 @@ class Team extends Model
 
     protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'academy_id', 'status'];
 
-    protected $hidden = [ 'created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function getPhotoAttribute($val)
     {
@@ -40,10 +40,8 @@ class Team extends Model
 
     public function heroes()
     {
-
-        return $this->hasMany('App\Models\Hero', 'team_id', 'id');
+        return $this->hasManyThrough('App\Models\Hero', 'App\Models\User', 'team_id', 'user_id', 'id', 'id');
     }
-
 
     public function users()
     {
@@ -66,7 +64,7 @@ class Team extends Model
 
     public function getStatus()
     {
-        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
+        return $this->status == 0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function scopeSelection($query)
@@ -74,9 +72,9 @@ class Team extends Model
         return $query->select('id', 'name_ar', 'name_en', 'academy_id', 'photo', 'quotas', 'status');
     }
 
-    public  function scopeActive($query)
+    public function scopeActive($query)
     {
-        return $query -> where('status',1);
+        return $query->where('status', 1);
     }
 
     public function getTranslatedName()

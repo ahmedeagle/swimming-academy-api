@@ -41,7 +41,6 @@
                     <section class="chat-app-window" id="chat-app-window">
                         <div class="chats">
                             <div class="chats">
-
                                 <input type="hidden" name="ticket_id" id="ticket_id" value="{{$ticket -> id}}">
                                 @if(isset($replies) && $replies -> count() > 0)
                                     @foreach($replies as $date => $repliesByDate)
@@ -50,17 +49,19 @@
                                             @if($reply -> FromUser == 1)
                                             <!-- user -->
                                                 <div class="chat chat-left">
-                                                    <div class="chat-avatar">
-                                                        <a class="avatar" data-toggle="tooltip" href="#"
-                                                           data-placement="left"
-                                                           title=""
-                                                           data-original-title="">
-                                                            <img
-                                                                src="{{$ticket -> ticketable -> photo}}"
-                                                                alt="avatar"
-                                                            />
-                                                        </a>
-                                                    </div>
+                                                    @if(checkForShowImage($reply -> id , $reply -> ticket_id))
+                                                        <div class="chat-avatar">
+                                                            <a class="avatar" data-toggle="tooltip" href="#"
+                                                               data-placement="left"
+                                                               title=""
+                                                               data-original-title="">
+                                                                <img style="height: 60px;"
+                                                                    src="{{$ticket -> ticketable -> photo}}"
+                                                                    alt="avatar"
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                    @endif
                                                     <div class="chat-body">
                                                         <div class="chat-content">
                                                             <p> {{$reply -> message}}</p>
@@ -70,39 +71,36 @@
                                                     </div>
                                                 </div>
                                             @endif
-
-                                            <!-- admin -->
-                                                @if($reply -> FromUser == 0)
-                                                    <div class="chat">
-                                                        <div class="chat-avatar">
-                                                            <a class="avatar" data-toggle="tooltip" href="#"
-                                                               data-placement="right"
-                                                               title=""
-                                                               data-original-title="">
-                                                                <img
-                                                                    src="{{auth('admin')->user() -> photo}}"
-                                                                    alt="avatar"
-                                                                />
-                                                            </a>
-                                                        </div>
-                                                        <div class="chat-body">
-                                                            <div class="chat-content">
-                                                                <p> {{$reply -> message}}</p>
-                                                                <i class="ft-check primary font-small-2"></i>
-                                                                <span
-                                                                    class="time">{{date("h:i A", strtotime($reply -> created_at))}}</span>
-                                                            </div>
+                                        <!-- admin -->
+                                            @if($reply -> FromUser == 0)
+                                                <div class="chat">
+                                                    <div class="chat-avatar">
+                                                        <a class="avatar" data-toggle="tooltip" href="#"
+                                                           data-placement="right"
+                                                           title=""
+                                                           data-original-title="">
+                                                            <img style="height: 60px;"
+                                                                src="{{auth('admin')->user() -> photo}}"
+                                                                alt="avatar"
+                                                            />
+                                                        </a>
+                                                    </div>
+                                                    <div class="chat-body">
+                                                        <div class="chat-content">
+                                                            <p> {{$reply -> message}}</p>
+                                                            <i class="ft-check primary font-small-2"></i>
+                                                            <span
+                                                                class="time">{{date("h:i A", strtotime($reply -> created_at))}}</span>
                                                         </div>
                                                     </div>
-                                                @endif
-
-                                                <div class="adminMsg">
                                                 </div>
-
-
+                                            @endif
                                         @endforeach
                                     @endforeach
                                 @endif
+
+                                <div class="adminMsg">
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -142,6 +140,7 @@
 
         /*keep scroll of chat window to botton always*/
         scrollToBottom();
+
         function scrollToBottom() {
             var chatWindow = document.getElementById("chat-app-window");
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -170,7 +169,6 @@
                 }
             });
         });
-
 
 
     </script>

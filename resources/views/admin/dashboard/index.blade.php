@@ -1,4 +1,5 @@
 @extends('admin.layouts.basic')
+@section('title','الرئيسية ')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">

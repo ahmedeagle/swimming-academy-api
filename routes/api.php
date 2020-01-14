@@ -15,15 +15,16 @@ header('Access-Control-Allow-Origin: *');
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], function () {
-
-    Route::group(['prefix' => 'academies', 'namespace' => 'Api'], function () {
+Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], function () {
+    Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
+    Route::post('events', 'EventController@events')->name('event.all');
+    Route::post('activities', 'ActivityController@activities')->name('activities.all');
+    Route::group(['prefix' => 'academies'], function () {
         Route::post('/', 'AcademyController@getAcademies')->name('academies.all');
     });
 
-    Route::group(['prefix' => 'coach', 'namespace' => 'Api\Coach'], function () {
+    Route::group(['prefix' => 'coach', 'namespace' => 'Coach'], function () {
         Route::post('login', 'CoachController@login')->name('coach.login');
-
         // authenticated routes
         Route::group(['middleware' => ['CheckCoachToken']], function () {
             Route::post('logout', 'CoachController@logout')->name('coach.logout');
@@ -35,14 +36,14 @@ Route::group(['middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], funct
         });
     });
 
-    Route::group(['prefix' => 'teams', 'namespace' => 'Api\Team'], function () {
+    Route::group(['prefix' => 'teams', 'namespace' => 'Team'], function () {
         Route::post('/', 'TeamController@getAllTeams')->name('team.all');
         Route::group(['middleware' => ['CheckCoachToken']], function () {
             Route::post('students', 'TeamController@getStudent')->name('team.students');
         });
     });
 
-    Route::group(['prefix' => 'user', 'namespace' => 'Api\User'], function () {
+    Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
         Route::post('register', 'UserController@register')->name('user.register');
         Route::post('login', 'UserController@login')->name('user.login');
         Route::post('/forgetPassword', "UserController@forgetPassword");
@@ -52,10 +53,16 @@ Route::group(['middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], funct
         Route::group(['middleware' => ['CheckUserToken']], function () {
             Route::post('logout', 'UserController@logout')->name('user.logout');
             Route::group(['middleware' => ['CheckUserStatus']], function () {
+                Route::post('profile/update', 'UserController@update_user_profile')->name('user.update.profile');
+                Route::post('notifications', 'NotificationController@get_notifications')->name('user.notifications');
+                Route::group(['prefix' => 'tickets'], function () {
+                    Route::post('/', 'TicketController@getTickets')->name('user.tickets');
+                    Route::post('new ', 'TicketController@newTicket')->name('user.add.ticket');
+                    Route::post('AddMessage ', 'TicketController@AddMessage')->name('user.AddMessage');
+                    Route::post('Messages', 'TicketController@GetTicketMessages')->name('user.GetTicketMessages');
+                });
             });
         });
     });
-
-
 });
 

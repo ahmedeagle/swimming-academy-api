@@ -87,6 +87,25 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/update/{id}", "EventController@update")->name('admin.events.update');
         Route::get("/delete/{id}", "EventController@delete")->name('admin.events.delete');
     });
+
+    Route::group(['prefix' => 'activities'], function () {
+        Route::get("/", "ActivityController@index")->name('admin.activities.all');
+        Route::get("/create", "ActivityController@create")->name('admin.activities.create');
+        Route::post("/store", "ActivityController@store")->name('admin.activities.store');
+        Route::get("/edit/{id}", "ActivityController@edit")->name('admin.activities.edit');
+        Route::post("/update/{id}", "ActivityController@update")->name('admin.activities.update');
+        Route::get("/delete/{id}", "ActivityController@delete")->name('admin.activities.delete');
+    });
+
+    Route::group(['prefix' => 'heroes'], function () {
+        Route::get("/", "HeroController@index")->name('admin.heroes.all');
+        Route::get("/create", "HeroController@create")->name('admin.heroes.create');
+        Route::post("/store", "HeroController@store")->name('admin.heroes.store');
+        Route::get("/edit/{id}", "HeroController@edit")->name('admin.heroes.edit');
+        Route::post("/update/{id}", "HeroController@update")->name('admin.heroes.update');
+        Route::get("/delete/{id}", "HeroController@delete")->name('admin.heroes.delete');
+    });
+
     Route::get('about-us','DashboardController@aboutUs') -> name('admin.aboutus') ;
     Route::post('about-us','DashboardController@saveAboutUs') -> name('admin.postaboutus');
 

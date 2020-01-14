@@ -29,6 +29,10 @@ class Notification extends Model
 
         return parent::setAttribute($key, $value);
     }
+
+    public function scopeSelection($query){
+        return $query -> select('title_'.app()->getLocale().' as title','title_'.app()->getLocale().' as content','created_at');
+    }
 }
 
 

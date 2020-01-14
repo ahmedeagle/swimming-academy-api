@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Academy;
 use App\Models\Coach;
 use App\Models\Event;
+use App\Models\Hero;
 use App\Models\Team;
 use App\Models\TeamTime;
 use App\Models\User;
@@ -18,13 +19,13 @@ use Namshi\JOSE\Signer\SecLib\RS384;
 use Validator;
 use Hash;
 
-class EventController extends Controller
+class HeroController extends Controller
 {
     use PublicTrait;
 
     public function index()
     {
-        $events = Event::get();
+        $events = Hero::orderBy('')->get();
         return view('admin.events.index', compact('events'));
     }
 

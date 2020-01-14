@@ -20,9 +20,6 @@ class Hero extends Model
     {
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
-        else if (in_array($key, $this->forcedNullNumbers) && $value === null)
-            $value = 0;
-
         return parent::setAttribute($key, $value);
     }
 }

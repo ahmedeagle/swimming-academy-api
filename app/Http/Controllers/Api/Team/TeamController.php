@@ -31,7 +31,7 @@ class TeamController extends Controller
         try {
             $teams = $this->getTeams();
             if (count($teams) > 0)
-                return $this->returnData('academies', $teams);
+                return $this->returnData('teams', $teams);
 
             return $this->returnError('E001', trans('messages.There are no teams found'));
         } catch (\Exception $ex) {
