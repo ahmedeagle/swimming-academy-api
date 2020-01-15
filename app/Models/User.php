@@ -13,12 +13,12 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     //
     protected $table = 'users';
-    protected $forcedNullStrings = ['name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'device_token', 'activation_code', 'photo', 'api_token','subscribed'];
+    protected $forcedNullStrings = ['name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'device_token', 'activation_code', 'photo', 'api_token', 'subscribed'];
     protected $casts = [
         'status' => 'integer',
         'team_id' => 'integer',
         'academy_id' => 'integer',
-        'subscribed'  => 'integer'
+        'subscribed' => 'integer'
     ];
     protected $appends = ['is_coach'];
 
@@ -27,7 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'activation_code', 'photo', 'api_token', 'password', 'created_at', 'updated_at'];
 
     protected $hidden = [
-        'updated_at', 'password','device_token','created_at'
+        'updated_at', 'password', 'device_token', 'created_at'
     ];
 
 
@@ -86,6 +86,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return $query->where('status', 1);
     }
+
     public function scopeSubScribed($query)
     {
         return $query->where('subscribed', 1);
@@ -93,7 +94,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getStatus()
     {
-        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
+        return $this->status == 0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function scopeSelection($query)
@@ -103,7 +104,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function scopeSelectionByLang($query)
     {
-        return $query->select('id','team_id',DB::raw('name_' . app()->getLocale() . ' as name'), DB::raw('address_' . app()->getLocale() . ' as address'), 'mobile', 'email', 'tall', 'weight', 'birth_date',  'photo');
+        return $query->select('id', 'team_id', DB::raw('name_' . app()->getLocale() . ' as name'), DB::raw('address_' . app()->getLocale() . ' as address'), 'mobile', 'email', 'tall', 'weight', 'birth_date', 'photo');
     }
 
     public function tickets()
@@ -116,7 +117,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->morphMany('\App\Models\Notification', 'notificationable');
     }
 
-    public function getIsCoachAttribute(){
+    public function getIsCoachAttribute()
+    {
         return 0;
     }
 
@@ -125,4 +127,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->{'name_' . app()->getLocale()};
     }
 
+    public function heroes()
+    {
+        $weekStartEnd = currentWeekStartEndDate();
+        $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
+        $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
+        return $this->hasMany('App\Models\Hero', 'user_id', 'id')->whereBetween('created_at', [$startWeek, $endWeek]);
+    }
 }

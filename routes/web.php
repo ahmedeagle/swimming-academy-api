@@ -11,7 +11,7 @@
 |
 */
 
-
+/*
 Route::get('/', function () {
 
     return view('welcome');
@@ -30,7 +30,7 @@ Route::get('test', function () {
 Route::group(['namespace' => 'Admin'],function (){
     Route::post('new/ticket', 'UserMessageController@newTicket')->name('user.add.ticket');
     Route::post('AddMessage ', 'UserMessageController@AddMessage')->name('user.AddMessage');
-});
+});*/
 
 
 
