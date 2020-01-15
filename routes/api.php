@@ -19,6 +19,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
     Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
     Route::post('events', 'EventController@events')->name('event.all');
     Route::post('activities', 'ActivityController@activities')->name('activities.all');
+    Route::post('heroes', 'HeroController@heroes')->name('heroes.all');
     Route::group(['prefix' => 'academies'], function () {
         Route::post('/', 'AcademyController@getAcademies')->name('academies.all');
     });
