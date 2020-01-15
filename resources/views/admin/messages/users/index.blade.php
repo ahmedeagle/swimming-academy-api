@@ -69,7 +69,7 @@
                                                          <td>{{$ticket -> type}}</td>
                                                         <td>{{$ticket -> importance}}</td>
                                                         <td>@if($ticket  -> replies()  ->where('FromUser',0) ->  where('seen','0') -> count() > 0)
-                                                                <span class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()  -> where('seen','0') -> count()}} جديدة </span>
+                                                                <span class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()  ->where('FromUser',0) -> where('seen','0') -> count()}} جديدة </span>
                                                             @endif</td>
                                                         <td>{{$ticket -> created_at}}</td>
                                                         <td>
