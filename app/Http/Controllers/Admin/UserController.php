@@ -149,6 +149,7 @@ class UserController extends Controller
         }
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
+            return $validator -> errors();
             notify()->error('هناك خطا برجاء المحاوله مجددا ');
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }

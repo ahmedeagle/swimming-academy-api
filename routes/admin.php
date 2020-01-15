@@ -12,6 +12,7 @@
 */
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['guest:admin']], function () {
+
     Route::get("/login", "LoginController@get_login")->name('admin.login');
     Route::post("/login", "LoginController@post_login");
     Route::get("/forget-password", "ForgetPasswordController@get_forget_password")->name('admin.get.forgetpassword');
@@ -23,6 +24,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['guest:admin']], function
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function () {
+
     Route::get("/", "DashboardController@dashboard")->name('admin.dashboard');
     Route::group(['prefix' => 'academies'], function () {
         Route::get("/", "AcademyController@index")->name('admin.academies.all');
@@ -99,6 +101,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
     Route::group(['prefix' => 'heroes'], function () {
         Route::get("/", "HeroController@index")->name('admin.heroes.all');
+        Route::get("/currentWeek", "HeroController@currentWeek")->name('admin.heroes.currentWeek');
         Route::get("/create", "HeroController@create")->name('admin.heroes.create');
         Route::post("/store", "HeroController@store")->name('admin.heroes.store');
         Route::get("/edit/{id}", "HeroController@edit")->name('admin.heroes.edit');

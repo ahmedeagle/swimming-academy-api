@@ -118,6 +118,8 @@
                 <ul class="menu-content">
                     <li class="@if(Route::current()->getName() == 'admin.heroes.all') active @endif"><a class="menu-item" href="{{route('admin.heroes.all')}}"
                                                                                                         data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    <li class="@if(Route::current()->getName() == 'admin.heroes.currentWeek') active @endif"><a class="menu-item" href="{{route('admin.heroes.currentWeek')}}"
+                                                                                                        data-i18n="nav.dash.ecommerce">أبطال الاسبوع الحالي </a>
                     </li>
                     <li><a class="menu-item @if(Route::current()->getName() == 'admin.heroes.create') active @endif" href="{{route('admin.heroes.create')}}" data-i18n="nav.dash.crypto">أضافة
                                </a>

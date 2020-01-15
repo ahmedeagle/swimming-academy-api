@@ -25,34 +25,62 @@ class HeroController extends Controller
 
     public function index()
     {
-        $events = Hero::orderBy('')->get();
-        return view('admin.events.index', compact('events'));
+        $heroes = Hero::get();
+        return view('admin.heroes.index', compact('heroes'));
+    }
+
+    public function currentWeek()
+    {
+        $data = [];
+        $header = "أبطال الاسبوع ";
+        $weekStartEnd = currentWeekStartEndDate();
+        $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
+        $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
+
+        $data['heroes'] = Hero::whereBetween('created_at', [$startWeek, $endWeek])->get();
+        $data['header'] = $header;
+        $data['startWeek'] = $startWeek;
+        $data['endWeek'] = $endWeek;
+        return view('admin.heroes.index', $data);
     }
 
     public function create()
     {
-        return view('admin.events.create');
+        $data['teams'] = Team::with(['users' => function ($q) {
+            $q->active()
+                ->subscribed()
+                ->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
+        }])
+            ->active()
+            ->select('id', 'name_' . app()->getLocale() . ' as name', 'photo')
+            ->whereHas('users', function ($qq) {
+                $qq->active()
+                    ->subscribed();
+            })->get();
+
+        $weekStartEnd = currentWeekStartEndDate();
+        $data['startWeek'] = $weekStartEnd['startWeek'];
+        $data['endWeek'] = $weekStartEnd['endWeek'];
+        return view('admin.heroes.create', $data);
     }
 
 
     public function store(Request $request)
     {
-
         $messages = [
-            'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',
-            'title_en.required' => ' العنوان   بالانجليزي  مطلوب  .',
-            'description_ar.required' => '  المحتوي   بالعربي  مطلوب  .',
-            'description_en.required' => ' المحتوي   بالانجليزي  مطلوب  .',
-            'photo.required' => 'لابد من رفع صوره اولا ',
-            'photo.mimes' => 'امتداد صوره غير مسموح به',
+            'studentIds.required' => '  لابد من أختيار طلاب  .',
+            'studentIds.array' => '  لابد من أختيار طلاب  .',
+            'studentIds.min' => '  لابد من أختيار طلاب  .',
+            'studentIds.*.required' => '  لابد من أختيار طلاب  .',
+            'studentIds.*.numeric' => '  لابد من أختيار طلاب  .',
         ];
 
         $validator = Validator::make($request->all(), [
-            'title_ar' => 'required|max:100',
-            'title_en' => 'required|max:100',
-            'description_ar' => 'required',
-            'description_en' => 'required',
-            'photo' => 'required|mimes:jpg,jpeg,png'
+            'studentIds' => 'required|array|min:1',
+            'studentIds.*' => 'required|numeric',
+            'startWeek' => 'required',
+            'endWeek' => 'required'
+
         ], $messages);
 
         if ($validator->fails()) {
@@ -60,76 +88,27 @@ class HeroController extends Controller
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
 
-        DB::beginTransaction();
+        $students = $request->studentIds;
 
-        $fileName = "";
-        if (isset($request->photo) && !empty($request->photo)) {
-            $fileName = $this->uploadImage('events', $request->photo);
-        }
-        $status = $request->has('status') ? 1 : 0;
-        Event::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
-        DB::commit();
+        $startWeek = date('Y-m-d', strtotime($request->startWeek));
+        $endWeek = date('Y-m-d', strtotime($request->endWeek));
 
-        notify()->success('تم اضافه الفاعلية  بنجاح ');
-        return redirect()->route('admin.events.all')->with(['success' => 'تم اضافه  الفاعلية   بنجاح ']);
-    }
-
-    public function edit($id)
-    {
-        $data = [];
-        $data['event'] = Event::findOrFail($id);
-        return view('admin.events.edit', $data);
-    }
-
-    public function update($id, Request $request)
-    {
-
-        $event = Event::findOrFail($id);
-        $messages = [
-            'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',
-            'title_en.required' => ' العنوان   بالانجليزي  مطلوب  .',
-            'description_ar.required' => '  المحتوي   بالعربي  مطلوب  .',
-            'description_en.required' => ' المحتوي   بالانجليزي  مطلوب  .',
-            'photo.required' => 'لابد من رفع صوره اولا ',
-            'photo.mimes' => 'امتداد صوره غير مسموح به',
-        ];
-
-        $validator = Validator::make($request->all(), [
-            'title_ar' => 'required|max:100',
-            'title_en' => 'required|max:100',
-            'description_ar' => 'required',
-            'description_en' => 'required',
-            'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png'
-        ], $messages);
-
-        if ($validator->fails()) {
-            notify()->error('هناك خطا برجاء المحاوله مجددا ');
-            return redirect()->back()->withErrors($validator)->withInput($request->all());
-        }
-
-        try {
-            $status = $request->has('status') ? 1 : 0;
-            $request->request->add(['status' => $status]); //add request
-            if (isset($request->photo) && !empty($request->photo)) {
-                $fileName = $this->uploadImage('events', $request->photo);
-                $event->update(['photo' => $fileName]);
+        if (count($students) > 0) {
+            foreach ($students as $student) {
+                $studentAlreadyHeroOfCurrentWeek = Hero::where('user_id', $student)->whereBetween('created_at', [$startWeek, $endWeek])->first();
+                if (!$studentAlreadyHeroOfCurrentWeek) {
+                    Hero::insert(['user_id' => $student]);
+                }
             }
-            DB::beginTransaction();
-            $event->update($request->except('photo'));
-            DB::commit();
-            notify()->success('تمت التعديل  بنجاح ');
-            return redirect()->route('admin.events.all');
-        } catch (\Exception $ex) {
-            DB::rollback();
-            return abort('404');
+            notify()->success('تمت  الاضافة بنجاح ');
+            return redirect()->route('admin.heroes.all')->with(['success' => 'تم اضافه أبطال هذا الاسبوع بنجاح ']);
         }
+        notify()->success(' فشلت عملببة الاضافة ');
+        return redirect()->route('admin.heroes.all')->with(['error' => 'فشلت عمليه الحفظ الرجاء المحاولة مجداا ']);
     }
+
 
     public function delete($eventId)
     {
-        $event = Event::findOrFail($eventId);
-        $event->delete();
-        notify()->success('تمت  الحذف  بنجاح ');
-        return redirect()->route('admin.events.all')->with(['success' => '  تمت  الحذف  بنجاح ']);
     }
 }

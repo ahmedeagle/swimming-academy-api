@@ -10,16 +10,19 @@ class Hero extends Model
     public $timestamps = true;
     protected $forcedNullStrings = ['date'];
 
-    protected $fillable = ['user_id', 'team_id', 'date'];
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'team_id', 'date','created_at'];
+    protected $hidden = [ 'updated_at'];
 
-    public function team(){
-        return $this -> belongsTo('App\Models\Team','tema_id','id');
-    }
+
     public function setAttribute($key, $value)
     {
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
         return parent::setAttribute($key, $value);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 }
