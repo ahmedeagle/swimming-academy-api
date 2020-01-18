@@ -231,11 +231,11 @@
                                                             </label>
                                                             <select class="select2 form-control" name="team_id" >
                                                                 @if($teams && $teams -> count() > 0)
+                                                                    <optgroup label=" الفرق ">
                                                                     @foreach($teams as $team)
-                                                                        <optgroup label=" الفرق ">
                                                                             <option value="{{$team->id}}">{{$team -> name_ar}}</option>
-                                                                        </optgroup>
                                                                     @endforeach
+                                                                    </optgroup>
                                                                 @endif
                                                             </select>
                                                             @error('team_id')
