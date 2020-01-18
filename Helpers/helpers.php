@@ -54,6 +54,10 @@ function checkForShowImage($messageId, $ticketId)
 function currentWeekStartEndDate()
 {
     $dt_min = new DateTime("last saturday"); // Edit
+    if (date('D') == 'Sat') {
+          $dt_min = new DateTime("today"); // Edit
+    }
+
     $dt_max = clone($dt_min);
     $dt_max->modify('+6 days');
     $startOfWeek = $dt_min->format('d-m-Y');
