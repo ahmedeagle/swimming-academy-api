@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-     تعديل   طالب  جديد
+    تعديل   طالب  جديد
 @stop
 @section('style')
 
@@ -15,9 +15,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.users.all')}}"> الطلاب  </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.users.all')}}"> الطلاب </a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل  طالب
+                                <li class="breadcrumb-item active"> تعديل طالب
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل  الطالب - {{$user -> name_ar}} </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> تعديل الطالب
+                                        - {{$user -> name_ar}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -47,7 +48,8 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.users.update',$user -> id)}}" method="POST"
+                                        <form class="form" action="{{route('admin.users.update',$user -> id)}}"
+                                              method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -72,7 +74,7 @@
                                                 </div>
 
 
-                                                <h4 class="form-section"><i class="ft-user"></i> بيانات  الطلب </h4>
+                                                <h4 class="form-section"><i class="ft-user"></i> بيانات الطلب </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -104,8 +106,9 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  العنوان بالعربي </label>
-                                                            <input type="text" value="{{$user -> address_ar}}" id="address_ar"
+                                                            <label for="projectinput1"> العنوان بالعربي </label>
+                                                            <input type="text" value="{{$user -> address_ar}}"
+                                                                   id="address_ar"
                                                                    class="form-control"
                                                                    placeholder="ادخل  عنوانك  "
                                                                    name="address_ar">
@@ -117,8 +120,9 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  العنوان  بالانجليزي </label>
-                                                            <input type="text" value="{{$user -> address_en}}" id="address_en"
+                                                            <label for="projectinput1"> العنوان بالانجليزي </label>
+                                                            <input type="text" value="{{$user -> address_en}}"
+                                                                   id="address_en"
                                                                    class="form-control"
                                                                    placeholder="ادخل  عنوانك  باللغة  الانجليزية  "
                                                                    name="address_en">
@@ -133,7 +137,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  رقم الهاتف </label>
+                                                            <label for="projectinput1"> رقم الهاتف </label>
                                                             <input type="text" value="{{$user -> mobile}}" id="mobile"
                                                                    class="form-control"
                                                                    placeholder="ادخل   رقمك الهاتف  "
@@ -146,7 +150,7 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  البريد الالكتروني     </label>
+                                                            <label for="projectinput1"> البريد الالكتروني </label>
                                                             <input type="text" value="{{$user -> email}}" id="email"
                                                                    class="form-control"
                                                                    placeholder="ادخل  البريد الالكتروني   "
@@ -186,7 +190,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2"> طول الطالب بالسنتيميتر  </label>
+                                                            <label for="projectinput2"> طول الطالب بالسنتيميتر </label>
                                                             <input type="number" min="1" value="{{$user -> tall}}"
                                                                    id="tall"
                                                                    class="form-control"
@@ -200,7 +204,7 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  وزن الطالب   بالكيلوجرام  </label>
+                                                            <label for="projectinput2"> وزن الطالب بالكيلوجرام </label>
                                                             <input type="number" min="1" value="{{$user -> weight}}"
                                                                    id="weight"
                                                                    class="form-control"
@@ -218,12 +222,15 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select name="academy_id" id="academy"
+                                                                    class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
                                                                             <option
-                                                                                value="{{$academy -> id }}" @if($academy -> id == $user -> academy_id) selected @endif>{{$academy -> name}}</option>
+                                                                                value="{{$academy -> id }}"
+                                                                                @if($academy -> id == $user -> academy_id) selected @endif
+                                                                            >{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -233,18 +240,44 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  فرقه الطالب
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
+                                                                <optgroup label="من فضلك أختر  القسم ">
+                                                                    @if($categories && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                @if($category -> id == $user -> category_id) selected @endif
+                                                                            >{{$category -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> فرقه الطالب
                                                             </label>
-                                                            <select class="select2 form-control" name="team_id" >
+                                                            <select class="select2 form-control appendTeams"
+                                                                    name="team_id">
                                                                 @if($teams && $teams -> count() > 0)
                                                                     <optgroup label=" الفرق ">
-                                                                    @foreach($teams as $team)
-
-                                                                            <option value="{{$team->id}}" @if($team -> id == $user -> team_id) selected @endif >{{$team -> name_ar}}</option>
-
-                                                                    @endforeach
+                                                                        @foreach($teams as $team)
+                                                                            <option value="{{$team->id}}"
+                                                                                    @if($team -> id == $user -> team_id) selected @endif
+                                                                            >{{$team -> name_ar}}</option>
+                                                                        @endforeach
                                                                     </optgroup>
                                                                 @endif
                                                             </select>
@@ -255,12 +288,14 @@
                                                     </div>
                                                 </div>
 
-
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  تاريخ الميلاد  </label>
-                                                            <input type="text"  name="birth_date" value="{{$user -> birth_date }}" class="form-control input-lg" id="lang" placeholder="Date Dropper">
+                                                            <label for="projectinput2"> تاريخ الميلاد </label>
+                                                            <input type="text" name="birth_date"
+                                                                   value="{{$user -> birth_date }}"
+                                                                   class="form-control input-lg" id="lang"
+                                                                   placeholder="Date Dropper">
                                                             @error('birth_date')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
@@ -276,7 +311,8 @@
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
                                                                    @if($user -> status == 1) checked @endif/>
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -304,6 +340,54 @@
     </div>
 @stop
 
-
 @section('script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        //get academy teams branches
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
+
+
+    </script>
 @stop

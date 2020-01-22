@@ -18,6 +18,7 @@ use Auth;
 use Namshi\JOSE\Signer\SecLib\RS384;
 use Validator;
 use Hash;
+use Session;
 
 class HeroController extends Controller
 {
@@ -46,6 +47,7 @@ class HeroController extends Controller
 
     public function create()
     {
+        $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
         $data['teams'] = Team::with(['users' => function ($q) {
             $q->active()
                 ->subscribed()
@@ -73,13 +75,20 @@ class HeroController extends Controller
             'studentIds.min' => '  لابد من أختيار طلاب  .',
             'studentIds.*.required' => '  لابد من أختيار طلاب  .',
             'studentIds.*.numeric' => '  لابد من أختيار طلاب  .',
+            'category_id.required' => 'لابد من احتيار القسم  اولا ',
+            'category_id.exists' => 'هذه القسم  غير موجوده ',
+            'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
+            'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
         ];
 
         $validator = Validator::make($request->all(), [
             'studentIds' => 'required|array|min:1',
             'studentIds.*' => 'required|numeric',
             'startWeek' => 'required',
-            'endWeek' => 'required'
+            'endWeek' => 'required',
+            'academy_id' => 'required|exists:academies,id',
+            'category_id' => 'required|exists:categories,id',
+
 
         ], $messages);
 
@@ -97,18 +106,66 @@ class HeroController extends Controller
             foreach ($students as $student) {
                 $studentAlreadyHeroOfCurrentWeek = Hero::where('user_id', $student)->whereBetween('created_at', [$startWeek, $endWeek])->first();
                 if (!$studentAlreadyHeroOfCurrentWeek) {
-                    Hero::insert(['user_id' => $student]);
+                    Hero::insert([
+                        'user_id' => $student,
+                        'team_id' => $request->team_id,
+                        'category_id' => $request->category_id
+                    ]);
                 }
             }
             notify()->success('تمت  الاضافة بنجاح ');
             return redirect()->route('admin.heroes.all')->with(['success' => 'تم اضافه أبطال هذا الاسبوع بنجاح ']);
         }
-        notify()->success(' فشلت عملببة الاضافة ');
+        notify()->error(' فشلت عملبة الاضافة ');
         return redirect()->route('admin.heroes.all')->with(['error' => 'فشلت عمليه الحفظ الرجاء المحاولة مجداا ']);
     }
 
 
-    public function delete($eventId)
+    public function addHeroNote(Request $request)
     {
+
+        try {
+            $messages = [
+                'note_ar.required' => '  النبذه بالعربي  مطلوبه  .',
+                'note_en.required' => '  النبذه بالانجليزية مطلوب .',
+                'hero_id.required' => '  رقم الاعب مطلوب  .',
+                'hero_id.exists' => 'رقم الاعب غير موجود  ',
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'note_ar' => 'required',
+                'note_en' => 'required',
+                'heroId' => 'required|exists:heroes,id',
+            ], $messages);
+
+            if ($validator->fails()) {
+                notify()->error('هناك خطا برجاء المحاوله مجددا ');
+                return redirect()->back()->withErrors($validator)->withInput($request->all())->with(['modalId' => $request->heroId]);
+            }
+            $hero = Hero::find($request->heroId);
+            $hero->makeVisible(['note_ar', 'note_en']);
+
+            $hero->update([
+                'note_ar' => $request->note_ar,
+                'note_en' => $request->note_en
+            ]);
+
+            notify()->success('تم التحديث بنجاح ');
+
+            return redirect()->route('admin.heroes.all')->with(['success' => 'تم التحديث بنجاح ']);
+
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
+
+    }
+
+    public function delete($heroId)
+    {
+        $hero = Hero::findOrFail($heroId);
+        $hero->delete();
+
+        notify()->success(' تم الحذف بنجاح ');
+        return redirect()->back();
     }
 }

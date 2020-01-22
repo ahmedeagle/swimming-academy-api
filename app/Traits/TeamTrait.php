@@ -20,7 +20,7 @@ trait TeamTrait
         }])->  selectionByLang() ->paginate(10);
     }
 
-    public function getTeams(){
-        return Team::active() -> select('id', DB::raw('name_' . $this->getCurrentLang() . ' as name'))->get();
+    public function getTeamsByAcademyId($academyId){
+        return Team::active() ->where('academy_id',$academyId) -> select('id', DB::raw('name_' . $this->getCurrentLang() . ' as name'))->get();
     }
 }

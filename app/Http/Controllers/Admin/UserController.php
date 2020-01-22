@@ -43,8 +43,8 @@ class UserController extends Controller
             'name_en.required' => 'أسم  الطالب  بالانجليزي  مطلوب  .',
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
-            'email.required'  => 'البريد الالكتروني مطلوب ',
-            'email.exists'  => 'البريد الالكتروني  مسجل لدينا من قبل  ',
+            'email.required' => 'البريد الالكتروني مطلوب ',
+            'email.exists' => 'البريد الالكتروني  مسجل لدينا من قبل  ',
             'gender.required' => 'النوع مطلوب ',
             "password.required" => trans("admin/passwords.passwordRequired"),
             "password.confirmed" => trans("admin/passwords.confirmpassword"),
@@ -56,10 +56,10 @@ class UserController extends Controller
             'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
             "teams.required" => 'لأابد من أختيار الفرق ',
             "teams.exists" => ' الفريق عير موجود لدينا  ',
-            'birth_date.required'  => 'تاريخ الميلاد مطلوب',
-            'date-format'  => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
-
-
+            'birth_date.required' => 'تاريخ الميلاد مطلوب',
+            'date-format' => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
+            "category_id.required" => 'لابد من ادخال احتيار القسم ',
+            "category_id.exists" => ' القسم المختار غير موجود',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -73,6 +73,7 @@ class UserController extends Controller
             'photo' => 'required|mimes:jpg,jpeg,png',
             'password' => 'required|confirmed|min:6',
             'team_id' => 'required|exists:teams,id',
+            'category_id' => 'required|exists:categories,id'
 
         ], $messages);
 
@@ -83,13 +84,13 @@ class UserController extends Controller
 
         DB::beginTransaction();
 
-            $fileName = "";
-            if (isset($request->photo) && !empty($request->photo)) {
-                $fileName = $this->uploadImage('users', $request->photo);
-            }
-            $status = $request->has('status') ? 1 : 0;
-            User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
-            DB::commit();
+        $fileName = "";
+        if (isset($request->photo) && !empty($request->photo)) {
+            $fileName = $this->uploadImage('users', $request->photo);
+        }
+        $status = $request->has('status') ? 1 : 0;
+        User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+        DB::commit();
 
         notify()->success('تم اضافه الطالب  بنجاح ');
         return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الطالب  بنجاح ']);
@@ -100,7 +101,9 @@ class UserController extends Controller
         $data = [];
         $data['user'] = User::findOrFail($id);
         $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
-        $data['teams'] = Team::active()->selection()->get();
+        $data['categories'] = $data['user']->academy->categories;
+        $userCategoryId = $data['user']->category->id;
+        $data['teams'] = Team::where('category_id', $userCategoryId)->get();
         return view('admin.users.edit', $data);
     }
 
@@ -113,28 +116,28 @@ class UserController extends Controller
             'name_en.required' => 'أسم  الطالب  بالانجليزي  مطلوب  .',
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
-            'email.required'  => 'البريد الالكتروني مطلوب ',
-            'email.exists'  => 'البريد الالكتروني  مسجل لدينا من قبل  ',
-             "password.required" => trans("admin/passwords.passwordRequired"),
+            'email.required' => 'البريد الالكتروني مطلوب ',
+            'email.exists' => 'البريد الالكتروني  مسجل لدينا من قبل  ',
+            "password.required" => trans("admin/passwords.passwordRequired"),
             "password.confirmed" => trans("admin/passwords.confirmpassword"),
             "password.min" => trans("admin/passwords.confirmpassword"),
-             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
+            'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
             'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
             'photo.required' => 'لابد من رفع صوره  الطالب  ',
             'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
             "teams.required" => 'لأابد من أختيار الفرق ',
             "teams.exists" => ' الفريق عير موجود لدينا  ',
-            'birth_date.required'  => 'تاريخ الميلاد مطلوب',
-            'date-format'  => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
+            'birth_date.required' => 'تاريخ الميلاد مطلوب',
+            'date-format' => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
 
 
         ];
 
-        $rules =[
+        $rules = [
             'name_ar' => 'required|max:100',
             'name_en' => 'required|max:100',
-            'mobile' => 'required|unique:users,mobile,'.$user->id,
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'mobile' => 'required|unique:users,mobile,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'birth_date' => 'required|date-format:Y-m-d',
             'academy_id' => 'required|exists:academies,id',
             'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
@@ -142,14 +145,13 @@ class UserController extends Controller
 
         ];
 
-        $validator = Validator::make($request->all(),$rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($request->filled('password')) {
             $rules['password'] = 'required|confirmed|min:6';
         }
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-            return $validator -> errors();
             notify()->error('هناك خطا برجاء المحاوله مجددا ');
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
@@ -163,7 +165,7 @@ class UserController extends Controller
             }
             DB::beginTransaction();
             $user->update($request->except('photo'));
-             DB::commit();
+            DB::commit();
             notify()->success('تمت التعديل  بنجاح ');
             return redirect()->route('admin.users.all');
         } catch (\Exception $ex) {
@@ -251,4 +253,14 @@ class UserController extends Controller
         notify()->success('تم عرض الفرق بنجاح  ');
         return view('admin.coaches.teams', compact('teams', 'coach'));
     }
+
+    public function deleteUser($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        notify()->success('تمت حذف  الاعب بمحتواه');
+        return redirect()->route('admin.users.all');
+    }
+
+
 }

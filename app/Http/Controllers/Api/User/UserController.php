@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academy;
 use App\Models\Coach;
 use App\Models\Token;
 use App\Models\User;
@@ -33,6 +34,35 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
+
+
+           /* $messages = [
+                "name_ar.required" => "لابد من أدخال الاسم باللغة العربية ",
+                "name_ar.max" => "عدد حروف الاسم كثيره ",
+                "name_en.required" => "لابد من أدخال الاسم باللغة الانجليزية ",
+                "name_en.max" => "عدد حروف الاسم كثيره ",
+                "address_ar.max" => "العنوان طويل يرجي تقليل عدد الاحرف",
+                "address_en.max" => "العنوان طويل يرجي تقليل عدد الاحرف",
+                "mobile.required" => "رقم الهاتف مطلوب ",
+                "mobile.numeric" => "رقم الهاتف لابد ان يكون ارقام فقط ",
+                "mobile.unique" => "رقم الهاتف مستخدم من قبل ",
+                "password.required" => "لابد من ادخال كلمة المرور  ",
+                "password.confirmed" => " كلمتي المرور غير متطابقتان  ",
+                "password.min" => "كلمة المرور قصيره يجب ان تكون اكبر من 6 احرف او ارقام  ",
+                "agreement.required" => "لابد من الموافقة علي اتفاقية الاستخدام ",
+                "agreement.boolean" => " لابد ان تكون اتفاقية الاستخدام ب 0 او 1",
+                "email.required" => "لابد من أدخال البريد الالكتروني ",
+                "email.email" => "بريد الكتروني غير صالح ",
+                "email.max" => "بريد الكتروني طويل ",
+                "email.unique" => "قيمة البريد الالكتروني مستخدمة من قبل ",
+                "academy_code.required" => "لابد من ادخال كود الاكاديمية الخاصه بكم ",
+                "academy_code.exists" => "كود الاكاديمية غير مسجل لدينا او غير صحيح ",
+                "team_id.required" => "لابد من أختيار الفريق ",
+                "team_id.exists" => "الفريق المختار غير موجود لدينا ",
+                "photo.required" => "لابد من رفع الصوره الشخصية ",
+                "birth_date.required" => "تاريخ الميلاد مطلوب ",
+                "birth_dat.date-format" => "صيغة تاريخ الميلاد خطا لابد ان تكون Y-m-d",
+            ];*/
             $validator = Validator::make($request->all(), [
                 "name_ar" => "required|max:255",
                 "name_en" => "required|max:255",
@@ -47,13 +77,12 @@ class UserController extends Controller
                 "password" => "required|confirmed||min:6|max:255",
                 "agreement" => "required|boolean",
                 "email" => "required|email|max:255|unique:users,email",
-                "academy_id" => "required|exists:academies,id",
+                "academy_code" => "required|exists:academies,code",
                 "team_id" => "required|exists:teams,id",
                 "photo" => "required",
                 "birth_date" => "required|date-format:Y-m-d",
                 "tall" => "sometimes|nullable|max:100",
                 "weight" => "sometimes|nullable|max:100",
-
             ]);
 
             if ($validator->fails()) {
@@ -71,6 +100,8 @@ class UserController extends Controller
                     $fileName = $this->saveImage('users', $request->photo);
                 }
 
+                $academy_id = Academy::where('code', $request->academy_code)->value('id');
+
                 $user = User::create([
                     'name_en' => trim($request->name_en),
                     'name_ar' => trim($request->name_ar),
@@ -82,7 +113,7 @@ class UserController extends Controller
                     'status' => 0,
                     'device_token' => $request->device_token,
                     'email' => $request->email,
-                    'academy_id' => $request->academy_id,
+                    'academy_id' => $academy_id,
                     'team_id' => $request->team_id,
                     'tall' => $request->tall,
                     'weight' => $request->weight,
@@ -333,6 +364,7 @@ class UserController extends Controller
 
             $user->update(['photo' => $fileName] + $request->except('photo'));
             $user = $this->getAllData($user->id);
+            $user -> name = $user -> {'name_'.app()->getLocale()};
             return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)),
                 trans('messages.User data updated successfully'));
         } catch (\Exception $ex) {

@@ -1,28 +1,37 @@
 <?php
+
 namespace App\Observers;
 
-use App\Models\PromoCode;
-use App\Models\PromoCodeCategory;
+use App\Models\Category;
+use App\Models\Coach;
+use App\Models\Event;
+use App\Models\Hero;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
-class PromoCodeCategoryObserver
+class UserObserver
 {
+
+
+    public function updating(User $user)
+    {
+
+    }
+
+
     /**
      * Listen to the Entry deleting event.
      *
      * @param Category $category
      * @return void
      */
-    public function deleting(PromoCodeCategory $category)
+    public function deleting(User $user)
     {
-        // Delete all the Category's  $coupons
-        $coupons = PromoCode::where('category_id', $category->id)->get();
-        if ($coupons->count() > 0) {
-            foreach ($coupons as $coupon) {
-                $coupon->delete();
-            }
-        }
+        Hero::where('user_id', $user->id)->delete();
+        $user->notifications()->delete();
+        $user->tickets()->delete();
+
     }
 
     /**
@@ -31,10 +40,10 @@ class PromoCodeCategoryObserver
      * @param Category $category
      * @return void
      */
-    public function saved(PromoCodeCategory $category)
+    public function saved(User $user)
     {
         // Removing Entries from the Cache
-        $this->clearCache($category);
+        $this->clearCache($user);
     }
 
     /**
@@ -43,10 +52,10 @@ class PromoCodeCategoryObserver
      * @param Category $category
      * @return void
      */
-    public function deleted(PromoCodeCategory $category)
+    public function deleted(User $user)
     {
         // Removing Entries from the Cache
-        $this->clearCache($category);
+        $this->clearCache($user);
     }
 
     /**
@@ -54,7 +63,7 @@ class PromoCodeCategoryObserver
      *
      * @param $category
      */
-    private function clearCache($category)
+    private function clearCache($user)
     {
         Cache::flush();
     }

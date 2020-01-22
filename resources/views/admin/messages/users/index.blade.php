@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  تذاكر الطلاب </h4>
+                                    <h4 class="card-title">جميع تذاكر الطلاب </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -50,7 +50,7 @@
                                             <thead>
                                             <tr>
                                                 <th>رقم الرسالة</th>
-                                                <th> عنوان المراسلة </th>
+                                                <th> عنوان المراسلة</th>
                                                 <th>اسم المستخدم</th>
                                                 <th>النوع</th>
                                                 <th>الأهمية</th>
@@ -66,26 +66,29 @@
                                                         <td>{{$ticket -> message_no}}</td>
                                                         <td>{{$ticket ->title}}</td>
                                                         <td>{{$ticket -> ticketable -> name_ar}}</td>
-                                                         <td>{{$ticket -> type}}</td>
+                                                        <td>{{$ticket -> type}}</td>
                                                         <td>{{$ticket -> importance}}</td>
                                                         <td>@if($ticket  -> replies()  ->where('FromUser',1) ->  where('seen','0') -> count() > 0)
-                                                                <span class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()  ->where('FromUser',1) -> where('seen','0') -> count()}} جديدة </span>
+                                                                <span
+                                                                    class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()  ->where('FromUser',1) -> where('seen','0') -> count()}} جديدة </span>
                                                             @endif</td>
                                                         <td>{{$ticket -> created_at}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.users.tickets.getreply',$ticket->id)}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1"> الرد </a>
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    الرد </a>
 
                                                                 <button type="button"
                                                                         class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
-                                                                        data-target="#rotateInUpLeft">التفاصيل
+                                                                        data-target="#rotateInUpLeft{{$ticket -> id}}">التفاصيل
                                                                 </button>
 
                                                                 <a href="{{route('admin.users.tickets.delete',$ticket->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">  حذف التذكرة  </a>
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    حذف التذكرة </a>
 
                                                             </div>
                                                         </td>
@@ -103,7 +106,9 @@
             </div>
         </div>
     </div>
-    @if(isset($ticket))
-        @include('admin.includes.modals.userMessage',$ticket)
+    @if(isset($tickets) && $tickets -> count() > 0 )
+        @foreach($tickets as $ticket)
+            @include('admin.includes.modals.userMessage',$ticket)
+        @endforeach
     @endif
 @stop

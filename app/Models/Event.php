@@ -8,8 +8,8 @@ class Event extends Model
 {
     protected $table = 'events';
     public $timestamps = true;
-    protected $forcedNullStrings = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en','status'];
-    protected $fillable = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en','status'];
+    protected $forcedNullStrings = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en', 'status'];
+    protected $fillable = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en', 'status','academy_id','category_id'];
     protected $hidden = ['created_at', 'updated_at'];
     protected $casts = [
         'status' => 'integer',
@@ -24,7 +24,7 @@ class Event extends Model
 
     public function getStatus()
     {
-        return  $this -> status ==  0 ? 'غير مفعل' : 'مفعل';
+        return $this->status == 0 ? 'غير مفعل' : 'مفعل';
     }
 
     public function getPhotoAttribute($val)
@@ -32,7 +32,19 @@ class Event extends Model
         return ($val != "" ? asset($val) : "");
     }
 
-    public function scopeActive($query){
-         return $query -> where('status',1);
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
     }
+
+    public function academy()
+    {
+        return $this->belongsTo('App\Models\Academy', 'academy_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
+    }
+
 }

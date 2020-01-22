@@ -24,7 +24,7 @@ class Coach extends Authenticatable implements JWTSubject
     protected $forcedNullStrings = ['name_ar', 'name_en', 'photo', 'mobile', 'device_token', 'api_token'];
     protected $forcedNullNumbers = ['rate', 'gender', 'status'];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'mobile', 'academy_id', 'gender', 'password', 'device_token', 'status', 'created_at', 'api_token', 'created_at', 'rate'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'mobile', 'academy_id','category_id','gender', 'password', 'device_token', 'status', 'created_at', 'api_token', 'created_at', 'rate'];
 
     protected $hidden = [
         'created_at', 'password', 'updated_at', 'device_token'
@@ -41,14 +41,15 @@ class Coach extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Models\Academy', 'academy_id', 'id');
     }
 
-
-
     public function teams()
     {
         return $this->belongsToMany('App\Models\Team', 'teams_coaches', 'coach_id', 'team_id');
     }
 
 
+    public function  category(){
+        return $this -> belongsTo('App\Models\Category','category_id','id');
+    }
     public function users()
     {
         return $this->belongsToMany('App\Models\User', 'users_coaches', 'coach_id', 'user_id');
@@ -101,7 +102,7 @@ class Coach extends Authenticatable implements JWTSubject
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'academy_id', 'photo', 'mobile','gender','device_token','rate', 'status');
+        return $query->select('id', 'name_ar', 'name_en', 'academy_id', 'category_id', 'photo', 'mobile','gender','device_token','rate', 'status');
     }
 
     public  function scopeActive($query)

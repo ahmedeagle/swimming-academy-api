@@ -43,13 +43,15 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table table-striped table-bordered dom-jQuery-events">
+                                        <table class="table table-striped table-bordered dom-jQuery-events  scroll-horizontal">
                                             <thead>
                                             <tr>
+                                                <th> الشعار </th>
                                                 <th> الاسم بالعربي</th>
                                                 <th>الاسم بالانجليزي</th>
                                                 <th> العنوان بالعربي</th>
                                                 <th> العنوان بالانجليزي </th>
+                                                 <th>كود الدخول</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
                                             </tr>
@@ -58,16 +60,31 @@
                                             @if(isset($academies) && $academies -> count() > 0 )
                                                 @foreach($academies as $academy)
                                                     <tr>
+                                                        <td><img src="{{$academy -> logo}}" height="40px;"></td>
                                                         <td>{{$academy -> name_ar}}</td>
                                                         <td>{{$academy ->name_en}}</td>
                                                         <td>{{$academy -> address_ar}}</td>
                                                         <td>{{$academy -> address_en}}</td>
+                                                         <td>{{$academy -> code}}</td>
                                                         <td>{{$academy -> getStatus()}}</td>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a  href="{{route('admin.academies.edit',$academy->id)}}" class="btn btn-float btn-outline-cyan"><i class="la la-edit"></i>
+                                                            <div class="btn-group" role="group"
+                                                                 aria-label="Basic example">
+                                                                <a  href="{{route('admin.academies.edit',$academy->id)}}" class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1">
                                                                     <span>تعديل</span>
                                                                 </a>
+                                                                <a  href="{{route('admin.academies.aboutus',$academy->id)}}" class="btn btn-outline-info btn-min-width box-shadow-3 mr-1">
+                                                                    <span>البيانات</span>
+                                                                </a>
+                                                                <button type="button"
+                                                                        value="{{$academy->id}}"  onclick="deletefn(this.value)"
+                                                                        class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRight">
+                                                                    <i class="la la-remove"></i>
+                                                                    حذف
+                                                                </button>
+
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -85,7 +102,14 @@
             </div>
         </div>
     </div>
+    @include('admin.includes.modals.deleteModal',['text' =>'سيتم حذف الاكاديمية بجميع محتواها']);
 @stop
 
 @section('script')
+    <script>
+        function deletefn(val){
+            var a = document.getElementById('yes');
+            a.href = "{{ url('admin/academies/delete/') }}"+ "/" +val;
+        }
+    </script>
 @stop

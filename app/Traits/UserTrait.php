@@ -13,7 +13,9 @@ trait UserTrait
     public function authUserByMobile($mobile, $password)
     {
         $userId = null;
-        $user = User::where('mobile', $mobile)->first();
+        $user = User::with(['academy' => function($q){
+            $q -> select('id','name_'.app()->getLocale().' as name','code','logo');
+        }])->where('mobile', $mobile)->first();
         $token = Auth::guard('user-api')->attempt(['mobile' => $mobile, 'password' => $password]);
         if (!$user)
             return null;

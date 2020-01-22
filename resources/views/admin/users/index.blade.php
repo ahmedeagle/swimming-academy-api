@@ -1,19 +1,19 @@
 @extends('admin.layouts.basic')
 @section('title')
-    الطلاب
+    الاعبين
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">الطلاب </h3>
+                    <h3 class="content-header-title"> الاعبين </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> الطلاب
+                                <li class="breadcrumb-item active"> الاعبين
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الطلاب </h4>
+                                    <h4 class="card-title">جميع الاعبين </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -51,6 +51,9 @@
                                             <tr>
                                                 <th> الاسم بالعربي</th>
                                                 <th>الاسم بالانجليزي</th>
+                                                <th>الأكاديمية</th>
+                                                <th>القسم</th>
+                                                <th>الفرق</th>
                                                 <th>الهاتف</th>
                                                 <th>البريد الالكتروني</th>
                                                 <th> صورة الشخصية</th>
@@ -64,6 +67,9 @@
                                                     <tr>
                                                         <td>{{$user -> name_ar}}</td>
                                                         <td>{{$user ->name_en}}</td>
+                                                        <td>{{$user ->academy -> name_ar}}</td>
+                                                        <td>{{$user ->category -> name_ar}}</td>
+                                                        <td>{{$user ->team -> name_ar}}</td>
                                                         <td>{{$user -> mobile}}</td>
                                                         <td>{{$user -> email}}</td>
                                                         <td><img src="{{$user -> photo}}" height="40px;"></td>
@@ -73,11 +79,19 @@
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.users.edit',$user->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                <button type="button"
+                                                                        value="{{$user->id}}"  onclick="deletefn(this.value)"
+                                                                        class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRight">
+                                                                    حذف
+                                                                </button>
 
                                                                 <button type="button"
-                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1 userModalDetails"
                                                                         data-toggle="modal"
-                                                                        data-target="#rotateInUpRight">التفاصيل
+                                                                        data-target="#rotateInUpRight{{$user -> id}}">
+                                                                    التفاصيل
                                                                 </button>
 
                                                             </div>
@@ -96,7 +110,22 @@
             </div>
         </div>
     </div>
-    @if(isset($user))
-        @include('admin.includes.modals.userDetails',$user)
+    <div class="userModalContent">
+    </div>
+    @if(isset($users) && $users -> count() > 0 )
+        @foreach($users as $user)
+            @include('admin.includes.modals.userDetails',$user)
+        @endforeach
     @endif
+    @include('admin.includes.modals.deleteModal',['text' =>' هل بالفعل تريد حذف الاعب ؟']);
 @stop
+
+@section('script')
+    <script>
+        function deletefn(val) {
+            var a = document.getElementById('yes');
+            a.href = "{{ url('admin/users/delete/') }}" + "/" + val;
+        }
+    </script>
+@stop
+

@@ -27,7 +27,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">   {{isset($header) ? $header : 'جميع الابطال'}}   -   {{isset($startWeek) ? date('d-m-Y',strtotime($startWeek)) .' ألي ': ' '}}  {{isset($endWeek) ?  date('d-m-Y',strtotime($endWeek)) : ' '}} </h4>
+                                    <h4 class="card-title">   {{isset($header) ? $header : 'جميع الابطال'}}
+                                        - {{isset($startWeek) ? date('d-m-Y',strtotime($startWeek)) .' ألي ': ' '}}  {{isset($endWeek) ?  date('d-m-Y',strtotime($endWeek)) : ' '}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -46,14 +47,19 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         <table
-                                            class="table display nowrap table-striped table-bordered ">
+                                            class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
                                                 <th> الاسم بالانجليزي</th>
-                                                <th> الفرقة </th>
                                                 <th> صورة</th>
+                                                <th> الاكاديمية</th>
+                                                <th> القسم</th>
+                                                <th> الفرقة</th>
+                                                <th> التفاصيل</th>
                                                 <th> التاريخ</th>
+                                                <th> الاجراءات</th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -62,10 +68,30 @@
                                                     <tr>
                                                         <td>{{$hero -> user -> name_ar}}</td>
                                                         <td>{{$hero -> user -> name_en}}</td>
-                                                        <td>{{$hero -> user -> team -> name_ar}}</td>
                                                         <td><img src="{{$hero -> user -> photo}}" height="40px;"></td>
+                                                        <td>{{$hero -> academy -> name_ar}}</td>
+                                                        <td>{{$hero -> category -> name_ar}}</td>
+                                                        <td>{{$hero  -> team -> name_ar}}</td>
+                                                        <td>{{$hero  -> note_ar ? $hero -> note_ar : '---'}}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($hero -> created_at)))}}
                                                             - {{ date('d-m-Y',strtotime($hero -> created_at))}}  </td>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="btn-group" role="group"
+                                                                 aria-label="Basic example">
+                                                                <a href="{{route('admin.heroes.delete',$hero->id)}}"
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                    حذف</a>
+
+                                                                <button type="button"
+                                                                        value="{{$hero->id}}"
+                                                                        class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRightHero{{$hero->id}}">
+                                                                    اضافة تفاصيل
+                                                                </button>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -81,4 +107,18 @@
             </div>
         </div>
     </div>
+    @if(isset($heroes) && $heroes -> count() > 0 )
+        @foreach($heroes as $hero)
+            @include('admin.includes.modals.infoModal',['hero' => $hero]);
+        @endforeach
+    @endif
+@stop
+
+
+@section('script')
+    <script>
+        @if(Session::has('modalId'))
+         $("#rotateInUpRightHero{{Session::get('modalId')}}").modal('toggle');
+        @endif
+    </script>
 @stop

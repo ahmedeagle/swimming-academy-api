@@ -91,6 +91,12 @@ return [
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
         ],
+        'academies' => [
+            'driver' => 'local',
+            'root' => base_path() . '/images/academies/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
+        ],
 
         'users' => [
             'driver' => 'local',

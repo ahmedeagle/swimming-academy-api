@@ -232,7 +232,9 @@ return [
         'invited_user_mobile'   => 'phone number؛',
         'current mobile'        =>  'current mobile',
          'points'                => 'Points',
-        'academy_id'             => 'Academy '
+        'academy_id'             => 'Academy',
+        'academy_code'           => 'Academy Code',
+        'team_id'                 => 'Team Id',
 
     ],
 

@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal animated rotateInUpLeft  text-left" id="rotateInUpLeft" tabindex="-1" role="dialog"
+<div class="modal animated rotateInUpLeft  text-left" id="rotateInUpLeft{{$user -> id}}" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel70" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

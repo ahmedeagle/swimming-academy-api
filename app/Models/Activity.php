@@ -12,7 +12,7 @@ class Activity extends Model
     protected $casts = [
         'status' => 'integer',
     ];
-    protected $fillable = ['title_ar','title_en', 'videoLink','created_at','status'];
+    protected $fillable = ['title_ar','title_en', 'videoLink','created_at','status','academy_id','category_id'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function setAttribute($key, $value)
@@ -20,6 +20,15 @@ class Activity extends Model
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
         return parent::setAttribute($key, $value);
+    }
+
+    public function academy(){
+        return $this -> belongsTo('App\Models\Academy','academy_id','id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 
     public function getStatus()

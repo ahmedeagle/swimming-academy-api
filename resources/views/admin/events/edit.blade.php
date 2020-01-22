@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-     تعديل  فاعليات
+    تعديل  فاعليات
 @stop
 @section('style')
 
@@ -31,7 +31,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">  تعديل  فاعلية -{{$event -> title_ar}}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> تعديل فاعلية
+                                        -{{$event -> title_ar}}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -47,7 +48,8 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.events.update',$event -> id)}}" method="POST"
+                                        <form class="form" action="{{route('admin.events.update',$event -> id)}}"
+                                              method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
@@ -71,13 +73,60 @@
                                                     @enderror
                                                 </div>
 
-
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات الفاعلية </h4>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر الاكاديمية </label>
+                                                            <select name="academy_id" class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر الاكاديمية">
+                                                                    @if($academies && $academies -> count() > 0)
+                                                                        @foreach($academies as $academy)
+                                                                            <option
+                                                                                value="{{$academy -> id }}"
+                                                                                @if($academy -> id == $event -> academy_id) selected @endif>{{$academy -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('academy_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
+                                                                <optgroup label="من فضلك أختر القسم ">
+                                                                    @if(isset($categories) && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                @if($category -> id == $event -> category_id) selected @endif
+                                                                            >{{$category -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> العنوان بالعربي </label>
-                                                            <input type="text" value="{{ $event -> title_ar }}" id="title_ar"
+                                                            <input type="text" value="{{ $event -> title_ar }}"
+                                                                   id="title_ar"
                                                                    class="form-control"
                                                                    placeholder="ادخل  العنوان  باللغة العربية "
                                                                    name="title_ar">
@@ -90,7 +139,8 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> العنوان بالانجليزي </label>
-                                                            <input type="text" value="{{  $event -> title_en  }}" id="title_en"
+                                                            <input type="text" value="{{  $event -> title_en  }}"
+                                                                   id="title_en"
                                                                    class="form-control"
                                                                    placeholder="ادخل   العنوان  باللغة  الانجليزية  "
                                                                    name="title_en">
@@ -106,8 +156,9 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> المحتوي بالعربي </label>
-                                                            <textarea  id="ckeditor-language" name="description_ar" rows="10"
-                                                                       name="description_ar">{{  $event -> description_ar  }}</textarea>
+                                                            <textarea id="ckeditor-language" name="description_ar"
+                                                                      rows="10"
+                                                                      name="description_ar">{{  $event -> description_ar  }}</textarea>
                                                             @error('description_ar')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
@@ -119,8 +170,9 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> المحتوي بالانجليزي </label>
-                                                            <textarea  id="ckeditor-language2" name="description_en" rows="10"
-                                                                       name="description_en">{{$event -> description_en }}</textarea>
+                                                            <textarea id="ckeditor-language2" name="description_en"
+                                                                      rows="10"
+                                                                      name="description_en">{{$event -> description_en }}</textarea>
                                                             @error('description_en')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
@@ -134,7 +186,8 @@
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
                                                                    @if($event -> status == 1) checked @endif/>
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,19 +218,19 @@
 @section('script')
     <script>
 
-        CKEDITOR.replace( 'ckeditor-language', {
+        CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',
             // Customizing list of languages available in the Language drop-down.
-            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
+            language_list: ['ar:Arabic:rtl', 'fr:French', 'he:Hebrew:rtl', 'es:Spanish'],
             height: 350
-        } );
+        });
 
-        CKEDITOR.replace( 'ckeditor-language2', {
+        CKEDITOR.replace('ckeditor-language2', {
             extraPlugins: 'language',
             // Customizing list of languages available in the Language drop-down.
-            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
+            language_list: ['ar:Arabic:rtl', 'fr:French', 'he:Hebrew:rtl', 'es:Spanish'],
             height: 350
-        } );
+        });
 
     </script>
 @stop

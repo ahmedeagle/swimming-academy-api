@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-     طلاب الفرقة
+    طلاب الفرقة
 @stop
 @section('content')
     <div class="app-content content">
@@ -29,7 +29,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  طلاب الفرقة  </h4>
+                                    <h4 class="card-title">جميع طلاب الفرقة </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                         <table
+                                        <table
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
@@ -71,8 +71,11 @@
                                                                  aria-label="Basic example">
 
                                                                 <button type="button"
-                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1"  data-toggle="modal"
-                                                                        data-target="#rotateInUpRight">التفاصيل </button>
+                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRight{{$user -> id}}">
+                                                                    التفاصيل
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -89,7 +92,9 @@
             </div>
         </div>
     </div>
-    @if(isset($user))
-        @include('admin.includes.modals.userDetails',$user)
+    @if(isset($users) && $users -> count() > 0 )
+        @foreach($users as $user)
+            @include('admin.includes.modals.userDetails',$user)
+        @endforeach
     @endif
 @stop

@@ -50,6 +50,7 @@
                                             @csrf
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-user"></i> البيانات   </h4>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">

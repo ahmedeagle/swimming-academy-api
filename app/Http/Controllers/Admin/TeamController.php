@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
+use App\Models\Category;
 use App\Models\Team;
 use App\Models\TeamTime;
 use App\Traits\Dashboard\PublicTrait;
@@ -22,12 +23,7 @@ class TeamController extends Controller
 
     public function index()
     {
-        $teams = Team::selection()->whereHas('academy', function ($q) {
-            $q->where('academies.status', 1);
-        })->with(['academy' => function ($qq) {
-            $qq->select('id', 'name_ar as name');
-        }])->selection()->get();
-
+        $teams = Team::selection()->get();
         return view('admin.teams.index', compact('teams'));
     }
 
@@ -47,8 +43,8 @@ class TeamController extends Controller
                 'max' => 'لايد الا يتجاوز عدد حروف الحقل 100 حرف ',
                 'quotas.required' => ' لابد من ادحال عدد الحصص الشهرية للتدريب بالفرقه  .',
                 'quotas.numeric' => ' عدد حصص التدريب لابد ان تكون أرقام ',
-                'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
-                'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
+                'category_id.required' => 'لابد من احتيار القسم اولا ',
+                'category_id.exists' => 'هذه القسم غير موجوده ',
                 'photo.required' => 'لابد من رفع صوره للفريق ',
                 'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
             ];
@@ -57,7 +53,7 @@ class TeamController extends Controller
                 'name_ar' => 'required|max:100',
                 'name_en' => 'required|max:100',
                 'quotas' => 'required|numeric',
-                'academy_id' => 'required|exists:academies,id',
+                'category_id' => 'required|exists:categories,id',
                 'photo' => 'required|mimes:jpg,jpeg,png'
 
             ], $messages);
@@ -81,17 +77,18 @@ class TeamController extends Controller
 
     public function edit($id)
     {
-        $team = Team::with(['academy' => function ($qq) {
-            $qq->select('id', 'name_ar as name');
-        }])->selection()->find($id);
 
-        $academies = Academy::active()->select('id', 'name_ar as name')->get();
-        if (!$team) {
+        $data['team'] = Team::selection()->find($id);
+        $teamAcademy = $data['team']->category->academy;
+        $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
+        $data['categories'] = $teamAcademy->categories;
+
+        if (!$data['team']) {
             notify()->error(' الفريق  غير موجوده لدينا ');
             return redirect()->route('admin.teams.all');
         }
 
-        return view('admin.teams.edit', compact('academies', 'team'));
+        return view('admin.teams.edit', $data);
     }
 
     public function update($id, Request $request)
@@ -110,8 +107,8 @@ class TeamController extends Controller
                 'max' => 'لايد الا يتجاوز عدد حروف الحقل 100 حرف ',
                 'quotas.required' => ' لابد من ادحال عدد الحصص الشهرية للتدريب بالفرقه  .',
                 'quotas.numeric' => ' عدد حصص التدريب لابد ان تكون أرقام ',
-                'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
-                'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
+                'category_id.required' => 'لابد من احتيار القسم  اولا ',
+                'category_id.exists' => 'هذه القسم  غير موجوده ',
                 'photo.required' => 'لابد من رفع صوره للفريق ',
                 'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
             ];
@@ -120,7 +117,7 @@ class TeamController extends Controller
                 'name_ar' => 'required|max:100',
                 'name_en' => 'required|max:100',
                 'quotas' => 'required|numeric',
-                'academy_id' => 'required|exists:academies,id',
+                'category_id' => 'required|exists:categories,id',
                 'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png'
 
             ], $messages);
@@ -154,8 +151,8 @@ class TeamController extends Controller
             return redirect()->route('admin.teams.all');
         }
 
-        $time = TeamTime::where('team_id',$teamId) -> first();
-        return view('admin.teams.workingdays', compact('academies', 'team','time'));
+        $time = TeamTime::where('team_id', $teamId)->first();
+        return view('admin.teams.workingdays', compact('academies', 'team', 'time'));
     }
 
     public function saveWorkingDay(Request $request)
@@ -175,7 +172,7 @@ class TeamController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
 
-            $inputs = ['id','saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
+            $inputs = ['id', 'saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
 
             $team = Team::find($request->team_id);
             if (!$team) {
@@ -187,14 +184,14 @@ class TeamController extends Controller
             if ($times->first()) {
                 $teamTime = TeamTime::where('team_id', $request->team_id)->first();   // must load model first then update to let mutators work on update
                 $teamTime->update($request->except($inputs + ['_token']));
-                  $this -> setDayStatus($request);
+                $this->setDayStatus($request);
                 notify()->success('تم تحديث الاوقات بنجاح ');
                 return redirect()->back();
             } else {
 
-                 $time = TeamTime::create($request->except($inputs));
-                 $request -> request -> team_id = $time;
-                $this -> setDayStatus($request);
+                $time = TeamTime::create($request->except($inputs));
+                $request->request->team_id = $time;
+                $this->setDayStatus($request);
                 notify()->success('تم تحديث الاوقات بنجاح ');
                 return redirect()->back();
             }
@@ -204,32 +201,47 @@ class TeamController extends Controller
     }
 
 
-    protected function setDayStatus(Request $request){
-         $status = ['saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
-        $times = TeamTime::where('team_id',$request -> team_id) -> first();
-        foreach ($status as $st){
-            if($request -> has($st)){
-                $times -> update([$st => 1]);
-            }else{
-                $times -> update([$st => 0]);
+    protected function setDayStatus(Request $request)
+    {
+        $status = ['saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
+        $times = TeamTime::where('team_id', $request->team_id)->first();
+        foreach ($status as $st) {
+            if ($request->has($st)) {
+                $times->update([$st => 1]);
+            } else {
+                $times->update([$st => 0]);
             }
         }
     }
 
 
-    public function  getTeamCoaches($teamId)
+    public function getTeamCoaches($teamId)
     {
         $data['team'] = Team::findOrFail($teamId);
-        $data['coaches'] = $data['team'] -> coaches;
+        $data['coaches'] = $data['team']->coaches;
         return view('admin.teams.coaches', $data);
     }
 
-    public function  getTeamStudents($teamId)
+    public function getTeamStudents($teamId)
     {
         $data['team'] = Team::findOrFail($teamId);
-          $data['users'] = $data['team'] -> users;
+        $data['users'] = $data['team']->users;
         return view('admin.teams.users', $data);
     }
 
+
+
+    public function loadHeroes(Request $request){
+        $team = Team::find($request->team_id);
+        if(!$team)
+        {
+            return response() -> json(['content' => null]);
+        }
+         $users = $team -> users;
+        $view = view('admin.teams.heroes', compact('users'))->renderSections();
+        return response()->json([
+            'content' => $view['main'],
+        ]);
+    }
 
 }

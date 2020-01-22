@@ -134,12 +134,14 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select id="academy" name="academy_id"
+                                                                    class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
                                                                             <option
-                                                                                value="{{$academy -> id }}">{{$academy -> name}}</option>
+                                                                                value="{{$academy -> id }}"
+                                                                                @if(old('academy_id') == $academy ->  id ) selected @endif>{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -150,26 +152,37 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الفرق <span
                                                                     class="text-info"> (يمكنك أختيار اكثر من فرقه )</span>
                                                             </label>
-                                                            <select class="select2 form-control" name="teams[]" multiple="multiple">
-                                                                @if($teams && $teams -> count() > 0)
-                                                                    @foreach($teams as $team)
-                                                                        <optgroup label=" الفرق ">
-                                                                            <option value="{{$team->id}}">{{$team -> name_ar}}</option>
-                                                                        </optgroup>
-                                                                    @endforeach
-                                                                @endif
+                                                            <select class="select2 form-control appendTeams"
+                                                                    name="teams[]"
+                                                                    multiple="multiple">
                                                             </select>
                                                             @error('teams')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mt-1">
@@ -200,7 +213,6 @@
                                                                     >أنثي</label>
                                                                 </div>
 
-
                                                                 @error('gender')
                                                                 <span class="text-danger"> {{$message}}</span>
                                                                 @enderror
@@ -208,7 +220,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
 
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
@@ -235,4 +246,72 @@
 
 
 @section('script')
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+
+                }
+            });
+        });
+
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
+
+
+    </script>
 @stop

@@ -65,6 +65,46 @@
 
 
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات الفاعلية </h4>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> الاكاديمية </label>
+                                                            <select name="academy_id" id="academy"
+                                                                    class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر الاكاديمية ">
+                                                                    @if($academies && $academies -> count() > 0)
+                                                                        @foreach($academies as $academy)
+                                                                            <option
+                                                                                @if(old('academy_id') == $academy -> id)
+                                                                                selected
+                                                                                @endif
+                                                                                value="{{$academy -> id }}"
+                                                                            >{{$academy -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('academy_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id"
+                                                                    class="select2 form-control appendCategories">
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -98,7 +138,8 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> المحتوي بالعربي </label>
-                                                            <textarea  id="ckeditor-language" name="description_ar" rows="10"
+                                                            <textarea id="ckeditor-language" name="description_ar"
+                                                                      rows="10"
                                                                       name="description_ar">{{old('description_ar')}}</textarea>
                                                             @error('description_ar')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -111,8 +152,9 @@
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> المحتوي بالانجليزي </label>
-                                                            <textarea  id="ckeditor-language2" name="description_en" rows="10"
-                                                                       name="description_en">{{old('description_en')}}</textarea>
+                                                            <textarea id="ckeditor-language2" name="description_en"
+                                                                      rows="10"
+                                                                      name="description_en">{{old('description_en')}}</textarea>
                                                             @error('description_en')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
@@ -126,11 +168,12 @@
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
                                                                    checked/>
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    <div class="form-actions">
+                                                <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">
                                                         <i class="ft-x"></i> تراجع
@@ -157,19 +200,49 @@
 @section('script')
     <script>
 
-        CKEDITOR.replace( 'ckeditor-language', {
-            extraPlugins: 'language',
-            // Customizing list of languages available in the Language drop-down.
-            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
-            height: 350
-        } );
 
-        CKEDITOR.replace( 'ckeditor-language2', {
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+
+
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+
+        CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',
             // Customizing list of languages available in the Language drop-down.
-            language_list: [ 'ar:Arabic:rtl', 'fr:French',  'he:Hebrew:rtl', 'es:Spanish' ],
+            language_list: ['ar:Arabic:rtl', 'fr:French', 'he:Hebrew:rtl', 'es:Spanish'],
             height: 350
-        } );
+        });
+
+        CKEDITOR.replace('ckeditor-language2', {
+            extraPlugins: 'language',
+            // Customizing list of languages available in the Language drop-down.
+            language_list: ['ar:Arabic:rtl', 'fr:French', 'he:Hebrew:rtl', 'es:Spanish'],
+            height: 350
+        });
 
     </script>
 @stop

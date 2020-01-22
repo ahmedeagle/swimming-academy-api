@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Academy;
 use App\Models\Activity;
 
 use App\Traits\Dashboard\PublicTrait;
@@ -22,7 +23,8 @@ class ActivityController extends Controller
 
     public function create()
     {
-        return view('admin.activities.create');
+        $academies = Academy::active()->get();
+        return view('admin.activities.create', compact('academies'));
     }
 
 
@@ -33,12 +35,19 @@ class ActivityController extends Controller
                 'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',
                 'title_en.required' => ' العنوان   بالانجليزي  مطلوب  .',
                 'videoLink.required' => ' لابج من ادخال رابط الفيديو   .',
+                'academy_id.required' => 'لابد من أختيار الاكاديمية ',
+                'academy_id.exists' => 'الأكاديمية غير موجوده لدينا',
+                'category_id.required' => 'لابد من أختيار القسم  ',
+                'category_id.exists' => 'القسم  غير موجوده لدينا',
             ];
 
             $validator = Validator::make($request->all(), [
                 'title_ar' => 'required|max:100',
                 'title_en' => 'required|max:100',
                 'videoLink' => 'required|max:225',
+                'academy_id' => 'required|exists:academies,id',
+                'category_id' => 'required|exists:categories,id'
+
             ], $messages);
 
             if ($validator->fails()) {
@@ -62,7 +71,9 @@ class ActivityController extends Controller
     function edit($id)
     {
         $data = [];
+        $data['academies'] = Academy::active()->get();
         $data['activity'] = Activity::findOrFail($id);
+        $data['categories'] = $data['activity']->academy->categories;
         return view('admin.activities.edit', $data);
     }
 
@@ -75,12 +86,18 @@ class ActivityController extends Controller
             'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',
             'title_en.required' => ' العنوان   بالانجليزي  مطلوب  .',
             'videoLink.required' => ' لابج من ادخال رابط الفيديو   .',
+            'academy_id.required' => 'لابد من أختيار الاكاديمية ',
+            'academy_id.exists' => 'الأكاديمية غير موجوده لدينا',
+            'category_id.required' => 'لابد من أختيار القسم  ',
+            'category_id.exists' => 'القسم  غير موجوده لدينا',
         ];
 
         $validator = Validator::make($request->all(), [
             'title_ar' => 'required|max:100',
             'title_en' => 'required|max:100',
             'videoLink' => 'required|max:225',
+            'academy_id' => 'required|exists:academies,id',
+            'category_id' => 'required|exists:categories,id'
         ], $messages);
 
         if ($validator->fails()) {
@@ -93,7 +110,7 @@ class ActivityController extends Controller
             $status = $request->has('status') ? 1 : 0;
             $request->request->add(['status' => $status]); //add request
             DB::beginTransaction();
-            $activity->update($request -> all());
+            $activity->update($request->all());
             DB::commit();
             notify()->success('تمت التعديل  بنجاح ');
             return redirect()->route('admin.activities.all');

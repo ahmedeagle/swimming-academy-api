@@ -47,6 +47,7 @@
                                                 <th> الاسم بالعربي</th>
                                                 <th>الاسم بالانجليزي</th>
                                                 <th>الأكاديمية</th>
+                                                <th>القسم </th>
                                                 <th> عدد الحصص الشهرية</th>
                                                 <th> صورة الفرقه</th>
                                                 <th> أيام الفرقه  </th>
@@ -62,7 +63,8 @@
                                                     <tr>
                                                         <td>{{$team -> name_ar}}</td>
                                                         <td>{{$team ->name_en}}</td>
-                                                        <td>{{$team -> academy -> name}}</td>
+                                                        <td>{{$team -> academy -> name_ar}}</td>
+                                                        <td>{{$team -> category -> name_ar}}</td>
                                                         <td>{{$team -> quotas}}</td>
                                                         <td><img src="{{$team -> photo}}" height="40px;"></td>
                                                         <td><a href="{{route('admin.teams.days',$team->id)}}"

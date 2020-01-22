@@ -12,7 +12,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.academies.all')}}"> الأكاديمات </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.academies.all')}}"> الأكاديميات </a>
                                 </li>
                                 <li class="breadcrumb-item active">أضافة أكاديمية
                                 </li>
@@ -44,10 +44,49 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.academies.store')}}" method="POST">
+                                        <form class="form" action="{{route('admin.academies.store')}}" method="POST"
+                                              enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
+
+                                                <div class="form-group">
+                                                    <label> شعار الاكاديمية</label>
+                                                    <label id="projectinput7" class="file center-block">
+                                                        <input type="file" id="file" name="logo">
+                                                        <span class="file-custom"></span>
+                                                    </label>
+                                                    @error('logo')
+                                                    <span class="text-danger"> {{$message}}</span>
+                                                    @enderror
+                                                </div>
+
+
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات الأكاديمية </h4>
+                                        {{--        <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> نشاط الاكاديمية (يمكنك اختيار
+                                                                أكثر من نشاط ) </label>
+                                                            <select name="categories[]" multiple="multiple"
+                                                                    class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر  نشاط الاكاديمية ">
+                                                                    @if($categories && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                {{ (is_array(old('categories')) && in_array($category -> id, old('categories'))) ? ' selected' : '' }}
+                                                                            >{{$category -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('categories')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -116,6 +155,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">

@@ -59,6 +59,54 @@
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات فيديو النشاط
                                                 </h4>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر الاكاديمية </label>
+                                                            <select name="academy_id" class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر الاكاديمية">
+                                                                    @if($academies && $academies -> count() > 0)
+                                                                        @foreach($academies as $academy)
+                                                                            <option
+                                                                                value="{{$academy -> id }}"
+                                                                                @if($academy -> id == $activity -> academy_id) selected @endif>{{$academy -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('academy_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
+                                                                <optgroup label="من فضلك أختر القسم ">
+                                                                    @if(isset($categories) && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                @if($category -> id == $activity -> category_id) selected @endif
+                                                                            >{{$category -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">

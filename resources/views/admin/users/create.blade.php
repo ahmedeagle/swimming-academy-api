@@ -210,12 +210,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select  id="academy" name="academy_id" class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
                                                                             <option
-                                                                                value="{{$academy -> id }}">{{$academy -> name}}</option>
+                                                                                value="{{$academy -> id }}"
+                                                                                @if(old('academy_id')  ==  $academy -> id) selected @endif>{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -225,20 +226,14 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  فرقه الطالب
-                                                            </label>
-                                                            <select class="select2 form-control" name="team_id" >
-                                                                @if($teams && $teams -> count() > 0)
-                                                                    <optgroup label=" الفرق ">
-                                                                    @foreach($teams as $team)
-                                                                            <option value="{{$team->id}}">{{$team -> name_ar}}</option>
-                                                                    @endforeach
-                                                                    </optgroup>
-                                                                @endif
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
                                                             </select>
-                                                            @error('team_id')
+                                                            @error('category_id')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -247,7 +242,19 @@
 
 
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2">  فرقه الطالب
+                                                            </label>
+                                                            <select class="select2 form-control appendTeams" name="team_id" >
+                                                            </select>
+                                                            @error('team_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2">  تاريخ الميلاد  </label>
                                                             <input type="text"  name="birth_date" class="form-control input-lg" id="lang" placeholder="Date Dropper">
@@ -322,4 +329,72 @@
 
 
 @section('script')
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+
+                }
+            });
+        });
+
+        //get academy teams branches
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
+
+
+    </script>
 @stop

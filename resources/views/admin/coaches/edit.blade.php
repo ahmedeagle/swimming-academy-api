@@ -146,7 +146,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select id="academy" name="academy_id" class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
@@ -163,68 +163,99 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id" id="category"
+                                                                    class="select2 form-control appendCategories">
+                                                                <optgroup label="من فضلك أختر القسم ">
+                                                                    @if(isset($categories) && $categories -> count() > 0)
+                                                                        @foreach($categories as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                @if($category -> id == $coach -> category_id) selected @endif
+                                                                                 >{{$category -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الفرق <span
                                                                     class="text-info"> (يمكنك أختيار اكثر من فرقه )</span>
                                                             </label>
-                                                            <select class="select2 form-control" name="teams[]"
+                                                            <select class="select2 form-control appendTeams"
+                                                                    name="teams[]"
                                                                     multiple="multiple">
-                                                                @if($teams && $teams -> count() > 0)
-                                                                    <optgroup label=" الفرق ">
-                                                                        @foreach($teams as $team)
-                                                                            <option value="{{$team->id}}"
-                                                                                    @if(in_array($team -> id, $coach -> teams() -> pluck('teams.id') -> toArray()))selected @endif>{{$team -> name_ar}}</option>
+                                                                <optgroup label=" الفرق ">
+                                                                    @if(isset($categoryTeams) && $categoryTeams -> count() > 0)
+                                                                        @foreach($categoryTeams as $team)
+                                                                            <option
+                                                                                value="{{$team -> id}}"
+                                                                                 {{in_array($team -> id,$coachTeamsIds) ? 'selected' : ''}}
+                                                                                  >{{$team -> name_ar}}
+                                                                                  </option>
                                                                         @endforeach
-                                                                    </optgroup>
-                                                                @endif
+                                                                    @endif
+                                                                </optgroup>
                                                             </select>
                                                             @error('teams')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group mt-1">
-                                                                <input type="checkbox" name="status"
-                                                                       id="switcheryColor4"
-                                                                       class="switchery" data-color="success"
-                                                                       @if($coach -> status == 1) checked @endif/>
-                                                                <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="text-center inline">
-                                                                <div
-                                                                    class="d-inline-block custom-control custom-radio mr-1">
-                                                                    <input type="radio" value="1"
-                                                                           class="custom-control-input"
-                                                                           name="gender" id="radio1"
-                                                                           @if($coach -> gender == 1  )checked @endif>
-                                                                    <label class="custom-control-label" for="radio1"
-                                                                           checked> ذكر </label>
-
-                                                                </div>
-                                                                <div
-                                                                    class="d-inline-block custom-control custom-radio mr-1">
-                                                                    <input type="radio" class="custom-control-input"
-                                                                           name="gender" value="2" id="radio2"
-                                                                           @if($coach -> gender == 2 )checked @endif>
-                                                                    <label class="custom-control-label" for="radio2"
-                                                                    >أنثي</label>
-                                                                </div>
-                                                                @error('gender')
-                                                                <span class="text-danger"> {{$message}}</span>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
 
 
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mt-1">
+                                                            <input type="checkbox" name="status"
+                                                                   id="switcheryColor4"
+                                                                   class="switchery" data-color="success"
+                                                                   @if($coach -> status == 1) checked @endif/>
+                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="text-center inline">
+                                                            <div
+                                                                class="d-inline-block custom-control custom-radio mr-1">
+                                                                <input type="radio" value="1"
+                                                                       class="custom-control-input"
+                                                                       name="gender" id="radio1"
+                                                                       @if($coach -> gender == 1  )checked @endif>
+                                                                <label class="custom-control-label" for="radio1"
+                                                                       checked> ذكر </label>
+
+                                                            </div>
+                                                            <div
+                                                                class="d-inline-block custom-control custom-radio mr-1">
+                                                                <input type="radio" class="custom-control-input"
+                                                                       name="gender" value="2" id="radio2"
+                                                                       @if($coach -> gender == 2 )checked @endif>
+                                                                <label class="custom-control-label" for="radio2"
+                                                                >أنثي</label>
+                                                            </div>
+                                                            @error('gender')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">
@@ -248,6 +279,48 @@
     </div>
 @stop
 
-
 @section('script')
+    <script>
+        //get academy teams branches
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
+
+
+    </script>
 @stop

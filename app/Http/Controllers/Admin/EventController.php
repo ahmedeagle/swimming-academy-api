@@ -30,7 +30,8 @@ class EventController extends Controller
 
     public function create()
     {
-        return view('admin.events.create');
+        $academies = Academy::active()->get();
+        return view('admin.events.create', compact('academies'));
     }
 
 
@@ -44,6 +45,10 @@ class EventController extends Controller
             'description_en.required' => ' المحتوي   بالانجليزي  مطلوب  .',
             'photo.required' => 'لابد من رفع صوره اولا ',
             'photo.mimes' => 'امتداد صوره غير مسموح به',
+            'academy_id.required' => 'لابد من أختيار الاكاديمية ',
+            'academy_id.exists' => 'الأكاديمية غير موجوده لدينا',
+            'category_id.required' => 'لابد من أختيار القسم  ',
+            'category_id.exists' => 'القسم  غير موجوده لدينا',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -51,7 +56,9 @@ class EventController extends Controller
             'title_en' => 'required|max:100',
             'description_ar' => 'required',
             'description_en' => 'required',
-            'photo' => 'required|mimes:jpg,jpeg,png'
+            'photo' => 'required|mimes:jpg,jpeg,png',
+            'academy_id' => 'required|exists:academies,id',
+            'category_id' => 'required|exists:categories,id'
         ], $messages);
 
         if ($validator->fails()) {
@@ -76,7 +83,10 @@ class EventController extends Controller
     public function edit($id)
     {
         $data = [];
+        $data['academies'] = Academy::active()->get();
         $data['event'] = Event::findOrFail($id);
+        $data['categories'] = $data['event']->academy->categories;
+
         return view('admin.events.edit', $data);
     }
 
@@ -91,6 +101,10 @@ class EventController extends Controller
             'description_en.required' => ' المحتوي   بالانجليزي  مطلوب  .',
             'photo.required' => 'لابد من رفع صوره اولا ',
             'photo.mimes' => 'امتداد صوره غير مسموح به',
+            'academy_id.required' => 'لابد من أختيار الاكاديمية ',
+            'academy_id.exists' => 'الأكاديمية غير موجوده لدينا',
+            'category_id.required' => 'لابد من أختيار القسم  ',
+            'category_id.exists' => 'القسم  غير موجوده لدينا',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -98,7 +112,9 @@ class EventController extends Controller
             'title_en' => 'required|max:100',
             'description_ar' => 'required',
             'description_en' => 'required',
-            'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png'
+            'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
+            'academy_id' => 'required|exists:academies,id',
+            'category_id' => 'required|exists:categories,id'
         ], $messages);
 
         if ($validator->fails()) {

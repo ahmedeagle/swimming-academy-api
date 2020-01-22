@@ -51,6 +51,7 @@
                                                 <th> الاسم بالعربي</th>
                                                 <th>الاسم بالانجليزي</th>
                                                 <th>الأكاديمية</th>
+                                                <th>القسم</th>
                                                 <th>الهاتف </th>
                                                 <th> صورة الشخصية </th>
                                                 <th> النوع  </th>
@@ -68,9 +69,10 @@
                                                         <td>{{$coach -> name_ar}}</td>
                                                         <td>{{$coach ->name_en}}</td>
                                                         <td>{{$coach -> academy -> name_ar}}</td>
+                                                        <td>{{$coach ->category -> name_ar}}</td>
                                                         <td>{{$coach -> mobile}}</td>
                                                         <td><img src="{{$coach -> photo}}" height="40px;"></td>
-                                                        <td>{{$coach -> gender}}</td>
+                                                        <td>{{$coach -> getGender()}}</td>
                                                         <td>{{$coach -> getStatus()}}</td>
                                                         <td>{{$coach -> rate}}</td>
                                                         <td>
@@ -78,9 +80,18 @@
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.coaches.edit',$coach->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                                <button type="button"
+                                                                        value="{{$coach->id}}"  onclick="deletefn(this.value)"
+                                                                        class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRight">
+                                                                     حذف
+                                                                </button>
+
                                                                 <a href="{{route('admin.coaches.teams',$coach->id)}}"  class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">الفرق</a>
+
                                                                 <a href="{{route('admin.coaches.users',$coach->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">الطلاب</a>
+                                                                   class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">الطلاب</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -97,4 +108,16 @@
             </div>
         </div>
     </div>
+    @include('admin.includes.modals.deleteModal',['text' =>' هل بالفعل تريد حذف الكابتن ؟']);
+
 @stop
+
+@section('script')
+    <script>
+        function deletefn(val){
+            var a = document.getElementById('yes');
+            a.href = "{{ url('admin/coaches/delete/') }}"+ "/" +val;
+        }
+    </script>
+@stop
+

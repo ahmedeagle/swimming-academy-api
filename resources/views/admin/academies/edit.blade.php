@@ -44,10 +44,53 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.academies.update',$academy -> id)}}" method="POST">
+                                        <form class="form" action="{{route('admin.academies.update',$academy -> id)}}"
+                                              method="POST" enctype="multipart/form-data">
                                             @csrf
+
+                                            <div class="form-group">
+                                                <div class="text-center">
+                                                    <img
+                                                        src="{{$academy -> logo}}"
+                                                        class="rounded-circle  height-150" alt="شعار الاكاديمية  ">
+                                                </div>
+                                            </div>
+
+
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات الأكاديمية </h4>
+                                                <div class="form-group">
+                                                    <label> شعار الاكاديمية</label>
+                                                    <label id="projectinput7" class="file center-block">
+                                                        <input type="file" id="file" name="logo">
+                                                        <span class="file-custom"></span>
+                                                    </label>
+                                                    @error('logo')
+                                                    <span class="text-danger"> {{$message}}</span>
+                                                    @enderror
+                                                </div>
+
+                                               {{-- <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> نشاط الاكاديمية </label>
+                                                            <select name="categories[]" class="select2 form-control" multiple="multiple">
+                                                                <optgroup label="من فضلك أختر  نشاط الاكاديمية ">
+                                                                    @if($categories && $categories -> count() > 0)
+                                                                        @foreach($categories  as $category)
+                                                                            <option
+                                                                                value="{{$category -> id }}"
+                                                                                @if(in_array($category -> id, $academy -> categories() -> pluck('categories.id') -> toArray())) selected @endif>{{$category -> name}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                        </div>
+                                                        @error('categories')
+                                                        <span class="text-danger"> {{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div> --}}
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -124,7 +167,7 @@
                                                         <i class="ft-x"></i> تراجع
                                                     </button>
                                                     <button type="submit" class="btn btn-primary">
-                                                        <i class="la la-check-square-o"></i>  تحديث
+                                                        <i class="la la-check-square-o"></i> تحديث
                                                     </button>
                                                 </div>
                                             </div>

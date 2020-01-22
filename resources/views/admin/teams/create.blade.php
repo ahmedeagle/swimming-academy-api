@@ -51,7 +51,6 @@
                                               enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-
                                                 <div class="form-group">
                                                     <label> صوره للفريق </label>
                                                     <label id="projectinput7" class="file center-block">
@@ -62,8 +61,6 @@
                                                     <span class="text-danger"> {{$message}}</span>
                                                     @enderror
                                                 </div>
-
-
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات الفرقة </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -96,7 +93,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2">عدد الحصص الشهرية </label>
-                                                            <input type="number"  min="1" value="{{old('quotas')}}"
+                                                            <input type="number" min="1" value="{{old('quotas')}}"
                                                                    id="quotas"
                                                                    class="form-control"
                                                                    placeholder="أدحل عدد حص الفرقه الشهرية   "
@@ -106,15 +103,17 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select name="academy_id" id="academy"
+                                                                    class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
-                                                                        <option value="{{$academy -> id }}">{{$academy -> name}}</option>
+                                                                            <option
+                                                                                value="{{$academy -> id }}"
+                                                                                 {{old('academy_id')  == $academy -> id ? 'selected' : ''}}>{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -124,16 +123,29 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر  القسم  </label>
+                                                            <select name="category_id" id="academy"
+                                                                    class="select2 form-control appendCategories">
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group mt-1">
-                                                                <input type="checkbox" name="status"
-                                                                       id="switcheryColor4"
-                                                                       class="switchery" data-color="success"
-                                                                       checked/>
-                                                                <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mt-1">
+                                                            <input type="checkbox" name="status"
+                                                                   id="switcheryColor4"
+                                                                   class="switchery" data-color="success"
+                                                                   checked/>
+                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,6 +172,34 @@
     </div>
 @stop
 
-
 @section('script')
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+    </script>
 @stop

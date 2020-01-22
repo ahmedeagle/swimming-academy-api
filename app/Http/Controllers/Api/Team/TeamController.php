@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Team;
 
 use App\Http\Controllers\Controller;
+use App\Models\Academy;
 use App\Models\Coach;
 use App\Models\Token;
 use App\Traits\GlobalTrait;
@@ -27,9 +28,20 @@ class TeamController extends Controller
 
     }
 
-    public function  getAllTeams(Request $request){
+    public function getAllTeamsByAcademyCode(Request $request)
+    {
         try {
-            $teams = $this->getTeams();
+            $validator = Validator::make($request->all(), [
+                "academy_code" => "required|exists:academies,code",
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            $academyId = Academy::where('code', $request->academy_code)->value('id');
+            $teams = $this->getTeamsByAcademyId($academyId);
             if (count($teams) > 0)
                 return $this->returnData('teams', $teams);
 

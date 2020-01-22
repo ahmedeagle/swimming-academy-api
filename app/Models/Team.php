@@ -18,7 +18,7 @@ class Team extends Model
         'status' => 'integer',
     ];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'academy_id', 'status'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id', 'status'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -27,9 +27,17 @@ class Team extends Model
         return ($val != "" ? asset($val) : "");
     }
 
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id')->withDefault(["name" => ""]);
+    }
+
+
     public function academy()
     {
-        return $this->belongsTo('App\Models\Academy', 'academy_id')->withDefault(["name" => ""]);
+        return $this->belongsTo('App\Models\Category', 'category_id')
+            ->join('academies', 'academies.id', '=', 'categories.academy_id');
     }
 
 
@@ -40,7 +48,8 @@ class Team extends Model
 
     public function heroes()
     {
-        return $this->hasManyThrough('App\Models\Hero', 'App\Models\User', 'team_id', 'user_id', 'id', 'id');
+        //return $this->hasManyThrough('App\Models\Hero', 'App\Models\User', 'team_id', 'user_id', 'id', 'id');
+        return $this -> hasMany('App\Models\Hero','team_id','id');
     }
 
     public function users()
@@ -69,7 +78,7 @@ class Team extends Model
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'academy_id', 'photo', 'quotas', 'status');
+        return $query->select('id', 'name_ar', 'name_en', 'category_id', 'photo', 'quotas', 'status');
     }
 
     public function scopeActive($query)

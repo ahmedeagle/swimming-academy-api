@@ -46,11 +46,13 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         <table
-                                            class="table display nowrap table-striped table-bordered ">
+                                            class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
                                                 <th> العنوان بالعربي</th>
                                                 <th> العنوان بالانجليزي</th>
+                                                <th>الأكاديمية</th>
+                                                <th>القسم</th>
                                                 <th> الفيديو</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
@@ -62,6 +64,8 @@
                                                     <tr>
                                                         <td>{{ Str::limit($activity -> title_ar,100)}}</td>
                                                         <td>{{Str::limit($activity ->title_en,100)}}</td>
+                                                        <td>{{$activity -> academy -> name_ar}}</td>
+                                                        <td>{{$activity -> category -> name_ar}}</td>
                                                         <td>
                                                             <div class="embed-responsive embed-responsive-4by3">
                                                                 <iframe class="border-0"

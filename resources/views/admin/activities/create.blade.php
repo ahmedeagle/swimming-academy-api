@@ -55,6 +55,45 @@
 
                                                 <h4 class="form-section"><i class="ft-user"></i> بيانات فيديو النشاط
                                                 </h4>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> الاكاديمية </label>
+                                                            <select name="academy_id" id="academy"
+                                                                    class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر الاكاديمية ">
+                                                                    @if($academies && $academies -> count() > 0)
+                                                                        @foreach($academies as $academy)
+                                                                            <option
+                                                                                @if(old('academy_id') == $academy -> id)
+                                                                                selected
+                                                                                @endif
+                                                                                value="{{$academy -> id }}"
+                                                                            >{{$academy -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('academy_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر القسم </label>
+                                                            <select name="category_id"
+                                                                    class="select2 form-control appendCategories">
+                                                            </select>
+                                                            @error('category_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -138,6 +177,38 @@
 
 @section('script')
     <script>
+
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+
+
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                }
+            });
+        });
+
 
         CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',

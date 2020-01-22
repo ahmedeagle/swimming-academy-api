@@ -8,11 +8,10 @@ class Hero extends Model
 {
     protected $table = 'heroes';
     public $timestamps = true;
-    protected $forcedNullStrings = ['date'];
+    protected $forcedNullStrings = ['date','note_ar','note_en'];
 
-    protected $fillable = ['user_id', 'team_id', 'date','created_at'];
-    protected $hidden = [ 'updated_at'];
-
+    protected $fillable = ['user_id', 'team_id', 'category_id', 'date', 'created_at','note_ar','note_en'];
+    protected $hidden = ['updated_at','note_ar','note_en'];
 
     public function setAttribute($key, $value)
     {
@@ -25,4 +24,22 @@ class Hero extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
+
+    public function academy()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id')
+            ->join('academies', 'academies.id', '=', 'users.academy_id');
+    }
+
+
+    public function team()
+    {
+        return $this->belongsTo('App\Models\Team', 'team_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
+    }
+
 }

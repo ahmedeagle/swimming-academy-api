@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Observers\CategoryObserver;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use  DB;
-
+use App\Observers\UserObserver;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -23,7 +24,7 @@ class User extends Authenticatable implements JWTSubject
     protected $appends = ['is_coach'];
 
     protected $fillable = [
-        'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'academy_id', 'team_id', 'email', 'tall', 'weight', 'birth_date', 'status', 'device_token',
+        'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'team_id','category_id','academy_id','email', 'tall', 'weight', 'birth_date', 'status', 'device_token',
         'activation_code', 'photo', 'api_token', 'password', 'created_at', 'updated_at'];
 
     protected $hidden = [
@@ -31,9 +32,20 @@ class User extends Authenticatable implements JWTSubject
     ];
 
 
-    public function academy()
+    protected static function boot()
     {
-        return $this->belongsTo('App\Models\Academy', 'academy_id', 'id');
+        parent::boot();
+        User::observe(UserObserver::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Team', 'team_id')
+            ->join('categories', 'categories.id', '=', 'teams.category_id');
+    }
+
+    public function  academy(){
+        return $this -> belongsTo('App\Models\Academy','academy_id','id');
     }
 
     public function Coaches()

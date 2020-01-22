@@ -40,6 +40,20 @@ trait PublicTrait
         return $string;
     }
 
+    function getRandomCode($length, $model)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+        }
+        $chkCode = $model::where('code', $string)->first();
+        if ($chkCode) {
+            $this->getRandomCode(6);
+        }
+        return $string;
+    }
+
     public function uploadImage($folder, $image)
     {
         $image->store('/', $folder);

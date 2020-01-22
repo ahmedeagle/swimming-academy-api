@@ -140,6 +140,11 @@
 
 <script type="text/javascript">
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     var notificationsWrapper = $('.dropdown-messages');
     var notificationsToggle = notificationsWrapper.find('a[data-toggle]');
     var notificationsCountElem = notificationsToggle.find('span[data-count]');
