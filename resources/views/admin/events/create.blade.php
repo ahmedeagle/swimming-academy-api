@@ -3,7 +3,11 @@
     أضافة  فاعليات
 @stop
 @section('style')
+<style>
+    .dropzone .dz-message {
 
+    }
+</style>
 @stop
 @section('content')
     <div class="app-content content">
@@ -47,13 +51,19 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
+
+
                                         <form class="form" action="{{route('admin.events.store')}}" method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
 
                                                 <div class="form-group">
-                                                    <label> صوره الفاعلية </label>
+                                                    <div id="dpz-multiple-files"  class="dropzone dropzone-area">
+                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا </div>
+                                                    </div>
+                                                    <br><br>
+                                                    <label> الصوره الرئيسية  للفاعلية </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -229,6 +239,36 @@
                 }
             });
         });
+
+
+        var uploadedDocumentMap = {}
+
+        Dropzone.options.dpzMultipleFiles = {
+            paramName: "dzfile", // The name that will be used to transfer the file
+            //autoProcessQueue: false,
+            maxFilesize: 5, // MB
+            clickable: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            url: "{{ route('admin.events.storeImages') }}", // Set the url
+            success: function (file, response) {
+                $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+                uploadedDocumentMap[file.name] = response.name
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedDocumentMap[file.name]
+                }
+                $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+            },
+            // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
+        }
+
 
         CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',

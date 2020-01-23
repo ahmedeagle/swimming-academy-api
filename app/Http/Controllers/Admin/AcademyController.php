@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
 use App\Models\Category;
+use App\Models\Setting;
 use App\Models\Team;
 use App\Traits\Dashboard\PublicTrait;
 use Illuminate\Http\Request;
@@ -144,7 +145,7 @@ class AcademyController extends Controller
     {
 
         $academy = Academy::findOrfail($request->academy_id);
-         $settings = $academy->setting;
+        $settings = $academy->setting;
         $view = view('admin.aboutus.loadData', compact('settings'))->renderSections();
         return response()->json([
             'content' => $view['main'],
@@ -152,11 +153,51 @@ class AcademyController extends Controller
     }
 
 
-    public function academyAboutUs($id){
+    public function academyAboutUs($id)
+    {
         $academy = Academy::findOrFail($id);
         $settings = $academy->setting;
 
-        return view('admin.academies.aboutUs',compact('settings'));
+        return view('admin.academies.aboutUs', compact('settings', 'academy'));
+    }
+
+
+    public function saveAboutUs(Request $request)
+    {
+        try {
+            $messages = [
+                'academy_id.required' => ' لابد من تحديد الاكاديمية ',
+                'academy_id.exists' => 'الاكاديمية غير موجوده لدينا '
+            ];
+
+            $validator = Validator::make($request->all(), [
+                'academy_id' => 'required|exists:academies,id'
+            ], $messages);
+
+            if ($validator->fails()) {
+                notify()->error('هناك خطا برجاء المحاوله مجددا ');
+                return redirect()->back()->withErrors($validator)->withInput($request->all());
+            }
+
+            $academy = Academy::findorFail($request->academy_id);
+            $settings = $academy->setting;
+
+            if ($settings === null) {
+                $setting = new Setting($request->all());
+                $academy->setting()->save($setting);
+
+                notify()->success('تمت الحفظ بنجاح ');
+                return redirect()->route('admin.academies.all');
+
+            } else {
+                $academy->setting->update($request->all());
+            }
+            notify()->success('تمت التعديل بنجاح ');
+            return redirect()->route('admin.academies.all');
+
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
     public function deleteAcademy($id)

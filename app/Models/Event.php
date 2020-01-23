@@ -22,6 +22,12 @@ class Event extends Model
         return parent::setAttribute($key, $value);
     }
 
+
+    public function images()
+    {
+        return $this->morphMany('\App\Models\Image', 'imageable');
+    }
+
     public function getStatus()
     {
         return $this->status == 0 ? 'غير مفعل' : 'مفعل';

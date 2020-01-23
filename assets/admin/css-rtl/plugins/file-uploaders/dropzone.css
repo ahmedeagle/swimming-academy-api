@@ -1,11 +1,11 @@
 .dropzone {
-  min-height: 350px;
+  min-height: 300px;
   border: 2px dashed #666EE8;
   background: #F4F5FA; }
   .dropzone .dz-message {
     font-size: 2rem;
     position: absolute;
-    top: 50%;
+    top: 10%;
     right: 0;
     width: 100%;
     height: 300px;

@@ -35,8 +35,22 @@ class EventController extends Controller
     }
 
 
+    public function storeEventImages(Request $request)
+    {
+
+        $file = $request->file('dzfile');
+        $filename = $this->uploadImage('events',$file);
+
+        return response()->json([
+            'name' => $filename,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+
+    }
+
     public function store(Request $request)
     {
+        return $request;
 
         $messages = [
             'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',

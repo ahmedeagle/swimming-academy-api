@@ -145,13 +145,6 @@
             </li>
 
 
-
-            <li class="nav-item @if(Route::current()->getName() == 'admin.aboutus') active @endif"><a href="{{route('admin.aboutus')}}">
-                    <i class="la la-book"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main"> من نحن  </span>
-                </a>
-            </li>
-
         </ul>
     </div>
 </div>

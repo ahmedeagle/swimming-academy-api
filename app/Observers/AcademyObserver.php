@@ -56,6 +56,7 @@ class AcademyObserver
         $academy->users()->delete();
         $academy->coaches()->delete();
         $academy->categories()->delete();
+        $academy->setting()->delete();
     }
 
 

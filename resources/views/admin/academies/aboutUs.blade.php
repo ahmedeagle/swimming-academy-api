@@ -45,9 +45,11 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.postaboutus')}}" method="POST"
+                                        <form class="form" action="{{route('admin.academies.postaboutus')}}" method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
+
+                                            <input type="hidden" name="academy_id"  value="{{$academy -> id }}">
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-user"></i> البيانات   </h4>
 

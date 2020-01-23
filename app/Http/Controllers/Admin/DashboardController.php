@@ -19,46 +19,4 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard.index');
     }
-
-    public function aboutUs()
-    {
-        $settings = Setting::first();
-        $academies = Academy::active() -> get();
-        return view('admin.aboutus.edit', compact('settings','academies'));
-    }
-
-    public function saveAboutUs(Request $request)
-    {
-        try {
-            $messages = [
-                'academy_id.required' => ' لابد من تحديد الاكاديمية ',
-                'academy_id.exists' => 'الاكاديمية غير موجوده لدينا '
-            ];
-
-            $validator = Validator::make($request->all(), [
-                'academy_id' => 'required|exists:academies,id'
-            ], $messages);
-
-            if ($validator->fails()) {
-                notify()->error('هناك خطا برجاء المحاوله مجددا ');
-                return redirect()->back()->withErrors($validator)->withInput($request->all());
-            }
-
-
-            $academy = Academy::findorFail($request -> academy_id);
-             $settings = $academy -> setting;
-            if ($settings === null) {
-                $setting = new Setting($request->all());
-                $academy->setting()->save($setting);
-            } else {
-                $academy->setting->update($request->all());
-            }
-            notify()->success('تمت التعديل  بنجاح ');
-            return redirect()->route('admin.aboutus');
-
-        } catch (\Exception $ex) {
-            return abort('404');
-        }
-    }
-
 }

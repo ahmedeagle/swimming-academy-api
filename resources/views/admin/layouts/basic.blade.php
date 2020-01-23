@@ -37,6 +37,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/pages/chat-application.css')}}">
     <link rel="stylesheet" type="text/css" href=".{{asset('assets/admin/vendors/css/forms/icheck/icheck.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/forms/icheck/custom.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/ui/prism.min.css')}}">
+     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/app.css')}}">
@@ -54,6 +56,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/extensions/timedropper.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/plugins/forms/checkboxes-radios.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/pages/gallery.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/plugins/file-uploaders/dropzone.css')}}">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/style-rtl.css')}}">
@@ -111,7 +114,7 @@
 
 <script src="{{asset('assets/admin/vendors/js/forms/icheck/icheck.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/pages/chat-application.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('assets/admin/vendors/js/extensions/dropzone.min.js')}}" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN MODERN JS-->
 <script src="{{asset('assets/admin/js/core/app-menu.js')}}" type="text/javascript"></script>
@@ -126,15 +129,14 @@
 <script src="{{asset('assets/admin/js/scripts/tables/datatables/datatable-basic.js')}}"
         type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/extensions/date-time-dropper.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('assets/admin/vendors/js/ui/prism.min.js')}}" type="text/javascript"></script>
 
 
 <!-- END PAGE LEVEL JS-->
 
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
-
-
+<script src="{{asset('assets/admin/js/scripts/extensions/dropzone.js')}}" type="text/javascript"></script>
 
 <!-- pusher configurations  -->
 
@@ -162,7 +164,7 @@
     channel.bind('App\\Events\\NewMessage', function (data) {
         var existingNotifications = notifications.html();
         var avatar = Math.floor(Math.random() * (71 - 20 + 1)) + 20;
-        var newNotificationHtml = `<a href="{{url('admin/users/tickets/reply')}}/`+data.id+`"><div class="media"><div class="media-left"><span class="avatar avatar-sm avatar-online rounded-circle"> <img  style="height: 60px;" src="` + data.photo + `" class="img-circle" alt="50x50" style="width: 50px; height: 50px;" alt="avatar"><i></i></span> </div> <div class="media-body"><h6 class="media-heading">` + data.title + `</h6> <p class="notification-text font-small-3 text-muted">` + data.message + `</p><small style="direction: ltr;"><time class="media-meta text-muted" style="direction: ltr;">` + data.date + `</time><br>` + data.time + ` </small></div></div></a>`;
+        var newNotificationHtml = `<a href="{{url('admin/users/tickets/reply')}}/` + data.id + `"><div class="media"><div class="media-left"><span class="avatar avatar-sm avatar-online rounded-circle"> <img  style="height: 60px;" src="` + data.photo + `" class="img-circle" alt="50x50" style="width: 50px; height: 50px;" alt="avatar"><i></i></span> </div> <div class="media-body"><h6 class="media-heading">` + data.title + `</h6> <p class="notification-text font-small-3 text-muted">` + data.message + `</p><small style="direction: ltr;"><time class="media-meta text-muted" style="direction: ltr;">` + data.date + `</time><br>` + data.time + ` </small></div></div></a>`;
         notifications.html(newNotificationHtml + existingNotifications);
         notificationsCount += 1;
         notificationsCountElem.attr('data-count', notificationsCount);

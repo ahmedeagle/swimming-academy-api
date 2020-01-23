@@ -57,6 +57,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post('/teams','AcademyController@loadAcademyHeroes') -> name('admin.academies.heroes');
         Route::get('/delete/{id}','AcademyController@deleteAcademy') -> name('admin.academies.delete');
         Route::get('/about-us/{id}','AcademyController@academyAboutUs') -> name('admin.academies.aboutus');
+        Route::post('/about-us','AcademyController@saveAboutUs') -> name('admin.academies.postaboutus');
     });
 
     Route::group(['prefix' => 'teams'], function () {
@@ -112,6 +113,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/", "EventController@index")->name('admin.events.all');
         Route::get("/create", "EventController@create")->name('admin.events.create');
         Route::post("/store", "EventController@store")->name('admin.events.store');
+        Route::post("/savetImages", "EventController@storeEventImages")->name('admin.events.storeImages');
         Route::get("/edit/{id}", "EventController@edit")->name('admin.events.edit');
         Route::post("/update/{id}", "EventController@update")->name('admin.events.update');
         Route::get("/delete/{id}", "EventController@delete")->name('admin.events.delete');
@@ -138,9 +140,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
 
     });
-
-    Route::get('about-us', 'DashboardController@aboutUs')->name('admin.aboutus');
-    Route::post('about-us', 'DashboardController@saveAboutUs')->name('admin.postaboutus');
 
     Route::get("/logout", "LoginController@logout")->name('admin.logout');
 });
