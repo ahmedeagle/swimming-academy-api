@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
 use App\Models\Category;
+use App\Models\Coach;
 use App\Models\Team;
 use App\Models\TeamTime;
 use App\Traits\Dashboard\PublicTrait;
@@ -23,19 +24,30 @@ class TeamController extends Controller
 
     public function index()
     {
-        $teams = Team::selection()->get();
-        return view('admin.teams.index', compact('teams'));
+        try {
+            $teams = Team::selection()->get();
+            return view('admin.teams.index', compact('teams'));
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
     public function create()
     {
-        $academies = Academy::active()->select('id', 'name_ar as name')->get();
-        return view('admin.teams.create', compact('academies'));
+        try {
+            $academies = Academy::active()->select('id', 'name_ar as name')->get();
+            $coaches = Coach::active()->select('id', 'name_ar as name')->get();
+            return view('admin.teams.create', compact('academies', 'coaches'));
+
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
 
     public function store(Request $request)
     {
+
         try {
             $messages = [
                 'name_ar.required' => 'أسم  الفريق بالعربي  مطلوب  .',
@@ -47,6 +59,8 @@ class TeamController extends Controller
                 'category_id.exists' => 'هذه القسم غير موجوده ',
                 'photo.required' => 'لابد من رفع صوره للفريق ',
                 'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
+                'coach_id.required' => 'لابد من تحديد كابتن للفريق',
+                'coach_id.exists' => 'الكابتن غير موجود لدينا',
             ];
 
             $validator = Validator::make($request->all(), [
@@ -54,8 +68,8 @@ class TeamController extends Controller
                 'name_en' => 'required|max:100',
                 'quotas' => 'required|numeric',
                 'category_id' => 'required|exists:categories,id',
+                'coach_id' => 'required|exists:coahes,id',
                 'photo' => 'required|mimes:jpg,jpeg,png'
-
             ], $messages);
 
             if ($validator->fails()) {
@@ -73,22 +87,29 @@ class TeamController extends Controller
         } catch (\Exception $ex) {
             return abort('404');
         }
+
     }
 
     public function edit($id)
     {
 
-        $data['team'] = Team::selection()->find($id);
-        $teamAcademy = $data['team']->category->academy;
-        $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
-        $data['categories'] = $teamAcademy->categories;
+        try {
+            $data['team'] = Team::selection()->find($id);
+            $teamAcademy = $data['team']->category->academy;
+            $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
+            $data['categories'] = $teamAcademy->categories;
+            $data['coaches'] = Coach::active()->select('id', 'name_ar as name')->get();
+            $coaches = Coach::active()->select('id', 'name_ar as name')->get();
 
-        if (!$data['team']) {
-            notify()->error(' الفريق  غير موجوده لدينا ');
-            return redirect()->route('admin.teams.all');
+            if (!$data['team']) {
+                notify()->error(' الفريق  غير موجوده لدينا ');
+                return redirect()->route('admin.teams.all');
+            }
+
+            return view('admin.teams.edit', $data);
+        } catch (\Exception $ex) {
+            return abort('404');
         }
-
-        return view('admin.teams.edit', $data);
     }
 
     public function update($id, Request $request)
@@ -111,6 +132,8 @@ class TeamController extends Controller
                 'category_id.exists' => 'هذه القسم  غير موجوده ',
                 'photo.required' => 'لابد من رفع صوره للفريق ',
                 'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
+                'coach_id.required' => 'لابد من تحديد كابتن للفريق',
+                'coach_id.exists' => 'الكابتن غير موجود لدينا',
             ];
 
             $validator = Validator::make($request->all(), [
@@ -118,11 +141,13 @@ class TeamController extends Controller
                 'name_en' => 'required|max:100',
                 'quotas' => 'required|numeric',
                 'category_id' => 'required|exists:categories,id',
-                'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png'
+                'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
+                'coach_id' => 'required|exists:coahes,id'
 
             ], $messages);
 
             if ($validator->fails()) {
+                return $validator -> errors();
                 notify()->error('هناك خطا برجاء المحاوله مجددا ');
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
@@ -230,18 +255,26 @@ class TeamController extends Controller
     }
 
 
-
-    public function loadHeroes(Request $request){
+    public function loadHeroes(Request $request)
+    {
         $team = Team::find($request->team_id);
-        if(!$team)
-        {
-            return response() -> json(['content' => null]);
+        if (!$team) {
+            return response()->json(['content' => null]);
         }
-         $users = $team -> users;
+        $users = $team->users;
         $view = view('admin.teams.heroes', compact('users'))->renderSections();
         return response()->json([
             'content' => $view['main'],
         ]);
     }
+
+    public function deleteTeam($id)
+    {
+        $team = Team::findOrFail($id);
+        $team->delete();
+        notify()->success('تمت حذف الفريق بمستخدميه بنجاح ');
+        return redirect()->route('admin.teams.all');
+    }
+
 
 }

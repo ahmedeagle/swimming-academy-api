@@ -1,21 +1,21 @@
 @extends('admin.layouts.basic')
 @section('title')
-    الفرق الخاصه بالمدرب
+    الفرق الخاصه بالكابتن
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> فرق المدرب - {{$coach -> name_ar}}  </h3>
+                    <h3 class="content-header-title"> فرق الكابتن - {{$coach -> name_ar}}  </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}">المدربين </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}">الكاباتن </a>
                                 </li>
-                                <li class="breadcrumb-item active"> الفرق الخاصه بالمدرب
+                                <li class="breadcrumb-item active"> الفرق الخاصه بالكابتن
                                 </li>
                             </ol>
                         </div>
@@ -29,7 +29,11 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  الفرق </h4>
+                                    <h4 class="card-title">جميع  الفرق
+                                        -
+                                        <a href="{{route('admin.teams.create')}}"
+                                           class="btn btn-outline-success btn-min-width "> أضافة فرق </a>
+                                    </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">

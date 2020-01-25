@@ -3,20 +3,18 @@
 namespace App\Observers;
 
 use App\Models\Category;
-use App\Models\Coach;
 use App\Models\Event;
-use App\Models\Hero;
-use App\Models\User;
+use App\Models\Team;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
-class UserObserver
+class TeamObserver
 {
 
 
-    public function updating(User $user)
+    public function updating(Team $team)
     {
-
+        $team->users()->update(['users.status' => $team->status]);
     }
 
 
@@ -26,11 +24,10 @@ class UserObserver
      * @param Category $category
      * @return void
      */
-    public function deleting(User $user)
+    public function deleting(Team $team)
     {
-        Hero::where('user_id', $user->id)->delete();
-        $user->notifications()->delete();
-        $user->tickets()->delete();
+        $team->heroes()->delete();
+        $team->users()->delete();
     }
 
     /**
@@ -39,10 +36,10 @@ class UserObserver
      * @param Category $category
      * @return void
      */
-    public function saved(User $user)
+    public function saved(Team $team)
     {
         // Removing Entries from the Cache
-        $this->clearCache($user);
+        $this->clearCache($team);
     }
 
     /**
@@ -51,10 +48,10 @@ class UserObserver
      * @param Category $category
      * @return void
      */
-    public function deleted(User $user)
+    public function deleted(Team $team)
     {
         // Removing Entries from the Cache
-        $this->clearCache($user);
+        $this->clearCache($team);
     }
 
     /**
@@ -62,7 +59,7 @@ class UserObserver
      *
      * @param $category
      */
-    private function clearCache($user)
+    private function clearCache($team)
     {
         Cache::flush();
     }

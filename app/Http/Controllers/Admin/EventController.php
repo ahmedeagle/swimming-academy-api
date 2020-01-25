@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Academy;
 use App\Models\Coach;
 use App\Models\Event;
+use App\Models\Image;
 use App\Models\Team;
 use App\Models\TeamTime;
 use App\Models\User;
@@ -17,6 +18,8 @@ use Auth;
 use Namshi\JOSE\Signer\SecLib\RS384;
 use Validator;
 use Hash;
+
+use File;
 
 class EventController extends Controller
 {
@@ -39,7 +42,7 @@ class EventController extends Controller
     {
 
         $file = $request->file('dzfile');
-        $filename = $this->uploadImage('events',$file);
+        $filename = $this->uploadImage('events', $file);
 
         return response()->json([
             'name' => $filename,
@@ -50,7 +53,6 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        return $request;
 
         $messages = [
             'title_ar.required' => ' العنوان   بالعربي  مطلوب  .',
@@ -87,7 +89,19 @@ class EventController extends Controller
             $fileName = $this->uploadImage('events', $request->photo);
         }
         $status = $request->has('status') ? 1 : 0;
-        Event::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+        $event = Event::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+
+        // save dropzone images
+        if ($request->has('document') && count($request->document) > 0) {
+            foreach ($request->document as $image) {
+                Image::create([
+                    'imageable_id' => $event->id,
+                    'imageable_type' => 'App\Models\Event',
+                    'photo' => $image,
+                ]);
+            }
+        }
+
         DB::commit();
 
         notify()->success('تم اضافه الفاعلية  بنجاح ');
@@ -96,11 +110,25 @@ class EventController extends Controller
 
     public function edit($id)
     {
+
         $data = [];
         $data['academies'] = Academy::active()->get();
-        $data['event'] = Event::findOrFail($id);
-        $data['categories'] = $data['event']->academy->categories;
+        $data['event'] = Event::with(['images' => function ($q) {
+            $q->select('id', 'imageable_id', 'imageable_type', DB::raw('photo as photo'));
+        }])->findOrFail($id);
 
+        $file_list = array();
+        if (isset($data['event']->images) && count($data['event']->images) > 0) {
+            foreach ($data['event']->images as $image) {
+                $imageStr = substr($image->photo, strpos($image->photo, "images"));
+                $size = File::size(base_path($imageStr));
+                $name = File::basename(base_path($imageStr));
+                $file_list[] = array('name' => $name, 'size' => $size, 'path' => $imageStr ,'allPath' => $image->photo);
+            }
+        }
+        $data['event']->images = $file_list;
+
+        $data['categories'] = $data['event']->academy->categories;
         return view('admin.events.edit', $data);
     }
 
@@ -145,12 +173,27 @@ class EventController extends Controller
             }
             DB::beginTransaction();
             $event->update($request->except('photo'));
+
+            //delete previous images
+            Image::where('imageable_id',$event->id) -> where('imageable_type','App\Models\Event') -> delete();
+            // save dropzone images
+            if ($request->has('document') && count($request->document) > 0) {
+                //insert new images
+                foreach ($request->document as $image) {
+                    Image::create([
+                        'imageable_id' => $event->id,
+                        'imageable_type' => 'App\Models\Event',
+                        'photo' => $image,
+                    ]);
+                }
+            }
+
             DB::commit();
             notify()->success('تمت التعديل  بنجاح ');
             return redirect()->route('admin.events.all');
         } catch (\Exception $ex) {
             DB::rollback();
-            return abort('404');
+            return $ex -> getMessage();
         }
     }
 

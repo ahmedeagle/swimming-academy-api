@@ -16,7 +16,7 @@
         "spatie/laravel-permission": "^3.0",
         "tymon/jwt-auth": "1.0.*",
         "yoeunes/notify": "^1.0",
-        "yoeunes/toastr": "^1.2"
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

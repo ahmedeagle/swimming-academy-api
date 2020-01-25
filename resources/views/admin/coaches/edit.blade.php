@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-    تعديل   مدرب
+    تعديل   كابتن
 @stop
 @section('style')
 
@@ -15,9 +15,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}"> المدربين </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}"> الكاباتن </a>
                                 </li>
-                                <li class="breadcrumb-item active"> تعديل مدرب
+                                <li class="breadcrumb-item active"> تعديل كابتن
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> تعديل مدرب
+                                    <h4 class="card-title" id="basic-layout-form"> تعديل كابتن
                                         - {{$coach -> name_ar}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
@@ -58,12 +58,12 @@
                                                     <div class="text-center">
                                                         <img
                                                             src="{{$coach -> photo}}"
-                                                            class="rounded-circle  height-150" alt="صوره  ألمدرب  ">
+                                                            class="rounded-circle  height-150" alt="صوره  ألكابتن  ">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label> صوره ألمدرب </label>
+                                                    <label> صوره ألكابتن </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -74,7 +74,7 @@
                                                 </div>
 
 
-                                                <h4 class="form-section"><i class="ft-user"></i> بيانات المدرب </h4>
+                                                <h4 class="form-section"><i class="ft-user"></i> بيانات الكابتن </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -189,35 +189,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput2"> أختر الفرق <span
-                                                                    class="text-info"> (يمكنك أختيار اكثر من فرقه )</span>
-                                                            </label>
-                                                            <select class="select2 form-control appendTeams"
-                                                                    name="teams[]"
-                                                                    multiple="multiple">
-                                                                <optgroup label=" الفرق ">
-                                                                    @if(isset($categoryTeams) && $categoryTeams -> count() > 0)
-                                                                        @foreach($categoryTeams as $team)
-                                                                            <option
-                                                                                value="{{$team -> id}}"
-                                                                                 {{in_array($team -> id,$coachTeamsIds) ? 'selected' : ''}}
-                                                                                  >{{$team -> name_ar}}
-                                                                                  </option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </optgroup>
-                                                            </select>
-                                                            @error('teams')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
 
                                                 <div class="row">
                                                     <div class="col-md-6">

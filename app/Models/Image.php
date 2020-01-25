@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     public $timestamps = true;
-    protected $fillable = ['title', 'ticketable_type', 'ticketable_id', 'created_at'];
+    protected $fillable = ['imageable_id', 'imageable_type','photo','created_at'];
     protected $hidden = ['updated_at'];
 
     public function imageable()
     {
         return $this->morphTo();
+    }
+
+    public function getPhotoAttribute($val)
+    {
+        return ($val != "" ? asset($val) : "");
     }
 
 }

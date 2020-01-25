@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-    أضافة  مدرب  جديد
+    أضافة  كابتن  جديد
 @stop
 @section('style')
 
@@ -15,9 +15,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}"> المدربين </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.coaches.all')}}"> الكاباتن </a>
                                 </li>
-                                <li class="breadcrumb-item active">أضافة مدرب
+                                <li class="breadcrumb-item active">أضافة كابتن
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافه مدرب </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> أضافه كابتن </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -53,7 +53,7 @@
                                             <div class="form-body">
 
                                                 <div class="form-group">
-                                                    <label> صوره ألمدرب </label>
+                                                    <label> صوره الكابتن </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -64,7 +64,7 @@
                                                 </div>
 
 
-                                                <h4 class="form-section"><i class="ft-user"></i> بيانات المدرب </h4>
+                                                <h4 class="form-section"><i class="ft-user"></i> بيانات الكابتن </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -167,23 +167,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput2"> أختر الفرق <span
-                                                                    class="text-info"> (يمكنك أختيار اكثر من فرقه )</span>
-                                                            </label>
-                                                            <select class="select2 form-control appendTeams"
-                                                                    name="teams[]"
-                                                                    multiple="multiple">
-                                                            </select>
-                                                            @error('teams')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row">
+                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group mt-1">
                                                                 <input type="checkbox" name="status"
@@ -219,7 +203,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
@@ -257,18 +240,6 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
-
-                    $.ajax({
-                        type: 'post',
-                        url: "{{Route('admin.categories.loadTeams')}}",
-                        data: {
-                            'category_id': $('#category').val(),
-                        },
-                        success: function (data) {
-                            $('.appendTeams').empty().append(data.content);
-                        }
-                    });
-
                 }
             });
         });
@@ -297,21 +268,6 @@
                 }
             });
         });
-
-        $(document).on('change', '#category', function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'post',
-                url: "{{Route('admin.categories.loadTeams')}}",
-                data: {
-                    'category_id': $('#category').val(),
-                },
-                success: function (data) {
-                    $('.appendTeams').empty().append(data.content);
-                }
-            });
-        });
-
 
     </script>
 @stop

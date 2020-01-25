@@ -71,6 +71,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/coaches/{id}", "TeamController@getTeamCoaches")->name('admin.teams.coaches');
         Route::get("/users/{id}", "TeamController@getTeamStudents")->name('admin.teams.users');
         Route::post("/loadHeroes", "TeamController@loadHeroes")->name('admin.teams.loadHeroes');
+        Route::get('/delete/{id}','TeamController@deleteTeam') -> name('admin.teams.delete');
     });
 
 

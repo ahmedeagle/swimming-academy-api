@@ -41,16 +41,18 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
+                                        <table
+                                            class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
                                                 <th>الاسم بالانجليزي</th>
                                                 <th>الأكاديمية</th>
-                                                <th>القسم </th>
+                                                <th>القسم</th>
+                                                <th>الكاباتن</th>
                                                 <th> عدد الحصص الشهرية</th>
                                                 <th> صورة الفرقه</th>
-                                                <th> أيام الفرقه  </th>
+                                                <th> أيام الفرقه</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
 
@@ -65,19 +67,29 @@
                                                         <td>{{$team ->name_en}}</td>
                                                         <td>{{$team -> academy -> name_ar}}</td>
                                                         <td>{{$team -> category -> name_ar}}</td>
+                                                        <td>{{$team -> coach -> name_ar }}</td>
                                                         <td>{{$team -> quotas}}</td>
                                                         <td><img src="{{$team -> photo}}" height="40px;"></td>
                                                         <td><a href="{{route('admin.teams.days',$team->id)}}"
-                                                               class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">عرض الايام </a></td>
+                                                               class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">عرض
+                                                                الايام </a></td>
                                                         <td>{{$team -> getStatus()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.teams.edit',$team->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                                <a href="{{route('admin.teams.coaches',$team->id)}}"  class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">المدربين</a>
+
+                                                                <button type="button"
+                                                                        value="{{$team->id}}"  onclick="deletefn(this.value)"
+                                                                        class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRight">
+                                                                    حذف
+                                                                </button>
+
                                                                 <a href="{{route('admin.teams.users',$team->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">الطلاب</a>
+                                                                   class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1">الاعبين</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -94,4 +106,17 @@
             </div>
         </div>
     </div>
+    @include('admin.includes.modals.deleteModal',['text' =>' هل بالفعل تريد حذف  الفريق سيتم حذف جميع لاعبي الفريق وابطال الاسبوع الخاصه به  ؟']);
 @stop
+
+
+
+@section('script')
+    <script>
+        function deletefn(val) {
+            var a = document.getElementById('yes');
+            a.href = "{{ url('admin/teams/delete/') }}" + "/" + val;
+        }
+    </script>
+@stop
+

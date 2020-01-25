@@ -125,7 +125,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر  القسم  </label>
                                                             <select name="category_id" id="academy"
@@ -136,6 +136,27 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> أختر الكابتن </label>
+                                                            <select name="coach_id" id=""
+                                                                    class="select2 form-control">
+                                                                <optgroup label="من فضلك أختر الكابتن ">
+                                                                    @if($coaches && $coaches -> count() > 0)
+                                                                        @foreach($coaches as $coach)
+                                                                            <option
+                                                                                value="{{$coach -> id }}"
+                                                                                {{old('coach_id')  == $coach -> id ? 'selected' : ''}}>{{$coach -> name}}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('coach_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
                                                 </div>
 
                                                 <div class="row">

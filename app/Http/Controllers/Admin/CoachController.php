@@ -42,6 +42,9 @@ class CoachController extends Controller
             'name_en.required' => 'أسم  المدرب  بالانجليزي  مطلوب  .',
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
+            'mobile.regex' => 'صيغة الهاتف غير صحيحة ',
+            'mobile.max' => 'صيغة الهاتف غير صحيحة ',
+            'mobile.min' => 'صيغة الهاتف غير صحيحة ',
             'gender.required' => 'النوع مطلوب ',
             'gender.in' => ' ألنوع مطلوب  ',
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
@@ -51,11 +54,11 @@ class CoachController extends Controller
             "password.required" => trans("admin/passwords.passwordRequired"),
             "password.confirmed" => trans("admin/passwords.confirmpassword"),
             "password.min" => trans("admin/passwords.confirmpassword"),
-            "teams.required" => 'لأابد من أختيار الفرق الخاصة بالقسم المختار ',
+            /*"teams.required" => 'لأابد من أختيار الفرق الخاصة بالقسم المختار ',
             "teams.array" => 'لأابد من أختيار الفرق الخاصة بالقسم المختار ',
             "teams.min" => 'لابد من أختيار فرقه علي الاقل ',
             "teams.*.required" => ' لابد من أختيار  الفرق  ',
-            "teams.*.exists" => "بعض الفرق المحتاره غير موجوده لدينا ",
+            "teams.*.exists" => "بعض الفرق المحتاره غير موجوده لدينا ",*/
             "category_id.required" => 'لابد من ادخال احتيار القسم ',
             "category_id.exists" => ' القسم المختار غير موجود',
 
@@ -64,13 +67,13 @@ class CoachController extends Controller
         $validator = Validator::make($request->all(), [
             'name_ar' => 'required|max:100',
             'name_en' => 'required|max:100',
-            'mobile' => 'required|unique:coahes,mobile',
+            'mobile' => ["required", "unique:coahes,mobile", "regex:/^01[0-2]{1}[0-9]{8}/", "min:11", "max:11"],
             'gender' => 'required|in:1,2',
             'academy_id' => 'required|exists:academies,id',
             'photo' => 'required|mimes:jpg,jpeg,png',
             'password' => 'required|confirmed|min:6',
-            'teams' => 'required|array|min:1',
-            'teams.*' => 'required|exists:teams,id',
+            /*  'teams' => 'required|array|min:1',
+              'teams.*' => 'required|exists:teams,id',*/
             'category_id' => 'required|exists:categories,id'
 
         ], $messages);
@@ -89,7 +92,7 @@ class CoachController extends Controller
             $status = $request->has('status') ? 1 : 0;
             $coach = Coach::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             if ($coach->id) {
-                $coach->teams()->attach($request->teams);
+                // $coach->teams()->attach($request->teams);
                 $this->authCoachByMobile($request->mobile, $request->password);
             }
             DB::commit();
@@ -108,8 +111,8 @@ class CoachController extends Controller
         $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
         $data['categories'] = $data['coach']->academy->categories;
 
-        $data['coachTeamsIds'] = $data['coach']->teams->pluck('id')->toArray();
-        $data['categoryTeams'] = $data['coach']->category->teams;
+        /* $data['coachTeamsIds'] = $data['coach']->teams->pluck('id')->toArray();
+         $data['categoryTeams'] = $data['coach']->category->teams;*/
 
         return view('admin.coaches.edit', $data);
     }
@@ -123,6 +126,9 @@ class CoachController extends Controller
             'name_en.required' => 'أسم  المدرب  بالانجليزي  مطلوب  .',
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
+            'mobile.regex' => 'صيغة الهاتف غير صحيحة ',
+            'mobile.min' => 'صيغة الهاتف غير صحيحة ',
+            'mobile.max' => 'صيغة الهاتف غير صحيحة ',
             'gender.required' => 'النوع مطلوب ',
             'gender.in' => ' ألنوع مطلوب  ',
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
@@ -132,11 +138,11 @@ class CoachController extends Controller
             "password.required" => trans("admin/passwords.passwordRequired"),
             "password.confirmed" => trans("admin/passwords.confirmpassword"),
             "password.min" => trans("admin/passwords.confirmpassword"),
-            "teams.required" => 'لأابد من أختيار الفرق ',
-            "teams.array" => 'لابد من أختيار الفرق ',
-            "teams.min" => 'لابد من أختيار فرقه علي الاقل ',
-            "teams.*.required" => ' لابد من أختيار  الفرق  ',
-            "teams.*.exists" => "بعض الفرق المحتاره غير موجوده لدينا ",
+            /* "teams.required" => 'لأابد من أختيار الفرق ',
+             "teams.array" => 'لابد من أختيار الفرق ',
+             "teams.min" => 'لابد من أختيار فرقه علي الاقل ',
+             "teams.*.required" => ' لابد من أختيار  الفرق  ',
+             "teams.*.exists" => "بعض الفرق المحتاره غير موجوده لدينا ",*/
             "category_id.required" => 'لابد من ادخال احتيار القسم ',
             "category_id.exists" => ' القسم المختار غير موجود',
 
@@ -144,12 +150,12 @@ class CoachController extends Controller
         $rules = [
             'name_ar' => 'required|max:100',
             'name_en' => 'required|max:100',
-            'mobile' => 'required|unique:coahes,mobile,' . $coach->id . ',id',
+            'mobile' => ["required", "regex:/^01[0-2]{1}[0-9]{8}/", "min:11", "max:11", 'unique:coahes,mobile,' . $coach->id . ',id'],
             'gender' => 'required|in:1,2',
             'academy_id' => 'required|exists:academies,id',
             'photo' => 'mimes:jpg,jpeg,png',
-            'teams' => 'required|array|min:1',
-            'teams.*' => 'required|exists:teams,id',
+            /*'teams' => 'required|array|min:1',
+            'teams.*' => 'required|exists:teams,id',*/
             'category_id' => 'required|exists:categories,id'
         ];
 
@@ -172,7 +178,7 @@ class CoachController extends Controller
                 $coach->update(['photo' => $fileName]);
             }
             $coach->update($request->except(['photo', 'password']));
-            $coach->teams()->sync($request->teams);
+            // $coach->teams()->sync($request->teams);
             if ($request->filled('password')) {
                 $coach->update(['password' => $request->password]);
             }
@@ -269,7 +275,7 @@ class CoachController extends Controller
     {
         $coach = Coach::findOrFail($coachId);
         $users = User::whereHas('team', function ($q) use ($coachId) {
-            $q->whereHas('coaches', function ($qq) use ($coachId) {
+            $q->whereHas('coach', function ($qq) use ($coachId) {
                 $qq->where('coach_id', $coachId);
             });
         })->get();
@@ -280,9 +286,17 @@ class CoachController extends Controller
     public function deleteCoach($id)
     {
         $coach = Coach::findOrFail($id);
-        $coach->delete();
-        notify()->success('تم الحذف بنجاح');
+        $coach = Coach::whereDoesntHave('teams')->find($id);
+        if ($coach) {
+            $coach->delete();
+            notify()->success('تم الحذف بنجاح');
+        } else {
+            notify()->info('لأ يمكن حذف الكابتن حيث هناك فريق مرتبط به الرجاء حذف الفريق اولا ');
+        }
+
         return redirect()->route('admin.coaches.all');
     }
 
 }
+
+

@@ -3,11 +3,11 @@
     أضافة  فاعليات
 @stop
 @section('style')
-<style>
-    .dropzone .dz-message {
+    <style>
+        .dropzone .dz-message {
 
-    }
-</style>
+        }
+    </style>
 @stop
 @section('content')
     <div class="app-content content">
@@ -59,11 +59,11 @@
                                             <div class="form-body">
 
                                                 <div class="form-group">
-                                                    <div id="dpz-multiple-files"  class="dropzone dropzone-area">
-                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا </div>
+                                                    <div id="dpz-multiple-files" class="dropzone dropzone-area">
+                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
                                                     </div>
                                                     <br><br>
-                                                    <label> الصوره الرئيسية  للفاعلية </label>
+                                                    <label> الصوره الرئيسية للفاعلية </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -248,14 +248,28 @@
             //autoProcessQueue: false,
             maxFilesize: 5, // MB
             clickable: true,
+            addRemoveLinks: true,
+            acceptedFiles: 'image/*',
+            dictFallbackMessage: " المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات ",
+            dictInvalidFileType: "لايمكنك رفع هذا النوع من الملفات ",
+            dictCancelUpload: "الغاء الرفع ",
+            dictCancelUploadConfirmation: " هل انت متاكد من الغاء رفع الملفات ؟ ",
+            dictRemoveFile: "حذف الصوره",
+            dictMaxFilesExceeded: "لايمكنك رفع عدد اكثر من هضا ",
             headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            },
+                'X-CSRF-TOKEN':
+                    "{{ csrf_token() }}"
+            }
+            ,
             url: "{{ route('admin.events.storeImages') }}", // Set the url
-            success: function (file, response) {
-                $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
-                uploadedDocumentMap[file.name] = response.name
-            },
+            success:
+
+                function (file, response) {
+                    $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+                    uploadedDocumentMap[file.name] = response.name
+                }
+
+            ,
             removedfile: function (file) {
                 file.previewElement.remove()
                 var name = ''
@@ -265,8 +279,22 @@
                     name = uploadedDocumentMap[file.name]
                 }
                 $('form').find('input[name="document[]"][value="' + name + '"]').remove()
-            },
+            }
+            ,
             // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
+
+            init: function () {
+                    @if(isset($event) && $event->document)
+                var files =
+                {!! json_encode($event->document) !!}
+                    for (var i in files) {
+                    var file = files[i]
+                    this.options.addedfile.call(this, file)
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+                }
+                @endif
+            }
         }
 
 

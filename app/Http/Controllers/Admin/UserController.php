@@ -23,77 +23,90 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::selection()->get();
-        return view('admin.users.index', compact('users'));
+        try {
+            $users = User::selection()->get();
+            return view('admin.users.index', compact('users'));
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
     public function create()
     {
-        $academies = Academy::active()->select('id', 'name_ar as name')->get();
-        $teams = Team::active()->selection()->get();
-        return view('admin.users.create', compact('academies', 'teams'));
+        try {
+            $academies = Academy::active()->select('id', 'name_ar as name')->get();
+            $teams = Team::active()->selection()->get();
+            return view('admin.users.create', compact('academies', 'teams'));
+        } catch (\Exception $ex) {
+            return abort('404');
+
+        }
     }
 
 
     public function store(Request $request)
     {
 
-        $messages = [
-            'name_ar.required' => 'أسم    الطالب  بالعربي  مطلوب  .',
-            'name_en.required' => 'أسم  الطالب  بالانجليزي  مطلوب  .',
-            'mobile.required' => 'رقم الهاتف مطلوب ',
-            'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
-            'email.required' => 'البريد الالكتروني مطلوب ',
-            'email.exists' => 'البريد الالكتروني  مسجل لدينا من قبل  ',
-            'gender.required' => 'النوع مطلوب ',
-            "password.required" => trans("admin/passwords.passwordRequired"),
-            "password.confirmed" => trans("admin/passwords.confirmpassword"),
-            "password.min" => trans("admin/passwords.confirmpassword"),
-            'gender.in' => ' ألنوع مطلوب  ',
-            'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
-            'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
-            'photo.required' => 'لابد من رفع صوره  الطالب  ',
-            'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
-            "teams.required" => 'لأابد من أختيار الفرق ',
-            "teams.exists" => ' الفريق عير موجود لدينا  ',
-            'birth_date.required' => 'تاريخ الميلاد مطلوب',
-            'date-format' => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
-            "category_id.required" => 'لابد من ادخال احتيار القسم ',
-            "category_id.exists" => ' القسم المختار غير موجود',
-        ];
+        try {
+            $messages = [
+                'name_ar.required' => 'أسم الاعب  بالعربي  مطلوب  .',
+                'name_en.required' => 'أسم  الاعب  بالانجليزي  مطلوب  .',
+                'mobile.required' => 'رقم الهاتف مطلوب ',
+                'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
+                'email.required' => 'البريد الالكتروني مطلوب ',
+                'email.exists' => 'البريد الالكتروني  مسجل لدينا من قبل  ',
+                'gender.required' => 'النوع مطلوب ',
+                "password.required" => trans("admin/passwords.passwordRequired"),
+                "password.confirmed" => trans("admin/passwords.confirmpassword"),
+                "password.min" => trans("admin/passwords.confirmpassword"),
+                'gender.in' => ' ألنوع مطلوب  ',
+                'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
+                'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
+                'photo.required' => 'لابد من رفع صوره  الاعب  ',
+                'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
+                "teams.required" => 'لأابد من أختيار الفرق ',
+                "teams.exists" => ' الفريق عير موجود لدينا  ',
+                'birth_date.required' => 'تاريخ الميلاد مطلوب',
+                'date-format' => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
+                "category_id.required" => 'لابد من ادخال احتيار القسم ',
+                "category_id.exists" => ' القسم المختار غير موجود',
+            ];
 
-        $validator = Validator::make($request->all(), [
-            'name_ar' => 'required|max:100',
-            'name_en' => 'required|max:100',
-            'mobile' => 'required|unique:users,mobile',
-            'email' => 'required|email|unique:users,email',
-            'birth_date' => 'required|date-format:Y-m-d',
-            'gender' => 'required|in:1,2',
-            'academy_id' => 'required|exists:academies,id',
-            'photo' => 'required|mimes:jpg,jpeg,png',
-            'password' => 'required|confirmed|min:6',
-            'team_id' => 'required|exists:teams,id',
-            'category_id' => 'required|exists:categories,id'
+            $validator = Validator::make($request->all(), [
+                'name_ar' => 'required|max:100',
+                'name_en' => 'required|max:100',
+                'mobile' => 'required|unique:users,mobile',
+                'email' => 'required|email|unique:users,email',
+                'birth_date' => 'required|date-format:Y-m-d',
+                'gender' => 'required|in:1,2',
+                'academy_id' => 'required|exists:academies,id',
+                'photo' => 'required|mimes:jpg,jpeg,png',
+                'password' => 'required|confirmed|min:6',
+                'team_id' => 'required|exists:teams,id',
+                'category_id' => 'required|exists:categories,id'
 
-        ], $messages);
+            ], $messages);
 
-        if ($validator->fails()) {
-            notify()->error('هناك خطا برجاء المحاوله مجددا ');
-            return redirect()->back()->withErrors($validator)->withInput($request->all());
+            if ($validator->fails()) {
+                notify()->error('هناك خطا برجاء المحاوله مجددا ');
+                return redirect()->back()->withErrors($validator)->withInput($request->all());
+            }
+
+            DB::beginTransaction();
+
+            $fileName = "";
+            if (isset($request->photo) && !empty($request->photo)) {
+                $fileName = $this->uploadImage('users', $request->photo);
+            }
+            $status = $request->has('status') ? 1 : 0;
+            User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+            DB::commit();
+
+            notify()->success('تم اضافه الاعب  بنجاح ');
+            return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الاعب  بنجاح ']);
+        } catch (\Exception $ex) {
+            return abort('404');
         }
-
-        DB::beginTransaction();
-
-        $fileName = "";
-        if (isset($request->photo) && !empty($request->photo)) {
-            $fileName = $this->uploadImage('users', $request->photo);
-        }
-        $status = $request->has('status') ? 1 : 0;
-        User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
-        DB::commit();
-
-        notify()->success('تم اضافه الطالب  بنجاح ');
-        return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الطالب  بنجاح ']);
     }
 
     public function edit($id)
@@ -112,8 +125,8 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $messages = [
-            'name_ar.required' => 'أسم    الطالب  بالعربي  مطلوب  .',
-            'name_en.required' => 'أسم  الطالب  بالانجليزي  مطلوب  .',
+            'name_ar.required' => 'أسم    الاعب  بالعربي  مطلوب  .',
+            'name_en.required' => 'أسم  الاعب  بالانجليزي  مطلوب  .',
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
             'email.required' => 'البريد الالكتروني مطلوب ',
@@ -123,7 +136,7 @@ class UserController extends Controller
             "password.min" => trans("admin/passwords.confirmpassword"),
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
             'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
-            'photo.required' => 'لابد من رفع صوره  الطالب  ',
+            'photo.required' => 'لابد من رفع صوره  الاعب  ',
             'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
             "teams.required" => 'لأابد من أختيار الفرق ',
             "teams.exists" => ' الفريق عير موجود لدينا  ',
@@ -172,6 +185,8 @@ class UserController extends Controller
             DB::rollback();
             return abort('404');
         }
+
+
     }
 
     public function getWorkingDay($teamId)
@@ -248,18 +263,26 @@ class UserController extends Controller
 
     public function teams($coachId)
     {
-        $coach = Coach::findOrFail($coachId);
-        $teams = $coach->teams()->get();
-        notify()->success('تم عرض الفرق بنجاح  ');
-        return view('admin.coaches.teams', compact('teams', 'coach'));
+        try {
+            $coach = Coach::findOrFail($coachId);
+            $teams = $coach->teams()->get();
+            notify()->success('تم عرض الفرق بنجاح  ');
+            return view('admin.coaches.teams', compact('teams', 'coach'));
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
     public function deleteUser($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        notify()->success('تمت حذف  الاعب بمحتواه');
-        return redirect()->route('admin.users.all');
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            notify()->success('تمت حذف  الاعب بمحتواه');
+            return redirect()->route('admin.users.all');
+        } catch (\Exception $ex) {
+            return abort('404');
+        }
     }
 
 

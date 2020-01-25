@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     public $timestamps = true;
-    protected $fillable = ['title', 'ticketable_type', 'ticketable_id', 'message_no', 'type', 'importance', 'solved', 'created_at'];
+    protected $fillable = ['title', 'ticketable_type', 'ticketable_id','academy_id','message_no', 'type', 'importance', 'solved', 'created_at'];
     protected $hidden = ['updated_at'];
 
     public function scopeCreatedAt()

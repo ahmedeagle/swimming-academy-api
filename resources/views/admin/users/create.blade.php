@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-    أضافة   طالب  جديد
+    أضافة   لاعب  جديد
 @stop
 @section('style')
 
@@ -15,9 +15,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.users.all')}}"> الطلاب  </a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.users.all')}}"> الاعبين  </a>
                                 </li>
-                                <li class="breadcrumb-item active">أضافة  طالب جديد
+                                <li class="breadcrumb-item active">أضافة  لاعب جديد
                                 </li>
                             </ol>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافه  طالب </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> أضافه  لاعب </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -53,7 +53,7 @@
                                             <div class="form-body">
 
                                                 <div class="form-group">
-                                                    <label> صوره الطالب </label>
+                                                    <label> صوره اللاعب </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -64,7 +64,7 @@
                                                 </div>
 
 
-                                                <h4 class="form-section"><i class="ft-user"></i> بيانات  الطلب </h4>
+                                                <h4 class="form-section"><i class="ft-user"></i> بيانات  الاعب </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -178,11 +178,11 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2"> طول الطالب بالسنتيميتر  </label>
+                                                            <label for="projectinput2"> طول اللاعب بالسنتيميتر  </label>
                                                             <input type="number" min="1" value="{{old('tall')}}"
                                                                    id="tall"
                                                                    class="form-control"
-                                                                   placeholder="  أدحل طول الطالب بالسنتيمتر  "
+                                                                   placeholder="  أدحل طول اللاعب بالسنتيمتر  "
                                                                    name="tall">
                                                             @error('tall')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -192,11 +192,11 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  وزن الطالب   بالكيلوجرام  </label>
+                                                            <label for="projectinput2">  وزن اللاعب   بالكيلوجرام  </label>
                                                             <input type="number" min="1" value="{{old('weight')}}"
                                                                    id="weight"
                                                                    class="form-control"
-                                                                   placeholder="  أدحل وزن الطالب بالكيلوجرام "
+                                                                   placeholder="  أدحل وزن اللاعب بالكيلوجرام "
                                                                    name="weight">
                                                             @error('weight')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -244,7 +244,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  فرقه الطالب
+                                                            <label for="projectinput2">  فرقه اللاعب
                                                             </label>
                                                             <select class="select2 form-control appendTeams" name="team_id" >
                                                             </select>

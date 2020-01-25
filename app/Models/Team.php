@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\DoctorTrait;
-use App\Traits\GlobalTrait;
+ use App\Observers\TeamObserver;
+ use App\Traits\GlobalTrait;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -18,9 +18,15 @@ class Team extends Model
         'status' => 'integer',
     ];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id', 'status'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id','coach_id', 'status'];
 
     protected $hidden = ['created_at', 'updated_at'];
+
+    protected static function boot()
+    {
+        parent::boot();
+        Team::observe(TeamObserver::class);
+    }
 
     public function getPhotoAttribute($val)
     {
@@ -41,9 +47,9 @@ class Team extends Model
     }
 
 
-    public function coaches()
+    public function coach()
     {
-        return $this->belongsToMany('App\Models\Coach', 'teams_coaches', 'team_id', 'coach_id');
+        return $this->belongsTo('App\Models\Coach', 'coach_id', 'id');
     }
 
     public function heroes()
@@ -78,7 +84,7 @@ class Team extends Model
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'category_id', 'photo', 'quotas', 'status');
+        return $query->select('id', 'name_ar', 'name_en', 'category_id','coach_id', 'photo', 'quotas', 'status');
     }
 
     public function scopeActive($query)

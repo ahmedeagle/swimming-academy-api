@@ -30,7 +30,8 @@
     font-weight: normal;
     -webkit-font-smoothing: antialiased; }
   .dropzone .dz-preview.dz-image-preview {
-    background: transparent; }
+    background: transparent;
+  }
   .dropzone .dz-preview .dz-remove {
     font-size: 1.1rem;
     color: #FF4961;

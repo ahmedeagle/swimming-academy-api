@@ -70,11 +70,11 @@ class HeroController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'studentIds.required' => '  لابد من أختيار طلاب  .',
-            'studentIds.array' => '  لابد من أختيار طلاب  .',
-            'studentIds.min' => '  لابد من أختيار طلاب  .',
-            'studentIds.*.required' => '  لابد من أختيار طلاب  .',
-            'studentIds.*.numeric' => '  لابد من أختيار طلاب  .',
+            'studentIds.required' => '  لابد من أختيار لاعبين  .',
+            'studentIds.array' => '  لابد من أختيار لاعبين  .',
+            'studentIds.min' => '  لابد من أختيار لاعبين  .',
+            'studentIds.*.required' => '  لابد من أختيار لاعبين  .',
+            'studentIds.*.numeric' => '  لابد من أختيار لاعبين  .',
             'category_id.required' => 'لابد من احتيار القسم  اولا ',
             'category_id.exists' => 'هذه القسم  غير موجوده ',
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',

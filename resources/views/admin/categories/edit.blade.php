@@ -52,6 +52,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+
+
                                                             <label for="projectinput1"> الاسم بالعربي </label>
                                                             <input type="text" value="{{$category -> name_ar}}"
                                                                    id="name_ar"
@@ -86,7 +88,8 @@
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
                                                                    @if($category -> status == 1) checked @endif/>
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -55,6 +55,13 @@
                                             <div class="form-body">
 
                                                 <div class="form-group">
+
+                                                    <div id="dpz-multiple-files" class="dropzone dropzone-area">
+                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
+                                                    </div>
+
+
+                                                    <br>
                                                     <div class="text-center">
                                                         <img
                                                             src="{{$event -> photo}}"
@@ -63,7 +70,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label> صوره الفاعلية </label>
+                                                    <label>الصوره الرئيسية للفاعلية </label>
                                                     <label id="projectinput7" class="file center-block">
                                                         <input type="file" id="file" name="photo">
                                                         <span class="file-custom"></span>
@@ -218,6 +225,66 @@
 @section('script')
     <script>
 
+        var uploadedDocumentMap = {}
+
+        Dropzone.options.dpzMultipleFiles = {
+            paramName: "dzfile", // The name that will be used to transfer the file
+            //autoProcessQueue: false,
+            maxFilesize: 5, // MB
+            clickable: true,
+            acceptedFiles: 'image/*',
+            //  thumbnailWidth:"600",
+            // thumbnailHeight:"600",
+            addRemoveLinks: true,
+            dictFallbackMessage : " المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات ",
+            dictInvalidFileType : "لايمكنك رفع هذا النوع من الملفات ",
+            dictCancelUpload : "الغاء الرفع ",
+            dictCancelUploadConfirmation : " هل انت متاكد من الغاء رفع الملفات ؟ ",
+            dictRemoveFile : "حذف الصوره",
+            dictMaxFilesExceeded : "لايمكنك رفع عدد اكثر من هضا ",
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            url: "{{ route('admin.events.storeImages') }}", // Set the url
+            success: function (file, response) {
+                $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+                uploadedDocumentMap[file.name] = response.name
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+
+                var name = ''
+                if (typeof file.name !== 'undefined') {
+                    name = 'images/events/' + file.name
+                } else {
+                    name = 'images/events/' + uploadedDocumentMap[file.name]
+                }
+                $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+            },
+            // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
+
+            init: function () {
+
+                myDropzone = this;
+                    @if(isset($event) && $event->images)
+                var files =
+                {!! json_encode($event->images) !!}
+                    for (var i in files) {
+                    var file = files[i]
+
+                    var mockFile = {name: file.name, size: file.size};
+
+                    myDropzone.options.addedfile.call(this, mockFile);
+                    myDropzone.options.thumbnail.call(this, mockFile, file.allPath);
+                    myDropzone.options.complete.call(this, mockFile);
+
+                    $('form').append('<input type="hidden" name="document[]" value="' + file.path + '">')
+                }
+                @endif
+            }
+        }
+
+
         CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',
             // Customizing list of languages available in the Language drop-down.
@@ -232,5 +299,11 @@
             height: 350
         });
 
+
+        $(document).ready(function () {
+            $('div.dz-image img').width('100px');
+            $('div.dz-image img').height('100px');
+        });
     </script>
+
 @stop

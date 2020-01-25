@@ -1,13 +1,13 @@
 @extends('admin.layouts.basic')
 @section('title')
-    طلاب الفرقة
+    لاعبي الفرقة
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> طلاب الفرقة - {{$team  -> name_ar}} </h3>
+                    <h3 class="content-header-title"> لاعبي الفرقة - {{$team  -> name_ar}} </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                 </li>
                                 <li class="breadcrumb-item"><a href="{{route('admin.teams.all')}}">الفرق</a>
                                 </li>
-                                <li class="breadcrumb-item active"> الطلاب
+                                <li class="breadcrumb-item active"> الاعبين
                                 </li>
                             </ol>
                         </div>
@@ -29,7 +29,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع طلاب الفرقة </h4>
+                                    <h4 class="card-title">جميع لاعبي الفرقة </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">

@@ -43,7 +43,7 @@ class Coach extends Authenticatable implements JWTSubject
 
     public function teams()
     {
-        return $this->belongsToMany('App\Models\Team', 'teams_coaches', 'coach_id', 'team_id');
+        return $this->hasMany('App\Models\Team', 'coach_id', 'id');
     }
 
 
