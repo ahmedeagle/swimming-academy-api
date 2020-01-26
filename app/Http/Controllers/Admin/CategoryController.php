@@ -22,6 +22,20 @@ class CategoryController extends Controller
     }
 
 
+    public function loadHeroes(Request $request)
+    {
+        $category = Category::find($request->category_id);
+        if (!$category) {
+            return response()->json(['content' => null]);
+        }
+        $users = $category->allUsers;
+        $view = view('admin.teams.heroes', compact('users')) -> with('message',' عفوا لايوجد اي لاعبين في هذا القسم فضلا قم باضافه لاعبين للقسم او اختر قسم اخر ثم المحاوله مجددا ')->renderSections();
+        return response()->json([
+            'content' => $view['main'],
+        ]);
+    }
+
+
     public function loadCategories(Request $request)
     {
         $academy = Academy::findOrfail($request->academy_id);
@@ -36,7 +50,7 @@ class CategoryController extends Controller
     public function loadCategoryTeams(Request $request)
     {
         $category = Category::findOrFail($request->category_id);
-        $teams = $category -> teams;
+        $teams = $category->teams;
         $view = view('admin.categories.teams', compact('teams'))->renderSections();
         return response()->json([
             'content' => $view['main'],
@@ -110,8 +124,8 @@ class CategoryController extends Controller
             }
             $status = $request->has('status') ? 1 : 0;
             $request->request->add(['status' => $status]); //add request
-            $category = Category::find( $id);
-            $category ->update($request->except('_token'));
+            $category = Category::find($id);
+            $category->update($request->except('_token'));
             notify()->success('تمت التعديل بنجاح ');
             return redirect()->route('admin.categories.all');
         } catch (\Exception $ex) {

@@ -141,7 +141,7 @@
 
             <li class="nav-item @if(Request::is('admin/heroes*')) open @endif"><a
                     href="{{route('admin.heroes.all')}}"><i class="la la-star"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main"> ألابطال   </span>
+                    <span class="menu-title" data-i18n="nav.dash.main"> أبطال الاسبوع </span>
                     <span
                         class="badge badge badge-warning  badge-pill float-right mr-2">{{\App\Models\Hero::count()}}</span>
                 </a>
@@ -159,6 +159,25 @@
                     </li>
                 </ul>
             </li>
+
+
+            <li class="nav-item @if(Request::is('admin/champions*')) open @endif"><a
+                    href="{{route('admin.champions.all')}}"><i class="la la-star"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> أبطال الفرق </span>
+                    <span
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{\App\Models\Champion::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="@if(Route::current()->getName() == 'admin.champions.all') active @endif"><a
+                            class="menu-item" href="{{route('admin.champions.all')}}"
+                            data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.champions.create') active @endif"
+                           href="{{route('admin.champions.create')}}" data-i18n="nav.dash.crypto">أضافة
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
 
             <li class="nav-item @if(Request::is('admin/users/tickets*') ) open @endif">
                 <a href="{{route('admin.users.tickets.all')}}"><i class="la la-envelope-o"></i>

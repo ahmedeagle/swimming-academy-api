@@ -80,6 +80,12 @@ class Category extends Model
         return $this->hasMany('App\Models\Hero', 'category_id', 'id');
     }
 
+    public function champions()
+    {
+        //return $this->hasManyThrough('App\Models\Hero', 'App\Models\User', 'team_id', 'user_id', 'id', 'id');
+        return $this->hasMany('App\Models\Champion', 'category_id', 'id');
+    }
+
     public function getStatus()
     {
         return $this->status == 0 ? 'غير مفعل' : 'مفعل';
@@ -87,7 +93,7 @@ class Category extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status', 1);
+        return $query->where('categories.status', 1);
     }
 
 }

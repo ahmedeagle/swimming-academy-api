@@ -26,11 +26,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['guest:admin']], function
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function () {
 
 
-    Route::get('test',function (){
+    Route::get('test', function () {
 
-          $hero = \App\Models\Hero::first();
+        $hero = \App\Models\Hero::first();
 
-        return         $hero -> team  -> name_ar;
+        return $hero->team->name_ar;
 
     });
 
@@ -43,9 +43,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/edit/{id}", "CategoryController@edit")->name('admin.categories.edit');
         Route::post("/update/{id}", "CategoryController@update")->name('admin.categories.update');
         Route::post("/loadcategories", "CategoryController@loadCategories")->name('admin.categories.loadCategories');
-        Route::post('/teams','CategoryController@loadCategoryTeams') -> name('admin.categories.loadTeams');
-        Route::get('/delete/{id}','CategoryController@deleteCategory') -> name('admin.academies.delete');
-
+        Route::post('/teams', 'CategoryController@loadCategoryTeams')->name('admin.categories.loadTeams');
+        Route::get('/delete/{id}', 'CategoryController@deleteCategory')->name('admin.categories.delete');
+        Route::post("/loadHeroes", "CategoryController@loadHeroes")->name('admin.categories.loadHeroes');
     });
 
     Route::group(['prefix' => 'academies'], function () {
@@ -54,10 +54,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/store", "AcademyController@store")->name('admin.academies.store');
         Route::get("/edit/{id}", "AcademyController@edit")->name('admin.academies.edit');
         Route::post("/update/{id}", "AcademyController@update")->name('admin.academies.update');
-        Route::post('/teams','AcademyController@loadAcademyHeroes') -> name('admin.academies.heroes');
-        Route::get('/delete/{id}','AcademyController@deleteAcademy') -> name('admin.academies.delete');
-        Route::get('/about-us/{id}','AcademyController@academyAboutUs') -> name('admin.academies.aboutus');
-        Route::post('/about-us','AcademyController@saveAboutUs') -> name('admin.academies.postaboutus');
+        Route::post('/teams', 'AcademyController@loadAcademyHeroes')->name('admin.academies.heroes');
+        Route::get('/delete/{id}', 'AcademyController@deleteAcademy')->name('admin.academies.delete');
+        Route::get('/about-us/{id}', 'AcademyController@academyAboutUs')->name('admin.academies.aboutus');
+        Route::post('/about-us', 'AcademyController@saveAboutUs')->name('admin.academies.postaboutus');
     });
 
     Route::group(['prefix' => 'teams'], function () {
@@ -71,7 +71,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/coaches/{id}", "TeamController@getTeamCoaches")->name('admin.teams.coaches');
         Route::get("/users/{id}", "TeamController@getTeamStudents")->name('admin.teams.users');
         Route::post("/loadHeroes", "TeamController@loadHeroes")->name('admin.teams.loadHeroes');
-        Route::get('/delete/{id}','TeamController@deleteTeam') -> name('admin.teams.delete');
+        Route::get('/delete/{id}', 'TeamController@deleteTeam')->name('admin.teams.delete');
     });
 
 
@@ -88,7 +88,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/update/{id}", "CoachController@update")->name('admin.coaches.update');
         Route::get("/users/{id}", "CoachController@getCoachStudents")->name('admin.coaches.users');
         Route::get("/teams/{id}", "CoachController@teams")->name('admin.coaches.teams');
-        Route::get('/delete/{id}','CoachController@deleteCoach') -> name('admin.coaches.delete');
+        Route::get('/delete/{id}', 'CoachController@deleteCoach')->name('admin.coaches.delete');
     });
 
     Route::group(['prefix' => 'users'], function () {
@@ -98,7 +98,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/edit/{id}", "UserController@edit")->name('admin.users.edit');
         Route::get("/details/{id}", "UserController@edit")->name('admin.users.details');
         Route::post("/update/{id}", "UserController@update")->name('admin.users.update');
-        Route::get('/delete/{id}','UserController@deleteUser') -> name('admin.users.delete');
+        Route::get('/delete/{id}', 'UserController@deleteUser')->name('admin.users.delete');
 
         Route::group(['prefix' => 'tickets'], function () {
             Route::get('/', 'UserMessageController@index')->name('admin.users.tickets.all');
@@ -140,6 +140,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/note", "HeroController@addHeroNote")->name('admin.heroes.note');
 
 
+    });
+
+
+    Route::group(['prefix' => 'champions'], function () {
+        Route::get("/", "ChampionController@index")->name('admin.champions.all');
+        Route::get("/create", "ChampionController@create")->name('admin.champions.create');
+        Route::post("/store", "ChampionController@store")->name('admin.champions.store');
+        Route::get("/edit/{id}", "ChampionController@edit")->name('admin.champions.edit');
+        Route::post("/update/{id}", "ChampionController@update")->name('admin.champions.update');
+        Route::get("/delete/{id}", "ChampionController@delete")->name('admin.champions.delete');
+        Route::get("/note", "ChampionController@addChampionNote")->name('admin.champions.note');
     });
 
     Route::get("/logout", "LoginController@logout")->name('admin.logout');

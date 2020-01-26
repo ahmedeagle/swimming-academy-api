@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Academy;
 use App\Models\Category;
+use App\Models\Champion;
 use App\Models\Hero;
 use App\Models\Team;
 use Illuminate\Support\Facades\Cache;
@@ -46,6 +47,12 @@ class AcademyObserver
         })->delete();
 
         Hero::whereHas('category', function ($q) use ($academy) {
+            $q->whereHas('academy', function ($qq) use ($academy) {
+                $qq->where('id', $academy->id);
+            });
+        })->delete();
+
+        Champion::whereHas('category', function ($q) use ($academy) {
             $q->whereHas('academy', function ($qq) use ($academy) {
                 $qq->where('id', $academy->id);
             });

@@ -147,7 +147,7 @@ class TeamController extends Controller
             ], $messages);
 
             if ($validator->fails()) {
-                return $validator -> errors();
+                return $validator->errors();
                 notify()->error('هناك خطا برجاء المحاوله مجددا ');
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
@@ -262,7 +262,7 @@ class TeamController extends Controller
             return response()->json(['content' => null]);
         }
         $users = $team->users;
-        $view = view('admin.teams.heroes', compact('users'))->renderSections();
+        $view = view('admin.teams.heroes', compact('users'))->with('message', ' عفوا لايوجد اي لاعبين في هذا الفريق فضلا قم باضافه لاعبين للفريق او اختر فريق اخر ثم المحاوله مجددا ')->renderSections();
         return response()->json([
             'content' => $view['main'],
         ]);

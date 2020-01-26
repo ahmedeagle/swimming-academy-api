@@ -128,8 +128,8 @@ class HeroController extends Controller
             $messages = [
                 'note_ar.required' => '  النبذه بالعربي  مطلوبه  .',
                 'note_en.required' => '  النبذه بالانجليزية مطلوب .',
-                'hero_id.required' => '  رقم الاعب مطلوب  .',
-                'hero_id.exists' => 'رقم الاعب غير موجود  ',
+                'heroId.required' => '  رقم الاعب مطلوب  .',
+                'heroId.exists' => 'رقم الاعب غير موجود  ',
             ];
 
             $validator = Validator::make($request->all(), [

@@ -14,6 +14,6 @@
             @endforeach
         </fieldset>
     @else
-        <span class="text-center text-danger"> عفوا لايوجد اي لاعبين في هذا الفريق فضلا قم باضافه لاعبين للفريق او اختر فريق اخر ثم المحاوله مجددا </span>
+        <span class="text-center text-danger">{{@$message}}</span>
     @endif
 @stop

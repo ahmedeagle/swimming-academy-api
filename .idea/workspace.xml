@@ -2,61 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Observers/TeamObserver.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Champion.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/youtube.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2015_05_06_194030_create_youtube_access_tokens_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/champions/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/champions/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/champions/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/includes/modals/championInfoModal.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/swimming.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/swimming.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HeroController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Coach.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Ticket.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Ticket.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Observers/AcademyObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/AcademyObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/UserObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/UserObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/css-rtl/plugins/file-uploaders/dropzone.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/css-rtl/plugins/file-uploaders/dropzone.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Observers/CategoryObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/CategoryObserver.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/6jwXjraEX7C1AHDTs779MfN9Tnb90TfnJq646WM5.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/8n1K5DSkMPvilubMLx4mYeuba6HiUzsNJRP6biQz.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/9kbd16V81KWYUKLC82bO7XzE7aWlISTcQqQgvXGH.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/Dy1xFoxfHSIQOXCOwB2IsirufeazQDfvo3H4mrgh.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/EH0HAc10BzJQa1k98VoduFuAGQYD1aEdSysPupmu.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/GbPhSq0yS93yI8nv7WzhdrxI34LCttD9UPt2R6aR.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/HeTCppSOtFaSOYqvtcfGrBtxct1yTavCFC4vScoN.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/R5EqNtTVjxplrNBtcVmftKI1EBfMYw8cukOpIlK4.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/UFKZZD6KxLeNFv0FEzj3T4LaOCNByhwpvVLUP5zk.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/ZzAdP5SNV9lrgO3B9StTZPbDSo4nVQ4YvakvFVJ8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/fzT2u21yZT4bFFatCe0A6DenXJNotBh9PrteQO6o.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/gUrJGG2j5Qc3W3xR6ACu85lIUmDj2K5XDeQ59Z12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/gxB7d83xsdjB7O9RCMMGISWkGXqpdlVRnSOe15hr.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/hMAq3wSwor5jG0BhY9YIen5sbKRxetBXS8wTvwXt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/uE5PgLPGuwrkcj0yX3ijwMHK7DKZwOo2XnwJEOdR.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/uEHsh3eKmFvvnL9ztFAn4okAnFxA8LN2c2mnS6hH.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/events/upa1wNSbxDt6Trqce7mZ17dxyJcJwKJ2jVMpBqo9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/academies/categories.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/academies/categories.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/categories/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/categories/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/teams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/teams.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/coaches/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/coaches/users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/events/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/events/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/events/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/events/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/alerts/errors.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/alerts/errors.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/alerts/success.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/alerts/success.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/messages/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/messages/users/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/coaches.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/coaches.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/heroes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/heroes.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -171,6 +139,15 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/google/auth" />
+      <path value="$PROJECT_DIR$/vendor/google/apiclient-services" />
+      <path value="$PROJECT_DIR$/vendor/google/apiclient" />
+      <path value="$PROJECT_DIR$/vendor/dawson/youtube" />
+      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
     </include_path>
   </component>
   <component name="ProjectId" id="1Vt4Xug7K0WiU4myQqWyYCzlzAJ" />
@@ -178,7 +155,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Observers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/includes/modals" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
@@ -191,11 +168,11 @@
       <recent name="C:\wamp\www\swimming\resources\views\admin" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\app\Observers" />
-      <recent name="C:\wamp\www\swimming\app\Models" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\academies" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\aboutus" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin" />
+      <recent name="C:\wamp\www\swimming\app\Models" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
+      <recent name="C:\wamp\www\swimming\app\Observers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -258,7 +235,7 @@
       <workItem from="1579081556579" duration="11317000" />
       <workItem from="1579369447890" duration="16520000" />
       <workItem from="1579535629829" duration="105749000" />
-      <workItem from="1579967685152" duration="11214000" />
+      <workItem from="1579967685152" duration="19595000" />
     </task>
     <servers />
   </component>
@@ -348,7 +325,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php</url>
-          <line>175</line>
+          <line>194</line>
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -370,6 +347,21 @@
           <url>file://$PROJECT_DIR$/routes/api.php</url>
           <line>22</line>
           <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php</url>
+          <line>141</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php</url>
+          <line>204</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php</url>
+          <line>46</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>

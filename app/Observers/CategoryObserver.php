@@ -35,6 +35,7 @@ class CategoryObserver
          $category->activities()->delete();
          $category->events()->delete();
          $category->heroes()->delete();
+         $category->champions()->delete();
          $category->coaches()->delete();
     }
 
