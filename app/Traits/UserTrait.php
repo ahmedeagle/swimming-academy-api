@@ -13,9 +13,13 @@ trait UserTrait
     public function authUserByMobile($mobile, $password)
     {
         $userId = null;
-        $user = User::with(['academy' => function($q){
-            $q -> select('id','name_'.app()->getLocale().' as name','code','logo');
-        }])->where('mobile', $mobile)->first();
+        $user = User::with(['academy' => function ($q) {
+            $q->select('academies.id', 'academies.name_' . app()->getLocale() . ' as name', 'academies.code', 'academies.logo');
+        }, 'team' => function ($q) {
+            $q->select('teams.id', 'teams.name_' . app()->getLocale() . ' as name', 'teams.photo');
+        }, 'category' => function ($q) {
+            $q->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name');
+        }])->where('users.mobile', $mobile)->first();
         $token = Auth::guard('user-api')->attempt(['mobile' => $mobile, 'password' => $password]);
         if (!$user)
             return null;
@@ -47,9 +51,11 @@ trait UserTrait
     public function getAllData($id)
     {
         $user = User::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'));
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name', 'code', 'logo'));
         }, 'team' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'));
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name', 'photo'));
+        }, 'category' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->find($id);
 
         return $user;

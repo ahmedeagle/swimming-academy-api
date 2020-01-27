@@ -128,7 +128,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر  القسم  </label>
-                                                            <select name="category_id" id="academy"
+                                                            <select name="category_id"
                                                                     class="select2 form-control appendCategories">
                                                             </select>
                                                             @error('category_id')

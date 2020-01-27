@@ -22,6 +22,8 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
     Route::post('heroes', 'HeroController@heroes')->name('heroes.all');
     Route::group(['prefix' => 'academies'], function () {
         Route::post('/', 'AcademyController@getAcademies')->name('academies.all');
+        Route::post('/categories', 'AcademyController@getAcademyCategories')->name('academies.categories');
+        Route::post('/category/teams', 'AcademyController@getCategoryTeams')->name('academies.category.teams');
     });
 
     Route::group(['prefix' => 'coach', 'namespace' => 'Coach'], function () {
