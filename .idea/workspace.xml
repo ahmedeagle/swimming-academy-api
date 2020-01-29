@@ -2,17 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/ActivityController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/EventController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AcademyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AcademyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/ActivityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Hero.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Hero.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/UserTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/ActivityTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/ActivityTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/EventTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/EventTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/validation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/categories/teams.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/categories/teams.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/heroes/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/heroes/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -143,24 +153,24 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/includes/modals" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers/Api/Coach" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
-      <recent name="C:\wamp\www\swimming\Helpers" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
       <recent name="C:\wamp\www\swimming\resources\views\admin" />
-      <recent name="C:\wamp\www\swimming\app\Models" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
-      <recent name="C:\wamp\www\swimming\app\Observers" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
+      <recent name="C:\wamp\www\swimming\Helpers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -227,6 +237,9 @@
       <workItem from="1580113060127" duration="3150000" />
       <workItem from="1580120197927" duration="9972000" />
       <workItem from="1580162843842" duration="2270000" />
+      <workItem from="1580217991923" duration="156000" />
+      <workItem from="1580236313989" duration="13561000" />
+      <workItem from="1580307593658" duration="11133000" />
     </task>
     <servers />
   </component>
@@ -336,7 +349,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/routes/api.php</url>
-          <line>22</line>
+          <line>19</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -353,6 +366,16 @@
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php</url>
           <line>46</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/heroes/create.blade.php</url>
+          <line>151</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/heroes/create.blade.php</url>
+          <line>188</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>

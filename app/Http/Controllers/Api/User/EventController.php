@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
@@ -25,7 +25,13 @@ class EventController extends Controller
     function events(Request $request)
     {
         try {
-            $events = $this->getAllEvents();
+
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+
+            $events = $this->getAllEvents($user);
             if (count($events) > 0) {
                 $total_count = $events->total();
                 $events->getCollection()->each(function ($event) {

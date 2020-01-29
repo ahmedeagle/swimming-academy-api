@@ -20,6 +20,18 @@ class Hero extends Model
         return parent::setAttribute($key, $value);
     }
 
+    public function getNoteArAttribute($val){
+        if($val === null){
+            return "";
+        }
+        return $val;
+    }
+    public function getNoteEnAttribute($val){
+        if($val === null){
+            return "";
+        }
+        return $val;
+    }
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');

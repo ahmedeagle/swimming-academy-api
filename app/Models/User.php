@@ -28,7 +28,7 @@ class User extends Authenticatable implements JWTSubject
         'activation_code', 'photo', 'api_token', 'password', 'created_at', 'updated_at'];
 
     protected $hidden = [
-        'updated_at', 'password', 'device_token', 'created_at'
+        'updated_at', 'password', 'device_token', 'created_at','team_id'
     ];
 
 
@@ -112,7 +112,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id', 'device_token', 'photo');
+        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id','category_id', 'device_token', 'photo');
     }
 
     public function scopeSelectionByLang($query)
@@ -146,5 +146,15 @@ class User extends Authenticatable implements JWTSubject
         $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
         $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
         return $this->hasMany('App\Models\Hero', 'user_id', 'id')->whereBetween('created_at', [$startWeek, $endWeek]);
+    }
+
+
+    //user can only be hero for one time in the same week
+    public function hero()
+    {
+        $weekStartEnd = currentWeekStartEndDate();
+        $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
+        $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
+        return $this->hasOne('App\Models\Hero', 'user_id', 'id')->whereBetween('created_at', [$startWeek, $endWeek]);
     }
 }

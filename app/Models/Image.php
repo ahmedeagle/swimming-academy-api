@@ -9,7 +9,7 @@ class Image extends Model
 {
     public $timestamps = true;
     protected $fillable = ['imageable_id', 'imageable_type','photo','created_at'];
-    protected $hidden = ['updated_at'];
+    protected $hidden = ['updated_at','created_at','imageable_id','imageable_type'];
 
     public function imageable()
     {

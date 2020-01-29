@@ -52,6 +52,7 @@
                                                 <th>الكاباتن</th>
                                                 <th> عدد الحصص الشهرية</th>
                                                 <th> صورة الفرقه</th>
+                                                <th> مستوي الفريق</th>
                                                 <th> أيام الفرقه</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
@@ -70,6 +71,7 @@
                                                         <td>{{$team -> coach -> name_ar }}</td>
                                                         <td>{{$team -> quotas}}</td>
                                                         <td><img src="{{$team -> photo}}" height="40px;"></td>
+                                                        <td>{{$team -> level_ar}}</td>
                                                         <td><a href="{{route('admin.teams.days',$team->id)}}"
                                                                class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">عرض
                                                                 الايام </a></td>

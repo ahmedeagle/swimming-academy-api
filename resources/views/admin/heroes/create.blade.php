@@ -92,12 +92,10 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput2"> أختر الفرق <span
-                                                                    class="text-info"> (يمكنك أختيار اكثر من فرقه )</span>
+                                                            <label for="projectinput2"> أختر الفرق
                                                             </label>
                                                             <select id="team" class="select2 form-control appendTeams"
-                                                                    name="team_id"
-                                                            >
+                                                                    name="team_id">
                                                             </select>
                                                             @error('teams')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -152,7 +150,6 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
-
                     $.ajax({
                         type: 'post',
                         url: "{{Route('admin.categories.loadTeams')}}",
@@ -161,20 +158,31 @@
                         },
                         success: function (data) {
                             $('.appendTeams').empty().append(data.content);
-                                $.ajax({
-                                    type: 'post',
-                                    url: "{{Route('admin.teams.loadHeroes')}}",
-                                    data: {
-                                        'team_id': $('#team').val(),
-                                    },
-                                    success: function (data) {
-                                        $('.appendHeroes').empty().append(data.content);
-                                    }
-                                });
+                            $.ajax({
+                                type: 'post',
+                                url: "{{Route('admin.teams.loadHeroes')}}",
+                                data: {
+                                    'team_id': $('#team').val(),
+                                },
+                                success: function (data) {
+                                    $('.appendHeroes').empty().append(data.content);
+                                }
+                            });
+                        },
+                        error: function () {
+                            $('.appendTeams').empty();
+                            $('.appendCategories').empty();
+                            $('.appendHeroes').empty();
                         }
-                    });
 
+                    });
+                },
+                error: function () {
+                    $('.appendTeams').empty();
+                    $('.appendCategories').empty();
+                    $('.appendHeroes').empty();
                 }
+
             });
         });
 
@@ -205,10 +213,21 @@
                                 },
                                 success: function (data) {
                                     $('.appendHeroes').empty().append(data.content);
+                                }, error: function () {
+                                    $('.appendTeams').empty();
+                                    $('.appendCategories').empty();
+                                    $('.appendHeroes').empty();
                                 }
                             });
+                        }, error: function () {
+                            $('.appendTeams').empty();
+                             $('.appendHeroes').empty();
                         }
                     });
+                }, error: function () {
+                    $('.appendCategories').empty();
+                    $('.appendTeams').empty();
+                    $('.appendHeroes').empty();
                 }
             });
         });
@@ -231,8 +250,29 @@
                         },
                         success: function (data) {
                             $('.appendHeroes').empty().append(data.content);
+                        }, error: function () {
+                              $('.appendHeroes').empty();
                         }
                     });
+                }, error: function () {
+                    $('.appendTeams').empty();
+                     $('.appendHeroes').empty();
+                }
+            });
+        });
+
+        $(document).on('change', '#team', function () {
+
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.teams.loadHeroes')}}",
+                data: {
+                    'team_id': $('#team').val(),
+                },
+                success: function (data) {
+                    $('.appendHeroes').empty().append(data.content);
+                }, error: function () {
+                    $('.appendHeroes').empty();
                 }
             });
         });

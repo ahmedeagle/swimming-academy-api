@@ -287,6 +287,7 @@ return [
     'photoRequired'   => ' الصوره مطلوبة',
     'birthDateRequired'   => 'تاريخ الميلاد مطلوب',
     'birthDateFormat'   => ' صيغة تاريخ الميلاد غير صحيحة ',
+    'There are no data found' => 'لا يوجد اي بيانات حتي اللحظه ',
 
 
 ];

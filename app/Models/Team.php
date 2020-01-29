@@ -12,13 +12,13 @@ class Team extends Model
     use  GlobalTrait;
     protected $table = 'teams';
     public $timestamps = true;
-    protected $forcedNullStrings = ['photo', 'name_ar', 'name_en'];
+    protected $forcedNullStrings = ['photo', 'name_ar', 'name_en','level_ar','level_en'];
     protected $forcedNullNumbers = ['reservation_period'];
     protected $casts = [
         'status' => 'integer',
     ];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id','coach_id', 'status'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id','coach_id', 'status','level_ar','level_en'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -68,6 +68,18 @@ class Team extends Model
         return $this->hasOne('App\Models\TeamTime', 'team_id', 'id');
     }
 
+    public  function  getLevelArAttribute($val){
+         if ($val === null or  $val == ''){
+             return "";
+         }
+         return $val;
+    } public  function  getLevelEnAttribute($val){
+         if ($val === null or  $val == ''){
+             return "";
+         }
+         return $val;
+    }
+
     public function setAttribute($key, $value)
     {
         if (in_array($key, $this->forcedNullStrings) && $value === null)
@@ -84,7 +96,7 @@ class Team extends Model
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'category_id','coach_id', 'photo', 'quotas', 'status');
+        return $query->select('id', 'name_ar', 'name_en','level_ar','level_en', 'category_id','coach_id', 'photo', 'quotas', 'status');
     }
 
     public function scopeActive($query)

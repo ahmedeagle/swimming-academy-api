@@ -186,6 +186,33 @@
 
                                                 <div class="row">
                                                     <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">مستوي الفريق بالعربي</label>
+                                                            <input type="text" value="{{$team -> level_ar}}" id="level_ar"
+                                                                   class="form-control"
+                                                                   placeholder="مستوي الفريق بالعربي "
+                                                                   name="level_ar">
+                                                            @error('level_ar')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">مستوي الفريق بالانجليزي</label>
+                                                            <input type="text" value="{{$team -> level_en}}" id="level_en"
+                                                                   class="form-control"
+                                                                   placeholder="مستوي الفريق بالانجليزي "
+                                                                   name="level_en">
+                                                            @error('level_en')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <input type="checkbox" name="status"
                                                                    id="switcheryColor4"
@@ -196,7 +223,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">

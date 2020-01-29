@@ -285,4 +285,5 @@ return [
     'photoRequired'   => 'Photo Required',
     'birthDateRequired'   => 'Birth Date Required',
     'birthDateFormat'   => 'birth date format not valid',
+    'There are no data found' => 'There are no data found',
 ];

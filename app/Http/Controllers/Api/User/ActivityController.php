@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
@@ -26,7 +26,12 @@ class ActivityController extends Controller
     function activities(Request $request)
     {
         try {
-            $activities = $this->getAllActivities();
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+
+            $activities = $this->getAllActivities($user);
             if (count($activities) > 0) {
                 $total_count = $activities->total();
                 $activities->getCollection()->each(function ($activity) {
