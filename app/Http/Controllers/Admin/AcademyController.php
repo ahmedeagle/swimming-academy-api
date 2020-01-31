@@ -167,11 +167,13 @@ class AcademyController extends Controller
         try {
             $messages = [
                 'academy_id.required' => ' لابد من تحديد الاكاديمية ',
-                'academy_id.exists' => 'الاكاديمية غير موجوده لدينا '
+                'academy_id.exists' => 'الاكاديمية غير موجوده لدينا ',
+                'email.email'  => ' البريد الالكتروني عبر صحيح',
             ];
 
             $validator = Validator::make($request->all(), [
-                'academy_id' => 'required|exists:academies,id'
+                'academy_id' => 'required|exists:academies,id',
+                'email' => 'sometimes|nullable|email',
             ], $messages);
 
             if ($validator->fails()) {
@@ -185,7 +187,6 @@ class AcademyController extends Controller
             if ($settings === null) {
                 $setting = new Setting($request->all());
                 $academy->setting()->save($setting);
-
                 notify()->success('تمت الحفظ بنجاح ');
                 return redirect()->route('admin.academies.all');
 

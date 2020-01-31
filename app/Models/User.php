@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use  DB;
 use App\Observers\UserObserver;
+
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -24,11 +25,14 @@ class User extends Authenticatable implements JWTSubject
     protected $appends = ['is_coach'];
 
     protected $fillable = [
-        'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'team_id','category_id','academy_id','email', 'tall', 'weight', 'birth_date', 'status', 'device_token',
-        'activation_code', 'photo', 'api_token', 'password', 'created_at', 'updated_at'];
+        'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile',
+        'team_id', 'category_id', 'academy_id', 'email', 'tall',
+        'weight', 'birth_date', 'status', 'device_token',
+        'activation_code', 'photo', 'api_token', 'password',
+        'created_at', 'updated_at','subscribed'];
 
     protected $hidden = [
-        'updated_at', 'password', 'device_token', 'created_at','team_id'
+        'updated_at', 'password', 'device_token', 'created_at', 'team_id'
     ];
 
 
@@ -40,13 +44,14 @@ class User extends Authenticatable implements JWTSubject
 
     public function category()
     {
-       /*return $this->belongsTo('App\Models\Team', 'team_id')
-            ->join('categories', 'categories.id', '=', 'teams.category_id');*/
-       return $this -> belongsTo('App\Models\Category','category_id','id');
+        /*return $this->belongsTo('App\Models\Team', 'team_id')
+             ->join('categories', 'categories.id', '=', 'teams.category_id');*/
+        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 
-    public function  academy(){
-        return $this -> belongsTo('App\Models\Academy','academy_id','id');
+    public function academy()
+    {
+        return $this->belongsTo('App\Models\Academy', 'academy_id', 'id');
     }
 
     public function Coaches()
@@ -100,6 +105,12 @@ class User extends Authenticatable implements JWTSubject
         return $query->where('users.status', 1);
     }
 
+    public function isSubScribed()
+    {
+
+        return $this->subscribed;
+    }
+
     public function scopeSubScribed($query)
     {
         return $query->where('subscribed', 1);
@@ -112,7 +123,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id','category_id', 'device_token', 'photo');
+        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id', 'category_id', 'device_token', 'photo');
     }
 
     public function scopeSelectionByLang($query)
@@ -156,5 +167,15 @@ class User extends Authenticatable implements JWTSubject
         $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
         $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
         return $this->hasOne('App\Models\Hero', 'user_id', 'id')->whereBetween('created_at', [$startWeek, $endWeek]);
+    }
+
+    public function champions()
+    {
+        return $this->hasMany('App\Models\Champion', 'user_id', 'id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Models\Subscription', 'user_id', 'id');
     }
 }

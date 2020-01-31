@@ -26,10 +26,6 @@ class HeroController extends Controller
     public
     function heroes(Request $request)
     {
-        if ($request->has('type') && $request->type == 'users') {
-            $rules['team_id'] = 'required|exists:teams,id';
-        }
-
         $user = $this->auth('user-api');
         if (!$user) {
             return $this->returnError('D000', trans('messages.User not found'));
@@ -37,14 +33,39 @@ class HeroController extends Controller
 
         // $weekStartEnd = currentWeekStartEndDate();
         $heroes = $this->getHeroes($user);
-        if (isset($heroes) &&  $heroes -> count() > 0) {
-            foreach ($heroes as $_hero){
-                $note =   $_hero -> hero -> {'note_'.app()->getLocale()};
-                $_hero -> note =$note  ;
-                unset($_hero -> hero);
+        if (isset($heroes) && $heroes->count() > 0) {
+            foreach ($heroes as $_hero) {
+                $note = $_hero->hero->{'note_' . app()->getLocale()};
+                $_hero->note = $note;
+                unset($_hero->hero);
             }
             return $this->returnData('heroes', $heroes);
         }
         return $this->returnError('E001', trans('messages.There are no data found'));
     }
+
+    public
+    function champions(Request $request)
+    {
+
+        $user = $this->auth('user-api');
+        if (!$user) {
+            return $this->returnError('D000', trans('messages.User not found'));
+        }
+
+        // $weekStartEnd = currentWeekStartEndDate();
+         $champions = $this->getChampions($user);
+        if (count($champions) > 0) {
+            $total_count = $champions->total();
+            $champions = json_decode($champions->toJson());
+            $championsJson = new \stdClass();
+            $championsJson->current_page = $champions->current_page;
+            $championsJson->total_pages = $champions->last_page;
+            $championsJson->total_count = $total_count;
+            $championsJson->data = $champions->data;
+            return $this->returnData('champions', $championsJson);
+        }
+        return $this->returnError('E001', trans('messages.There are no data found'));
+    }
+
 }

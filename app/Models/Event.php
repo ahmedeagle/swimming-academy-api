@@ -9,7 +9,8 @@ class Event extends Model
     protected $table = 'events';
     public $timestamps = true;
     protected $forcedNullStrings = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en', 'status'];
-    protected $fillable = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en', 'status','academy_id','category_id'];
+    protected $fillable = ['title_ar', 'title_en', 'photo', 'description_ar', 'description_en', 'status',
+        'academy_id','category_id'];
     protected $hidden = ['created_at', 'updated_at'];
     protected $casts = [
         'status' => 'integer',

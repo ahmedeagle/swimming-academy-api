@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Storage;
 
 function takeLastMessage($count)
@@ -69,3 +70,9 @@ function currentWeekStartEndDate()
 
     return $data;
 }
+
+
+
+function getDaysInMonth($month,$year) {
+ return new Date($year, $month+1, 0).getDate();
+};

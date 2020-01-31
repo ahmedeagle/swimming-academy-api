@@ -27,10 +27,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
 
     Route::get('test', function () {
-
-        $hero = \App\Models\Hero::first();
-
-        return $hero->team->name_ar;
+        getDaysInMonth(1, 2020);
 
     });
 
@@ -108,6 +105,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
             Route::get('/reply/{id}', 'UserMessageController@getReply')->name('admin.users.tickets.getreply');
             Route::post('/reply', 'UserMessageController@reply')->name('admin.users.tickets.reply');
         });
+    });
+
+    Route::group(['prefix' => 'subscriptions'], function () {
+        Route::get("/", "SubscriptionController@subscriptions")->name('admin.subscriptions');
     });
 
     Route::group(['prefix' => 'events'], function () {

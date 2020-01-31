@@ -14,6 +14,9 @@ class Setting extends Model
         'title_en',
         'content_ar',
         'content_en',
+        'academy_id',
+        'mobile',
+        'email'
      ];
 
     protected $forcedNullStrings = [
@@ -21,6 +24,8 @@ class Setting extends Model
         'title_en',
         'content_ar',
         'content_en',
+        'mobile',
+        'email'
      ];
 
 
@@ -28,9 +33,6 @@ class Setting extends Model
     {
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
-
         return parent::setAttribute($key, $value);
     }
-
-
 }

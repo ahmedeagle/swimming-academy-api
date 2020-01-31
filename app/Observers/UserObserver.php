@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Category;
+use App\Models\Champion;
 use App\Models\Coach;
 use App\Models\Event;
 use App\Models\Hero;
@@ -29,6 +30,7 @@ class UserObserver
     public function deleting(User $user)
     {
         Hero::where('user_id', $user->id)->delete();
+        Champion::where('user_id', $user->id)->delete();
         $user->notifications()->delete();
         $user->tickets()->delete();
     }

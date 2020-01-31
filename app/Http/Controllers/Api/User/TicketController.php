@@ -94,13 +94,12 @@ class TicketController extends Controller
     public
     function newTicket(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             "importance" => "numeric|min:1|max:2",
             "type" => "numeric|min:1|max:4",
             "message" => "required",
             "title" => 'required',
-            "actor_type" => "required|in:1"
+            "actor_type" => "required|in:1",
         ]);
         DB::beginTransaction();
         if ($validator->fails()) {
@@ -131,6 +130,7 @@ class TicketController extends Controller
             'type' => $request->type,
             'importance' => $request->importance,
             'message' => $request->message,
+            'academy_id' => $user->academy_id,
         ]);
 
         $replay = [

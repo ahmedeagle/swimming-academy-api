@@ -109,5 +109,10 @@ class Team extends Model
         return $this->{'name_' . app()->getLocale()};
     }
 
+    public function getTranslatedLevel()
+    {
+        return $this->{'level_' . app()->getLocale()};
+    }
+
 }
 

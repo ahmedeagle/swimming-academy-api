@@ -16,11 +16,11 @@ trait TeamTrait
     function getStudentsInTeam($teamId)
     {
         return Team::find($teamId) -> users() ->with(['team' => function ($city) {
-            $city->select('id',DB::raw('name_' . app()->getLocale() . ' as name'));
+            $city->select('id',DB::raw('name_' . app()->getLocale() . ' as name'),DB::raw('level_' . app()->getLocale() . ' as level'));
         }])->  selectionByLang() ->paginate(10);
     }
 
     public function getTeamsByAcademyId($academyId){
-        return Team::active() ->where('academy_id',$academyId) -> select('id', DB::raw('name_' . $this->getCurrentLang() . ' as name'))->get();
+        return Team::active() ->where('academy_id',$academyId) -> select('id', DB::raw('name_' . $this->getCurrentLang() . ' as name'),DB::raw('level_' . app()->getLocale() . ' as level'))->get();
     }
 }

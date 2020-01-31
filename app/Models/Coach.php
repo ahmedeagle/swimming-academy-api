@@ -21,10 +21,12 @@ class Coach extends Authenticatable implements JWTSubject
         'rate'    =>'integer'
     ];
 
-    protected $forcedNullStrings = ['name_ar', 'name_en', 'photo', 'mobile', 'device_token', 'api_token'];
+    protected $forcedNullStrings = ['name_ar', 'name_en', 'photo', 'mobile',
+        'device_token', 'api_token'];
     protected $forcedNullNumbers = ['rate', 'gender', 'status'];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'mobile', 'academy_id','category_id','gender', 'password', 'device_token', 'status', 'created_at', 'api_token', 'created_at', 'rate'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'mobile',
+        'academy_id','category_id','gender', 'password', 'device_token', 'status', 'created_at', 'api_token', 'created_at', 'rate'];
 
     protected $hidden = [
         'created_at', 'password', 'updated_at', 'device_token'

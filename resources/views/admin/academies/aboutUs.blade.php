@@ -56,7 +56,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> العنوان بالعربي </label>
+                                                            <label for="projectinput1">  عنوان صفحة من نحن بالعربي </label>
                                                             <input type="text" value="{{ @$settings -> title_ar }}" id="title_ar"
                                                                    class="form-control"
                                                                    placeholder="ادخل  العنوان  باللغة العربية "
@@ -68,12 +68,39 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> العنوان بالانجليزي </label>
+                                                            <label for="projectinput1"> عنوان صفحة من نحن بالانجليزي </label>
                                                             <input type="text" value="{{  @$settings -> title_en  }}" id="title_en"
                                                                    class="form-control"
                                                                    placeholder="ادخل   العنوان  باللغة  الانجليزية  "
                                                                    name="title_en">
                                                             @error('title_en')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  البريد الالكتروني للاكاديمية </label>
+                                                            <input type="text" value="{{ @$settings -> email }}" id="email"
+                                                                   class="form-control"
+                                                                   placeholder=" بريد الالكتروني للاكاديمية  "
+                                                                   name="email">
+                                                            @error('email')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> رقم التواصل مع الاكاديمية </label>
+                                                            <input type="text" value="{{  @$settings -> mobile  }}" id="mobile"
+                                                                   class="form-control"
+                                                                   placeholder="رقم التواصل مع الاكاديمية  "
+                                                                   name="mobile">
+                                                            @error('mobile')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>

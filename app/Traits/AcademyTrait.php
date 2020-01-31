@@ -26,7 +26,7 @@ trait AcademyTrait
     public function getCategoryTeamsById($categoryId)
     {
         $category = Category::find($categoryId);
-        return $teams = $category->teams()->select('id', DB::raw('name_' . app()->getLocale()) . ' as name')->get();
+        return $teams = $category->teams()->select('id','photo',DB::raw('name_' . app()->getLocale() . ' as name'),DB::raw('level_' . app()->getLocale() . ' as level') )->get();
     }
 
 

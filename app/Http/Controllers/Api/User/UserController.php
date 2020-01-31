@@ -302,13 +302,6 @@ class UserController extends Controller
         try {
 
             $rules = [
-                "address_ar" => "sometimes|nullable|max:255",
-                "address_en" => "sometimes|nullable|max:255",
-                "mobile" => array(
-                    "required",
-                    "numeric",
-                    "unique:users,mobile," . $user->id
-                ),
                 "email" => "required|email|max:255|unique:users,email," . $user->id,
             ];
 

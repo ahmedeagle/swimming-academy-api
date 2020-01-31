@@ -7,7 +7,6 @@
                         class="menu-title" data-i18n="nav.add_on_drag_drop.main">الرئيسية </span></a>
             </li>
 
-     
 
             <li class="nav-item has-sub @if(Request::is('admin/academies*')) open @endif">
                 <a href="{{route('admin.academies.all')}}"><i class="la la-home"></i>
@@ -28,7 +27,7 @@
             </li>
 
 
-                   <li class="nav-item has-sub @if(Request::is('admin/categories*')) open @endif">
+            <li class="nav-item has-sub @if(Request::is('admin/categories*')) open @endif">
                 <a href="{{route('admin.categories.all')}}"><i class="la la-home"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> الأقسام </span>
                     <span
@@ -45,8 +44,6 @@
                     </li>
                 </ul>
             </li>
-
-            
 
 
             <li class="nav-item @if(Request::is('admin/coaches*') ) open @endif"><a
@@ -106,6 +103,38 @@
                     </li>
                 </ul>
             </li>
+
+
+            <li class="nav-item @if(Request::is('admin/users*') ) open @endif"><a href="{{route('admin.users.all')}}"><i
+                        class="la la-money"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> الاشتراكات  </span>
+                    <span
+                        class="badge badge badge-success  badge-pill float-right mr-2">{{\App\Models\Subscription::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="@if(Route::current()->getName() == 'admin.subscriptions') active @endif"><a class="menu-item"
+                                                                                                       href="{{route('admin.subscriptions',['type' => 'all'])}}"
+                                                                                                       data-i18n="nav.dash.ecommerce">
+                            عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.subscriptions') active @endif"
+                           href="{{route('admin.subscriptions',['type' => 'expired'])}}" data-i18n="nav.dash.crypto">
+                            الاشتراكات المنتهية </a>
+                    </li>
+
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.subscriptions') active @endif"
+                           href="{{route('admin.subscriptions',['type' => 'current'])}}" data-i18n="nav.dash.crypto">
+                            الاشتراكات الفعالة </a>
+                    </li>
+
+                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.subscriptions') active @endif"
+                           href="{{route('admin.subscriptions',['type' => 'new'])}}" data-i18n="nav.dash.crypto">
+                            الاشتراكات  الجديدة </a>
+                    </li>
+                </ul>
+            </li>
+
+
             <li class="nav-item @if(Request::is('admin/events*')) open @endif"><a
                     href="{{route('admin.events.all')}}"><i class="la la-picture-o"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> فعاليات الاكاديمية  </span>

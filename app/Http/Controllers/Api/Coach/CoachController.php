@@ -56,7 +56,7 @@ class CoachController extends Controller
                 }
                 $coach->update();
                 $coach->name = $coach->getTranslatedName();
-               // $coach->makeHidden(['name_ar', 'name_en']);
+                // $coach->makeHidden(['name_ar', 'name_en']);
                 DB::commit();
             }
             $coach->makeVisible(['activation_code', 'status']);
@@ -74,7 +74,8 @@ class CoachController extends Controller
                 $total_count = $teams->total();
                 $teams->getCollection()->each(function ($team) {
                     $team->name = $team->getTranslatedName();
-                    $team->makeHidden(['pivot', 'academy_id', 'name_ar', 'name_en']);
+                    $team->level = $team-> getTranslatedLevel();
+                    $team->makeHidden(['pivot', 'academy_id', 'name_ar', 'name_en','level_ar','level_en','category_id','coach_id']);
                     return $team;
                 });
                 $branches = json_decode($teams->toJson());
@@ -95,14 +96,14 @@ class CoachController extends Controller
     {
         try {
             $coach = $this->auth('coach-api');
-            $coach_relation = Coach::with(['academy' => function ($city) {
-                $city->select('id', DB::raw('name_' . app()->getLocale() . ' as name'));
-            }])->find($coach->id);
-
-            if (!$coach_relation) {
+            if (!$coach) {
                 return $this->returnError('D000', trans('messages.User not found'));
             }
-            return $this->returnData('coach', json_decode(json_encode($coach_relation, JSON_FORCE_OBJECT)));
+
+            $coach = $this->getAllData($coach->id);
+            $coach->name = $coach->{'name_' . app()->getLocale()};
+
+            return $this->returnData('coach', json_decode(json_encode($coach, JSON_FORCE_OBJECT)));
 
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
@@ -111,22 +112,17 @@ class CoachController extends Controller
 
     public function update_coach_profile(Request $request)
     {
-         $coach = $this->auth('coach-api');
+        $coach = $this->auth('coach-api');
 
         if (!$coach) {
             return $this->returnError('D000', trans('messages.User not found'));
         }
 
         $validator = Validator::make($request->all(), [
-            "name_ar" => "required|max:255",
-            "name_en" => "required|max:255",
-            "mobile" => 'required|max:100|unique:coahes,mobile,' . $coach->id . ',id',
             "password" => "sometimes|nullable|confirmed|max:255",
             "password_confirmation" => "required_with:password",
             "old_password" => "required_with:password",
-            "academy_id" => "required|exists:academies,id",
             "photo" => "sometimes|nullable|mimes:jpeg,jpg,png",
-            "gender" => "required|in:1,2"
         ]);
 
         if ($validator->fails()) {
@@ -144,11 +140,6 @@ class CoachController extends Controller
             //check for old password
             if (Hash::check($request->old_password, $coach->password)) {
                 $coach->update([
-                    'name_en' => $request->name_en,
-                    'name_ar' => $request->name_ar,
-                    "mobile" => $request->mobile,
-                    "academy_id" => $request->academy_id,
-                    "gender" => $request->gender,
                     'password' => $request->password,
                     'photo' => $fileName
                 ]);
@@ -158,15 +149,12 @@ class CoachController extends Controller
 
         } else {
             $coach->update([
-                'name_en' => $request->name_en,
-                'name_ar' => $request->name_ar,
-                "mobile" => $request->mobile,
-                "academy_id" => $request->academy_id,
-                "gender" => $request->gender,
                 'photo' => $fileName
             ]);
-         }
-        $coach->makeVisible(['status']);
+        }
+      //  $coach->makeVisible(['status']);
+        $coach = $this->getAllData($coach->id);
+        $coach->name = $coach->{'name_' . app()->getLocale()};
         DB::commit();
         return $this->returnData('coach', json_decode(json_encode($coach, JSON_FORCE_OBJECT)),
             trans('messages.coach data updated successfully'));

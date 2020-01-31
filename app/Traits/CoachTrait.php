@@ -16,7 +16,7 @@ trait CoachTrait
         $coachID = null;
         $coach = Coach::where('mobile', $mobile)->first();
         $token = Auth::guard('coach-api')->attempt(['mobile' => $mobile, 'password' => $password]);
-         if (!$coach)
+        if (!$coach)
             return null;
 
         // to allow open  app on more device with the same account
@@ -34,9 +34,19 @@ trait CoachTrait
     public
     function getTeams($coach)
     {
-        return $coach->teams()->active()->with(['academy' => function ($city) {
-                $city->select('id',DB::raw('name_' . app()->getLocale() . ' as name'));
-            }])-> paginate(10);
+        return $coach->teams()->active()->paginate(10);
+    }
+
+
+    public function getAllData($id)
+    {
+        $coach = Coach::with(['academy' => function ($q) {
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name', 'code', 'logo'));
+        },'category' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+        }])->find($id);
+
+        return $coach;
     }
 
     public function findCoach($id)

@@ -23,7 +23,6 @@ class HeroController extends Controller
 
     }
 
-
     //weekly heroes
     public function getTeamsHasHeroes(Request $request)
     {
@@ -103,4 +102,31 @@ class HeroController extends Controller
         }
         return $this->returnError('E001', trans('messages.There are no data found'));
     }
-}
+
+
+    public
+    function champions(Request $request)
+    {
+
+        $coach = $this->auth('coach-api');
+        if (!$coach) {
+            return $this->returnError('D000', trans('messages.User not found'));
+        }
+
+        // $weekStartEnd = currentWeekStartEndDate();
+        $champions = $this->getCoachChampions($coach);
+        if (count($champions) > 0) {
+            $total_count = $champions->total();
+
+            $champions = json_decode($champions->toJson());
+            $championsJson = new \stdClass();
+            $championsJson->current_page = $champions->current_page;
+            $championsJson->total_pages = $champions->last_page;
+            $championsJson->total_count = $total_count;
+            $championsJson->data = $champions->data;
+            return $this->returnData('champions', $championsJson);
+        }
+        return $this->returnError('E001', trans('messages.There are no data found'));
+    }
+
+ }

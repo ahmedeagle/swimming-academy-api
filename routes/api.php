@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('teamsWithHeroes', 'HeroController@getTeamsHasHeroes');
                 Route::post('team/heroes', 'HeroController@getTeamHeroes');
                 Route::post('heroes', 'HeroController@heroes')->name('heroes.all');
+                Route::post('champions', 'HeroController@champions')->name('champions.all');
                 Route::post('PrepareUpdateProfile', 'CoachController@prepare_update_coach_profile')->name('coach.edit.profile');
                 Route::post('profile/update', 'CoachController@update_coach_profile')->name('coach.update.profile');
             });
@@ -55,12 +56,15 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
         Route::post('/resend/verification-code', "UserController@resendCodeVerification");
         Route::post('/codeverification', "UserController@CodeVerification");
         Route::post('/resetPassword', "UserController@passwordReset");
+        Route::post('/checkSubscription', "SubscriptionController@checkSubscribtion");
+        Route::post('/paySubscription', "SubscriptionController@paySubscription");
         Route::group(['middleware' => ['CheckUserToken']], function () {
             Route::post('logout', 'UserController@logout')->name('user.logout');
             Route::group(['middleware' => ['CheckUserStatus']], function () {
                 Route::post('events', 'EventController@events')->name('user.event.all');
                 Route::post('activities', 'ActivityController@activities')->name('user.activities.all');
                 Route::post('heroes', 'HeroController@heroes')->name('user.heroes.all');
+                Route::post('champions', 'HeroController@champions')->name('user.champions.all');
                 Route::post('profile/update', 'UserController@update_user_profile')->name('user.update.profile');
                 Route::post('notifications', 'NotificationController@get_notifications')->name('user.notifications');
                 Route::group(['prefix' => 'tickets'], function () {

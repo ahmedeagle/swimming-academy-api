@@ -8,10 +8,10 @@ class Champion extends Model
 {
     protected $table = 'champions';
     public $timestamps = true;
-    protected $forcedNullStrings = ['note_ar','note_en'];
+    protected $forcedNullStrings = ['note_ar', 'note_en'];
 
-    protected $fillable = ['user_id', 'category_id','created_at','note_ar','note_en'];
-    protected $hidden = ['updated_at','note_ar','note_en'];
+    protected $fillable = ['user_id', 'category_id', 'created_at', 'note_ar', 'note_en'];
+    protected $hidden = ['updated_at', 'user_id'];
 
     public function setAttribute($key, $value)
     {
@@ -36,4 +36,16 @@ class Champion extends Model
         return $this->belongsTo('App\Models\Category', 'category_id', 'id');
     }
 
+    public function getNoteArAttribute($val){
+        if($val === null){
+            return "";
+        }
+        return $val;
+    }
+    public function getNoteEnAttribute($val){
+        if($val === null){
+            return "";
+        }
+        return $val;
+    }
 }

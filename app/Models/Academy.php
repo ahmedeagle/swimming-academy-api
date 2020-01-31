@@ -14,7 +14,7 @@ class Academy extends Model
         'status' => 'integer',
     ];
 
-    protected $fillable = ['name_ar', 'name_en', 'address', 'status', 'address_ar', 'address_en', 'code', 'logo'];
+    protected $fillable = ['name_ar', 'name_en', 'status', 'address_ar', 'address_en', 'code', 'logo'];
     protected $hidden = ['created_at', 'updated_at'];
     protected $forcedNullStrings = ['name', 'address_ar', 'address_en', 'code', 'logo'];
 
