@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/SubscriptionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Subscription.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/subscriptions/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GeneralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GeneralController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Academy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Academy.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Champion.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Champion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Coach.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Coach.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Setting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/UserObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/UserObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/CoachTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/CoachTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/TeamTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/TeamTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/academies/aboutUs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/academies/aboutUs.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +222,8 @@
       <workItem from="1580307593658" duration="21875000" />
       <workItem from="1580377570156" duration="15000" />
       <workItem from="1580414902420" duration="11690000" />
-      <workItem from="1580473940167" duration="16171000" />
+      <workItem from="1580473940167" duration="16983000" />
+      <workItem from="1580640042258" duration="367000" />
     </task>
     <servers />
   </component>
