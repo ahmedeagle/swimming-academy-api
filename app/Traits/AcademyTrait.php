@@ -20,7 +20,7 @@ trait AcademyTrait
     public function getAcademyCategoriesByCode($academyCode)
     {
         $academy = Academy::where('code', $academyCode)->first();
-        return $categories = $academy->categories()->select('id', DB::raw('name_' . app()->getLocale()) . ' as name')->get();
+        return $categories = $academy->categories()->select('id', DB::raw('name_' . app()->getLocale(). ' as name') )->get();
     }
 
     public function getCategoryTeamsById($categoryId)

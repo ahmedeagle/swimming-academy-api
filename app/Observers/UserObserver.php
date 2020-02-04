@@ -33,6 +33,7 @@ class UserObserver
         Champion::where('user_id', $user->id)->delete();
         $user->notifications()->delete();
         $user->tickets()->delete();
+        $user -> subscriptions() ->delete();
     }
 
     /**

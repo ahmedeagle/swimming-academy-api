@@ -67,6 +67,9 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('champions', 'HeroController@champions')->name('user.champions.all');
                 Route::post('profile/update', 'UserController@update_user_profile')->name('user.update.profile');
                 Route::post('notifications', 'NotificationController@get_notifications')->name('user.notifications');
+                Route::post('membership', 'SubscriptionController@getMemberShip');
+                Route::post('myTeam', 'UserController@myTeam');
+
                 Route::group(['prefix' => 'tickets'], function () {
                     Route::post('/', 'TicketController@getTickets')->name('user.tickets');
                     Route::post('new ', 'TicketController@newTicket')->name('user.add.ticket');

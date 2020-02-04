@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Subscription;
 use App\Models\Team;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -28,6 +29,11 @@ class TeamObserver
     {
         $team->heroes()->delete();
         $team->users()->delete();
+        Subscription::whereHas('user', function ($q) use ($team) {
+            $q->whereHas('team', function ($qq) use ($team) {
+                $qq->where('id', $team->id);
+            });
+        })->delete();
     }
 
     /**

@@ -51,9 +51,9 @@ trait UserTrait
     public function getAllData($id)
     {
         $user = User::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name', 'code', 'logo'));
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
         }, 'team' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name', 'photo'));
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo');
         }, 'category' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->find($id);

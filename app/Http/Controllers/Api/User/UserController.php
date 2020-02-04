@@ -335,6 +335,33 @@ class UserController extends Controller
 
     }
 
+    public function myTeam(Request $request)
+    {
+        try {
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+            $userData = User::with(['academy' => function ($q) {
+                $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+            }, 'team' => function ($q) {
+                $q->select('id', 'coach_id', DB::raw('name_' . app()->getLocale() . ' as name'), DB::raw('level_' . app()->getLocale() . ' as level'), 'photo');
+                $q->with(['coach' => function ($qq) {
+                    $qq->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
+                }]);
+            }, 'category' => function ($qq) {
+                $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+            }])->select('id', 'team_id', 'academy_id', 'category_id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($user->id);
+
+            if ($userData) {
+                return $this->returnData('user', $userData);
+            } else
+                return $this->returnError('E001', trans('messages.There are no activities found'));
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     function getRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

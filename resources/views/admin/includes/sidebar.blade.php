@@ -124,12 +124,7 @@
 
                     <li><a class="menu-item @if(Route::current()->getName() == 'admin.subscriptions') active @endif"
                            href="{{route('admin.subscriptions',['type' => 'current'])}}" data-i18n="nav.dash.crypto">
-                            الاشتراكات الفعالة </a>
-                    </li>
-
-                    <li><a class="menu-item @if(Route::current()->getName() == 'admin.subscriptions') active @endif"
-                           href="{{route('admin.subscriptions',['type' => 'new'])}}" data-i18n="nav.dash.crypto">
-                            الاشتراكات  الجديدة </a>
+                            الاشتراكات  الحالية </a>
                     </li>
                 </ul>
             </li>

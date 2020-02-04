@@ -6,6 +6,7 @@ use App\Models\Academy;
 use App\Models\Category;
 use App\Models\Champion;
 use App\Models\Hero;
+use App\Models\Subscription;
 use App\Models\Team;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,13 @@ class AcademyObserver
         })->delete();
 
         Champion::whereHas('category', function ($q) use ($academy) {
+            $q->whereHas('academy', function ($qq) use ($academy) {
+                $qq->where('id', $academy->id);
+            });
+        })->delete();
+
+
+        Subscription::whereHas('user', function ($q) use ($academy) {
             $q->whereHas('academy', function ($qq) use ($academy) {
                 $qq->where('id', $academy->id);
             });

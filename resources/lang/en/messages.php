@@ -296,4 +296,5 @@ return [
     'userSubscribedSucessfullyAndWaitForAdminApproved'  => 'User Subscribed Sucessfully, Waitting For Admin Approved',
     'academyRequired' => 'Academy Required',
     'academyNotExist' => 'Academy Not Exist',
+    'must pay only for current month'  => 'must pay only for current month',
 ];

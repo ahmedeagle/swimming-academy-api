@@ -298,6 +298,7 @@ return [
     'userSubscribedSucessfullyAndWaitForAdminApproved'  => 'لقد تم حفظ الاشتراك بنجاح والان في انتظار مراجعه الاداره ',
     'academyRequired' => 'الاكاديمية مطلوبه',
     'academyNotExist' => 'الاكاديمية  غير موجوده لدينا',
+    'must pay only for current month' => 'لايمكن دفع اشتراك الا عن الشهر الحالي فقط',
 
 
 

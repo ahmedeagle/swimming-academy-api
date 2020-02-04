@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,6 +38,12 @@ class CategoryObserver
          $category->heroes()->delete();
          $category->champions()->delete();
          $category->coaches()->delete();
+
+        Subscription::whereHas('user', function ($q) use ($category) {
+            $q->whereHas('category', function ($qq) use ($category) {
+                $qq->where('id', $category->id);
+            });
+        })->delete();
     }
 
     /**
