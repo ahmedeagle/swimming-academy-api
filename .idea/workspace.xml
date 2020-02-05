@@ -2,24 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Traits/SubscriptionTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Time.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/SubscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/SubscriptionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Subscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Subscription.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/AcademyObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/AcademyObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/CategoryObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/CategoryObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Team/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Team/TeamController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/ActivityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/ActivityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TeamTime.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Observers/TeamObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/TeamObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/UserObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/UserObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/AcademyTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/CoachTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/CoachTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/UserTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/subscriptions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/subscriptions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -150,25 +142,25 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Traits" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Models" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Models" />
+      <recent name="C:\wamp\www\swimming\app\Traits" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
+      <recent name="C:\wamp\www\swimming\app" />
+      <recent name="C:\wamp\www\swimming\app\Events" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\app\Traits" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
-      <recent name="C:\wamp\www\swimming\app" />
-      <recent name="C:\wamp\www\swimming\app\Events" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -242,7 +234,9 @@
       <workItem from="1580414902420" duration="11690000" />
       <workItem from="1580473940167" duration="16983000" />
       <workItem from="1580640042258" duration="367000" />
-      <workItem from="1580826933332" duration="19670000" />
+      <workItem from="1580826933332" duration="21533000" />
+      <workItem from="1580890087372" duration="6271000" />
+      <workItem from="1580921290923" duration="14189000" />
     </task>
     <servers />
   </component>
@@ -282,22 +276,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php</url>
-          <line>93</line>
+          <line>90</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php</url>
-          <line>118</line>
+          <line>114</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php</url>
-          <line>181</line>
+          <line>172</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/teams/workingdays.blade.php</url>
-          <line>243</line>
+          <line>231</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">

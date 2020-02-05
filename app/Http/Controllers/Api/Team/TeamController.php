@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Team;
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
 use App\Models\Coach;
+use App\Models\Team;
+use App\Models\Time;
 use App\Models\Token;
 use App\Traits\GlobalTrait;
 use App\Traits\SMSTrait;
@@ -77,6 +79,24 @@ class TeamController extends Controller
                 return $this->returnData('students', $studentsJson);
             }
             return $this->returnError('E001', trans('messages.There are no students in this teams'));
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    function getTeamTimes(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "team_id" => "required|exists:teams,id",
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            $times = Time::where('team_id', $request->team_id)->get();
+            return $this->returnData('times', $times);
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }

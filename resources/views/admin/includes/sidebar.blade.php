@@ -109,7 +109,7 @@
                         class="la la-money"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> الاشتراكات  </span>
                     <span
-                        class="badge badge badge-success  badge-pill float-right mr-2">{{\App\Models\Subscription::count()}}</span>
+                        class="badge badge badge-success  badge-pill float-right mr-2">{{\App\Models\Subscription::current()-> count()}}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="@if(Route::current()->getName() == 'admin.subscriptions') active @endif"><a class="menu-item"

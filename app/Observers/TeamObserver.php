@@ -38,7 +38,7 @@ class TeamObserver
 
     /**
      * Listen to the Entry saved event.
-     *
+
      * @param Category $category
      * @return void
      */

@@ -7,12 +7,14 @@ use App\Models\Category;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\TeamTime;
+use App\Models\Time;
 use App\Traits\Dashboard\PublicTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use DB;
 use Auth;
+use Carbon\Carbon;
 use Namshi\JOSE\Signer\SecLib\RS384;
 use Validator;
 use Hash;
@@ -175,9 +177,8 @@ class TeamController extends Controller
             notify()->error('الفريق  غير موجوده لدينا ');
             return redirect()->route('admin.teams.all');
         }
-
-        $time = TeamTime::where('team_id', $teamId)->first();
-        return view('admin.teams.workingdays', compact('academies', 'team', 'time'));
+          $times = Time::where('team_id', $teamId)->get();
+         return view('admin.teams.workingdays', compact( 'team', 'times'));
     }
 
     public function saveWorkingDay(Request $request)
@@ -190,43 +191,50 @@ class TeamController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'team_id' => 'required|exists:teams,id',
+                'times' => 'required|array|min:1',
             ], $messages);
 
             if ($validator->fails()) {
-                notify()->error('هناك خطا برجاء المحاوله مجددا ');
+                notify()->error('برجاء تجديد يوما علي الاقل للفرقة ');
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
 
-            $inputs = ['id', 'saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
+            foreach ($request->times as $time) {
+                if (empty($time['from_time']) or empty($time['to_time'])) {
+                    notify()->error('يوجد خطأ, الرجاء التأكد من إدخال من و الي');
+                    return redirect()->back()->withInput($request->all());
+                }
 
-            $team = Team::find($request->team_id);
-            if (!$team) {
-                notify()->error('الفريق  غير موجوده لدينا ');
-                return redirect()->route('admin.teams.all');
-            }
-            $times = TeamTime::query();
-            $times = $times->where('team_id', $request->team_id);
-            if ($times->first()) {
-                $teamTime = TeamTime::where('team_id', $request->team_id)->first();   // must load model first then update to let mutators work on update
-                $teamTime->update($request->except($inputs + ['_token']));
-                $this->setDayStatus($request);
-                notify()->success('تم تحديث الاوقات بنجاح ');
-                return redirect()->back();
-            } else {
+                $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+                $from = Carbon::parse($time['from_time']);
+                $to = Carbon::parse($time['to_time']);
 
-                $time = TeamTime::create($request->except($inputs));
-                $request->request->team_id = $time;
-                $this->setDayStatus($request);
-                notify()->success('تم تحديث الاوقات بنجاح ');
-                return redirect()->back();
+                if ( isset($time['status'])  && ( !in_array($time['day'], $days) || $to->diffInMinutes($from) <= 0 || $from >= $to)) {
+                    notify()->error('    يوجد خطأ,يجب ان يكون قيمه الي اكبر من قيمه من ');
+                    return redirect()->back()->withInput($request->all());
+                }
+                if (isset($time['status'])) {
+                    $team_times[] = [
+                        'team_id' => $request->team_id,
+                        'day_name' => strtolower($time['day']),
+                        'day_code' => substr(strtolower($time['day']), 0, 3),
+                        'from_time' => $from->format('H:i'),
+                        'to_time' => $to->format('H:i'),
+                        'status' => 1, // active
+                    ];
+                }
             }
+            Time::where('team_id', $request->team_id)->delete();
+            $times = Time::insert($team_times);
+            notify()->success(' تم الاضافة بنجاح ');
+            return redirect()->back();
         } catch (\Exception $ex) {
             return abort('404');
         }
     }
 
-
-    protected function setDayStatus(Request $request)
+    protected
+    function setDayStatus(Request $request)
     {
         $status = ['saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
         $times = TeamTime::where('team_id', $request->team_id)->first();
@@ -240,14 +248,16 @@ class TeamController extends Controller
     }
 
 
-    public function getTeamCoaches($teamId)
+    public
+    function getTeamCoaches($teamId)
     {
         $data['team'] = Team::findOrFail($teamId);
         $data['coaches'] = $data['team']->coaches;
         return view('admin.teams.coaches', $data);
     }
 
-    public function getTeamStudents($teamId)
+    public
+    function getTeamStudents($teamId)
     {
         $data['team'] = Team::findOrFail($teamId);
         $data['users'] = $data['team']->users;
@@ -255,7 +265,8 @@ class TeamController extends Controller
     }
 
 
-    public function loadHeroes(Request $request)
+    public
+    function loadHeroes(Request $request)
     {
         $team = Team::find($request->team_id);
         if (!$team) {
@@ -268,7 +279,8 @@ class TeamController extends Controller
         ]);
     }
 
-    public function deleteTeam($id)
+    public
+    function deleteTeam($id)
     {
         $team = Team::findOrFail($id);
         $team->delete();

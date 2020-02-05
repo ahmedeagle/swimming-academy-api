@@ -44,6 +44,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
 
     Route::group(['prefix' => 'teams', 'namespace' => 'Team'], function () {
         Route::post('/', 'TeamController@getAllTeamsByAcademyCode')->name('team.all');
+        Route::post('times', 'TeamController@getTeamTimes');
         Route::group(['middleware' => ['CheckCoachToken']], function () {
             Route::post('students', 'TeamController@getStudent')->name('team.students');
         });

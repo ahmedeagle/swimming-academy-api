@@ -65,7 +65,7 @@ class Team extends Model
 
     public function times()
     {
-        return $this->hasOne('App\Models\TeamTime', 'team_id', 'id');
+        return $this->hasMany('App\Models\Time', 'team_id', 'id');
     }
 
     public  function  getLevelArAttribute($val){

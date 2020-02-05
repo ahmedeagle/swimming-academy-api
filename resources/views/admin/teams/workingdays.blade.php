@@ -44,8 +44,9 @@
                                                             <p> من
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  saturday_start_work)) value="{{$time ->  saturday_start_work}}"
-                                                                   @endif name="saturday_start_work"
+                                                                  name="times[saturday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'saturday')) ? $times-> where('day_name','saturday') ->first() -> from_time:''}};
+) }}"
                                                                    class="form-control input-lg"
                                                                    id="meridians1" placeholder="Date Dropper">
                                                         </div>
@@ -56,22 +57,24 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  saturday_end_work)) value="{{$time ->  saturday_end_work}}"
-                                                                   @endif name="saturday_end_work"
+                                                                    name="times[saturday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'saturday')) ? $times-> where('day_name','saturday') ->first() -> to_time:''}};
+) }}"
                                                                    class="form-control input-lg"
                                                                    id="meridians2" placeholder="Date Dropper">
                                                         </div>
                                                     </div>
-
+                                                    <input type="hidden" value="saturday" name="times[saturday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="saturday_status"
+                                                            <input type="checkbox"
+                                                                   name="times[saturday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  saturday_status) && $time ->  saturday_status == 1) checked @endif/>
+                                                                   @if($times->contains('day_name', 'saturday'))) checked @endif/>
                                                         </div>
                                                     </div>
 
@@ -84,8 +87,8 @@
                                                             <p> من
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  sunday_start_work)) value="{{$time ->  sunday_start_work}}"
-                                                                   @endif name="sunday_start_work"
+                                                                   name="times[sunday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'sunday')) ? $times-> where('day_name','sunday') ->first() -> from_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians3" placeholder="Date Dropper">
                                                         </div>
@@ -96,21 +99,25 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  sunday_end_work)) value="{{$time ->  sunday_end_work}}"
-                                                                   @endif name="sunday_end_work"
+                                                                   name="times[sunday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'sunday')) ? $times-> where('day_name','sunday') ->first() -> to_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians4" placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="saturday" name="times[saturday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="sunday_status"
+
+                                                            <input type="hidden" value="sunday" name="times[sunday][day]">
+
+                                                            <input type="checkbox" name="times[sunday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  sunday_status) && $time ->  sunday_status == 1) checked @endif />
+                                                                   @if($times->contains('day_name', 'sunday'))) checked @endif />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -121,11 +128,12 @@
                                                             <h2>الاثنين </h2>
                                                             <p> من
                                                             </p>
-                                                            <input type="text" name="monday_start_work"
+                                                            <input type="text"
+                                                                   name="times[monday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'monday')) ? $times-> where('day_name','monday') ->first() -> from_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians5"
-                                                                   @if(isset($time ->  monday_start_work)) value="{{$time ->  monday_start_work}}"
-                                                                   @endif placeholder="Date Dropper">
+                                                                   placeholder="Date Dropper">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 col-sm-12">
@@ -134,21 +142,22 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  monday_end_work)) value="{{$time ->  monday_end_work}}"
-                                                                   @endif name="monday_end_work"
+                                                                   name="times[monday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'monday')) ? $times-> where('day_name','monday') ->first() -> to_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians6" placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="monday" name="times[monday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="monday_status"
+                                                            <input type="checkbox" name="times[monday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  monday_status) && $time ->  monday_status == 1) checked @endif/>
+                                                                   @if($times->contains('day_name', 'monday'))) checked @endif />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,8 +169,8 @@
                                                             <p> من
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  tuesday_start_work)) value="{{$time ->  tuesday_start_work}}"
-                                                                   @endif name="tuesday_start_work"
+                                                                  name="times[tuesday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'tuesday')) ? $times-> where('day_name','tuesday') ->first() -> from_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians7" placeholder="Date Dropper">
                                                         </div>
@@ -172,22 +181,23 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text"
-                                                                   @if(isset($time ->  tuesday_end_work)) value="{{$time ->  tuesday_end_work}}"
-                                                                   @endif
-                                                                   name="tuesday_end_work"
+                                                                   name="times[tuesday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'tuesday')) ? $times-> where('day_name','tuesday') ->first() -> to_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians8" placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="tuesday" name="times[tuesday][day]">
+
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="tuesday_status"
+                                                            <input type="checkbox" name="times[tuesday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  tuesday_status) && $time ->  tuesday_status == 1) checked @endif/>
+                                                                   @if($times->contains('day_name', 'tuesday'))) checked @endif />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,9 +209,9 @@
                                                             <p> من
                                                             </p>
                                                             <input type="text" class="form-control input-lg"
-                                                                   id="meridians9" @if(isset($time ->  wednesday_start_work)) value="{{$time ->  wednesday_start_work}}"
-                                                                   @endif
-                                                                   name="wednesday_start_work"
+                                                                   id="meridians9"
+                                                                   name="times[wednesday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'wednesday')) ? $times-> where('day_name','wednesday') ->first() -> from_time:''}}"
                                                                    placeholder="Date Dropper">
                                                         </div>
                                                     </div>
@@ -210,22 +220,23 @@
                                                             <h2> الاربعاء</h2>
                                                             <p> ألي
                                                             </p>
-                                                            <input type="text"  @if(isset($time ->  wednesday_end_work)) value="{{$time ->  wednesday_end_work}}"
-                                                                   @endif
-                                                                   name="wednesday_end_work"
+                                                            <input type="text"
+                                                                   name="times[wednesday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'wednesday')) ? $times-> where('day_name','wednesday') ->first() -> to_time:''}}"
                                                                    class="form-control input-lg"
                                                                    id="meridians10" placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="wednesday" name="times[wednesday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="wednesday_status"
+                                                            <input type="checkbox" name="times[wednesday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  wednesday_status) && $time ->  wednesday_status == 1) checked @endif />
+                                                                   @if($times->contains('day_name', 'wednesday'))) checked @endif />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -235,10 +246,13 @@
                                                             <h2>الخميس </h2>
                                                             <p> من
                                                             </p>
-                                                            <input type="text" class="form-control input-lg"
-                                                                   id="meridians11" @if(isset($time ->  thursday_start_work)) value="{{$time ->  thursday_start_work}}"
-                                                                   @endif name="thursday_start_work"
+                                                            <input type="text"
+                                                                   class="form-control input-lg"
+                                                                   id="meridians11"
+                                                                   name="times[thursday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'thursday')) ? $times-> where('day_name','thursday') ->first() -> from_time:'' }}"
                                                                    placeholder="Date Dropper">
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4 col-sm-12">
@@ -247,20 +261,22 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text" class="form-control input-lg"
-                                                                   id="meridians12"  @if(isset($time ->  thursday_end_work)) value="{{$time ->  thursday_end_work}}"
-                                                                   @endif name="thursday_end_work"
+                                                                   id="meridians12"
+                                                                   name="times[thursday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'thursday')) ? $times-> where('day_name','thursday') ->first() -> to_time:''}}"
                                                                    placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" value="thursday" name="times[thursday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox"  name="thursday_status"
+                                                            <input type="checkbox"  name="times[thursday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  thursday_status) && $time ->  thursday_status == 1) checked @endif />
+                                                                   @if($times->contains('day_name', 'thursday'))) checked @endif />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -271,8 +287,9 @@
                                                             <p> من
                                                             </p>
                                                             <input type="text" class="form-control input-lg"
-                                                                   id="meridians13"  @if(isset($time ->  friday_start_work)) value="{{$time ->  friday_start_work}}"
-                                                                   @endif  name="friday_start_work"
+                                                                   id="meridians13"
+                                                                   name="times[friday][from_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'friday')) ? $times-> where('day_name','friday') ->first() -> from_time:''}}"
                                                                    placeholder="Date Dropper">
                                                         </div>
                                                     </div>
@@ -282,20 +299,23 @@
                                                             <p> ألي
                                                             </p>
                                                             <input type="text" class="form-control input-lg"
-                                                                   id="meridians14"  @if(isset($time ->  friday_end_work)) value="{{$time ->  friday_end_work}}"
-                                                                   @endif  name="friday_end_work"
+                                                                   id="meridians14"
+                                                                   name="times[friday][to_time]"
+                                                                   value="{{(isset($times) && $times -> count ()> 0 &&  $times->contains('day_name', 'friday')) ? $times-> where('day_name','friday') ->first() -> to_time:''}}"
                                                                    placeholder="Date Dropper">
                                                         </div>
                                                     </div>
+
+                                                    <input type="hidden" value="friday" name="times[friday][day]">
                                                     <div class="col-md-4 col-sm-12">
                                                         <div class="form-group mb-3">
                                                             <h2>الحالة </h2>
                                                             <p> متاح / غير متاح
                                                             </p>
-                                                            <input type="checkbox" name="friday_status"
+                                                            <input type="checkbox" name="times[friday][status]"
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
-                                                                   @if(isset($time ->  friday_status) && $time ->  friday_status == 1) checked @endif />
+                                                                   @if($times->contains('day_name', 'friday'))) checked @endif  />
                                                         </div>
                                                     </div>
                                                 </div>

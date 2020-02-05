@@ -45,12 +45,9 @@ class ActivityController extends Controller
                 $activitiesJson->data = $activities->data;
                 return $this->returnData('activities', $activitiesJson);
             }
-
             return $this->returnError('E001', trans('messages.There are no activities found'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
-
-
 }
