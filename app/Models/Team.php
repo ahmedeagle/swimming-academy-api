@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
- use App\Observers\TeamObserver;
- use App\Traits\GlobalTrait;
+use App\Observers\TeamObserver;
+use App\Traits\GlobalTrait;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
@@ -12,13 +12,13 @@ class Team extends Model
     use  GlobalTrait;
     protected $table = 'teams';
     public $timestamps = true;
-    protected $forcedNullStrings = ['photo', 'name_ar', 'name_en','level_ar','level_en'];
+    protected $forcedNullStrings = ['photo', 'name_ar', 'name_en', 'level_ar', 'level_en'];
     protected $forcedNullNumbers = ['reservation_period'];
     protected $casts = [
         'status' => 'integer',
     ];
 
-    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id','coach_id', 'status','level_ar','level_en'];
+    protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id', 'coach_id', 'status', 'level_ar', 'level_en'];
 
     protected $hidden = ['created_at', 'updated_at'];
 
@@ -55,7 +55,7 @@ class Team extends Model
     public function heroes()
     {
         //return $this->hasManyThrough('App\Models\Hero', 'App\Models\User', 'team_id', 'user_id', 'id', 'id');
-        return $this -> hasMany('App\Models\Hero','team_id','id');
+        return $this->hasMany('App\Models\Hero', 'team_id', 'id');
     }
 
     public function users()
@@ -68,16 +68,20 @@ class Team extends Model
         return $this->hasMany('App\Models\Time', 'team_id', 'id');
     }
 
-    public  function  getLevelArAttribute($val){
-         if ($val === null or  $val == ''){
-             return "";
-         }
-         return $val;
-    } public  function  getLevelEnAttribute($val){
-         if ($val === null or  $val == ''){
-             return "";
-         }
-         return $val;
+    public function getLevelArAttribute($val)
+    {
+        if ($val === null or $val == '') {
+            return "";
+        }
+        return $val;
+    }
+
+    public function getLevelEnAttribute($val)
+    {
+        if ($val === null or $val == '') {
+            return "";
+        }
+        return $val;
     }
 
     public function setAttribute($key, $value)
@@ -96,7 +100,7 @@ class Team extends Model
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en','level_ar','level_en', 'category_id','coach_id', 'photo', 'quotas', 'status');
+        return $query->select('id', 'name_ar', 'name_en', 'level_ar', 'level_en', 'category_id', 'coach_id', 'photo', 'quotas', 'status');
     }
 
     public function scopeActive($query)
@@ -112,6 +116,11 @@ class Team extends Model
     public function getTranslatedLevel()
     {
         return $this->{'level_' . app()->getLocale()};
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Models\Subscription', 'team_id', 'id');
     }
 
 }

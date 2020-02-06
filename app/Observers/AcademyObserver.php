@@ -41,6 +41,15 @@ class AcademyObserver
     {
         //  if deleted delete also   teams - events - activities - users - coaches - heroes - mosabkat
 
+        Subscription::whereHas('team', function ($q) use ($academy) {
+            $q->whereHas('category', function ($qq) use ($academy) {
+                $qq->whereHas('academy', function ($qq) use ($academy) {
+                    $qq->where('id', $academy->id);
+                });
+            });
+        })->delete();
+
+
         Team::whereHas('category', function ($q) use ($academy) {
             $q->whereHas('academy', function ($qq) use ($academy) {
                 $qq->where('id', $academy->id);
@@ -59,19 +68,11 @@ class AcademyObserver
             });
         })->delete();
 
-
-        Subscription::whereHas('user', function ($q) use ($academy) {
-            $q->whereHas('academy', function ($qq) use ($academy) {
-                $qq->where('id', $academy->id);
-            });
-        })->delete();
-
         $academy->activities()->delete();
         $academy->events()->delete();
         $academy->users()->delete();
         $academy->coaches()->delete();
         $academy->categories()->delete();
-
         $academy->setting()->delete();
     }
 

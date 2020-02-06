@@ -83,9 +83,9 @@ class TeamController extends Controller
                 $fileName = $this->uploadImage('teams', $request->photo);
             }
             $status = $request->has('status') ? 1 : 0;
-            Team::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+            $id = Team::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             notify()->success('تمت الاضافة بنجاح ');
-            return redirect()->route('admin.teams.all');
+            return redirect()->route('admin.teams.days',$id);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -164,7 +164,7 @@ class TeamController extends Controller
             $team->update($request->except('photo'));
 
             notify()->success('تمت التعديل  بنجاح ');
-            return redirect()->route('admin.teams.all');
+            return redirect()->route('admin.teams.days',$id);
         } catch (\Exception $ex) {
             return abort('404');
         }

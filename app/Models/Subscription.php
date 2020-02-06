@@ -70,4 +70,5 @@ class Subscription extends Model
     public function  scopeCurrent($query){
         return $query ->where('status',1);
     }
+
 }

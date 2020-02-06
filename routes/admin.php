@@ -155,5 +155,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/note", "ChampionController@addChampionNote")->name('admin.champions.note');
     });
 
+    Route::group(['prefix' => 'attendance'], function () {
+        Route::get("/", "ChampionController@index")->name('admin.attendance');
+    });
+
     Route::get("/logout", "LoginController@logout")->name('admin.logout');
 });

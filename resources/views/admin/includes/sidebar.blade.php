@@ -129,6 +129,10 @@
                 </ul>
             </li>
 
+            <li class="nav-item @if(Route::current()->getName() == 'admin.attendance') active @endif"><a
+                    href="{{route('admin.attendance')}}"><i class="la la-check"></i><span
+                        class="menu-title" data-i18n="nav.add_on_drag_drop.main">الحضور والغياب </span></a>
+            </li>
 
             <li class="nav-item @if(Request::is('admin/events*')) open @endif"><a
                     href="{{route('admin.events.all')}}"><i class="la la-picture-o"></i>
@@ -219,6 +223,8 @@
                     </li>
                 </ul>
             </li>
+
+
 
 
         </ul>

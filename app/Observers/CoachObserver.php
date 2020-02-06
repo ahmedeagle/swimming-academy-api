@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Category;
 use App\Models\Coach;
 use App\Models\Event;
+use App\Models\Subscription;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +27,12 @@ class CoachObserver
      */
     public function deleting(Coach $coach)
     {
-
+        Subscription::whereHas('team', function ($q) use ($coach) {
+            $q->whereHas('coach', function ($qq) use ($coach) {
+                $qq->where('id', $coach->id);
+            });
+        });
+        $coach -> teams() -> delete();
     }
 
     /**

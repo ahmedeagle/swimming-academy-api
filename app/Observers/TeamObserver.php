@@ -29,11 +29,8 @@ class TeamObserver
     {
         $team->heroes()->delete();
         $team->users()->delete();
-        Subscription::whereHas('user', function ($q) use ($team) {
-            $q->whereHas('team', function ($qq) use ($team) {
-                $qq->where('id', $team->id);
-            });
-        })->delete();
+        $team -> subscriptions() -> delete();
+        $team  -> times() -> delete();
     }
 
     /**

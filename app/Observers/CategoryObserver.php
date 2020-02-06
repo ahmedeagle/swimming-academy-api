@@ -31,6 +31,11 @@ class CategoryObserver
      */
     public function deleting(Category $category)
     {
+        Subscription::whereHas('team', function ($q) use ($category) {
+            $q->whereHas('category', function ($qq) use ($category) {
+                $qq->where('id', $category->id);
+            });
+        })->delete();
          $category->teams()->delete();
          $category->allUsers()->delete();
          $category->activities()->delete();
@@ -38,12 +43,6 @@ class CategoryObserver
          $category->heroes()->delete();
          $category->champions()->delete();
          $category->coaches()->delete();
-
-        Subscription::whereHas('user', function ($q) use ($category) {
-            $q->whereHas('category', function ($qq) use ($category) {
-                $qq->where('id', $category->id);
-            });
-        })->delete();
     }
 
     /**
