@@ -56,6 +56,7 @@ class AcademyController extends Controller
                 //'categories' => 'required|array|min:1',
                 //'categories.*' => 'required|exists:categories,id',
                 'logo' => 'required|mimes:jpeg,png,bmp,gif,svg',
+                'logo' => 'required|mimes:jpeg,png,bmp,gif,svg',
             ], $messages);
 
 

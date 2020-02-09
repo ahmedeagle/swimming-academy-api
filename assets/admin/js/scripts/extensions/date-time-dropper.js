@@ -37,8 +37,12 @@ $(document).ready(function(){
     $('#lang').dateDropper({
         dropWidth: 200,
         lang: 'ar', // Arabic
-        format: 'Y-m-d'
-     });
+        format: 'Y-m-d',
+        maxYear: new Date().getFullYear(),
+        minYear: new Date().getFullYear(),
+        changeMonth: false,
+        changeYear: false
+    });
 
     // Lock
     $('#lock').dateDropper({

@@ -96,6 +96,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/details/{id}", "UserController@edit")->name('admin.users.details');
         Route::post("/update/{id}", "UserController@update")->name('admin.users.update');
         Route::get('/delete/{id}', 'UserController@deleteUser')->name('admin.users.delete');
+        Route::post('/attend', 'UserController@attendUser')->name('admin.users.attend');
+
 
         Route::group(['prefix' => 'tickets'], function () {
             Route::get('/', 'UserMessageController@index')->name('admin.users.tickets.all');
@@ -156,7 +158,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
     });
 
     Route::group(['prefix' => 'attendance'], function () {
-        Route::get("/", "ChampionController@index")->name('admin.attendance');
+        Route::get("/", "AttendanceController@index")->name('admin.attendance');
+        Route::post("/loadTeamUsers", "AttendanceController@loadUsersByTeam")->name('admin.attendance.loadUser');
     });
 
     Route::get("/logout", "LoginController@logout")->name('admin.logout');

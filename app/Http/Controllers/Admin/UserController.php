@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
+use App\Models\Attendance;
 use App\Models\Coach;
 use App\Models\Team;
 use App\Models\TeamTime;
@@ -39,7 +40,6 @@ class UserController extends Controller
             return view('admin.users.create', compact('academies', 'teams'));
         } catch (\Exception $ex) {
             return abort('404');
-
         }
     }
 
@@ -285,5 +285,44 @@ class UserController extends Controller
         }
     }
 
+    public function attendUser(Request $request)
+    {
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'userId' => 'required|exists:users,id',
+                'attend' => 'required|in:0,1',
+                'date' => 'required|date-format:Y-m-d'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([], '422');
+            }
+            $user = User::find($request->userId);
+            if (!$user) {
+                return response()->json([], '500');
+            }
+
+            $userAlreadyTakeAttendanceToday = Attendance::where([
+                ['user_id', $request->userId],
+                ['team_id', $user->team->id],
+                ['date', $request->date],
+            ])->first();
+
+            if ($userAlreadyTakeAttendanceToday) {
+                $userAlreadyTakeAttendanceToday->update(['attend' => $request->attend]);
+            } else {
+                $attendance = new Attendance();
+                $attendance->user_id = $request->userId;
+
+                $attendance->team_id = $user->team->id;
+                $attendance->attend = $request->attend;
+                $attendance->date = date('Y-m-d', strtotime($request->date));
+                $user->attendances()->save($attendance);
+            }
+        }catch (\Exception $ex){
+            return response() -> json([],500);
+        }
+    }
 
 }
