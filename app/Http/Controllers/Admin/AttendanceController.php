@@ -53,9 +53,12 @@ class AttendanceController extends Controller
             if (date("m", strtotime($request->date)) != date("m") or date("Y", strtotime($request->date)) != date("Y")) {
                 return response()->json(['date' => ['لايمكن تحديد الغياب والحضور الا للشهر الحالي فقط ']], 422);
             }
-            $teamId = $request -> team_id;
-            $users = User::active()->whereHas('team', function ($q) use($teamId){
-                $q -> where('id',$teamId);
+            $teamId = $request->team_id;
+            $date = $request->date;
+            $users = User::active()->with(['attendances' => function ($q) use ($date) {
+                $q->whereDate('date', '=', $date);
+            }])->whereHas('team', function ($q) use ($teamId) {
+                $q->where('id', $teamId);
             })->get();
             $view = view('admin.users.users', compact('users'))->renderSections();
             return response()->json([

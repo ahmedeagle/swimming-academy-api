@@ -43,7 +43,6 @@ class UserController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
 
@@ -246,7 +245,6 @@ class UserController extends Controller
         }
     }
 
-
     protected function setDayStatus(Request $request)
     {
         $status = ['saturday_status', 'sunday_status', 'monday_status', 'tuesday_status', 'wednesday_status', 'thursday_status', 'friday_status'];
@@ -259,7 +257,6 @@ class UserController extends Controller
             }
         }
     }
-
 
     public function teams($coachId)
     {
@@ -314,15 +311,64 @@ class UserController extends Controller
             } else {
                 $attendance = new Attendance();
                 $attendance->user_id = $request->userId;
-
                 $attendance->team_id = $user->team->id;
                 $attendance->attend = $request->attend;
                 $attendance->date = date('Y-m-d', strtotime($request->date));
                 $user->attendances()->save($attendance);
             }
-        }catch (\Exception $ex){
-            return response() -> json([],500);
+        } catch (\Exception $ex) {
+            return response()->json([], 500);
         }
+    }
+
+    public function attendAll(Request $request)
+    {
+
+            $validator = Validator::make($request->all(), [
+                'team_id' => 'required|exists:teams,id',
+                'attend' => 'required|in:0,1',
+                'date' => 'required|date-format:Y-m-d'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([], '422');
+            }
+            $team = Team::find($request->team_id);
+            if (!$team) {
+                return response()->json([], '500');
+            }
+            $date = $request->date;
+            $teamId = $request->team_id;
+            $attend = $request->attend;
+
+            $users = User::active()->with(['attendances' => function ($q) use ($date) {
+                $q->whereDate('date','=', $date);
+            }])->whereHas('team', function ($q) use ($teamId) {
+                $q->where('id', $teamId);
+            })->get();
+
+            if (isset($users) && $users->count() > 0) {
+                foreach ($users as $user) {
+                    if (isset($user->attendances) && $user->attendances->count() > 0) {
+                        //update user attendance
+                        Attendance::where([
+                            ['date', $date],
+                            ['team_id', $teamId],
+                            ['user_id', $user->id]
+                        ])->update(['attend' => $attend]);
+
+                    } else {
+                        //create user attendance
+                        $attendance = new Attendance();
+                        $attendance->user_id = $user->id;
+                        $attendance->team_id = $teamId;
+                        $attendance->attend = $attend;
+                        $attendance->date = date('Y-m-d', strtotime($date));
+                        $user->attendances()->save($attendance);
+                    }
+                }
+            }
+
     }
 
 }

@@ -97,6 +97,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/update/{id}", "UserController@update")->name('admin.users.update');
         Route::get('/delete/{id}', 'UserController@deleteUser')->name('admin.users.delete');
         Route::post('/attend', 'UserController@attendUser')->name('admin.users.attend');
+        Route::post('/attend/all', 'UserController@attendAll')->name('admin.users.attendAll');
 
 
         Route::group(['prefix' => 'tickets'], function () {

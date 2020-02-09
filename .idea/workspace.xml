@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Traits/UserTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AttendanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AttendanceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -230,7 +235,7 @@
       <workItem from="1580971853354" duration="21743000" />
       <workItem from="1581060784883" duration="3030000" />
       <workItem from="1581074591666" duration="10157000" />
-      <workItem from="1581237045590" duration="3888000" />
+      <workItem from="1581237045590" duration="12174000" />
     </task>
     <servers />
   </component>
@@ -373,6 +378,16 @@
           <line>4</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php</url>
+          <line>240</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php</url>
+          <line>279</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>
           <line>104</line>
@@ -381,6 +396,15 @@
             <option name="methodName" value="edit" />
           </properties>
           <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php</url>
+          <line>284</line>
+          <properties>
+            <option name="className" value="\App\Http\Controllers\Admin\UserController" />
+            <option name="methodName" value="attendUser" />
+          </properties>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

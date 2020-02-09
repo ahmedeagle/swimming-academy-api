@@ -105,13 +105,33 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <br>
 
                                                 <div class="row">
                                                     <div class="col-md-12 text-center">
                                                         <button type="button"
                                                                 id="showUsers"
                                                                 class="btn btn-success mr-1">
-                                                            <i class="la la-eye"></i> عرض الطلاب
+                                                            <i class="la la-eye"></i> عرض الاعبين
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <br><br>
+                                                <div class="row allTeamControll" style="display: none;">
+                                                    <div class="col-md-6 text-center">
+                                                        <button type="button"
+                                                                value="1"
+                                                                class="btn btn-success mr-1 statusOfAll">
+                                                            <i class="la la-check"></i> حضور جميع الفرقه
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-md-6 text-center">
+                                                        <button type="button"
+                                                                value="0"
+                                                                class="btn btn-danger mr-1 statusOfAll">
+                                                            <i class="la la-remove"></i> غياب جميع الفرقه
                                                         </button>
                                                     </div>
                                                 </div>
@@ -204,7 +224,6 @@
             });
         });
 
-
         $(document).on('change', '#category', function (e) {
             e.preventDefault();
             $.ajax({
@@ -239,13 +258,16 @@
 
                     if (!$.trim(data.content)) {
                         toastr.info('لا يوجد لاعبين في هذا الفريق');
+                        $('.allTeamControll').hide();
                     } else {
                         toastr.success('تم جلب البيانات بنجاح ');
+                        $('.allTeamControll').show();
                     }
                     $('#appendAttendanceUser').empty().append(data.content);
 
                 }, error: function (reject) {
                     toastr.error('عذرا هناك خطا ');
+                    $('.allTeamControll').hide();
                     $('#appendAttendanceUser').empty();
                     var errors = $.parseJSON(reject.responseText);
                     $.each(errors, function (key, val) {
@@ -254,7 +276,6 @@
                 }
             });
         });
-
 
         $(document).on('change', '.userAttendace', function (e) {
             e.preventDefault();
@@ -270,6 +291,27 @@
                     'userId': $(this).val(),
                     'attend': attend,
                     'date': $('.dateVal').val(),
+                },
+                success: function (data) {
+                }, error: function (reject) {
+                    toastr.error('هناك خطا جميع الحقول مطلوبة ');
+                }
+            });
+        });
+
+        $(document).on('click', '.statusOfAll', function (e) {
+            e.preventDefault();
+            let status = $(this).val();
+            let date = $('.dateVal').val();
+            let teamId = $('select[name="team_id"] option:selected').val();
+
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.users.attendAll')}}",
+                data: {
+                    'attend': status,
+                    'date': date,
+                    'team_id': teamId,
                 },
                 success: function (data) {
                 }, error: function (reject) {
