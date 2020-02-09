@@ -2,48 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AttendanceController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Attendance.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/academies/CXCWsNb0fDZ9GOFsi3ToKvS6svN4B7EZhkoHM9xx.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/academies/N2ZGZcdWF4SDXdaItGeIcVpyXx46xOoWqOoPRrFo.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/academies/PRPMCQLoESjTk2oE0oCYvILmNoQ8A35MpthwT137.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/academies/j0H2lrrOPaAMzm6bKQHTlPFBK8i8jZvzvJ69LMSQ.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/coaches/4DJE0zPC4khZmwgc99VVn3StzRrYS4Ae1fTpYNH0.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/coaches/Ziq9REP0DRa9KyREiCxLzOgSvDFbKzVcyK7L0GC4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/coaches/bQce4BuuFMx22dYAz2ZFRzjneaFzxbNBG0LT77C8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/coaches/r4793dj9QkU6QbjP9ZSFQfvOGeyXUkc61SL8LKLK.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/coaches/reTSHOAOO8js9v8cZSSuhdBX2OjzyOOs4nh6r0xb.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/0fLfFxTmTuQipVIoommKML3bL4UjoHkZE82lCeaH.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/0nzBG6D0tWbpWNyLxaZIuv3d5q2OUoWl5pi9FCRX.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/33mMLGqf6dgaQvYFFhX5Og1qKtJVCa0nEcEvpMbt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/3FcJuwvClthHIcNmSJS71iG8qNWZHs7BaDm7yIaA.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/6wDwm6md6Ts4mvClana329zgtBe5qXSrvqK1KSOH.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/V2Q51bc71HmZv9VbOv04SelmWtuCJiICUJWjR3Vs.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/bNKuepXwLrBeyNEZohe70HxkPktoyAzf1tkx0PAc.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/dlmVjcZS6Ee0SsobUqH2aeqqBRPaZGwPzSSBBL77.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/ervdU4NzHx99DVhgk4VGA0IRT31nfSSYPIKofAP4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/nKPhQaDFRL8qZX8F3psOI9F8s2o0SD2skfXy3W9H.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/teams/pfq1JmSI5Cw5p4Mw5jeH4zLNIP0pNjM0u4h7WyHc.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/321GZla8LVWRenOKZ3SyUyfRq0vkE3COhegOiIF2.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/97mhGCjYHE4oujhinWtIUg3k0vUcn15uqNtGeTpe.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/Ou7iyhsj4dCjkU50cF0sXIoO75xurchUXAdpCdGh.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/QPn0ADqVTSONaaLYOXa5TOs2BVAuZEb69TiLJiXl.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/U6DwywborcbHCb5UmvyCOHByPwUr45vOurBNTPJ9.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/Uj9TOTcljoSQfnrZ3HOxXuyliMHDOuVp0KbGHcph.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/cWu2Vcm3tisFyjD9Iem1hX3FSvYIkkJ4lgkvtpUk.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/gAzbgNvVez2L6KNxsu0hDAqncgH9wZVcfltAryke.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/hs1Kr5Z18mHSstF0dYpTEy5CLUzoLgMi22O00mgm.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/users/x919evl25uoBFYAfDv2QyUp95ceJJqzYf8oHz3Kf.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/users.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/UserTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/js/scripts/extensions/date-time-dropper.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/scripts/extensions/date-time-dropper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -271,7 +230,7 @@
       <workItem from="1580971853354" duration="21743000" />
       <workItem from="1581060784883" duration="3030000" />
       <workItem from="1581074591666" duration="10157000" />
-      <workItem from="1581237045590" duration="3098000" />
+      <workItem from="1581237045590" duration="3888000" />
     </task>
     <servers />
   </component>
