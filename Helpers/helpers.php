@@ -56,7 +56,7 @@ function currentWeekStartEndDate()
 {
     $dt_min = new DateTime("last saturday"); // Edit
     if (date('D') == 'Sat') {
-          $dt_min = new DateTime("today"); // Edit
+        $dt_min = new DateTime("today"); // Edit
     }
 
     $dt_max = clone($dt_min);
@@ -72,7 +72,53 @@ function currentWeekStartEndDate()
 }
 
 
+function getDiffBetweenTwoDate($startDate, $endDate, $formate = 'a')
+{
+    $fdate = $startDate;
+    $tdate = $endDate;
+    $datetime1 = new DateTime($fdate);
+    $datetime2 = new DateTime($tdate);
+    $interval = $datetime1->diff($datetime2);
+    $days = $interval->format('%a');
+    return $days;
+}
 
-function getDaysInMonth($month,$year) {
- return new Date($year, $month+1, 0).getDate();
-};
+function getDaysInMonth($month, $year)
+{
+    return new Date($year, $month + 1, 0) . getDate();
+}
+
+function unavailabledate($month_days, $unavailble_days)
+{
+    $unavaibledates = [];
+    $index = 0;
+    foreach ($unavailble_days as $dayName) {
+        foreach ($month_days as $index => $monthDay) {
+            if ($monthDay['day_name'] == $dayName) {
+                $unavaibledates[$index]['day_name'] = $monthDay['day_name'];
+                $unavaibledates[$index]['date'] = $monthDay['date'];
+                $unavaibledates[$index]['classname'] = 'dangerc';
+            }
+            $index++;
+        }
+    }
+
+    return array_values($unavaibledates);
+}
+
+function get_dates($month, $year)
+{
+    $start_date = "01-" . $month . "-" . $year;
+    $start_time = strtotime($start_date);
+
+    $end_time = strtotime("+1 month", $start_time);
+
+    $index = 0;
+    for ($i = $start_time; $i < $end_time; $i += 86400) {
+        $name = date("l", $i);
+        $list[$index]['day_name'] = strtolower($name);
+        $list[$index]['date'] = date('Y-m-d', $i);
+        $index++;
+    }
+    return $list;
+}

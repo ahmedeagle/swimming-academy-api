@@ -25,7 +25,7 @@ use Illuminate\Validation\Rule;
 
 class SubscriptionController extends Controller
 {
-    use UserTrait, GlobalTrait, SMSTrait ,SubscriptionTrait;
+    use UserTrait, GlobalTrait, SMSTrait, SubscriptionTrait;
 
     public function __construct(Request $request)
     {
@@ -52,7 +52,7 @@ class SubscriptionController extends Controller
                     "exists:users,mobile",
                 ),
                 'start_date' => "required|date-format:Y-m-d",
-                'end_date' => "required|date-format:Y-m-d",
+                // 'end_date' => "required|date-format:Y-m-d",
                 'price' => "required",
 
             ];
@@ -64,10 +64,13 @@ class SubscriptionController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
-            if ((date("m", strtotime($request->start_date)) != date("m")) || (date("m", strtotime($request->end_date)) != date("m"))) {
-                return $this->returnError('E001', __('messages.must pay only for current month'));
-            }
+            /* if ((date("m", strtotime($request->start_date)) != date("m")) || (date("m", strtotime($request->end_date)) != date("m"))) {
+                 return $this->returnError('E001', __('messages.must pay only for current month'));
+             }*/
 
+            $daystosum = 29;
+            $startDate = date("Y-m-d", strtotime($request->start_date));
+            $endDate = date("Y-m-d", strtotime($request->start_date . ' + ' . $daystosum . ' days'));
 
             $user = User::where('mobile', $request->mobile)->first();
             if (!$user) {
@@ -76,16 +79,20 @@ class SubscriptionController extends Controller
             if ($user->subscribed == 1)
                 return $this->returnError('E001', trans('messages.already Subscribed this month'));
 
-            $request->request->add(['user_id' => $user->id, 'team_id' => $user->team_id]);
-            Subscription::create($request->all());
+            Subscription::create([
+                'user_id' => $user->id,
+                'team_id' => $user->team_id,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'price'   => $request -> price,
+            ]);
             $user->update(['subscribed' => 1, 'status' => 1]);
             return $this->returnSuccessMessage('S001', trans('messages.userSubscribedSucessfullyAndWaitForAdminApproved'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
-
-
+    
     public function checkSubscribtion(Request $request)
     {
         $messages = [
@@ -130,17 +137,17 @@ class SubscriptionController extends Controller
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
-            if($request -> type =='current'){
-                $subscriptions = $this-> CurrentMemberShip($user);
-            }else{
-                $subscriptions = $this-> PreviousMemberShip($user);
+            if ($request->type == 'current') {
+                $subscriptions = $this->CurrentMemberShip($user);
+            } else {
+                $subscriptions = $this->PreviousMemberShip($user);
             }
 
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
-               /* $subscriptions->getCollection()->each(function ($activity) {
-                    return $activity;
-                });*/
+                /* $subscriptions->getCollection()->each(function ($activity) {
+                     return $activity;
+                 });*/
                 $subscriptions = json_decode($subscriptions->toJson());
                 $subscriptionsJson = new \stdClass();
                 $subscriptionsJson->current_page = $subscriptions->current_page;

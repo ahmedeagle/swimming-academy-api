@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 
 trait SubscriptionTrait
 {
-
     public function PreviousMemberShip(User $user)
     {
         return Subscription::with(['team' => function ($q) {
@@ -33,5 +32,4 @@ trait SubscriptionTrait
             ->select('id','team_id','start_date', 'end_date', 'attendances')
             ->paginate(10);
     }
-
 }

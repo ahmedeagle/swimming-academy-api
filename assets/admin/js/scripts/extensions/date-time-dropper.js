@@ -7,11 +7,11 @@
     Author: GeeksLabs
     Author URL: http://www.themeforest.net/user/geekslabs
 ==========================================================================================*/
-$(document).ready(function(){
+$(document).ready(function () {
 
     /********************************************
-    *               Date Dropper                *
-    ********************************************/
+     *               Date Dropper                *
+     ********************************************/
 
     // Options
 
@@ -36,12 +36,23 @@ $(document).ready(function(){
     // Lang
     $('#lang').dateDropper({
         dropWidth: 200,
-        lang: 'ar', // Arabic
+        lang: 'ar',
         format: 'Y-m-d',
-        maxYear: new Date().getFullYear(),
-        minYear: new Date().getFullYear(),
-        changeMonth: false,
-        changeYear: false
+    });
+
+    $('#lang3').dateDropper({
+        dropWidth: 200,
+        lang: 'ar',
+        format: 'Y-m-d',
+    });
+
+    // Lang
+    $('#lang2').dateDropper({
+        dropWidth: 200,
+        lang: 'ar',
+        format: 'Y-m-d',
+        enabledDays: '2020/02/02,2020/02/20',
+        showOnlyEnabledDays: true
     });
 
     // Lock
@@ -130,8 +141,8 @@ $(document).ready(function(){
 
 
     /********************************************
-    *               Time Dropper                *
-    ********************************************/
+     *               Time Dropper                *
+     ********************************************/
 
     // Options
 
@@ -162,7 +173,6 @@ $(document).ready(function(){
 
     // Set Current Time
     $('#setCurrentTime').timeDropper();
-
 
 
     // Styles

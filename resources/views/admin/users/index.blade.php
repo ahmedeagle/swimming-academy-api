@@ -80,7 +80,8 @@
                                                                 <a href="{{route('admin.users.edit',$user->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
                                                                 <button type="button"
-                                                                        value="{{$user->id}}"  onclick="deletefn(this.value)"
+                                                                        value="{{$user->id}}"
+                                                                        onclick="deletefn(this.value)"
                                                                         class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
                                                                         data-target="#rotateInUpRight">
@@ -93,6 +94,9 @@
                                                                         data-target="#rotateInUpRight{{$user -> id}}">
                                                                     التفاصيل
                                                                 </button>
+
+                                                                <a href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">أشتراكات الاكاديمية </a>
 
                                                             </div>
                                                         </td>

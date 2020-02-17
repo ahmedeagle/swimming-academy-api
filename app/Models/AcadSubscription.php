@@ -11,10 +11,10 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use  DB;
 use App\Observers\UserObserver;
 
-class Subscription extends Model
+class AcadSubscription extends Model
 {
     //
-    protected $table = 'subscriptions';
+    protected $table = 'academysubscriptions';
     protected $casts = [
         'status' => 'integer',
     ];
@@ -23,7 +23,7 @@ class Subscription extends Model
 
 
     protected $fillable = [
-        'user_id', 'start_date', 'end_date', 'team_id', 'price', 'status','attendances', 'created_at', 'updated_at'];
+        'user_id', 'start_date', 'end_date', 'team_id', 'price', 'status', 'created_at', 'updated_at'];
 
     protected $hidden = [
         'team_id'
@@ -52,14 +52,6 @@ class Subscription extends Model
 
     public function getEndDateAttribute($value){
         return  date('Y-m-d',strtotime($value));
-    }
-
-    public function getAttendancesAttribute($value){
-       if($value === null){
-           return 0;
-       }
-       return $value;
-       //Attendance::where('status',0) -> where('end_date', '<', today()->format('Y-m-d'));
     }
 
 

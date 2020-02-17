@@ -297,4 +297,5 @@ return [
     'academyRequired' => 'Academy Required',
     'academyNotExist' => 'Academy Not Exist',
     'must pay only for current month'  => 'must pay only for current month',
+    'subscription Days must be 30 days' => 'subscription Days must be 30 days'
 ];

@@ -27,8 +27,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
 
     Route::get('test', function () {
-        getDaysInMonth(1, 2020);
-
+        //getDaysInMonth(1, 2020);
     });
 
     Route::get("/", "DashboardController@dashboard")->name('admin.dashboard');
@@ -55,6 +54,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get('/delete/{id}', 'AcademyController@deleteAcademy')->name('admin.academies.delete');
         Route::get('/about-us/{id}', 'AcademyController@academyAboutUs')->name('admin.academies.aboutus');
         Route::post('/about-us', 'AcademyController@saveAboutUs')->name('admin.academies.postaboutus');
+
+        Route::group(['prefix' => 'subscriptions'], function () {
+            Route::get("/", "SubscriptionController@academySubscriptions")->name('admin.academy.subscriptions');
+            Route::get("create/{id}", "SubscriptionController@createAcademySubscriptions")->name('admin.academy.create.subscriptions');
+            Route::post("store", "SubscriptionController@storeAcademySubscriptions")->name('admin.academy.store.subscriptions');
+            Route::post("/", "SubscriptionController@changeSubscriptionStatus")->name('admin.academy.subscriptions.status');
+        });
+
     });
 
     Route::group(['prefix' => 'teams'], function () {
@@ -65,6 +72,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/update/{id}", "TeamController@update")->name('admin.teams.update');
         Route::get("/working-days/{id}", "TeamController@getWorkingDay")->name('admin.teams.days');
         Route::post("/working-days", "TeamController@saveWorkingDay")->name('admin.teams.postworkingdays');
+        Route::get("/load/working-days", "TeamController@LoadTeamdays")->name('admin.teams.loadTimes');
         Route::get("/coaches/{id}", "TeamController@getTeamCoaches")->name('admin.teams.coaches');
         Route::get("/users/{id}", "TeamController@getTeamStudents")->name('admin.teams.users');
         Route::post("/loadHeroes", "TeamController@loadHeroes")->name('admin.teams.loadHeroes');
@@ -160,6 +168,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
     Route::group(['prefix' => 'attendance'], function () {
         Route::get("/", "AttendanceController@index")->name('admin.attendance');
+        Route::get("times", "AttendanceController@times")->name('admin.attendance.times');
+        Route::get("add/{team_id}", "AttendanceController@addTeamAttendance")->name('admin.add.attendance');
         Route::post("/loadTeamUsers", "AttendanceController@loadUsersByTeam")->name('admin.attendance.loadUser');
     });
 

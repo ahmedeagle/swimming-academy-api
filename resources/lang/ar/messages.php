@@ -299,6 +299,7 @@ return [
     'academyRequired' => 'الاكاديمية مطلوبه',
     'academyNotExist' => 'الاكاديمية  غير موجوده لدينا',
     'must pay only for current month' => 'لايمكن دفع اشتراك الا عن الشهر الحالي فقط',
+    'subscription Days must be 30 days' => 'لابد ان يكون عدد ايام الاشتراك 30 يوم ',
 
 
 

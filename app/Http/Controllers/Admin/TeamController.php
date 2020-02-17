@@ -85,7 +85,7 @@ class TeamController extends Controller
             $status = $request->has('status') ? 1 : 0;
             $id = Team::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             notify()->success('تمت الاضافة بنجاح ');
-            return redirect()->route('admin.teams.days',$id);
+            return redirect()->route('admin.teams.days', $id);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -164,7 +164,7 @@ class TeamController extends Controller
             $team->update($request->except('photo'));
 
             notify()->success('تمت التعديل  بنجاح ');
-            return redirect()->route('admin.teams.days',$id);
+            return redirect()->route('admin.teams.days', $id);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -177,8 +177,8 @@ class TeamController extends Controller
             notify()->error('الفريق  غير موجوده لدينا ');
             return redirect()->route('admin.teams.all');
         }
-          $times = Time::where('team_id', $teamId)->get();
-         return view('admin.teams.workingdays', compact( 'team', 'times'));
+        $times = Time::where('team_id', $teamId)->get();
+        return view('admin.teams.workingdays', compact('team', 'times'));
     }
 
     public function saveWorkingDay(Request $request)
@@ -209,7 +209,7 @@ class TeamController extends Controller
                 $from = Carbon::parse($time['from_time']);
                 $to = Carbon::parse($time['to_time']);
 
-                if ( isset($time['status'])  && ( !in_array($time['day'], $days) || $to->diffInMinutes($from) <= 0 || $from >= $to)) {
+                if (isset($time['status']) && (!in_array($time['day'], $days) || $to->diffInMinutes($from) <= 0 || $from >= $to)) {
                     notify()->error('    يوجد خطأ,يجب ان يكون قيمه الي اكبر من قيمه من ');
                     return redirect()->back()->withInput($request->all());
                 }
@@ -277,6 +277,54 @@ class TeamController extends Controller
         return response()->json([
             'content' => $view['main'],
         ]);
+    }
+
+
+    public function LoadTeamdays(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "team_id" => "required|exists:teams,id",
+            ]);
+            if ($validator->fails()) {
+                return response()->json([], 422);
+            }
+           /* $times = Time::where('team_id', $request->team_id)->pluck('day_name') -> toArray();
+              //get coresponding day number of week from 0 -> saturday to 6 -> friday
+            $weekDays = ['saturday' => 0 ,'sunday' => 1,'monday' => 2,'tuesday' => 3 ,'wednesday' => 4 ,'thursday' => 5 ,'friday' => 6];
+            $days =[];
+            if(!empty($times)){
+                $days =   array_map(function ($day) use($weekDays){
+                    return $weekDays[$day];
+                },$times);
+            }
+            $currentYear = date('Y');
+            $teamAvailableDateInCurrentYear=[];
+
+            if(!empty($days)){
+               foreach ($days as $day){
+                   $dates = getDateForSpecificDayBetweenDates($currentYear.'-01-1',$currentYear.'-12-31',$day);
+                   array_push($teamAvailableDateInCurrentYear,$dates);
+               }
+            }
+            $dates = call_user_func_array('array_merge', $teamAvailableDateInCurrentYear);*/
+
+
+            $team_days = Time::where('team_id', $request->team_id)->pluck('day_name') -> toArray();
+            $week_days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+            $unavailble_days = array_values(array_diff($week_days, $team_days));
+            $month_days =  get_dates(\request()->month, \request()->year);
+            $unavailble_day_dates = [];
+
+            if (!empty($unavailble_days) && count($unavailble_days) > 0) {
+
+                $unavailble_day_dates =  unavailabledate($month_days, $unavailble_days);
+            }
+            return response()->json(json_decode(json_encode($unavailble_day_dates)));
+
+        } catch (\Exception $ex) {
+            return response()->json([], 500);
+        }
     }
 
     public

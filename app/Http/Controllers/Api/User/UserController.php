@@ -131,7 +131,7 @@ class UserController extends Controller
                     $user->device_token = $request->device_token;
                 }
                 $user->update();
-                return $this->returnError('E331', __('messages.underRevision'));
+                return $this->returnError('E331', __('messages.unsubscribed'));
             } elseif ($user->subscribed == 0) {
                 if ($request->device_token != null) {
                     $user->device_token = $request->device_token;

@@ -43,14 +43,14 @@ class ChampionController extends Controller
             $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
             $data['categories'] = Category::with(['allUsers' => function ($q) {
                 $q->active()
-                    ->subscribed()
+
                     ->select('users.id', 'users.name_' . app()->getLocale() . ' as name', 'users.photo', 'users.category_id');
             }])
                 ->active()
                 ->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name')
                 ->whereHas('allUsers', function ($qq) {
                     $qq->active()
-                        ->subscribed();
+                        ;
                 })->get();
             return view('admin.champions.create', $data);
         }catch (\Exception $ex){
