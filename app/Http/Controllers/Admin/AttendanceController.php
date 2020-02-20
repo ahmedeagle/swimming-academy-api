@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 
     public function loadUsersByTeam(Request $request)
     {
-         try {
+        try {
             $messages = [
                 'required' => 'هذا الحقل مطلوب ',
                 'exists' => 'هذه القيمه غير موجوده لدينا ',
@@ -54,18 +54,20 @@ class AttendanceController extends Controller
             ], $messages);
 
             if ($validator->fails()) {
-                 return response()->json($validator->errors(), 422);
+                return response()->json($validator->errors(), 422);
             }
             /* if (date("m", strtotime($request->date)) != date("m") or date("Y", strtotime($request->date)) != date("Y")) {
                  return response()->json(['date' => ['لايمكن تحديد الغياب والحضور الا للشهر الحالي فقط ']], 422);
              }*/
             $teamId = $request->team_id;
             $date = $request->date;
-            $users = User::active()->with(['attendances' => function ($q) use ($date) {
-                $q->whereDate('date', '=', $date);
-            }])->whereHas('team', function ($q) use ($teamId) {
-                $q->where('id', $teamId);
-            })->get();
+            $users = User::active()
+                ->AcademySubScribed()
+                ->with(['attendances' => function ($q) use ($date) {
+                    $q->whereDate('date', '=', $date);
+                }])->whereHas('team', function ($q) use ($teamId) {
+                    $q->where('id', $teamId);
+                })->get();
             $view = view('admin.users.users', compact('users'))->renderSections();
             return response()->json([
                 'content' => $view['main'],
@@ -94,13 +96,13 @@ class AttendanceController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
 
-            $data=[];
+            $data = [];
             $data['team_id'] = $request->team_id;
             $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
             $data['teams'] = Team::active()->selection()->get();
             $data['categories'] = Category::active()->get();
 
-            return view('admin.attendance.times',$data);
+            return view('admin.attendance.times', $data);
         } catch (\Exception $ex) {
             return abort('404');
         }

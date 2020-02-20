@@ -25,7 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('subscription:expire')->monthly();
+        $schedule->command('subscription:expire')->daily();
+        $schedule->command('academySubscription:expire')->daily();
     }
 
     /**

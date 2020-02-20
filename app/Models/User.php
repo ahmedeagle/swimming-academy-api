@@ -20,7 +20,8 @@ class User extends Authenticatable implements JWTSubject
         'status' => 'integer',
         'team_id' => 'integer',
         'academy_id' => 'integer',
-        'subscribed' => 'integer'
+        'subscribed' => 'integer',
+        'academysubscribed' => 'integer'
     ];
     protected $appends = ['is_coach'];
 
@@ -29,7 +30,7 @@ class User extends Authenticatable implements JWTSubject
         'team_id', 'category_id', 'academy_id', 'email', 'tall',
         'weight', 'birth_date', 'status', 'device_token',
         'activation_code', 'photo', 'api_token', 'password',
-        'created_at', 'updated_at','subscribed'];
+        'created_at', 'updated_at', 'subscribed', 'academysubscribed'];
 
     protected $hidden = [
         'updated_at', 'password', 'device_token', 'created_at', 'team_id'
@@ -111,14 +112,33 @@ class User extends Authenticatable implements JWTSubject
         return $this->subscribed;
     }
 
+    //application subscription
     public function scopeSubScribed($query)
     {
         return $query->where('subscribed', 1);
     }
 
+    //academy subscription
+    public function scopeAcademySubScribed($query)
+    {
+        return $query->where('academysubscribed', 1);
+    }
+
     public function getStatus()
     {
         return $this->status == 0 ? 'غير مفعل' : 'مفعل';
+    }
+
+    public function  getAcademySubscribed()
+    {
+        return $this->academysubscribed;
+        return $this->academysubscribed == 0 ? 'غير مشترك' : 'مشترك';
+    }
+
+    public function getApplicationSubscribed()
+    {
+        return  $this->subscribed;
+        return $this->subscribed == 0 ? 'غير مشترك' : 'مشترك';
     }
 
     public function scopeSelection($query)
@@ -186,9 +206,9 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Models\AcadSubscription', 'user_id', 'id');
     }
 
-    public function  attendances()
+    public function attendances()
     {
-        return $this -> hasMany('App\Models\Attendance','user_id','id');
+        return $this->hasMany('App\Models\Attendance', 'user_id', 'id');
     }
 
 }

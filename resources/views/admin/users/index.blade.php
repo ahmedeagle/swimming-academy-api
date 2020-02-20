@@ -58,6 +58,8 @@
                                                 <th>البريد الالكتروني</th>
                                                 <th> صورة الشخصية</th>
                                                 <th>الحالة</th>
+                                                <th>أشتراك الاكاديمية</th>
+                                                <th>أشتراك التطبيق</th>
                                                 <th>الأجراءات</th>
                                             </tr>
                                             </thead>
@@ -74,6 +76,8 @@
                                                         <td>{{$user -> email}}</td>
                                                         <td><img src="{{$user -> photo}}" height="40px;"></td>
                                                         <td>{{$user -> getStatus()}}</td>
+                                                        <td>{{$user -> getAcademySubscribed()}}</td>
+                                                        <td>{{$user -> getApplicationSubscribed()}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">

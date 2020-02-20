@@ -83,6 +83,8 @@ function getDiffBetweenTwoDate($startDate, $endDate, $formate = 'a')
     return $days;
 }
 
+
+
 function getDaysInMonth($month, $year)
 {
     return new Date($year, $month + 1, 0) . getDate();

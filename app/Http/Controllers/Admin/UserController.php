@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
+use App\Models\AcadSubscription;
 use App\Models\Attendance;
 use App\Models\Coach;
 use App\Models\Subscription;
@@ -102,8 +103,8 @@ class UserController extends Controller
             User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             DB::commit();
 
-            notify()->success('تم اضافه الاعب  بنجاح ');
-            return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الاعب  بنجاح ']);
+            notify()->success('تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ');
+            return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ']);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -310,12 +311,14 @@ class UserController extends Controller
             if ($userAlreadyTakeAttendanceToday) {
                 $userAlreadyTakeAttendanceToday->update(['attend' => $request->attend]);
             } else {
-                $date =date('Y-m-d', strtotime($request->date));
+
+                $currentSubscription = AcadSubscription::current() -> select('id') -> first();  //we allow only one subscription
+                $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
                 $attendance->user_id = $request->userId;
                 $attendance->team_id = $user->team->id;
                 $attendance->attend = $request->attend;
-                $attendance->subscription_id =  $this->getCurrentSubscribeId($request->userId,$user->team->id,$date);
+                $attendance->subscription_id = $currentSubscription ? $currentSubscription -> id : null;
                 $attendance->date = $date;
                 $user->attendances()->save($attendance);
             }
@@ -324,12 +327,6 @@ class UserController extends Controller
         }
     }
 
-    protected function getCurrentSubscribeId($userId,$teamId,$date){
-        Subscription::where([
-            ['user_id','=',$userId],
-            ['team_id','=',$teamId],
-        ]);
-    }
 
     public function attendAll(Request $request)
     {

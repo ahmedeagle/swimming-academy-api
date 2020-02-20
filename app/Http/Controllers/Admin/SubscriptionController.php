@@ -171,7 +171,7 @@ class SubscriptionController extends Controller
             $today = date('Y-m-d');
 
            // if($today >= date('Y-m-d', strtotime($request->start_date)) && $today <= date('Y-m-d', strtotime($request->end_date))){
-                User::where('id',$user ->id)->update(['status'=>1]);
+                User::where('id',$user ->id)->update(['status'=>1 ,'academysubscribed' => 1]);
             //}
 
             notify()->success('تم اضافه الاشتراك بنجاح ');

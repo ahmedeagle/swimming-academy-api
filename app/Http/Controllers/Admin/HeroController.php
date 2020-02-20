@@ -53,6 +53,7 @@ class HeroController extends Controller
                 ->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
         }])
             ->active()
+            ->academySubScribed()
             ->select('id', 'name_' . app()->getLocale() . ' as name', 'photo')
             ->whereHas('users', function ($qq) {
                 $qq->active();

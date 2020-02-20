@@ -166,7 +166,7 @@
                                                         value="0"
                                                         id="showUsers"
                                                         class="btn btn-success mr-1 ">
-                                                    <i class="la la-eye"></i> غرض الطلاب
+                                                    <i class="la la-eye"></i> عرض الطلاب
                                                 </button>
                                             </div>
                                         </div>
@@ -186,9 +186,7 @@
                                                 <th>الحضور</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr id="appendAttendanceUser">
-                                            </tr>
+                                            <tbody id="appendAttendanceUser">
                                             </tbody>
                                         </table>
                                     </div>
@@ -263,7 +261,7 @@
                 data: {
                     'userId': $(this).val(),
                     'attend': attend,
-                    'date': $('.dateVal').val(),
+                    'date': $('#dateAttend').val(),
                 },
                 success: function (data) {
                 }, error: function (reject) {
@@ -275,7 +273,7 @@
         $(document).on('click', '.statusOfAll', function (e) {
             e.preventDefault();
             let status = $(this).val();
-            let date = $('.dateVal').val();
+            let date = $('#dateAttend').val();
             let teamId = $('select[name="team_id"] option:selected').val();
 
             $.ajax({

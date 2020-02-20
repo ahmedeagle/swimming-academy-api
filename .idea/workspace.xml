@@ -2,34 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/AcadSubscription.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/vendors/css/zabuto_calendar.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/vendors/css/zabuto_calendar.min.css.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/vendors/js/zabuto_calendar.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/vendors/js/zabuto_calendar.min.js.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/academies/subscriptions/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/academies/subscriptions/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/attendance/times.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Console/Commands/AcademySubscriptionExpire.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/SubscriptionExpire.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/SubscriptionExpire.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AttendanceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AttendanceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/HeroController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/SubscriptionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/SubscriptionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Subscription.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Subscription.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/SubscriptionTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/SubscriptionTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/js/scripts/extensions/date-time-dropper.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/scripts/extensions/date-time-dropper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/vendors/js/extensions/datedropper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/vendors/js/extensions/datedropper.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/attendance/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/attendance/times.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/attendance/times.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -159,25 +147,25 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/attendance" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Console/Commands" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\resources\views\admin\attendance" />
-      <recent name="C:\wamp\www\swimming\assets\admin\vendors\js" />
-      <recent name="C:\wamp\www\swimming\assets\admin\vendors\css" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\academies\subscriptions" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\academies" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Console\Commands" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\attendance" />
+      <recent name="C:\wamp\www\swimming\assets\admin\vendors\js" />
+      <recent name="C:\wamp\www\swimming\assets\admin\vendors\css" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\academies\subscriptions" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -264,6 +252,9 @@
       <workItem from="1581439812881" duration="12915000" />
       <workItem from="1581505494938" duration="17821000" />
       <workItem from="1581578470511" duration="1162000" />
+      <workItem from="1581959890331" duration="8222000" />
+      <workItem from="1582046317675" duration="374000" />
+      <workItem from="1582193153186" duration="4572000" />
     </task>
     <servers />
   </component>
@@ -427,7 +418,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php</url>
-          <line>285</line>
+          <line>286</line>
           <properties>
             <option name="className" value="\App\Http\Controllers\Admin\UserController" />
             <option name="methodName" value="attendUser" />

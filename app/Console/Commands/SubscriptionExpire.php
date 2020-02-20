@@ -4,7 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Subscription;
 use App\Models\User;
- use Illuminate\Console\Command;
+use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class SubscriptionExpire extends Command
 {
@@ -20,7 +21,7 @@ class SubscriptionExpire extends Command
      *
      * @var string
      */
-    protected $description = 'Expire all old subscription';
+    protected $description = 'Expire all old application subscription';
 
 
     /**
@@ -42,8 +43,12 @@ class SubscriptionExpire extends Command
     {
         $subscriptions = Subscription::where('status', 1)->whereHas('user')->get();
         foreach ($subscriptions as $subscription) {
-             $subscription->update(['status' => 0]);
-             User::where('id',$subscription -> user_id) -> update(['subscribed' => 0]);
+            if (getDiffBetweenTwoDate($subscription->start_date, Carbon::now()) > 30) {
+                $subscription->update(['status' => 0]);
+                User::whereDoesntHave('subscriptions', function ($query) {
+                    $query->where('status',1);
+                })-> where('id', $subscription->user_id)->update(['subscribed' => 0]);
+            }
         }
     }
 }

@@ -84,7 +84,7 @@ class SubscriptionController extends Controller
                 'team_id' => $user->team_id,
                 'start_date' => $startDate,
                 'end_date' => $endDate,
-                'price'   => $request -> price,
+                'price' => $request->price,
             ]);
             $user->update(['subscribed' => 1, 'status' => 1]);
             return $this->returnSuccessMessage('S001', trans('messages.userSubscribedSucessfullyAndWaitForAdminApproved'));
@@ -92,7 +92,7 @@ class SubscriptionController extends Controller
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
-    
+
     public function checkSubscribtion(Request $request)
     {
         $messages = [
@@ -129,19 +129,63 @@ class SubscriptionController extends Controller
                 return $this->returnError('D000', trans('messages.User not found'));
             }
 
-            $validator = Validator::make($request->all(), [
-                "type" => "required|in:current,previous",
-            ]);
+            /*    $validator = Validator::make($request->all(), [
+                     "type" => "required|in:current,previous",
+                 ]);
 
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
+                 if ($validator->fails()) {
+                     $code = $this->returnCodeAccordingToInput($validator);
+                     return $this->returnValidationError($code, $validator);
+                 }
+                 if ($request->type == 'current') {
+                     $subscriptions = $this->CurrentMemberShip($user);
+                 } else {
+                     $subscriptions = $this->PreviousMemberShip($user);
+                 }*/
+
+            $subscriptions = $this->allMemberShip($user);
+            if (count($subscriptions) > 0) {
+                $total_count = $subscriptions->total();
+                /* $subscriptions->getCollection()->each(function ($activity) {
+                     return $activity;
+                 });*/
+                $subscriptions = json_decode($subscriptions->toJson());
+                $subscriptionsJson = new \stdClass();
+                $subscriptionsJson->current_page = $subscriptions->current_page;
+                $subscriptionsJson->total_pages = $subscriptions->last_page;
+                $subscriptionsJson->total_count = $total_count;
+                $subscriptionsJson->data = $subscriptions->data;
+                return $this->returnData('subscriptions', $subscriptionsJson);
             }
-            if ($request->type == 'current') {
-                $subscriptions = $this->CurrentMemberShip($user);
-            } else {
-                $subscriptions = $this->PreviousMemberShip($user);
+
+            return $this->returnError('E001', trans('messages.There are no data found'));
+
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function getAcademyMemberShip(Request $request)
+    {
+        try {
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
             }
+
+              $validator = Validator::make($request->all(), [
+                     "type" => "required|in:current,previous",
+                 ]);
+
+                 if ($validator->fails()) {
+                     $code = $this->returnCodeAccordingToInput($validator);
+                     return $this->returnValidationError($code, $validator);
+                 }
+                 if ($request->type == 'current') {
+                     $subscriptions = $this->CurrentAcademyMemberShip($user);
+                 } else {
+                     $subscriptions = $this->PreviousAcademyMemberShip($user);
+                 }
 
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
