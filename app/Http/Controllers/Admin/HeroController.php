@@ -49,7 +49,7 @@ class HeroController extends Controller
     {
         $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
         $data['teams'] = Team::with(['users' => function ($q) {
-            $q->active()->academySubscriptions()
+            $q->active()->academySubScribed()
                     ->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
         }])
             ->active()

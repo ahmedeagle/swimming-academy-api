@@ -42,7 +42,7 @@ class ChampionController extends Controller
         try {
             $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
             $data['categories'] = Category::with(['allUsers' => function ($q) {
-                $q->active() ->academySubscriptions()
+                $q->active() -> academySubScribed()
 
                     ->select('users.id', 'users.name_' . app()->getLocale() . ' as name', 'users.photo', 'users.category_id');
             }])
