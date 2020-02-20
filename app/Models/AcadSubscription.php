@@ -63,5 +63,7 @@ class AcadSubscription extends Model
         return $query ->where('status',1);
     }
 
-
+    public function attendances(){
+        return $this -> hasMany('App\Models\Attendance','subscription_id','id');
+    }
 }

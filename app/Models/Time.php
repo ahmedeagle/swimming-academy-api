@@ -11,7 +11,7 @@ class Time extends Model
     public $timestamps = true;
 
     protected $fillable = ['day_name', 'day_code', 'from_time', 'to_time', 'team_id','status'];
-    protected $hidden = ['team_id', 'updated_at', 'created_at'];
+    protected $hidden = ['team_id', 'updated_at', 'created_at','status'];
 
     public function team()
     {

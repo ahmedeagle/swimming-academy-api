@@ -107,7 +107,7 @@
 
             <li class="nav-item @if(Request::is('admin/users*') ) open @endif"><a href="{{route('admin.users.all')}}"><i
                         class="la la-money"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main"> الاشتراكات  </span>
+                    <span class="menu-title" data-i18n="nav.dash.main"> أشتراكات الاكاديمية   </span>
                     <span
                         class="badge badge badge-success  badge-pill float-right mr-2">{{\App\Models\Subscription::current()-> count()}}</span>
                 </a>

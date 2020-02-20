@@ -33,7 +33,6 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-
         try {
             $validator = Validator::make($request->all(), [
                 "name_ar" => "required|max:255",
@@ -100,7 +99,7 @@ class UserController extends Controller
                 $user->name = $user->getTranslatedName();
                 $user->makeVisible(['status', 'name_en', 'name_ar']);
                 DB::commit();
-                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password), JSON_FORCE_OBJECT)));
+                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))));
             } catch (\Exception $ex) {
                 DB::rollback();
             }
@@ -147,7 +146,7 @@ class UserController extends Controller
                 $user->name = $user->getTranslatedName();
                 DB::commit();
             }
-            return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)));
+            return $this->returnData('user', json_decode(json_encode($user)));
         }
         return $this->returnError('E001', trans('messages.No result, please check your registration before'));
     }
@@ -174,7 +173,7 @@ class UserController extends Controller
             $user->update(['activation_code' => '']);
             $user->name = $user->getTranslatedName();
             $user->makeVisible(['api_token', 'status', 'name_en', 'name_ar']);
-            return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)), ' تم التحقيق من الكود بنجاح ');
+            return $this->returnData('user', json_decode(json_encode($user)), ' تم التحقيق من الكود بنجاح ');
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
@@ -199,7 +198,7 @@ class UserController extends Controller
             $code = $this->getRandomString(4);
             $user->update(['activation_code' => $code]);
             $user->notify(new UserPasswordReset($code));
-            return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)), trans('messages.confirm code send'));
+            return $this->returnData('user', json_decode(json_encode($user)), trans('messages.confirm code send'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
@@ -229,7 +228,7 @@ class UserController extends Controller
                 $tempToken = $this->getRandomString(250);
                 $user->update(['api_token' => $tempToken, 'activation_code' => $code]);
                 $user->notify(new UserPasswordReset($code));
-                return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)), trans('messages.confirm code send'));
+                return $this->returnData('user', json_decode(json_encode($user)), trans('messages.confirm code send'));
             } catch (\Exception $ex) {
                 DB::rollback();
                 return $this->returnError($ex->getCode(), $ex->getMessage());
@@ -327,7 +326,7 @@ class UserController extends Controller
             $user->update(['photo' => $fileName] + $request->except('photo'));
             $user = $this->getAllData($user->id);
             $user->name = $user->{'name_' . app()->getLocale()};
-            return $this->returnData('user', json_decode(json_encode($user, JSON_FORCE_OBJECT)),
+            return $this->returnData('user', json_decode(json_encode($user)),
                 trans('messages.User data updated successfully'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());

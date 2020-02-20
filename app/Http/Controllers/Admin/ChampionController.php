@@ -47,7 +47,6 @@ class ChampionController extends Controller
                     ->select('users.id', 'users.name_' . app()->getLocale() . ' as name', 'users.photo', 'users.category_id');
             }])
                 ->active()
-                ->academySubScribed()
                 ->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name')
                 ->whereHas('allUsers', function ($qq) {
                     $qq->active()

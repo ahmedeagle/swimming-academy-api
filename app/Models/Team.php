@@ -17,6 +17,9 @@ class Team extends Model
     protected $casts = [
         'status' => 'integer',
     ];
+    protected $appends = [
+        'times'
+    ];
 
     protected $fillable = ['name_ar', 'name_en', 'photo', 'quotas', 'category_id', 'coach_id', 'status', 'level_ar', 'level_en'];
 
@@ -121,6 +124,21 @@ class Team extends Model
     public function subscriptions()
     {
         return $this->hasMany('App\Models\Subscription', 'team_id', 'id');
+    }
+
+    public function getTimesAttribute()
+    {
+        try {
+
+            $times = Time::where('team_id', $this -> id)->get() -> toArray();
+            if (count((array)$times))
+                return $times ;
+
+            else
+                return [];
+        } catch
+        (\Exception $ex) {
+        }
     }
 
 }

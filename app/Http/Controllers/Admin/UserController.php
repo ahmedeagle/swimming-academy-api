@@ -312,13 +312,14 @@ class UserController extends Controller
                 $userAlreadyTakeAttendanceToday->update(['attend' => $request->attend]);
             } else {
 
-                $currentSubscription = AcadSubscription::current() -> select('id') -> first();  //we allow only one subscription
+                $currentSubscription = AcadSubscription::current()->where('user_id', $request->userId)->select('id')->first();  //we allow only one subscription
+
                 $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
                 $attendance->user_id = $request->userId;
                 $attendance->team_id = $user->team->id;
                 $attendance->attend = $request->attend;
-                $attendance->subscription_id = $currentSubscription ? $currentSubscription -> id : null;
+                $attendance->subscription_id = $currentSubscription ? $currentSubscription->id : null;
                 $attendance->date = $date;
                 $user->attendances()->save($attendance);
             }
@@ -364,11 +365,14 @@ class UserController extends Controller
                     ])->update(['attend' => $attend]);
 
                 } else {
+                    $currentSubscription = AcadSubscription::current()->where('user_id', $request->userId)->select('id')->first();  //we allow only one subscription
+
                     //create user attendance
                     $attendance = new Attendance();
                     $attendance->user_id = $user->id;
                     $attendance->team_id = $teamId;
                     $attendance->attend = $attend;
+                    $attendance->subscription_id = $currentSubscription ? $currentSubscription->id : null;
                     $attendance->date = date('Y-m-d', strtotime($date));
                     $user->attendances()->save($attendance);
                 }
