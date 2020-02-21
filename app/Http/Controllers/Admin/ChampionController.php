@@ -30,7 +30,7 @@ class ChampionController extends Controller
     public function index()
     {
         try {
-              $champions = Champion::get();
+            return   $champions = Champion::get();
             return view('admin.champions.index', compact('champions'));
         } catch (\Exception $ex) {
             return abort('404');
