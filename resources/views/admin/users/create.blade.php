@@ -365,8 +365,7 @@
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
 
-                    alert($('#category').val());
-                    $.ajax({
+                     $.ajax({
                         type: 'post',
                         url: "{{Route('admin.categories.loadTeams')}}",
                         data: {
@@ -374,7 +373,9 @@
                         },
                         success: function (data) {
                             $('.appendTeams').empty().append(data.content);
-                        }
+                        },error: function (reject) {
+                             $('.appendTeams').empty().append("<optgroup label='الفرق'>");
+                         }
                     });
                 }
             });

@@ -348,6 +348,7 @@
             }
         });
 
+
         //get academy teams branches
         $(document).on('change', '#academy', function (e) {
             e.preventDefault();
@@ -360,6 +361,7 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
+
                     $.ajax({
                         type: 'post',
                         url: "{{Route('admin.categories.loadTeams')}}",
@@ -368,6 +370,8 @@
                         },
                         success: function (data) {
                             $('.appendTeams').empty().append(data.content);
+                        },error: function (reject) {
+                            $('.appendTeams').empty().append("<optgroup label='الفرق'>");
                         }
                     });
                 }
@@ -387,6 +391,7 @@
                 }
             });
         });
+
 
 
     </script>

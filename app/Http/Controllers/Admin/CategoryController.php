@@ -55,8 +55,7 @@ class CategoryController extends Controller
     public function loadCategoryTeams(Request $request)
     {
         $category = Category::findOrFail($request->category_id);
-      return   $teams = $category->teams -> whereHas('times');
-                //  Team::whereHas('times') -> where()
+        $teams = Team::whereHas('times')->where('category_id',$request->category_id)->get();
         $view = view('admin.categories.teams', compact('teams'))->renderSections();
         return response()->json([
             'content' => $view['main'],

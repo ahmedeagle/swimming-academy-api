@@ -208,7 +208,8 @@
                         }, error: function (reject) {
                             $('.allTeamControll').hide();
                             $('#appendAttendanceUser').hide();
-                        }
+                                 $('.appendTeams').empty().append("<optgroup label='الفرق'>");
+                         }
                     });
                 }
             });
