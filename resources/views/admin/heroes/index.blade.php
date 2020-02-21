@@ -68,7 +68,7 @@
                                                     <tr>
                                                         <td>{{$hero -> user -> name_ar}}</td>
                                                         <td><img src="{{$hero -> user -> photo}}" height="40px;"></td>
-                                                        <td> @if(isset($hero -> hero_photo ))<img src="{{$hero  -> hero_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
+                                                        <td> @if(isset($hero -> hero_photo ) &&  $hero -> hero_photo !="")<img src="{{$hero  -> hero_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
                                                         <td>{{$hero -> academy -> name_ar}}</td>
                                                         <td>{{$hero -> category -> name_ar}}</td>
                                                         <td>{{$hero  -> team -> name_ar}}</td>
