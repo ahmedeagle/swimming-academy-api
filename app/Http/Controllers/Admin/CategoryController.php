@@ -55,7 +55,7 @@ class CategoryController extends Controller
     public function loadCategoryTeams(Request $request)
     {
         $category = Category::findOrFail($request->category_id);
-        $teams = Team::whereHas('times')->where('category_id',$request->category_id)->get();
+        $teams = Team::whereHas('times')->where('category_id', $request->category_id)->get();
         $view = view('admin.categories.teams', compact('teams'))->renderSections();
         return response()->json([
             'content' => $view['main'],
@@ -99,6 +99,13 @@ class CategoryController extends Controller
                 notify()->error('هناك خطا برجاء المحاوله مجددا ');
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
+
+            if ($this->checkIfCategoryNameAlreadyExistsForThisAcademy($request->academy_id, $request->name_ar,'name_ar')) {
+                return redirect()->back()->withErrors(['name_ar' => 'اسم القسم مسجل سابقا لدي اقسام الاكاديمية الرجاء ادخال اسم اخر'])->withInput($request->all());
+            }
+            if ($this->checkIfCategoryNameAlreadyExistsForThisAcademy($request->academy_id, $request->name_en,'name_en')) {
+                return redirect()->back()->withErrors(['name_en' => 'اسم القسم مسجل سابقا لدي اقسام الاكاديمية الرجاء ادخال اسم اخر'])->withInput($request->all());
+            }
             $status = $request->has('status') ? 1 : 0;
             $request->request->add(['status' => $status]); //add request
             Category::create($request->except('_token'));
@@ -109,6 +116,13 @@ class CategoryController extends Controller
         }
     }
 
+    protected function checkIfCategoryNameAlreadyExistsForThisAcademy($academyId, $name,$col="name_ar")
+    {
+        $exists = Academy::whereHas('categories', function ($q) use ($name,$col) {
+            $q->where($col, $name);
+       })->find($academyId);
+        return $exists ? true : false;
+    }
 
     public function edit($id)
     {
@@ -138,6 +152,7 @@ class CategoryController extends Controller
                 notify()->error('هناك خطا برجاء المحاوله مجددا ');
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
+
             $status = $request->has('status') ? 1 : 0;
             $request->request->add(['status' => $status]); //add request
             $category = Category::find($id);

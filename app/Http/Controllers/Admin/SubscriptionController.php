@@ -142,7 +142,7 @@ class SubscriptionController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             }
 
-            $user = User::findOrFail($request->user_id);
+            $user = User::find($request->user_id);
 
             if (date('Y-m-d', strtotime($request->end_date)) <= date('Y-m-d')) {
                 notify()->error('هناك خطا برجاء المحاوله مجددا ');
@@ -158,7 +158,7 @@ class SubscriptionController extends Controller
 
             if($thereAreActiveSubscription){
                 notify()->error(' عفوا هناك اشتراك حالي لهذا المستخدم ');
-                return redirect()->back();
+                return redirect()->route('admin.users.all');
             }
             AcadSubscription::create([
                 'user_id' => $user->id,
@@ -177,7 +177,7 @@ class SubscriptionController extends Controller
             notify()->success('تم اضافه الاشتراك بنجاح ');
             return redirect()->route('admin.users.all');
         } catch (\Exception $ex) {
-            return abort('404');
+            return $ex;
         }
     }
 

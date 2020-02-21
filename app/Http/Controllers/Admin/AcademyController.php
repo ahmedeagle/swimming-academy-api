@@ -41,6 +41,7 @@ class AcademyController extends Controller
                 'max' => 'لابد الايزيد عدد اخرف الحقب عن 100 حرف بالمسافات ',
                 'category_id.exists' => ' القسم غير موجود ',
                 'logo.mimes' => 'لابد من رفع صوره صحيحة الامتداد',
+                'unique'  => 'الاسم موجود سابقا رجاء ادخال اسم اخر'
                 // "categories.required" => 'لأبد من أختيار  اقسام الاكاديمية ',
                 //"categories.array" => 'لأبد من أختيار  اقسام الاكاديمية ',
                 //"categories.min" => 'لأبد من أختيار  اقسام الاكاديمية ',
@@ -49,8 +50,8 @@ class AcademyController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [
-                'name_ar' => 'required|max:100',
-                'name_en' => 'required|max:100',
+                'name_ar' => 'required|max:100|unique:academies,name_ar',
+                'name_en' => 'required|max:100|unique:academies,name_ar',
                 'address_ar' => 'required|max:225',
                 'address_en' => 'required|max:225',
                 //'categories' => 'required|array|min:1',
@@ -114,13 +115,14 @@ class AcademyController extends Controller
             'logo.mimes' => 'لابد من رفع صوره صحيحة الامتداد'
         ];
         $validator = Validator::make($request->all(), [
-            'name_ar' => 'required|max:100',
-            'name_en' => 'required|max:100',
+            'name_ar' => 'required|max:100|unique:academies,name_ar,'.$id,
+            'name_en' => 'required|max:100|unique:academies,name_en,'.$id,
             'address_ar' => 'required|max:225',
             'address_en' => 'required|max:225',
             //'categories' => 'required|array|min:1',
             //'categories.*' => 'required|exists:categories,id',
             'logo' => 'mimes:jpeg,jpg,png,bmp,gif,svg',
+
 
         ], $messages);
 
