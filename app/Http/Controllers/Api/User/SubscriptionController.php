@@ -147,10 +147,10 @@ class SubscriptionController extends Controller
             $subscriptions = $this->allMemberShip($user);
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
-                $subscriptions->getCollection()->each(function ($subscription) {
+              /*  $subscriptions->getCollection()->each(function ($subscription) {
                     unset($subscription['team']);
                     return $subscription;
-                });
+                });*/
                 $subscriptions = json_decode($subscriptions->toJson());
                 $subscriptionsJson = new \stdClass();
                 $subscriptionsJson->current_page = $subscriptions->current_page;
