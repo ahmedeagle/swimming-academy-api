@@ -127,6 +127,7 @@ class ChampionController extends Controller
                 'note_ar' => 'required',
                 'note_en' => 'required',
                 'championId' => 'required|exists:champions,id',
+                'hero_photo' => 'sometimes|nullable|mimes:jpeg,jpg,png,bmp,gif,svg',
             ], $messages);
 
             if ($validator->fails()) {
@@ -135,6 +136,11 @@ class ChampionController extends Controller
             }
             $champion = Champion::find($request->championId);
             $champion->makeVisible(['note_ar', 'note_en']);
+
+            if (isset($request->champion_photo) && !empty($request->champion_photo)) {
+                $fileName = $this->uploadImage('users', $request->champion_photo);
+                $champion->update(['champion_photo' => $fileName]);
+            }
 
             $champion->update([
                 'note_ar' => $request->note_ar,

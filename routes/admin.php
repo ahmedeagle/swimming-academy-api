@@ -164,7 +164,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/edit/{id}", "ChampionController@edit")->name('admin.champions.edit');
         Route::post("/update/{id}", "ChampionController@update")->name('admin.champions.update');
         Route::get("/delete/{id}", "ChampionController@delete")->name('admin.champions.delete');
-        Route::get("/note", "ChampionController@addChampionNote")->name('admin.champions.note');
+        Route::post("/note", "ChampionController@addChampionNote")->name('admin.champions.note');
     });
 
     Route::group(['prefix' => 'attendance'], function () {

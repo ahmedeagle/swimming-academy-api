@@ -13,7 +13,7 @@
                 <p class="text-center"><span
                         class="text-info text-center"> أدخل نبذه محتصره عن دور الطالب ف البطوله او الجائزه التي حصل عليها   </span></p>
 
-                <form class="form" action="{{route('admin.champions.note')}}" method="Get"
+                <form class="form" action="{{route('admin.champions.note')}}" method="post"
                       enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="championId" value="{{$champion -> id}}">
@@ -33,6 +33,16 @@
                                     <label for="projectinput2"> النبذه بالانجليزي</label>
                                     <input class="form-control"  name="note_en"  type="text">
                                     @error('note_en')
+                                    <span class="text-danger"> {{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="projectinput2"> صوره الطالب في المسابقة  </label>
+                                    <input class="form-control"  name="champion_photo"  type="file">
+                                    @error('champion_photo')
                                     <span class="text-danger"> {{$message}}</span>
                                     @enderror
                                 </div>

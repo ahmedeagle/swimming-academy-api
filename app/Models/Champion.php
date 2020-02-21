@@ -8,9 +8,9 @@ class Champion extends Model
 {
     protected $table = 'champions';
     public $timestamps = true;
-    protected $forcedNullStrings = ['note_ar', 'note_en'];
+    protected $forcedNullStrings = ['note_ar', 'note_en','champion_photo'];
 
-    protected $fillable = ['user_id', 'category_id', 'created_at', 'note_ar', 'note_en'];
+    protected $fillable = ['user_id', 'category_id', 'created_at', 'note_ar', 'note_en','champion_photo'];
     protected $hidden = ['updated_at', 'user_id'];
 
     public function setAttribute($key, $value)
@@ -48,4 +48,13 @@ class Champion extends Model
         }
         return $val;
     }
+
+    public function getChampionPhotoAttribute($val)
+    {
+        if ($val === null) {
+            return "";
+        }
+        return asset($val);
+    }
+
 }

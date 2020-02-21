@@ -56,7 +56,7 @@ trait HeroTrait
 
     public function getChampions(User $user)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note')
+        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note','champion_photo')
             ->whereHas('user', function ($q) use ($user) {
                 $q->where('users.category_id', $user->category_id);
             })

@@ -50,8 +50,8 @@
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                <th> الاسم بالانجليزي</th>
-                                                <th> صورة</th>
+                                                <th>صورة الطالب</th>
+                                                <th>صورة الطالب بالمسابقه</th>
                                                 <th> الاكاديمية</th>
                                                 <th> القسم</th>
                                                 <th> عنوان المسابقة </th>
@@ -66,8 +66,8 @@
                                                 @foreach($champions as $champion)
                                                     <tr>
                                                         <td>{{$champion -> user -> name_ar}}</td>
-                                                        <td>{{$champion -> user -> name_en}}</td>
                                                         <td><img src="{{$champion -> user -> photo}}" height="40px;"></td>
+                                                        <td> @if(isset($champion -> champion_photo ))<img src="{{$champion  -> champion_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
                                                         <td>{{$champion -> academy -> name_ar}}</td>
                                                         <td>{{$champion -> category -> name_ar}}</td>
                                                         <td>{{$champion  -> name_ar}}</td>
@@ -88,7 +88,7 @@
                                                                         class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
                                                                         data-target="#rotateInUpRightChampion{{$champion->id}}">
-                                                                    اضافة تفاصيل
+                                                                    اضافة تفاصيل وصورة المسابقه
                                                                 </button>
                                                             </div>
                                                         </td>
