@@ -145,7 +145,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر القسم </label>
-                                                            <select name="category_id" id="academy"
+                                                            <select name="category_id" id="category"
                                                                     class="select2 form-control appendCategories">
                                                                 <optgroup label="من فضلك أختر القسم ">
                                                                     @if(isset($categories) && $categories -> count() > 0)
@@ -249,6 +249,31 @@
 
 @section('script')
     <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $('#academy').val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadCoaches')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            console.log(data.content);
+                            $('.appendCoaches').empty().append(data.content);
+                        }
+                    });
+
+                }
+            });
+        });
+
         $(document).on('change', '#academy', function (e) {
             e.preventDefault();
             $.ajax({
@@ -260,9 +285,41 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
-                    $('.appendCoaches').empty().append(data.coachesContent);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadCoaches')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendCoaches').empty().append(data.content);
+                        }, error: function (reject) {
+                            $('.appendCoaches').empty().append("<optgroup label='من فضلك أختر كابتن'>");
+                        }
+                    });
+                }, error: function (reject) {
+                    $('.appendCategories').empty();
+                    $('.appendCoaches').empty();
                 }
             });
         });
+
+
+        $(document).on('change', '#category', function (e){
+
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCoaches')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendCoaches').empty().append(data.content);
+                }, error: function (reject) {
+                    $('.appendCoaches').empty();
+                }
+            });
+        });
+
     </script>
 @stop

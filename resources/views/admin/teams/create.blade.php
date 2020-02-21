@@ -113,7 +113,7 @@
                                                                         @foreach($academies as $academy)
                                                                             <option
                                                                                 value="{{$academy -> id }}"
-                                                                                 {{old('academy_id')  == $academy -> id ? 'selected' : ''}}>{{$academy -> name}}</option>
+                                                                                {{old('academy_id')  == $academy -> id ? 'selected' : ''}}>{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -127,9 +127,11 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2"> أختر  القسم  </label>
+                                                            <label for="projectinput2"> أختر القسم </label>
                                                             <select name="category_id"
-                                                                    class="select2 form-control appendCategories">
+                                                                    class="select2 form-control appendCategories"
+                                                                    id="category"
+                                                            >
                                                             </select>
                                                             @error('category_id')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -139,7 +141,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الكابتن </label>
-                                                            <select name="coach_id" id=""
+                                                            <select name="coach_id"
                                                                     class="select2 form-control appendCoaches">
                                                             </select>
                                                             @error('coach_id')
@@ -185,7 +187,8 @@
                                                                    id="switcheryColor4"
                                                                    class="switchery" data-color="success"
                                                                    checked/>
-                                                            <label for="switcheryColor4" class="card-title ml-1">الحالة </label>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">الحالة </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -223,7 +226,18 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
-                    $('.appendCoaches').empty().append(data.coachesContent);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadCoaches')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            console.log(data.content);
+                            $('.appendCoaches').empty().append(data.content);
+                        }
+                    });
+
                 }
             });
         });
@@ -239,9 +253,41 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
-                    $('.appendCoaches').empty().append(data.coachesContent);
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadCoaches')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendCoaches').empty().append(data.content);
+                        }, error: function (reject) {
+                                $('.appendCoaches').empty().append("<optgroup label='من فضلك أختر كابتن'>");
+                        }
+                    });
+                }, error: function (reject) {
+                    $('.appendCategories').empty();
+                    $('.appendCoaches').empty();
                 }
             });
         });
+
+
+        $(document).on('change', '#category', function (e){
+
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadCoaches')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendCoaches').empty().append(data.content);
+                }, error: function (reject) {
+                    $('.appendCoaches').empty();
+                }
+            });
+        });
+
     </script>
 @stop

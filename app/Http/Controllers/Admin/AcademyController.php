@@ -55,8 +55,8 @@ class AcademyController extends Controller
                 'address_en' => 'required|max:225',
                 //'categories' => 'required|array|min:1',
                 //'categories.*' => 'required|exists:categories,id',
-                'logo' => 'required|mimes:jpeg,png,bmp,gif,svg',
-                'logo' => 'required|mimes:jpeg,png,bmp,gif,svg',
+                'logo' => 'required|mimes:jpeg,jpg,png,bmp,gif,svg',
+                'logo' => 'required|mimes:jpeg,jpg,png,bmp,gif,svg',
             ], $messages);
 
 
@@ -120,7 +120,7 @@ class AcademyController extends Controller
             'address_en' => 'required|max:225',
             //'categories' => 'required|array|min:1',
             //'categories.*' => 'required|exists:categories,id',
-            'logo' => 'mimes:jpg,jpeg,png',
+            'logo' => 'mimes:jpeg,jpg,png,bmp,gif,svg',
 
         ], $messages);
 

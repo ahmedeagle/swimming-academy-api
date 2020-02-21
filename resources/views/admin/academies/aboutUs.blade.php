@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-     من نحن
+       بيانات التواصل / من نحن
 @stop
 @section('style')
 
@@ -15,7 +15,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
                                 </li>
-                                 <li class="breadcrumb-item active"> من نحن
+                                 <li class="breadcrumb-item active">بيانات الاكاديمية
                                 </li>
                             </ol>
                         </div>
@@ -29,7 +29,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> من نحن  </h4>
+                                    <h4 class="card-title" id="basic-layout-form">من نحن / بيانات التواصل </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -51,34 +51,7 @@
 
                                             <input type="hidden" name="academy_id"  value="{{$academy -> id }}">
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-user"></i> البيانات   </h4>
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">  عنوان صفحة من نحن بالعربي </label>
-                                                            <input type="text" value="{{ @$settings -> title_ar }}" id="title_ar"
-                                                                   class="form-control"
-                                                                   placeholder="ادخل  العنوان  باللغة العربية "
-                                                                   name="title_ar">
-                                                            @error('title_ar')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> عنوان صفحة من نحن بالانجليزي </label>
-                                                            <input type="text" value="{{  @$settings -> title_en  }}" id="title_en"
-                                                                   class="form-control"
-                                                                   placeholder="ادخل   العنوان  باللغة  الانجليزية  "
-                                                                   name="title_en">
-                                                            @error('title_en')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <h4 class="form-section"><i class="ft-user"></i>  بيانات التواصل   </h4>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -101,6 +74,37 @@
                                                                    placeholder="رقم التواصل مع الاكاديمية  "
                                                                    name="mobile">
                                                             @error('mobile')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                 <h4 class="form-section"><i class="ft-user"></i>من نحن </h4>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  عنوان صفحة من نحن بالعربي </label>
+                                                            <input type="text" value="{{ @$settings -> title_ar }}" id="title_ar"
+                                                                   class="form-control"
+                                                                   placeholder="ادخل  العنوان  باللغة العربية "
+                                                                   name="title_ar">
+                                                            @error('title_ar')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> عنوان صفحة من نحن بالانجليزي </label>
+                                                            <input type="text" value="{{  @$settings -> title_en  }}" id="title_en"
+                                                                   class="form-control"
+                                                                   placeholder="ادخل   العنوان  باللغة  الانجليزية  "
+                                                                   name="title_en">
+                                                            @error('title_en')
                                                             <span class="text-danger"> {{$message}}</span>
                                                             @enderror
                                                         </div>

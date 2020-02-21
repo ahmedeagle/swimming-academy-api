@@ -129,7 +129,6 @@ class Team extends Model
     public function getTimesAttribute()
     {
         try {
-
             $times = Time::where('team_id', $this -> id)->get() -> toArray();
             if (count((array)$times))
                 return $times ;

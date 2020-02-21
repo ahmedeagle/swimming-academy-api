@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         try {
             $academies = Academy::active()->select('id', 'name_ar as name')->get();
-            $teams = Team::active()->selection()->get();
+            $teams = Team::active()->whereHas('times')->selection()->get();
             return view('admin.users.create', compact('academies', 'teams'));
         } catch (\Exception $ex) {
             return abort('404');
@@ -81,7 +81,7 @@ class UserController extends Controller
                 'birth_date' => 'required|date-format:Y-m-d',
                 'gender' => 'required|in:1,2',
                 'academy_id' => 'required|exists:academies,id',
-                'photo' => 'required|mimes:jpg,jpeg,png',
+                'photo' => 'required|mimes:jpeg,jpg,png,bmp,gif,svg',
                 'password' => 'required|confirmed|min:6',
                 'team_id' => 'required|exists:teams,id',
                 'category_id' => 'required|exists:categories,id'
@@ -154,7 +154,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'birth_date' => 'required|date-format:Y-m-d',
             'academy_id' => 'required|exists:academies,id',
-            'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
+            'photo' => 'sometimes|nullable|mimes:jpeg,jpg,png,bmp,gif,svg',
             'team_id' => 'required|exists:teams,id',
 
         ];

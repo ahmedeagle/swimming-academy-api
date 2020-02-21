@@ -71,7 +71,7 @@ class TeamController extends Controller
                 'quotas' => 'required|numeric',
                 'category_id' => 'required|exists:categories,id',
                 'coach_id' => 'required|exists:coahes,id',
-                'photo' => 'required|mimes:jpg,jpeg,png'
+                'photo' => 'required|mimes:jpeg,jpg,png,bmp,gif,svg'
             ], $messages);
 
             if ($validator->fails()) {
@@ -143,7 +143,7 @@ class TeamController extends Controller
                 'name_en' => 'required|max:100',
                 'quotas' => 'required|numeric',
                 'category_id' => 'required|exists:categories,id',
-                'photo' => 'sometimes|nullable|mimes:jpg,jpeg,png',
+                'photo' => 'sometimes|nullable|mimes:jpeg,jpg,png,bmp,gif,svg',
                 'coach_id' => 'required|exists:coahes,id'
 
             ], $messages);

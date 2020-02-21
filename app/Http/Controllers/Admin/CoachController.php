@@ -69,7 +69,7 @@ class CoachController extends Controller
             'mobile' => ["required", "unique:coahes,mobile", "regex:/^01[0-2]{1}[0-9]{8}/", "min:11", "max:11"],
             'gender' => 'required|in:1,2',
             'academy_id' => 'required|exists:academies,id',
-            'photo' => 'required|mimes:jpg,jpeg,png',
+            'photo' => 'required|mimes:jpeg,jpg,png,bmp,gif,svg',
             'password' => 'required|confirmed|min:6',
             /*  'teams' => 'required|array|min:1',
               'teams.*' => 'required|exists:teams,id',*/
@@ -151,7 +151,7 @@ class CoachController extends Controller
             'mobile' => ["required", "regex:/^01[0-2]{1}[0-9]{8}/", "min:11", "max:11", 'unique:coahes,mobile,' . $coach->id . ',id'],
             'gender' => 'required|in:1,2',
             'academy_id' => 'required|exists:academies,id',
-            'photo' => 'mimes:jpg,jpeg,png',
+            'photo' => 'mimes:jpeg,jpg,png,bmp,gif,svg',
             /*'teams' => 'required|array|min:1',
             'teams.*' => 'required|exists:teams,id',*/
             'category_id' => 'required|exists:categories,id'

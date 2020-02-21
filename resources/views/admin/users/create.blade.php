@@ -242,7 +242,7 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  فرقه اللاعب
+                                                            <label for="projectinput2"> فرقه اللاعب <span class="text-info">(ملاحظة يتم فقط عرض الفرق التي تم ادخال ايام العمل لها )</span>
                                                             </label>
                                                             <select class="select2 form-control appendTeams" name="team_id" >
                                                             </select>

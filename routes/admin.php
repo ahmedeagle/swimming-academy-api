@@ -39,6 +39,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/edit/{id}", "CategoryController@edit")->name('admin.categories.edit');
         Route::post("/update/{id}", "CategoryController@update")->name('admin.categories.update');
         Route::post("/loadcategories", "CategoryController@loadCategories")->name('admin.categories.loadCategories');
+        Route::post("/loadCoaches", "CategoryController@loadCoaches")->name('admin.categories.loadCoaches');
         Route::post('/teams', 'CategoryController@loadCategoryTeams')->name('admin.categories.loadTeams');
         Route::get('/delete/{id}', 'CategoryController@deleteCategory')->name('admin.categories.delete');
         Route::post("/loadHeroes", "CategoryController@loadHeroes")->name('admin.categories.loadHeroes');

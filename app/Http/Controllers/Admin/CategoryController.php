@@ -30,7 +30,7 @@ class CategoryController extends Controller
             return response()->json(['content' => null]);
         }
         $users = $category->allUsers;
-        $view = view('admin.teams.heroes', compact('users')) -> with('message',' عفوا لايوجد اي لاعبين في هذا القسم فضلا قم باضافه لاعبين للقسم او اختر قسم اخر ثم المحاوله مجددا ')->renderSections();
+        $view = view('admin.teams.heroes', compact('users'))->with('message', ' عفوا لايوجد اي لاعبين في هذا القسم فضلا قم باضافه لاعبين للقسم او اختر قسم اخر ثم المحاوله مجددا ')->renderSections();
         return response()->json([
             'content' => $view['main'],
         ]);
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         $academy = Academy::findOrfail($request->academy_id);
         $categories = $academy->categories;
-        $coaches = Coach::active()->where('academy_id',$request->academy_id) -> get();
+        $coaches = Coach::active()->where('academy_id', $request->academy_id)->get();
         $categoryView = view('admin.academies.categories', compact('categories'))->renderSections();
         $coachView = view('admin.academies.coaches', compact('coaches'))->renderSections();
 
@@ -55,8 +55,20 @@ class CategoryController extends Controller
     public function loadCategoryTeams(Request $request)
     {
         $category = Category::findOrFail($request->category_id);
-        $teams = $category->teams;
+      return   $teams = $category->teams -> whereHas('times');
+                //  Team::whereHas('times') -> where()
         $view = view('admin.categories.teams', compact('teams'))->renderSections();
+        return response()->json([
+            'content' => $view['main'],
+        ]);
+    }
+
+
+    public function loadCoaches(Request $request)
+    {
+        $category = Category::findOrFail($request->category_id);
+        $coaches = $category->coaches;
+        $view = view('admin.categories.coaches', compact('coaches'))->renderSections();
         return response()->json([
             'content' => $view['main'],
         ]);

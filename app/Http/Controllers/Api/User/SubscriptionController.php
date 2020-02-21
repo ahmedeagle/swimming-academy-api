@@ -147,10 +147,10 @@ class SubscriptionController extends Controller
             $subscriptions = $this->allMemberShip($user);
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
-                 $subscriptions->getCollection()->each(function ($subscription) {
-                     unset($subscription['team']);
-                     return $subscription;
-                 });
+                $subscriptions->getCollection()->each(function ($subscription) {
+                    unset($subscription['team']);
+                    return $subscription;
+                });
                 $subscriptions = json_decode($subscriptions->toJson());
                 $subscriptionsJson = new \stdClass();
                 $subscriptionsJson->current_page = $subscriptions->current_page;
@@ -198,6 +198,8 @@ class SubscriptionController extends Controller
                     }
 
                     $subscriptions->attendances = $subscriptionsDays;
+
+
                     return $this->returnData('academySubscriptions', $subscriptions);
                 } else {
                     return $this->returnError('E001', trans('messages.There are no data found'));
@@ -209,8 +211,19 @@ class SubscriptionController extends Controller
                     unset($subscription->team->times);
                     return $subscription;
                 });
+                if (count($subscriptions) > 0) {
+                    $total_count = $subscriptions->total();
+                    $subscriptions = json_decode($subscriptions->toJson());
+                    $subscriptionsJson = new \stdClass();
+                    $subscriptionsJson->current_page = $subscriptions->current_page;
+                    $subscriptionsJson->total_pages = $subscriptions->last_page;
+                    $subscriptionsJson->total_count = $total_count;
+                    $subscriptionsJson->data = $subscriptions->data;
 
-                return $this->returnData('academySubscriptions', $subscriptions);
+                    return $this->returnData('academySubscriptions', $subscriptionsJson);
+                }
+                return $this->returnError('E001', trans('messages.There are no data found'));
+
             }
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
