@@ -58,7 +58,7 @@
                                                 <th> بدأ الاشتراك</th>
                                                 <th> أنتهاء الاشتراك</th>
                                                 <th> قيمه الاشتراك</th>
-                                                <th> الاجراءات</th>
+
 
                                             </tr>
                                             </thead>
@@ -79,7 +79,7 @@
                                                             - {{ date('d-m-Y',strtotime($subscription -> end_date))}}  </td>
                                                         </td>
                                                         <td>{{$subscription ->price}}</td>
-                                                        <td>
+                                                       {{-- <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
 
@@ -94,7 +94,7 @@
                                                                            class="card-title ml-1">الحالة </label>
                                                                 </div>
                                                             </div>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             @endif

@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Champion.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Champion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/champions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/champions/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/modals/championInfoModal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/modals/championInfoModal.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/subscriptions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/subscriptions/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -245,7 +240,7 @@
       <workItem from="1581578470511" duration="1162000" />
       <workItem from="1581959890331" duration="8222000" />
       <workItem from="1582046317675" duration="374000" />
-      <workItem from="1582193153186" duration="45601000" />
+      <workItem from="1582193153186" duration="45920000" />
     </task>
     <servers />
   </component>
