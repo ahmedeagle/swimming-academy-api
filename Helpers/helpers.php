@@ -84,7 +84,6 @@ function getDiffBetweenTwoDate($startDate, $endDate, $formate = 'a')
 }
 
 
-
 function getDaysInMonth($month, $year)
 {
     return new Date($year, $month + 1, 0) . getDate();
@@ -123,4 +122,27 @@ function get_dates($month, $year)
         $index++;
     }
     return $list;
+}
+
+
+function getAllDateBetweenTwoDate($date_from, $date_to, $teamDays = [])
+{
+    $dates = [];
+    $date_from = strtotime($date_from);
+    $date_to = strtotime($date_to);
+    for ($i = $date_from; $i <= $date_to; $i += 86400) {
+        $obj = new \stdClass();
+        $obj->date = date("Y-m-d", $i);
+        $obj->day_name = strtolower(date("l", $i));
+        array_push($dates, $obj);
+    }
+
+    if (count($dates) > 0) {
+        if (count($teamDays) > 0) {
+            $subscriptionDays = collect($dates)->whereIn('day_name', $teamDays);
+            return array_values($subscriptionDays->toArray());
+        } else
+            return $dates;
+    } else
+        return [];
 }

@@ -140,16 +140,7 @@
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الكابتن </label>
                                                             <select name="coach_id" id=""
-                                                                    class="select2 form-control">
-                                                                <optgroup label="من فضلك أختر الكابتن ">
-                                                                    @if($coaches && $coaches -> count() > 0)
-                                                                        @foreach($coaches as $coach)
-                                                                            <option
-                                                                                value="{{$coach -> id }}"
-                                                                                {{old('coach_id')  == $coach -> id ? 'selected' : ''}}>{{$coach -> name}}</option>
-                                                                        @endforeach
-                                                                    @endif
-                                                                </optgroup>
+                                                                    class="select2 form-control appendCoaches">
                                                             </select>
                                                             @error('coach_id')
                                                             <span class="text-danger"> {{$message}}</span>
@@ -232,6 +223,7 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
+                    $('.appendCoaches').empty().append(data.coachesContent);
                 }
             });
         });
@@ -247,6 +239,7 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
+                    $('.appendCoaches').empty().append(data.coachesContent);
                 }
             });
         });

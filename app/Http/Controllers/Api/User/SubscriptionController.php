@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
+use App\Models\Attendance;
 use App\Models\Coach;
 use App\Models\Subscription;
 use App\Models\Token;
@@ -146,9 +147,10 @@ class SubscriptionController extends Controller
             $subscriptions = $this->allMemberShip($user);
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
-                /* $subscriptions->getCollection()->each(function ($activity) {
-                     return $activity;
-                 });*/
+                 $subscriptions->getCollection()->each(function ($subscription) {
+                     unset($subscription['team']);
+                     return $subscription;
+                 });
                 $subscriptions = json_decode($subscriptions->toJson());
                 $subscriptionsJson = new \stdClass();
                 $subscriptionsJson->current_page = $subscriptions->current_page;
@@ -173,36 +175,43 @@ class SubscriptionController extends Controller
                 return $this->returnError('D000', trans('messages.User not found'));
             }
 
-              $validator = Validator::make($request->all(), [
-                     "type" => "required|in:current,previous",
-                 ]);
+            $validator = Validator::make($request->all(), [
+                "type" => "required|in:current,previous",
+            ]);
 
-                 if ($validator->fails()) {
-                     $code = $this->returnCodeAccordingToInput($validator);
-                     return $this->returnValidationError($code, $validator);
-                 }
-                 if ($request->type == 'current') {
-                     $subscriptions = $this->CurrentAcademyMemberShip($user);
-                 } else {
-                     $subscriptions = $this->PreviousAcademyMemberShip($user);
-                 }
-
-            if (count($subscriptions) > 0) {
-                $total_count = $subscriptions->total();
-                /* $subscriptions->getCollection()->each(function ($activity) {
-                     return $activity;
-                 });*/
-                $subscriptions = json_decode($subscriptions->toJson());
-                $subscriptionsJson = new \stdClass();
-                $subscriptionsJson->current_page = $subscriptions->current_page;
-                $subscriptionsJson->total_pages = $subscriptions->last_page;
-                $subscriptionsJson->total_count = $total_count;
-                $subscriptionsJson->data = $subscriptions->data;
-                return $this->returnData('subscriptions', $subscriptionsJson);
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
             }
+            if ($request->type == 'current') {
+                $subscriptions = $this->CurrentAcademyMemberShip($user);
+                if ($subscriptions) {
+                    $teamDays = $this->getTeamTimes($subscriptions->team_id);
+                    $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
+                    $userAttendanceDays = Attendance::where('user_id', $user->id)->where('subscription_id', $subscriptions->id)->pluck('attend', 'date')->toArray();
+                    //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
+                    foreach ($subscriptionsDays as $day) {
+                        if (array_key_exists($day->date, $userAttendanceDays))
+                            $day->attend = $userAttendanceDays[$day->date];
+                        else
+                            $day->attend = 0; //if not has attendance alway use be  absence
+                    }
 
-            return $this->returnError('E001', trans('messages.There are no data found'));
+                    $subscriptions->attendances = $subscriptionsDays;
+                    return $this->returnData('academySubscriptions', $subscriptions);
+                } else {
+                    return $this->returnError('E001', trans('messages.There are no data found'));
+                }
 
+            } else {
+                $subscriptions = $this->PreviousAcademyMemberShip($user);
+                $subscriptions->each(function ($subscription) {
+                    unset($subscription->team->times);
+                    return $subscription;
+                });
+
+                return $this->returnData('academySubscriptions', $subscriptions);
+            }
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }

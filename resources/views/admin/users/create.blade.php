@@ -364,6 +364,8 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
+
+                    alert($('#category').val());
                     $.ajax({
                         type: 'post',
                         url: "{{Route('admin.categories.loadTeams')}}",

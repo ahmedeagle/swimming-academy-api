@@ -25,9 +25,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['guest:admin']], function
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function () {
 
-
     Route::get('test', function () {
-        //getDaysInMonth(1, 2020);
+
+        return getAllDateBetweenTwoDate('2020-02-15','2020-04-15');
     });
 
     Route::get("/", "DashboardController@dashboard")->name('admin.dashboard');

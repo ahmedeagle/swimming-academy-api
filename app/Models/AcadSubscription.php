@@ -18,6 +18,9 @@ class AcadSubscription extends Model
     protected $casts = [
         'status' => 'integer',
     ];
+  /*  protected $appends=[
+        'attendances'
+    ];*/
 
     protected $forcedNullNumbers = ['attendances'];
 
@@ -54,6 +57,14 @@ class AcadSubscription extends Model
         return  date('Y-m-d',strtotime($value));
     }
 
+   /* public  function getAttendancesAttribute(){
+
+        try{
+             return getAllDateBetweenTwoDate($this -> start_date ,$this -> end_date);
+        }catch (\Exception $ex){
+
+        }
+    }*/
 
     public function  scopeExpired($query){
         return $query ->where('status',0) -> where('end_date', '<', today()->format('Y-m-d'));

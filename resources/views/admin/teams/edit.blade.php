@@ -166,7 +166,7 @@
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الكابتن </label>
                                                             <select name="coach_id" id=""
-                                                                    class="select2 form-control">
+                                                                    class="select2 form-control appendCoaches">
                                                                 <optgroup label="من فضلك أختر الكابتن ">
                                                                     @if($coaches && $coaches -> count() > 0)
                                                                         @foreach($coaches as $coach)
@@ -260,6 +260,7 @@
                 },
                 success: function (data) {
                     $('.appendCategories').empty().append(data.content);
+                    $('.appendCoaches').empty().append(data.coachesContent);
                 }
             });
         });

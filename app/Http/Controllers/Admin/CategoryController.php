@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
 use App\Models\Category;
+use App\Models\Coach;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -40,9 +41,13 @@ class CategoryController extends Controller
     {
         $academy = Academy::findOrfail($request->academy_id);
         $categories = $academy->categories;
-        $view = view('admin.academies.categories', compact('categories'))->renderSections();
+        $coaches = Coach::active()->where('academy_id',$request->academy_id) -> get();
+        $categoryView = view('admin.academies.categories', compact('categories'))->renderSections();
+        $coachView = view('admin.academies.coaches', compact('coaches'))->renderSections();
+
         return response()->json([
-            'content' => $view['main'],
+            'content' => $categoryView['main'],
+            'coachesContent' => $coachView['main']
         ]);
     }
 

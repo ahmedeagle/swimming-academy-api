@@ -8,6 +8,7 @@ use App\Models\Activity;
 use App\Models\Coach;
 use App\Models\Event;
 use App\Models\Subscription;
+use App\Models\Time;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
@@ -67,17 +68,23 @@ trait SubscriptionTrait
             ->paginate(10);
     }
 
+
     public function CurrentAcademyMemberShip(User $user)
     {
-        return AcadSubscription::with(['team' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas');
-        }, 'attendances' => function ($qq) {
-            $qq->select('id', 'date', 'attend');
-        }])
-            ->current()
+        return AcadSubscription::current()
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date')
             ->orderBy('end_date', 'DESC')
-            ->paginate(10);
+            ->first();
+    }
+
+
+    public function getTeamTimes($teamId)
+    {
+        return $times = Time::where('team_id', $teamId)->pluck('day_name');
+    }
+
+    public function addUserAttendanceToEachDay($subscriptionDays,$userAttendanceDays){
+
     }
 }
