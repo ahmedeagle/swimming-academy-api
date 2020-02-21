@@ -38,6 +38,7 @@ class HeroController extends Controller
                 $note = $_hero->hero->{'note_' . app()->getLocale()};
                 $_hero->note = $note;
                 $_hero->date =date('Y-m-d',strtotime($_hero->hero->created_at));
+                $_hero->hero_photo =$_hero->hero->hero_photo;
                 unset($_hero->hero);
             }
             return $this->returnData('heroes', $heroes);

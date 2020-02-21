@@ -33,7 +33,7 @@ class Hero extends Model
         if ($val === null) {
             return "";
         }
-        return $val;
+        return asset($val);
     }
 
     public function getNoteEnAttribute($val)
