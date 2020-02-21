@@ -26,7 +26,7 @@ class HeroController extends Controller
 
     public function index()
     {
-        $heroes = Hero::get();
+         $heroes = Hero::get();
         return view('admin.heroes.index', compact('heroes'));
     }
 
@@ -134,6 +134,7 @@ class HeroController extends Controller
                 'note_ar' => 'required',
                 'note_en' => 'required',
                 'heroId' => 'required|exists:heroes,id',
+                'hero_photo' => 'sometimes|nullable|mimes:jpeg,jpg,png,bmp,gif,svg',
             ], $messages);
 
             if ($validator->fails()) {
@@ -142,6 +143,11 @@ class HeroController extends Controller
             }
             $hero = Hero::find($request->heroId);
             $hero->makeVisible(['note_ar', 'note_en']);
+
+            if (isset($request->hero_photo) && !empty($request->hero_photo)) {
+                $fileName = $this->uploadImage('users', $request->hero_photo);
+                $hero->update(['hero_photo' => $fileName]);
+            }
 
             $hero->update([
                 'note_ar' => $request->note_ar,

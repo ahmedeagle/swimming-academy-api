@@ -18,7 +18,12 @@ trait HeroTrait
     {
         return User::with(['team' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->where('users.team_id', $user->team_id)->whereHas('hero')->select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo')->orderBy('id', 'DESC')->limit(3)->get();
+        }, 'hero'])
+            ->where('users.team_id', $user->team_id)
+            ->whereHas('hero')
+            ->select('id', 'team_id', 'name_' . app()
+                    ->getLocale() . ' as name', 'photo')->orderBy('id', 'DESC')
+            ->get();
     }
 
     public function getTeamHasHero(Coach $coach)
@@ -52,11 +57,11 @@ trait HeroTrait
     public function getChampions(User $user)
     {
         return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note')
-            ->whereHas('user',function ($q) use($user){
-                $q -> where('users.category_id', $user->category_id);
+            ->whereHas('user', function ($q) use ($user) {
+                $q->where('users.category_id', $user->category_id);
             })
-            ->with(['user' => function($qq){
-                $qq -> select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
+            ->with(['user' => function ($qq) {
+                $qq->select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
             }])
             ->orderBy('champions.id', 'DESC')
             ->paginate(10);
@@ -64,12 +69,12 @@ trait HeroTrait
 
     public function getCoachChampions(Coach $coach)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_'.app()->getLocale().', "")  as  note'))
-            ->whereHas('user',function ($q) use($coach){
-                $q -> where('users.category_id', $coach->category_id);
+        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_' . app()->getLocale() . ', "")  as  note'))
+            ->whereHas('user', function ($q) use ($coach) {
+                $q->where('users.category_id', $coach->category_id);
             })
-            ->with(['user' => function($qq){
-                $qq -> select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
+            ->with(['user' => function ($qq) {
+                $qq->select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
             }])
             ->orderBy('champions.id', 'DESC')
             ->paginate(10);

@@ -14,7 +14,12 @@ trait CoachTrait
     public function authCoachByMobile($mobile, $password)
     {
         $coachID = null;
-        $coach = Coach::where('mobile', $mobile)->first();
+        $coach = Coach::with(['academy' => function ($q) {
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+        }, 'category' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+        }])->where('mobile', $mobile)
+            ->first();
         $token = Auth::guard('coach-api')->attempt(['mobile' => $mobile, 'password' => $password]);
         if (!$coach)
             return null;
@@ -41,8 +46,8 @@ trait CoachTrait
     public function getAllData($id)
     {
         $coach = Coach::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'),'code', 'logo');
-        },'category' => function ($qq) {
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+        }, 'category' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->find($id);
 

@@ -8,10 +8,10 @@ class Hero extends Model
 {
     protected $table = 'heroes';
     public $timestamps = true;
-    protected $forcedNullStrings = ['date','note_ar','note_en'];
+    protected $forcedNullStrings = ['date', 'note_ar', 'note_en', 'hero_photo'];
 
-    protected $fillable = ['user_id', 'team_id', 'category_id', 'date', 'created_at','note_ar','note_en'];
-    protected $hidden = ['updated_at','note_ar','note_en'];
+    protected $fillable = ['user_id', 'team_id', 'category_id', 'date', 'created_at', 'note_ar', 'note_en', 'hero_photo'];
+    protected $hidden = ['updated_at', 'note_ar', 'note_en'];
 
     public function setAttribute($key, $value)
     {
@@ -20,18 +20,30 @@ class Hero extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function getNoteArAttribute($val){
-        if($val === null){
+    public function getNoteArAttribute($val)
+    {
+        if ($val === null) {
             return "";
         }
         return $val;
     }
-    public function getNoteEnAttribute($val){
-        if($val === null){
+
+    public function getHeroPhotoAttribute($val)
+    {
+        if ($val === null) {
             return "";
         }
         return $val;
     }
+
+    public function getNoteEnAttribute($val)
+    {
+        if ($val === null) {
+            return "";
+        }
+        return $val;
+    }
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');

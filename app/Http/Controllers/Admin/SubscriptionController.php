@@ -177,7 +177,7 @@ class SubscriptionController extends Controller
             notify()->success('تم اضافه الاشتراك بنجاح ');
             return redirect()->route('admin.users.all');
         } catch (\Exception $ex) {
-            return $ex;
+            return abort('404');
         }
     }
 

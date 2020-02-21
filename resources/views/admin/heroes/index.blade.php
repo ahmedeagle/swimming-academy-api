@@ -51,8 +51,8 @@
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                <th> الاسم بالانجليزي</th>
-                                                <th> صورة</th>
+                                                <th>صورة الطالب</th>
+                                                <th>صورة الطالب بالمسابقه</th>
                                                 <th> الاكاديمية</th>
                                                 <th> القسم</th>
                                                 <th> الفرقة</th>
@@ -67,8 +67,8 @@
                                                 @foreach($heroes as $hero)
                                                     <tr>
                                                         <td>{{$hero -> user -> name_ar}}</td>
-                                                        <td>{{$hero -> user -> name_en}}</td>
                                                         <td><img src="{{$hero -> user -> photo}}" height="40px;"></td>
+                                                        <td> @if(isset($hero -> hero_photo ))<img src="{{$hero  -> hero_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
                                                         <td>{{$hero -> academy -> name_ar}}</td>
                                                         <td>{{$hero -> category -> name_ar}}</td>
                                                         <td>{{$hero  -> team -> name_ar}}</td>
@@ -89,7 +89,7 @@
                                                                         class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
                                                                         data-target="#rotateInUpRightHero{{$hero->id}}">
-                                                                    اضافة تفاصيل
+                                                                    اضافة تفاصيل وصورة المسابقه
                                                                 </button>
                                                             </div>
                                                         </td>
@@ -118,7 +118,7 @@
 @section('script')
     <script>
         @if(Session::has('modalId'))
-         $("#rotateInUpRightHero{{Session::get('modalId')}}").modal('toggle');
+        $("#rotateInUpRightHero{{Session::get('modalId')}}").modal('toggle');
         @endif
     </script>
 @stop

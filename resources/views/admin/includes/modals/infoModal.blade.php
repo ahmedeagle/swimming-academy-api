@@ -13,7 +13,7 @@
                 <p class="text-center"><span
                         class="text-info text-center"> أدخل نبذه محتصره عن دور الطالب ف البطوله او الجائزه التي حصل عليها   </span></p>
 
-                <form class="form" action="{{route('admin.heroes.note')}}" method="Get"
+                <form class="form" action="{{route('admin.heroes.note')}}" method="Post"
                       enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="heroId" value="{{$hero -> id}}">
@@ -37,17 +37,24 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="projectinput2"> صوره الطالب في المسابقة  </label>
+                                    <input class="form-control"  name="hero_photo"  type="file">
+                                    @error('hero_photo')
+                                    <span class="text-danger"> {{$message}}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">أغلاق</button>
                         <button  type="submit" class="btn grey btn-outline-success" id="yes"> حفظ</button>
                     </div>
-
                 </form>
-
             </div>
-
         </div>
     </div>
 </div>

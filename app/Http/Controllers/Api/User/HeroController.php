@@ -32,11 +32,12 @@ class HeroController extends Controller
         }
 
         // $weekStartEnd = currentWeekStartEndDate();
-        $heroes = $this->getHeroes($user);
+          $heroes = $this->getHeroes($user);
         if (isset($heroes) && $heroes->count() > 0) {
             foreach ($heroes as $_hero) {
                 $note = $_hero->hero->{'note_' . app()->getLocale()};
                 $_hero->note = $note;
+                $_hero->date =date('Y-m-d',strtotime($_hero->hero->created_at));
                 unset($_hero->hero);
             }
             return $this->returnData('heroes', $heroes);

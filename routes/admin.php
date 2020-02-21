@@ -151,7 +151,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/edit/{id}", "HeroController@edit")->name('admin.heroes.edit');
         Route::post("/update/{id}", "HeroController@update")->name('admin.heroes.update');
         Route::get("/delete/{id}", "HeroController@delete")->name('admin.heroes.delete');
-        Route::get("/note", "HeroController@addHeroNote")->name('admin.heroes.note');
+        Route::post("/note", "HeroController@addHeroNote")->name('admin.heroes.note');
 
 
     });
