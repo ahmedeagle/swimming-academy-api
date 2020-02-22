@@ -226,7 +226,8 @@
     $('.readmore').readmore({
         speed: 75,
         moreLink: '<a href="#">المزيد</a>',
-        lessLink: '<a href="#">اقل</a>'
+        lessLink: '<a href="#">اقل</a>',
+        collapsedHeight: 4
     });
 </script>
 @yield('script')
