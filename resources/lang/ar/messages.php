@@ -304,4 +304,9 @@ return [
     'rate is required' => 'لأبد من اختيار نجمه واحده علي الاقل ',
     'rate sent successfully' => 'تم تقييم الكابتن بنجاح',
     'rated before'             => 'عفوا تم التقييم من قبل',
+    'the player' => 'لقد قام الاعب',
+     'rate the coach'  => 'بتقييم الكابتن',
+     'comment'  => 'بتعليق ',
+    'with rate' => 'بتقييم '
+
 ];

@@ -302,4 +302,9 @@ return [
     'rate is required' => 'Must choose at least one star',
     'rate sent successfully' => 'Rate Sent Successfully',
     'rated before'  => 'Rated Before',
+    'the player' => 'the player',
+    'rate the coach'  => 'rate the coach',
+    'comment'  => 'with comment ',
+    'with rate' => 'with rate',
+
 ];

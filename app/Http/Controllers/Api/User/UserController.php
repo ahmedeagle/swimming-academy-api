@@ -409,17 +409,17 @@ class UserController extends Controller
 
             $ratedBefore = Rate::where([
                 ['user_id', $user->id],
-                ['coach_id',$user->team->coach->id],
-                ['team_id',$user->team->id],
-                ['subscription_id',$request->subscription_id],
-                ['date',$request->date],
+                ['coach_id', $user->team->coach->id],
+                ['team_id', $user->team->id],
+                ['subscription_id', $request->subscription_id],
+                ['date', $request->date],
             ])->first();
 
-            if ($ratedBefore){
+            if ($ratedBefore) {
                 return $this->returnError('E001', trans('messages.rated before'));
             }
 
-                DB::beginTransaction();
+            DB::beginTransaction();
             try {
                 Rate::create([
                     'rate' => $request->rate,
@@ -435,10 +435,10 @@ class UserController extends Controller
 
                 // only admin how can see the coaches rates
                 Notification::create([
-                    'title_ar' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} ",
-                    'title_en' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} ",
-                    'content_ar' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} - {request->comment$} ",
-                    'content_en' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} - {request->comment$} ",
+                    'title_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . ':' . $request->rate,
+                    'title_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . $request->rate,
+                    'content_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\Admin',
                     'notificationable_id' => 1,
                 ]);
