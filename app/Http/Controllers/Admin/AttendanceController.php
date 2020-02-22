@@ -61,13 +61,13 @@ class AttendanceController extends Controller
              }*/
             $teamId = $request->team_id;
             $date = $request->date;
-            $users = User::active()
+        return     $users = User::active()
                 ->AcademySubScribed()
                 ->with(['attendances' => function ($q) use ($date) {
                     $q->whereDate('date', '=', $date);
                 }])->whereHas('team', function ($q) use ($teamId) {
                     $q->where('id', $teamId);
-                })->get();
+                })->pluck('id');
             $view = view('admin.users.users', compact('users'))->renderSections();
             return response()->json([
                 'content' => $view['main'],

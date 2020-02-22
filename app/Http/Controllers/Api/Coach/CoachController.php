@@ -260,8 +260,8 @@ class CoachController extends Controller
                     'title_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . __('messages.with rate') . $request->rate,
                     'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
-                    'notificationable_type' => 'App\Models\Admin',
-                    'notificationable_id' => 1, // hardcoded must be edit
+                    'notificationable_type' => 'App\Models\User',
+                    'notificationable_id' =>$user  -> id,
                 ]);
 
                 DB::commit();
