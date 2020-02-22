@@ -57,6 +57,7 @@
                                                 <th> القسم</th>
                                                 <th> الفرقة</th>
                                                 <th> التفاصيل</th>
+                                                <th>  التفاصيل انجليزي</th>
                                                 <th> التاريخ</th>
                                                 <th> الاجراءات</th>
 
@@ -72,8 +73,10 @@
                                                         <td>{{$hero -> academy -> name_ar}}</td>
                                                         <td>{{$hero -> category -> name_ar}}</td>
                                                         <td>{{$hero  -> team -> name_ar}}</td>
-                                                        <td >{{$hero  -> note_ar ?  \Illuminate\Support\Str::limit($hero -> note_ar,50)   : '---'}}</td>
+                                                        <td >{!!  $hero  -> note_ar ?  (strlen($hero -> note_ar) >= 50 ? Str::limit($hero -> note_ar,50) ."<button class='btn btn-success' value='{$hero -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_ar) : '---' !!}</td>
+                                                        <td >{!!  $hero  -> note_en ?  (strlen($hero -> note_en) >= 50 ? Str::limit($hero -> note_en,50) ."<button class='btn btn-success' value='{$hero -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_en) : '---' !!}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($hero -> created_at)))}}
+
                                                             - {{ date('d-m-Y',strtotime($hero -> created_at))}}  </td>
                                                         </td>
 
@@ -112,6 +115,8 @@
             @include('admin.includes.modals.infoModal',['hero' => $hero]);
         @endforeach
     @endif
+
+    @include('admin.includes.modals.moreModal');
 @stop
 
 
@@ -120,5 +125,6 @@
         @if(Session::has('modalId'))
         $("#rotateInUpRightHero{{Session::get('modalId')}}").modal('toggle');
         @endif
+
     </script>
 @stop

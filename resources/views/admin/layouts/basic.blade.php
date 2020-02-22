@@ -222,6 +222,12 @@
         meridians: true, setCurrentTime: false
     });
 
+    function  showMorefn(val) {
+        $('#contentOfDetials').empty().append(val);
+    }
+
+
+
 </script>
 @yield('script')
 

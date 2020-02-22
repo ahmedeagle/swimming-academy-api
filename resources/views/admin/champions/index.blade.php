@@ -56,6 +56,7 @@
                                                 <th> القسم</th>
                                                 <th> عنوان المسابقة </th>
                                                 <th> التفاصيل</th>
+                                                <th> التفاصيل بالانجليزي</th>
                                                 <th> التاريخ</th>
                                                 <th> الاجراءات</th>
 
@@ -71,7 +72,8 @@
                                                         <td>{{$champion -> academy -> name_ar}}</td>
                                                         <td>{{$champion -> category -> name_ar}}</td>
                                                         <td>{{$champion  -> name_ar}}</td>
-                                                         <td class="readmore">{{$champion  -> note_ar ?  \Illuminate\Support\Str::limit($champion -> note_ar,50) : '---'}}</td>
+                                                        <td >{!!  $champion  -> note_ar ?  (strlen($champion -> note_ar) >= 50 ? Str::limit($champion -> note_ar,50) ."<button class='btn btn-success' value='{$champion -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_ar) : '---' !!}</td>
+                                                        <td >{!!  $champion  -> note_en ?  (strlen($champion -> note_en) >= 50 ? Str::limit($champion -> note_en,50) ."<button class='btn btn-success' value='{$champion -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_en) : '---' !!}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($champion -> created_at)))}}
                                                             - {{ date('d-m-Y',strtotime($champion -> created_at))}}  </td>
                                                         </td>
@@ -111,6 +113,8 @@
             @include('admin.includes.modals.championInfoModal',['champion' => $champion]);
         @endforeach
     @endif
+
+    @include('admin.includes.modals.moreModal');
 @stop
 
 

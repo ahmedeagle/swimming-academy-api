@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/includes/modals/moreModal.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/champions/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/champions/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/heroes/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/heroes/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +136,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/admin/js/scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/includes/modals" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
@@ -148,11 +150,11 @@
       <recent name="C:\wamp\www\swimming\Helpers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
       <recent name="C:\wamp\www\swimming\assets\admin\js\scripts" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\academies" />
       <recent name="C:\wamp\www\swimming\app\Console\Commands" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\attendance" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -242,7 +244,7 @@
       <workItem from="1581959890331" duration="8222000" />
       <workItem from="1582046317675" duration="374000" />
       <workItem from="1582193153186" duration="50705000" />
-      <workItem from="1582355447585" duration="4152000" />
+      <workItem from="1582355447585" duration="6424000" />
     </task>
     <servers />
   </component>
