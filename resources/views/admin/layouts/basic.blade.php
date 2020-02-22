@@ -69,6 +69,7 @@
         body {
             font-family: 'Cairo', sans-serif;
         }
+
     </style>
 </head>
 <body
@@ -138,7 +139,6 @@
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/extensions/dropzone.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/admin/js/scripts/readmore.min.js')}}"></script>
 <!-- pusher configurations  -->
 
 <script type="text/javascript">
@@ -222,13 +222,6 @@
         meridians: true, setCurrentTime: false
     });
 
-
-    $('.readmore').readmore({
-        speed: 75,
-        moreLink: '<a href="#">المزيد</a>',
-        lessLink: '<a href="#">اقل</a>',
-        collapsedHeight: 4
-    });
 </script>
 @yield('script')
 
