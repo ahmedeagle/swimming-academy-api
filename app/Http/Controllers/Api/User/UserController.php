@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
 use App\Models\Coach;
+use App\Models\Notification;
 use App\Models\Rate;
 use App\Models\Token;
 use App\Models\User;
@@ -385,7 +386,7 @@ class UserController extends Controller
             ];
             $validator = Validator::make($request->all(), [
                 "rate" => "required|in:1,2,3,4,5",
-                "subscription_id" => "required|exists:subscriptions,id",
+                "subscription_id" => "required|exists:academysubscriptions,id",
                 "day_name" => "required|max:100",
                 "date" => "required|date-format:Y-m-d",
             ], $messages);
@@ -396,15 +397,29 @@ class UserController extends Controller
             }
 
             if ($request->rate != 5) {
-                return $this->returnError('E001', trans('messages.comment is required'));
+                if (!$request->filled('comment'))
+                    return $this->returnError('E001', trans('messages.comment is required'));
             }
+
 
             $user = $this->auth('user-api');
             if (!$user) {
                 return $this->returnError('E001', trans('messages.no user found'));
             }
 
-            DB::beginTransaction();
+            $ratedBefore = Rate::where([
+                ['user_id', $user->id],
+                ['coach_id',$user->team->coach->id],
+                ['team_id',$user->team->id],
+                ['subscription_id',$request->subscription_id],
+                ['date',$request->date],
+            ])->first();
+
+            if ($ratedBefore){
+                return $this->returnError('E001', trans('messages.rated before'));
+            }
+
+                DB::beginTransaction();
             try {
                 Rate::create([
                     'rate' => $request->rate,
@@ -414,19 +429,26 @@ class UserController extends Controller
                     'team_id' => $user->team->id,
                     'rateable' => 0, //user who rate "user rate coach"
                     'subscription_id' => $request->subscription_id,
-                    'day_name' => $request->day_name,
+                    'day_name' => strtolower($request->day_name),
                     'date' => $request->date,
                 ]);
 
-                //save notification to coach "coah who the user rate"
+                // only admin how can see the coaches rates
+                Notification::create([
+                    'title_ar' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} ",
+                    'title_en' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} ",
+                    'content_ar' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} - {request->comment$} ",
+                    'content_en' => "قام الاعب {user-> name_ar$} بتقييم {rate} نجوم للمدرب {user->team->coach-> name_ar$} - {request->comment$} ",
+                    'notificationable_type' => 'App\Models\Admin',
+                    'notificationable_id' => 1,
+                ]);
+
                 DB::commit();
                 return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
                 return $this->returnError($ex->getCode(), $ex->getMessage());
             }
-            //send push notification to coach
-            
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }

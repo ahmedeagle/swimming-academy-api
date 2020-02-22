@@ -300,5 +300,6 @@ return [
     'subscription Days must be 30 days' => 'subscription Days must be 30 days',
     'comment is required' => 'Comment is required',
     'rate is required' => 'Must choose at least one star',
-    'rate sent successfully' => 'Rate Sent Successfully'
+    'rate sent successfully' => 'Rate Sent Successfully',
+    'rated before'  => 'Rated Before',
 ];
