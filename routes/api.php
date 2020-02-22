@@ -38,9 +38,13 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('champions', 'HeroController@champions')->name('champions.all');
                 Route::post('PrepareUpdateProfile', 'CoachController@prepare_update_coach_profile')->name('coach.edit.profile');
                 Route::post('profile/update', 'CoachController@update_coach_profile')->name('coach.update.profile');
-                Route::post('user/membership/current', 'SubscriptionController@getCurrentMemberShip');
+
             });
         });
+    });
+
+    Route::group(['prefix' => 'coach', 'namespace' => 'User', 'middleware' => ['CheckCoachToken', 'CheckCoachStatus']], function () {
+        Route::post('user/membership/current', 'SubscriptionController@getCurrentMemberShip');
     });
 
     Route::group(['prefix' => 'teams', 'namespace' => 'Team'], function () {
@@ -50,6 +54,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
             Route::post('students', 'TeamController@getStudent')->name('team.students');
         });
     });
+
 
     Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
         Route::post('register', 'UserController@register')->name('user.register');
