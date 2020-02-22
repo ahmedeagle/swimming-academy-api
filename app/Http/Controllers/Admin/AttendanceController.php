@@ -67,7 +67,7 @@ class AttendanceController extends Controller
                     $q->whereDate('date', '=', $date);
                 }])->whereHas('team', function ($q) use ($teamId) {
                     $q->where('id', $teamId);
-                })->pluck('id');
+                })->get();
             $view = view('admin.users.users', compact('users'))->renderSections();
             return response()->json([
                 'content' => $view['main'],
