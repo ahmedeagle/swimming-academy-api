@@ -199,7 +199,7 @@ class SubscriptionController extends Controller
                     //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
                     foreach ($subscriptionsDays as $day) {
                         if (array_key_exists($day->date, $userAttendanceDays))
-                            $day->attend = $userAttendanceDays[$day->date];
+                            $day->attend = (int)$userAttendanceDays[$day->date];
                         else
                             $day->attend = (int)0; //if not has attendance alway use be  absence
                         if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id, 0)) //0 means  who make the rate is user
@@ -275,7 +275,7 @@ class SubscriptionController extends Controller
                 //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
                 foreach ($subscriptionsDays as $day) {
                     if (array_key_exists($day->date, $userAttendanceDays))
-                        $day->attend = $userAttendanceDays[$day->date];
+                        $day->attend = (int)$userAttendanceDays[$day->date];
                     else
                         $day->attend = (int)0; //if not has attendance always use be  absence
                     if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id, 1))   //1 means if who make the rate is coach
