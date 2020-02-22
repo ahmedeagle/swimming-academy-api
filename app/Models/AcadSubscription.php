@@ -77,4 +77,10 @@ class AcadSubscription extends Model
     public function attendances(){
         return $this -> hasMany('App\Models\Attendance','subscription_id','id');
     }
+
+
+    public function getStatus(){
+
+        return $this -> status == 1 ? 'مفعل':'منتهي';
+    }
 }

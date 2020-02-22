@@ -64,7 +64,8 @@
                                                 <th> بدأ الاشتراك</th>
                                                 <th> أنتهاء الاشتراك</th>
                                                 <th> قيمه الاشتراك</th>
-                                                <th> الاجراءات</th>
+                                                <th> حاله الاشتراك </th>
+                                               {{--  <th> الاجراءات</th>  --}}
 
                                             </tr>
                                             </thead>
@@ -86,6 +87,10 @@
                                                         </td>
                                                         <td>{{$subscription ->price}}</td>
                                                         <td>
+                                                            <span class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
+
+                                                        </td>
+                                                        {{-- <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
 
@@ -100,7 +105,7 @@
                                                                            class="card-title ml-1">الحالة </label>
                                                                 </div>
                                                             </div>
-                                                        </td>
+                                                        </td>--}}
                                                     </tr>
                                                 @endforeach
                                             @endif
