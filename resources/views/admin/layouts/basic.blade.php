@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href=".{{asset('assets/admin/vendors/css/forms/icheck/icheck.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/forms/icheck/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/ui/prism.min.css')}}">
-     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/app.css')}}">
@@ -57,6 +57,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/plugins/forms/checkboxes-radios.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/pages/gallery.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/plugins/file-uploaders/dropzone.css')}}">
+
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/style-rtl.css')}}">
@@ -137,7 +138,7 @@
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/extensions/dropzone.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('assets/admin/js/scripts/readmore.min.js')}}"></script>
 <!-- pusher configurations  -->
 
 <script type="text/javascript">
@@ -222,6 +223,11 @@
     });
 
 
+    $('.readmore').readmore({
+        speed: 75,
+        moreLink: '<a href="#">المزيد</a>',
+        lessLink: '<a href="#">اقل</a>'
+    });
 </script>
 @yield('script')
 

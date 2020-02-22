@@ -71,7 +71,7 @@
                                                         <td>{{$champion -> academy -> name_ar}}</td>
                                                         <td>{{$champion -> category -> name_ar}}</td>
                                                         <td>{{$champion  -> name_ar}}</td>
-                                                         <td>{{$champion  -> note_ar ? $champion -> note_ar : '---'}}</td>
+                                                         <td class="readmore">{{$champion  -> note_ar ? $champion -> note_ar : '---'}}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($champion -> created_at)))}}
                                                             - {{ date('d-m-Y',strtotime($champion -> created_at))}}  </td>
                                                         </td>
