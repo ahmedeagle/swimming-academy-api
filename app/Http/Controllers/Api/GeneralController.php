@@ -38,7 +38,7 @@ class GeneralController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
-            $aboutUs = Setting::where('academy_id', $request->academy_id)->select('email','mobile',DB::raw('title_' . app()->getLocale() . ' as title'), DB::raw('content_' . app()->getLocale() . ' as content'))->first();
+            $aboutUs = Setting::where('academy_id', $request->academy_id)->select('email','mobile','address','latitude','longitude',DB::raw('title_' . app()->getLocale() . ' as title'), DB::raw('content_' . app()->getLocale() . ' as content'))->first();
             if ($aboutUs)
                 return $this->returnData('aboutUs', $aboutUs);
             return $this->returnError('E001', trans('messages.There is no data found'));

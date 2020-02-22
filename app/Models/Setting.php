@@ -16,8 +16,11 @@ class Setting extends Model
         'content_en',
         'academy_id',
         'mobile',
-        'email'
-     ];
+        'email',
+        'latitude',
+        'longitude',
+        'address'
+    ];
 
     protected $forcedNullStrings = [
         'title_ar',
@@ -25,8 +28,11 @@ class Setting extends Model
         'content_ar',
         'content_en',
         'mobile',
-        'email'
-     ];
+        'email',
+        'latitude',
+        'longitude',
+        'address'
+    ];
 
 
     public function setAttribute($key, $value)
@@ -34,5 +40,20 @@ class Setting extends Model
         if (in_array($key, $this->forcedNullStrings) && $value === null)
             $value = "";
         return parent::setAttribute($key, $value);
+    }
+
+    public function getLatitudeAttribute($val)
+    {
+        return $val === null ? "" : $val;
+    }
+
+    public function getLongitudeAttribute($val)
+    {
+        return $val === null ? "" : $val;
+    }
+
+    public function getAddressAttribute($val)
+    {
+        return $val === null ? "" : $val;
     }
 }

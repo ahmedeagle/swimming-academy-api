@@ -41,7 +41,7 @@ class AcademyController extends Controller
                 'max' => 'لابد الايزيد عدد اخرف الحقب عن 100 حرف بالمسافات ',
                 'category_id.exists' => ' القسم غير موجود ',
                 'logo.mimes' => 'لابد من رفع صوره صحيحة الامتداد',
-                'unique'  => 'الاسم موجود سابقا رجاء ادخال اسم اخر'
+                'unique' => 'الاسم موجود سابقا رجاء ادخال اسم اخر'
                 // "categories.required" => 'لأبد من أختيار  اقسام الاكاديمية ',
                 //"categories.array" => 'لأبد من أختيار  اقسام الاكاديمية ',
                 //"categories.min" => 'لأبد من أختيار  اقسام الاكاديمية ',
@@ -115,8 +115,8 @@ class AcademyController extends Controller
             'logo.mimes' => 'لابد من رفع صوره صحيحة الامتداد'
         ];
         $validator = Validator::make($request->all(), [
-            'name_ar' => 'required|max:100|unique:academies,name_ar,'.$id,
-            'name_en' => 'required|max:100|unique:academies,name_en,'.$id,
+            'name_ar' => 'required|max:100|unique:academies,name_ar,' . $id,
+            'name_en' => 'required|max:100|unique:academies,name_en,' . $id,
             'address_ar' => 'required|max:225',
             'address_en' => 'required|max:225',
             //'categories' => 'required|array|min:1',
@@ -171,12 +171,14 @@ class AcademyController extends Controller
             $messages = [
                 'academy_id.required' => ' لابد من تحديد الاكاديمية ',
                 'academy_id.exists' => 'الاكاديمية غير موجوده لدينا ',
-                'email.email'  => ' البريد الالكتروني عبر صحيح',
+                'email.email' => ' البريد الالكتروني عبر صحيح',
+                'latLng.required' => 'العنوان مطلوب علي الخريطة'
             ];
 
             $validator = Validator::make($request->all(), [
                 'academy_id' => 'required|exists:academies,id',
                 'email' => 'sometimes|nullable|email',
+                'latLng' => 'required'
             ], $messages);
 
             if ($validator->fails()) {
@@ -187,6 +189,9 @@ class AcademyController extends Controller
             $academy = Academy::findorFail($request->academy_id);
             $settings = $academy->setting;
 
+            $request->request->add(['address' => $request -> latLng]);
+
+
             if ($settings === null) {
                 $setting = new Setting($request->all());
                 $academy->setting()->save($setting);
@@ -194,7 +199,7 @@ class AcademyController extends Controller
                 return redirect()->route('admin.academies.all');
 
             } else {
-                $academy->setting->update($request->all());
+                 $academy->setting->update($request->all());
             }
             notify()->success('تمت التعديل بنجاح ');
             return redirect()->route('admin.academies.all');
