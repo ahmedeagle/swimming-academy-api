@@ -72,7 +72,7 @@
                                                         <td>{{$hero -> academy -> name_ar}}</td>
                                                         <td>{{$hero -> category -> name_ar}}</td>
                                                         <td>{{$hero  -> team -> name_ar}}</td>
-                                                        <td >{{$hero  -> note_ar ?  \Illuminate\Support\Str::limit($hero -> note_ar,80)   : '---'}}</td>
+                                                        <td >{{$hero  -> note_ar ?  \Illuminate\Support\Str::limit($hero -> note_ar,50)   : '---'}}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($hero -> created_at)))}}
                                                             - {{ date('d-m-Y',strtotime($hero -> created_at))}}  </td>
                                                         </td>
