@@ -55,10 +55,6 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo('App\Models\Academy', 'academy_id', 'id');
     }
 
-    public function Coaches()
-    {
-        return $this->belongsToMany('App\Models\Coach', 'users_coaches', 'user_id', 'coach_id');
-    }
 
     public function team()
     {

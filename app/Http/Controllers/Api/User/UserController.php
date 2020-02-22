@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
 use App\Models\Coach;
+use App\Models\Rate;
 use App\Models\Token;
 use App\Models\User;
 use App\Models\UserToken;
@@ -375,5 +376,59 @@ class UserController extends Controller
         return $string;
     }
 
+    public function rateCoach(Request $request)
+    {
+        try {
 
+            $messages = [
+                "rate.required" => __('messages.rate is required'),
+            ];
+            $validator = Validator::make($request->all(), [
+                "rate" => "required|in:1,2,3,4,5",
+                "subscription_id" => "required|exists:subscriptions,id",
+                "day_name" => "required|max:100",
+                "date" => "required|date-format:Y-m-d",
+            ], $messages);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            if ($request->rate != 5) {
+                return $this->returnError('E001', trans('messages.comment is required'));
+            }
+
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('E001', trans('messages.no user found'));
+            }
+
+            DB::beginTransaction();
+            try {
+                Rate::create([
+                    'rate' => $request->rate,
+                    'comment' => $request->comment,
+                    'user_id' => $user->id,
+                    'coach_id' => $user->team->coach->id,
+                    'team_id' => $user->team->id,
+                    'rateable' => 0, //user who rate "user rate coach"
+                    'subscription_id' => $request->subscription_id,
+                    'day_name' => $request->day_name,
+                    'date' => $request->date,
+                ]);
+
+                //save notification to coach "coah who the user rate"
+                DB::commit();
+                return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
+            } catch (\Exception $ex) {
+                DB::rollback();
+                return $this->returnError($ex->getCode(), $ex->getMessage());
+            }
+            //send push notification to coach
+            
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
 }

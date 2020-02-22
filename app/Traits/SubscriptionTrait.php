@@ -7,6 +7,7 @@ use App\Models\AcadSubscription;
 use App\Models\Activity;
 use App\Models\Coach;
 use App\Models\Event;
+use App\Models\Rate;
 use App\Models\Subscription;
 use App\Models\Time;
 use App\Models\User;
@@ -84,7 +85,24 @@ trait SubscriptionTrait
         return $times = Time::where('team_id', $teamId)->pluck('day_name');
     }
 
-    public function addUserAttendanceToEachDay($subscriptionDays,$userAttendanceDays){
+    public function addUserAttendanceToEachDay($subscriptionDays, $userAttendanceDays)
+    {
 
+    }
+
+    public function checkIfDateRated($date, $coachId, $teamId, $userId)
+    {
+        $rated = Rate::where([
+            ['coach_id', $coachId],
+            ['team_id', $teamId],
+            ['user_id', $userId],
+            ['rateable', 0],
+            ['date', $date],
+        ])->first();
+
+        if ($rated)
+            return 1;
+        else
+            return 0;
     }
 }

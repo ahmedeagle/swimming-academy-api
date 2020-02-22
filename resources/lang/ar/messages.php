@@ -295,12 +295,12 @@ return [
     'endDateRequired' => 'تاريح نهاية الشهر مطلوب',
     'startDateNotValidFormat' => 'صيغة تاريخ بداية الشهر غير صحيحه',
     'endDateNotValidFormat' => 'صيغة تاريخ نهاية الشهر غير صحيحه',
-    'userSubscribedSucessfullyAndWaitForAdminApproved'  => 'لقد تم حفظ الاشتراك بنجاح والان في انتظار مراجعه الاداره ',
+    'userSubscribedSucessfullyAndWaitForAdminApproved' => 'لقد تم حفظ الاشتراك بنجاح والان في انتظار مراجعه الاداره ',
     'academyRequired' => 'الاكاديمية مطلوبه',
     'academyNotExist' => 'الاكاديمية  غير موجوده لدينا',
     'must pay only for current month' => 'لايمكن دفع اشتراك الا عن الشهر الحالي فقط',
     'subscription Days must be 30 days' => 'لابد ان يكون عدد ايام الاشتراك 30 يوم ',
-
-
-
+    'comment is required' => 'لابد من كتابه التقيم في حال كانت عدد النجوم اقل من 5 ',
+    'rate is required' => 'لأبد من اختيار نجمه واحده علي الاقل ',
+    'rate sent successfully' => 'تم تقييم الكابتن بنجاح'
 ];

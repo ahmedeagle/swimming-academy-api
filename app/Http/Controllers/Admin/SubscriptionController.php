@@ -96,16 +96,16 @@ class SubscriptionController extends Controller
         }
         $text = "";
         if ($type == 'current') {
-            $subscriptions = AcadSubscription::where('status', 1)->where('user_id', $user->id)->get();
+            $subscriptions = AcadSubscription::where('status', 1)->where('user_id', $user->id)->orderBy('end_date','DESC')->get();
             $text = "   الاشتراكات الحالية للاعب -  " . $user->name_ar;
         } elseif ($type == 'expired') {
-            $subscriptions = AcadSubscription::expired()->where('user_id', $user->id)->get();
+            $subscriptions = AcadSubscription::expired()->where('user_id', $user->id)->orderBy('end_date','DESC')->get();
             $text = " الاشتراكات المنتهية للاعب - " . $user->name_ar;
         } /*elseif ($type == 'new') {
             $subscriptions = Subscription::where('end_date', '>=', today()->format('Y-m-d'))->where('status', 0)->get();
             $text = "الاشتراكات الجديده";
         }*/ else {
-            $subscriptions = AcadSubscription::where('user_id', $user->id)->get();
+            $subscriptions = AcadSubscription::where('user_id', $user->id)->orderBy('end_date','DESC')->get();
             $text = "   جميع الاشتراكات للاعب - " . $user->name_ar;
         }
         return view('admin.academies.subscriptions.index', compact('subscriptions'))->with(['text' => $text, 'userId' => $user->id]);

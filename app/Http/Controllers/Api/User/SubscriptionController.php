@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Academy;
 use App\Models\Attendance;
 use App\Models\Coach;
+use App\Models\Rate;
 use App\Models\Subscription;
 use App\Models\Token;
 use App\Models\User;
@@ -147,10 +148,10 @@ class SubscriptionController extends Controller
             $subscriptions = $this->allMemberShip($user);
             if (count($subscriptions) > 0) {
                 $total_count = $subscriptions->total();
-              /*  $subscriptions->getCollection()->each(function ($subscription) {
-                    unset($subscription['team']);
-                    return $subscription;
-                });*/
+                /*  $subscriptions->getCollection()->each(function ($subscription) {
+                      unset($subscription['team']);
+                      return $subscription;
+                  });*/
                 $subscriptions = json_decode($subscriptions->toJson());
                 $subscriptionsJson = new \stdClass();
                 $subscriptionsJson->current_page = $subscriptions->current_page;
@@ -189,17 +190,25 @@ class SubscriptionController extends Controller
                     $teamDays = $this->getTeamTimes($subscriptions->team_id);
                     $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
                     $userAttendanceDays = Attendance::where('user_id', $user->id)->where('subscription_id', $subscriptions->id)->pluck('attend', 'date')->toArray();
+                    //if this date has been rated before by user "user rate the coach of his team"
+                    $teamId = $subscriptions->team_id;
+                    $coach = Coach::whereHas('teams', function ($q) use ($teamId) {
+                        $q->where('id', $teamId);
+                    })->select('id')->first();
+                    $coachId = $coach->id;  // coach of user's team
                     //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
                     foreach ($subscriptionsDays as $day) {
                         if (array_key_exists($day->date, $userAttendanceDays))
                             $day->attend = $userAttendanceDays[$day->date];
                         else
                             $day->attend = 0; //if not has attendance alway use be  absence
+                        if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id))
+                            $day->rated = 1;
+                        else
+                            $day->rated = 0;
                     }
 
                     $subscriptions->attendances = $subscriptionsDays;
-
-
                     return $this->returnData('academySubscriptions', $subscriptions);
                 } else {
                     return $this->returnError('E001', trans('messages.There are no data found'));
@@ -229,4 +238,6 @@ class SubscriptionController extends Controller
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
+
+
 }

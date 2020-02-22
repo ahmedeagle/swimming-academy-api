@@ -121,4 +121,8 @@ class Coach extends Authenticatable implements JWTSubject
         return 1;
     }
 
+    public function rates(){
+
+    }
+
 }
