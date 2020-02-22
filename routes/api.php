@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('champions', 'HeroController@champions')->name('champions.all');
                 Route::post('PrepareUpdateProfile', 'CoachController@prepare_update_coach_profile')->name('coach.edit.profile');
                 Route::post('profile/update', 'CoachController@update_coach_profile')->name('coach.update.profile');
+                Route::post('rateUser', 'CoachController@rateUser');
 
             });
         });

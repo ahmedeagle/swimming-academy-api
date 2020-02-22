@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\Coach;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coach;
+use App\Models\Notification;
+use App\Models\Rate;
 use App\Models\Token;
+use App\Models\User;
 use App\Traits\GlobalTrait;
 use App\Traits\SMSTrait;
 use Carbon\Carbon;
@@ -74,8 +77,8 @@ class CoachController extends Controller
                 $total_count = $teams->total();
                 $teams->getCollection()->each(function ($team) {
                     $team->name = $team->getTranslatedName();
-                    $team->level = $team-> getTranslatedLevel();
-                    $team->makeHidden(['pivot', 'academy_id', 'name_ar', 'name_en','level_ar','level_en','category_id','coach_id']);
+                    $team->level = $team->getTranslatedLevel();
+                    $team->makeHidden(['pivot', 'academy_id', 'name_ar', 'name_en', 'level_ar', 'level_en', 'category_id', 'coach_id']);
                     return $team;
                 });
                 $branches = json_decode($teams->toJson());
@@ -152,7 +155,7 @@ class CoachController extends Controller
                 'photo' => $fileName
             ]);
         }
-      //  $coach->makeVisible(['status']);
+        //  $coach->makeVisible(['status']);
         $coach = $this->getAllData($coach->id);
         $coach->name = $coach->{'name_' . app()->getLocale()};
         DB::commit();
@@ -189,6 +192,90 @@ class CoachController extends Controller
             $this->getRandomString(6);
         }
         return $string;
+    }
+
+
+    public function rateUser(Request $request)
+    {
+        try {
+
+            $messages = [
+                "rate.required" => __('messages.rate is required'),
+            ];
+            $validator = Validator::make($request->all(), [
+                "rate" => "required|in:1,2,3,4,5",
+                "subscription_id" => "required|exists:academysubscriptions,id",
+                "day_name" => "required|max:100",
+                "date" => "required|date-format:Y-m-d",
+                "user_id" => "required|exists:users,id"
+            ], $messages);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            if ($request->rate != 5) {
+                if (!$request->filled('comment'))
+                    return $this->returnError('E001', trans('messages.comment is required'));
+            }
+
+
+            $coach = $this->auth('coach-api');
+            $user = User::find($request->user_id);
+            if (!$coach) {
+                return $this->returnError('E001', trans('messages.no user found'));
+            }
+
+            $ratedBefore = Rate::where([
+                ['user_id', $user->id],
+                ['coach_id', $coach->id],
+                ['team_id', $user->team->id],
+                ['subscription_id', $request->subscription_id],
+                ['date', $request->date],
+                ['rateable', 1],
+            ])->first();
+
+            if ($ratedBefore) {
+                return $this->returnError('E001', trans('messages.rated before'));
+            }
+
+            DB::beginTransaction();
+            try {
+                Rate::create([
+                    'rate' => $request->rate,
+                    'comment' => $request->comment,
+                    'user_id' => $user->id,
+                    'coach_id' => $coach->id,
+                    'team_id' => $user->team->id,
+                    'rateable' => 1, //user who rate "user rate coach"
+                    'subscription_id' => $request->subscription_id,
+                    'day_name' => strtolower($request->day_name),
+                    'date' => $request->date,
+                ]);
+
+                //send notification
+                Notification::create([
+                    'title_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . __('messages.with rate') . ':' . $request->rate,
+                    'title_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . __('messages.with rate') . $request->rate,
+                    'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'notificationable_type' => 'App\Models\Admin',
+                    'notificationable_id' => 1, // hardcoded must be edit
+                ]);
+
+                DB::commit();
+                return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
+            } catch (\Exception $ex) {
+                DB::rollback();
+                return $this->returnError($ex->getCode(), $ex->getMessage());
+            }
+
+            //send push notification to user
+
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
     }
 
 }

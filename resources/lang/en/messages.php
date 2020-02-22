@@ -306,5 +306,8 @@ return [
     'rate the coach'  => 'rate the coach',
     'comment'  => 'with comment ',
     'with rate' => 'with rate',
+    'the coach' => 'the coach',
+    'rate the user' => 'rate the user',
+
 
 ];

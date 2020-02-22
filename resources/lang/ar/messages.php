@@ -302,11 +302,12 @@ return [
     'subscription Days must be 30 days' => 'لابد ان يكون عدد ايام الاشتراك 30 يوم ',
     'comment is required' => 'لابد من كتابه التقيم في حال كانت عدد النجوم اقل من 5 ',
     'rate is required' => 'لأبد من اختيار نجمه واحده علي الاقل ',
-    'rate sent successfully' => 'تم تقييم الكابتن بنجاح',
-    'rated before'             => 'عفوا تم التقييم من قبل',
+    'rate sent successfully' => 'تم تقييم بنجاح',
+    'rated before' => 'عفوا تم التقييم من قبل',
     'the player' => 'لقد قام الاعب',
-     'rate the coach'  => 'بتقييم الكابتن',
-     'comment'  => 'بتعليق ',
-    'with rate' => 'بتقييم '
-
+    'rate the coach' => 'بتقييم الكابتن',
+    'comment' => 'بتعليق ',
+    'with rate' => 'بتقييم ',
+    'the coach' => 'لقد قام الكابتن',
+    'rate the user' => ' بتقييم الاعب',
 ];

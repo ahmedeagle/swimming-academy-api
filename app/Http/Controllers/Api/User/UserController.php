@@ -413,6 +413,7 @@ class UserController extends Controller
                 ['team_id', $user->team->id],
                 ['subscription_id', $request->subscription_id],
                 ['date', $request->date],
+                ['rateable', 0],
             ])->first();
 
             if ($ratedBefore) {
