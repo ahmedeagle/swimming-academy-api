@@ -90,13 +90,13 @@ trait SubscriptionTrait
 
     }
 
-    public function checkIfDateRated($date, $coachId, $teamId, $userId)
+    public function checkIfDateRated($date, $coachId, $teamId, $userId,$rateable)
     {
         $rated = Rate::where([
             ['coach_id', $coachId],
             ['team_id', $teamId],
             ['user_id', $userId],
-            ['rateable', 0],
+            ['rateable', $rateable],
             ['date', $date],
         ])->first();
 

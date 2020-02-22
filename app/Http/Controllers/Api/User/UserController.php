@@ -440,7 +440,7 @@ class UserController extends Controller
                     'content_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\Admin',
-                    'notificationable_id' => 1,
+                    'notificationable_id' => 1, // hardcoded must be edit
                 ]);
 
                 DB::commit();
