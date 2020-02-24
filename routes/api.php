@@ -52,12 +52,12 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
     Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
         Route::post('register', 'UserController@register')->name('user.register');
         Route::post('login', 'UserController@login')->name('user.login');
-        Route::post('/forgetPassword', "UserController@forgetPassword");
-        Route::post('/resend/verification-code', "UserController@resendCodeVerification");
-        Route::post('/codeverification', "UserController@CodeVerification");
-        Route::post('/resetPassword', "UserController@passwordReset");
-        Route::post('/checkSubscription', "SubscriptionController@checkSubscribtion");
-        Route::post('/paySubscription', "SubscriptionController@paySubscription");
+        Route::post('forgetPassword', "UserController@forgetPassword");
+        Route::post('resend/verification-code', "UserController@resendCodeVerification");
+        Route::post('codeverification', "UserController@CodeVerification");
+        Route::post('resetPassword', "UserController@passwordReset");
+        Route::post('checkSubscription', "SubscriptionController@checkSubscribtion");
+        Route::post('paySubscription', "SubscriptionController@paySubscription");
         Route::group(['middleware' => ['CheckUserToken']], function () {
             Route::post('logout', 'UserController@logout')->name('user.logout');
             Route::group(['middleware' => ['CheckUserStatus']], function () {
