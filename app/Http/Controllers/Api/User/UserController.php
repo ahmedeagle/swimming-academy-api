@@ -454,4 +454,77 @@ class UserController extends Controller
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
+
+
+    public function getRates(Request $request)
+    {
+        try {
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+
+            $validator = Validator::make($request->all(), [
+                "type" => "required|in:current,previous",
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            if ($request->type == 'current') {
+                $subscriptions = $this->CurrentAcademyMemberShip($user);
+                if ($subscriptions) {
+                    $teamDays = $this->getTeamTimes($subscriptions->team_id);
+                    $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
+                    $userAttendanceDays = Attendance::where('user_id', $user->id)->where('subscription_id', $subscriptions->id)->pluck('attend', 'date')->toArray();
+                    //if this date has been rated before by user "user rate the coach of his team"
+                    $teamId = $subscriptions->team_id;
+                    $coach = Coach::whereHas('teams', function ($q) use ($teamId) {
+                        $q->where('id', $teamId);
+                    })->select('id')->first();
+                    $coachId = $coach->id;  // coach of user's team
+                    //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
+                    foreach ($subscriptionsDays as $day) {
+                        if (array_key_exists($day->date, $userAttendanceDays))
+                            $day->attend = (int)$userAttendanceDays[$day->date];
+                        else
+                            $day->attend = (int)0; //if not has attendance alway use be  absence
+                        if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id, 0)) //0 means  who make the rate is user
+                            $day->rated = (int)1;
+                        else
+                            $day->rated = (int)0;
+                    }
+
+                    $subscriptions->attendances = $subscriptionsDays;
+                    return $this->returnData('academySubscriptions', $subscriptions);
+                } else {
+                    return $this->returnError('E001', trans('messages.There are no data found'));
+                }
+
+            } else {
+                $subscriptions = $this->PreviousAcademyMemberShip($user);
+                $subscriptions->each(function ($subscription) {
+                    unset($subscription->team->times);
+                    return $subscription;
+                });
+                if (count($subscriptions) > 0) {
+                    $total_count = $subscriptions->total();
+                    $subscriptions = json_decode($subscriptions->toJson());
+                    $subscriptionsJson = new \stdClass();
+                    $subscriptionsJson->current_page = $subscriptions->current_page;
+                    $subscriptionsJson->total_pages = $subscriptions->last_page;
+                    $subscriptionsJson->total_count = $total_count;
+                    $subscriptionsJson->data = $subscriptions->data;
+
+                    return $this->returnData('academySubscriptions', $subscriptionsJson);
+                }
+                return $this->returnError('E001', trans('messages.There are no data found'));
+
+            }
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
 }

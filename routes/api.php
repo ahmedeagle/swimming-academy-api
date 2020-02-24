@@ -9,11 +9,6 @@ header('Access-Control-Allow-Origin: *');
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], function () {
     Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
@@ -22,7 +17,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
         Route::post('/categories', 'AcademyController@getAcademyCategories')->name('academies.categories');
         Route::post('/category/teams', 'AcademyController@getCategoryTeams')->name('academies.category.teams');
     });
-
     Route::group(['prefix' => 'coach', 'namespace' => 'Coach'], function () {
         Route::post('login', 'CoachController@login')->name('coach.login');
         // authenticated routes
@@ -39,7 +33,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('PrepareUpdateProfile', 'CoachController@prepare_update_coach_profile')->name('coach.edit.profile');
                 Route::post('profile/update', 'CoachController@update_coach_profile')->name('coach.update.profile');
                 Route::post('rateUser', 'CoachController@rateUser');
-
             });
         });
     });
@@ -55,7 +48,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
             Route::post('students', 'TeamController@getStudent')->name('team.students');
         });
     });
-
 
     Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
         Route::post('register', 'UserController@register')->name('user.register');
@@ -79,7 +71,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('academyMembership', 'SubscriptionController@getAcademyMemberShip');
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
-
+                Route::post('rates', 'UserController@getRates');
 
                 Route::group(['prefix' => 'tickets'], function () {
                     Route::post('/', 'TicketController@getTickets')->name('user.tickets');
