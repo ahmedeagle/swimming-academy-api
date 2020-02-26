@@ -50,7 +50,6 @@ class UserMessageController extends Controller
             $message = $this->getMessageById($id);
             if ($message == null)
                 return abort('404');
-            $message->replays()->delete();
             $message->delete();
             notify()->success('  تم حذف التذكرة بجميع ردودها بنجاح  ');
             return redirect()->route('admin.users.tickets.all')->with(['success' => ' تم حذف التذكرة بجميع ردودها بنجاح ']);

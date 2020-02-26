@@ -74,9 +74,9 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('rates', 'UserController@getRates');
                 Route::group(['prefix' => 'tickets'], function () {
                     Route::post('/', 'TicketController@getTickets')->name('user.tickets');
-                    Route::post('new ', 'TicketController@newTicket')->name('user.add.ticket');
-                    Route::post('AddMessage ', 'TicketController@AddMessage')->name('user.AddMessage');
-                    Route::post('messages', 'TicketController@GetTicketMessages')->name('user.GetTicketMessages');
+                    Route::post('replies', 'TicketController@GetTicketMessages');
+                    Route::post('new', 'TicketController@newTicket')->name('user.add.ticket');
+                    Route::post('AddMessage', 'TicketController@AddMessage')->name('user.AddMessage');
                 });
             });
         });

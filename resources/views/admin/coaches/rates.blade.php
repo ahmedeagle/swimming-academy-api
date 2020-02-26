@@ -69,7 +69,12 @@
                                                         <td>{{$rates -> team -> academy -> name_ar}}</td>
                                                          <td>{{$rates -> team  ->name_ar}}</td>
                                                         <td>
-                                                            {{$rates -> rate}}</td>
+                                                            @for($i=0;$i < $rates -> rate;$i++)
+                                                                <i class="la la-star yellow"></i>
+                                                                @endfor
+                                                           </td>
+
+
                                                         <td>{{$rates -> comment}}</td>
                                                         <td>{{$rates -> date}}</td>
                                                         <td>{{__('messages.'.$rates -> day_name)}}</td>

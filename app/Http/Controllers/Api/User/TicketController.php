@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Replay;
 use App\Models\Ticket;
+use App\Models\User;
 use App\Traits\GlobalTrait;
 use App\Traits\TicketTrait;
 use Illuminate\Http\Request;
@@ -213,13 +215,12 @@ class TicketController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
             $actor_type = $request->actor_type;
-
             if ($actor_type == 1 or $actor_type == '1')
-                $user = $this->auth('provider-api');
+                $user = $this->auth('user-api');
 
 
             if ($actor_type == 2 or $actor_type == '2')
-                $user = $this->auth('user-api');
+                $user = $this->auth('coach-api');
 
             $id = $request->id;
             $ticket = Ticket::find($id);
@@ -227,8 +228,8 @@ class TicketController extends Controller
                 return $this->returnError('D000', trans('messages.User not found'));
             }
 
-            if ($ticket) {
-                if ($ticket->actor_id != $user->id) {
+             if ($ticket) {
+                if ($ticket->	ticketable_id != $user->id) {
                     return $this->returnError('D000', trans('messages.cannot access this converstion'));
                 }
             }
@@ -246,22 +247,22 @@ class TicketController extends Controller
                 $messagesJson->total_count = $total_count;
                 $messagesJson->data = $messages->data;
                 //add photo
+
                 foreach ($messages->data as $message) {
                     if ($message->FromUser == 0) {//admin
-                        $message->logo = url('/') . '/images/admin.png';
-                    } elseif ($message->FromUser == 1) { //provider
+                        $message->logo = "";
+                    } elseif ($message->FromUser == 1) { //user
                         $ticket = Ticket::find($id);
                         if ($ticket) {
-                            $logo = Provider::where('id', $ticket->actor_id)->value('logo');
+                            $logo = User::where('id', $ticket->	ticketable_id)->value('photo');
                             $message->logo = $logo;
                         } else {
-                            $message->logo = url('/') . '/images/admin.png';  // default image
+
+                            $message->logo = "";
                         }
-                    } elseif ($message->FromUser == 2) { //user
-                        $message->logo = url('/') . '/images/male.png';
-                    } else {
-                        $message->logo = url('/') . '/images/admin.png';  // default image
-                    }
+                    } elseif ($message->FromUser == 2) { //coach
+                     } else {
+                     }
                 }
                 return $this->returnData('messages', $messagesJson);
             }
