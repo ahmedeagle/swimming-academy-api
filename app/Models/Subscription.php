@@ -71,5 +71,7 @@ class Subscription extends Model
         return $query ->where('status',1);
     }
 
-
+    public function rates(){
+        return $this -> hasMany('App\Models\Rate','subscription_id','id');
+    }
 }

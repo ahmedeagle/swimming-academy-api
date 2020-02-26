@@ -90,7 +90,7 @@ trait SubscriptionTrait
 
     }
 
-    public function checkIfDateRated($date, $coachId, $teamId, $userId,$rateable)
+    public function checkIfDateRated($date, $coachId, $teamId, $userId, $rateable)
     {
         $rated = Rate::where([
             ['coach_id', $coachId],
@@ -105,4 +105,25 @@ trait SubscriptionTrait
         else
             return 0;
     }
+
+    public function currentRates($subscriptionId)
+    {
+        return Rate::with(['coach' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id','day_name','date')
+            ->where('subscription_id', $subscriptionId)
+            ->where('rateable', 1)
+            ->paginate(10);
+    }
+
+    public function previousRates($previousSubscriptionsIds)
+    {
+        return Rate::with(['coach' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id','day_name','date')
+            ->whereIn('subscription_id', $previousSubscriptionsIds)
+            ->where('rateable', 1)
+            ->paginate(10);
+    }
+
 }

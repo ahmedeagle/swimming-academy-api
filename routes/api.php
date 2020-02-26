@@ -72,7 +72,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
                 Route::post('rates', 'UserController@getRates');
-
                 Route::group(['prefix' => 'tickets'], function () {
                     Route::post('/', 'TicketController@getTickets')->name('user.tickets');
                     Route::post('new ', 'TicketController@newTicket')->name('user.add.ticket');
