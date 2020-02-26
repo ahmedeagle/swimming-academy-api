@@ -77,6 +77,8 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                     Route::post('replies', 'TicketController@GetTicketMessages');
                     Route::post('new', 'TicketController@newTicket')->name('user.add.ticket');
                     Route::post('AddMessage', 'TicketController@AddMessage')->name('user.AddMessage');
+                    Route::post('unreadMessagesCount', 'TicketController@get_unread_messages_count');
+
                 });
             });
         });

@@ -279,4 +279,32 @@ class TicketController extends Controller
 
     }
 
+    public function get_unread_messages_count(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                "actor_type" => "required|in:1",  // 1 user for now
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            $actor_type = $request->actor_type;
+            $unreadMessagesCount= 0;
+            if ($actor_type == 1 or $actor_type == '1') {
+                $user = $this->auth('user-api');
+                if (!$user) {
+                    return $this->returnError('D000', trans('messages.User not found'));
+                }
+                    $unreadMessagesCount = $this->getUnreadMessagesCount($user->id, $actor_type);
+                    return $this->returnData('unreadMessagesCount', $unreadMessagesCount);
+            } else {
+                //not other type until now
+            }
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
 }

@@ -53,7 +53,7 @@ class SubscriptionController extends Controller
                     "regex:/^01[0-2]{1}[0-9]{8}/",
                     "exists:users,mobile",
                 ),
-                'start_date' => "required|date-format:Y-m-d",
+               // 'start_date' => "required|date-format:Y-m-d",
                 // 'end_date' => "required|date-format:Y-m-d",
                 'price' => "required",
 
@@ -71,7 +71,7 @@ class SubscriptionController extends Controller
              }*/
 
             $daystosum = 29;
-            $startDate = date("Y-m-d", strtotime($request->start_date));
+            $startDate = date("Y-m-d", strtotime(today()));
             $endDate = date("Y-m-d", strtotime($request->start_date . ' + ' . $daystosum . ' days'));
 
             $user = User::where('mobile', $request->mobile)->first();
