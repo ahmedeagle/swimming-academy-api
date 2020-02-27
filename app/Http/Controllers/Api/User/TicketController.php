@@ -54,6 +54,9 @@ class TicketController extends Controller
                 $tickets->getCollection()->each(function ($ticket) {
                     $replayCount = Replay::where('ticket_id', $ticket->id)->where('FromUser', 0)->count();   // user 0 means replay from admin
                     $lastReplay = Replay::where('ticket_id', $ticket->id)->orderBy('created_at', 'DESC')->first();   // user 0 means replay from admin
+                    $unreadMessages = Replay::where('ticket_id', $ticket->id)->where('FromUser', 0)->where('seen','0') -> count();
+
+
                     if ($replayCount == 0) {
                         $ticket->replay_status = 0;  // بانتظار الرد
                     } else {
@@ -61,6 +64,7 @@ class TicketController extends Controller
                     }
 
                     $ticket->last_replay = $lastReplay->message;
+                    $ticket->unreadMessages = $unreadMessages;
                      if ($ticket->importance == 1)
                         $ticket->importance_text = trans('messages.Quick');
                     else if ($ticket->importance == 2)
