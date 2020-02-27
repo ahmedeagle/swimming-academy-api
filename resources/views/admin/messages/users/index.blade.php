@@ -65,7 +65,6 @@
                                                     <tr>
                                                         <td>{{$ticket -> message_no}}</td>
                                                         <td>{{$ticket ->title}}</td>
-                                                        <td>{{$ticket -> ticketable -> name_ar}}</td>
                                                         <td>{{$ticket -> type}}</td>
                                                         <td>{{$ticket -> importance}}</td>
                                                         <td>@if($ticket  -> replies()  ->where('FromUser',1) ->  where('seen','0') -> count() > 0)

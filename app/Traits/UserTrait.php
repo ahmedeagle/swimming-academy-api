@@ -16,9 +16,12 @@ trait UserTrait
         $user = User::with(['academy' => function ($q) {
             $q->select('academies.id', 'academies.name_' . app()->getLocale() . ' as name', 'academies.code', 'academies.logo');
         }, 'team' => function ($q) {
-            $q->select('teams.id', 'teams.name_' . app()->getLocale() . ' as name', 'teams.photo');
+            $q->select('teams.id','teams.coach_id','teams.name_' . app()->getLocale() . ' as name', 'teams.photo');
+            $q->with(['coach' => function($qq){
+                 $qq -> select('id','name_'.app()->getLocale().' as name');
+            }]);
         }, 'category' => function ($q) {
-            $q->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name');
+            $q->select('categories.id','categories.name_' . app()->getLocale() . ' as name');
         }])->where('users.mobile', $mobile)->first();
         $token = Auth::guard('user-api')->attempt(['mobile' => $mobile, 'password' => $password]);
         if (!$user)
