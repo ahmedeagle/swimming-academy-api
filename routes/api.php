@@ -76,7 +76,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                     Route::post('/', 'TicketController@getTickets')->name('user.tickets');
                     Route::post('new ', 'TicketController@newTicket')->name('user.add.ticket');
                     Route::post('AddMessage ', 'TicketController@AddMessage')->name('user.AddMessage');
-                    Route::post('Messages', 'TicketController@GetTicketMessages')->name('user.GetTicketMessages');
+                    Route::post('messages', 'TicketController@GetTicketMessages')->name('user.GetTicketMessages');
                 });
             });
         });

@@ -27,7 +27,7 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    use UserTrait, GlobalTrait, SMSTrait,SubscriptionTrait;
+    use UserTrait, GlobalTrait, SMSTrait, SubscriptionTrait;
 
     public function __construct(Request $request)
     {
@@ -51,7 +51,7 @@ class UserController extends Controller
                     "regex:/^01[0-2]{1}[0-9]{8}/",
                 ),
                 "device_token" => "required|max:255",
-                "password" => "required|confirmed||min:6|max:255",
+                "password" => "required||min:6|max:255",
                 "agreement" => "required|boolean",
                 "email" => "required|email|max:255|unique:users,email",
                 "academy_code" => "required|exists:academies,code",
@@ -310,6 +310,7 @@ class UserController extends Controller
 
             if ($request->has('password')) {
                 $rules['password'] = "required|nullable|confirmed||min:6|max:255";
+                $rules['old_password'] = "required";
             }
 
             if ($request->has('photo')) {
@@ -325,6 +326,17 @@ class UserController extends Controller
             $fileName = $user->photo;
             if (isset($request->photo) && !empty($request->photo)) {
                 $fileName = $this->saveImage('users', $request->photo);
+            }
+
+            if ($request->password) {
+                //check for old password
+                if (Hash::check($request->old_password, $user->password)) {
+                    $user->update([
+                        'password' => $request->password,
+                    ]);
+                } else {
+                    return $this->returnError('E002', trans('messages.invalid old password'));
+                }
             }
 
             $user->update(['photo' => $fileName] + $request->except('photo'));
@@ -479,7 +491,7 @@ class UserController extends Controller
                 $currentSubscription = Subscription::current()->where('user_id', $user->id)->first();
                 $rates = $this->currentRates($currentSubscription->id);
             } else {
-                 $previousSubscriptionsIds = Subscription::expired()->where('user_id', $user->id)->pluck('id') -> toArray();
+                $previousSubscriptionsIds = Subscription::expired()->where('user_id', $user->id)->pluck('id')->toArray();
                 $rates = $this->previousRates($previousSubscriptionsIds);
             }
 
