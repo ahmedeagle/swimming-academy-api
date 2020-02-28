@@ -30,4 +30,16 @@ class Rate extends Model
         return $this->belongsTo('App\Models\Coach', 'coach_id', 'id');
     }
 
+
+    public  function scopeCoaches($query){
+        return $this -> where('rateable',0);
+    }
+
+    public  function scopeUsers($query){
+        return $this -> where('rateable',1);
+    }
+
+    public function team(){
+        return $this -> belongsTo('App\Models\Team','team_id','id');
+    }
 }

@@ -134,6 +134,7 @@
                         class="menu-title" data-i18n="nav.add_on_drag_drop.main">الحضور والغياب </span></a>
             </li>
 
+
             <li class="nav-item @if(Request::is('admin/events*')) open @endif"><a
                     href="{{route('admin.events.all')}}"><i class="la la-picture-o"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> فعاليات الاكاديمية  </span>
@@ -171,7 +172,10 @@
                 </ul>
             </li>
 
-
+            <li class="nav-item @if(Route::current()->getName() == 'admin.coaches.rates') active @endif"><a
+                    href="{{route('admin.coaches.rates')}}"><i class="la la-star"></i><span
+                        class="menu-title" data-i18n="nav.add_on_drag_drop.main">تقييمات الكاباتن </span></a>
+            </li>
             <li class="nav-item @if(Request::is('admin/heroes*')) open @endif"><a
                     href="{{route('admin.heroes.all')}}"><i class="la la-star"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> أبطال الاسبوع </span>

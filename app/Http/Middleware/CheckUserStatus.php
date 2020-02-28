@@ -25,7 +25,7 @@ class CheckUserStatus
        /* if (!$user->status)
             return $this->returnError('E331', trans('messages.underRevision'));*/
         if (!$user->subscribed)
-            return $this->returnError('E331', trans('messages.unsubscribe'));
+            return $this->returnError('E338', trans('messages.unsubscribe'));
 
         return $next($request);
     }

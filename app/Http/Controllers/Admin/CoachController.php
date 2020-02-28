@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
 use App\Models\Coach;
+use App\Models\Rate;
 use App\Models\Team;
 use App\Models\TeamTime;
 use App\Models\User;
@@ -44,7 +45,7 @@ class CoachController extends Controller
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
             'mobile.regex' => 'صيغة الهاتف غير صحيحة ',
             'mobile.max' => 'صيغة الهاتف غير صحيحة ',
-             'gender.required' => 'النوع مطلوب ',
+            'gender.required' => 'النوع مطلوب ',
             'gender.in' => ' ألنوع مطلوب  ',
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
             'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
@@ -126,7 +127,7 @@ class CoachController extends Controller
             'mobile.required' => 'رقم الهاتف مطلوب ',
             'mobile.unique' => 'رقم الهاتف مسجل لدينا من قبل ',
             'mobile.regex' => 'صيغة الهاتف غير صحيحة ',
-             'mobile.max' => 'صيغة الهاتف غير صحيحة ',
+            'mobile.max' => 'صيغة الهاتف غير صحيحة ',
             'gender.required' => 'النوع مطلوب ',
             'gender.in' => ' ألنوع مطلوب  ',
             'academy_id.required' => 'لابد من احتيار الاكاديمية اولا ',
@@ -295,6 +296,12 @@ class CoachController extends Controller
         return redirect()->route('admin.coaches.all');
     }
 
+    public function coachRates(Request $request)
+    {
+        // rates for coaches  "users rate coach"
+        $rates = Rate::whereHas('user')->whereHas('coach')->whereHas('team')->coaches()->get();
+        return view('admin.coaches.rates', compact('rates'));
+    }
 }
 
 

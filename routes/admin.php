@@ -95,6 +95,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/users/{id}", "CoachController@getCoachStudents")->name('admin.coaches.users');
         Route::get("/teams/{id}", "CoachController@teams")->name('admin.coaches.teams');
         Route::get('/delete/{id}', 'CoachController@deleteCoach')->name('admin.coaches.delete');
+        Route::get('rates', 'CoachController@coachRates')->name('admin.coaches.rates');
     });
 
     Route::group(['prefix' => 'users'], function () {
@@ -152,8 +153,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::post("/update/{id}", "HeroController@update")->name('admin.heroes.update');
         Route::get("/delete/{id}", "HeroController@delete")->name('admin.heroes.delete');
         Route::post("/note", "HeroController@addHeroNote")->name('admin.heroes.note');
-
-
     });
 
 

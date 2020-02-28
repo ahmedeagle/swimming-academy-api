@@ -310,4 +310,6 @@ return [
     'with rate' => 'بتقييم ',
     'the coach' => 'لقد قام الكابتن',
     'rate the user' => ' بتقييم الاعب',
+    'saterday'  => 'السبت',
+
 ];
