@@ -89,6 +89,48 @@
                                                                 href="{{route('admin.users.tickets.all')}}"> جميع التذاكر </a></li>
                         </ul>
                     </li>
+                    <li class="dropdown dropdown-notification nav-item  dropdown-messages">
+                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                            <i class="ficon ft-bell"> </i>
+                            <span
+                                class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
+                                data-count="5">5</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                            <li class="dropdown-menu-header">
+                                <h6 class="dropdown-header m-0">
+                                    <span class="grey darken-2"> الاشعارات</span>
+                                </h6>
+                            </li>
+                            <li class="scrollable-container ps-container ps-active-y media-list w-100" >
+
+                                        <a href="{{route('admin.users.tickets.getreply',3)}}">
+                                            <div class="media">
+                                                <div class="media-left">
+                                          <span class="avatar avatar-sm avatar-online rounded-circle">
+
+                                              <img src=""
+                                                   alt="avatar"><i></i></span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">يبنيينسينسيسيسي</h6>
+                                                    <p class="notification-text font-small-3 text-muted"> ينسنيسنينسيسييس</p>
+                                                    <small style="direction: ltr;">
+                                                        <time class="media-meta text-muted" style="direction: ltr;">يتسيتسيسيسييسي
+                                                        </time>
+                                                        <br>
+                                                       يسننسينسينسييس
+
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                            </li>
+                            <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
+                                                                href="{{route('admin.users.tickets.all')}}"> جميع  الاشعارات </a></li>
+                        </ul>
+                    </li>
 
                 </ul>
             </div>
