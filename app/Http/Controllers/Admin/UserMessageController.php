@@ -25,7 +25,7 @@ class UserMessageController extends Controller
 
     public function index()
     {
-        $tickets = $this->getAllUserMessages();
+         $tickets = $this->getAllUserMessages();
         return view('admin.messages.users.index', compact('tickets'));
     }
 
