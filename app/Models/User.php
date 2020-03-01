@@ -104,14 +104,24 @@ class User extends Authenticatable implements JWTSubject
 
     public function isSubScribed()
     {
-
         return $this->subscribed;
+    }
+
+
+    public function isAcademySubScribed()
+    {
+        return $this->academysubscribed;
     }
 
     //application subscription
     public function scopeSubScribed($query)
     {
         return $query->where('subscribed', 1);
+    }
+
+    public function scopeNotSubScribed($query)
+    {
+        return $query->where('subscribed', 0);
     }
 
     //academy subscription
@@ -125,21 +135,20 @@ class User extends Authenticatable implements JWTSubject
         return $this->status == 0 ? 'غير مفعل' : 'مفعل';
     }
 
-    public function  getAcademySubscribed()
+    public function getAcademySubscribed()
     {
-        return $this->academysubscribed;
-        return $this->academysubscribed == 0 ? 'غير مشترك' : 'مشترك';
+
+        return $this->academysubscribed == 0 ? 'غير مشترك بالاكاديمية' : 'متشرك بالاكاديمية';
     }
 
     public function getApplicationSubscribed()
     {
-        return  $this->subscribed;
-        return $this->subscribed == 0 ? 'غير مشترك' : 'مشترك';
+        return $this->subscribed == 0 ? 'غير مشترك بالتطبيق' : ' مشترك بالتطبيق';
     }
 
     public function scopeSelection($query)
     {
-        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id', 'category_id', 'device_token', 'photo');
+        return $query->select('id', 'name_ar', 'name_en', 'address_ar', 'address_en', 'mobile', 'email', 'tall', 'weight', 'birth_date', 'status', 'academy_id', 'team_id', 'category_id', 'device_token', 'photo', 'subscribed', 'academysubscribed');
     }
 
     public function scopeSelectionByLang($query)

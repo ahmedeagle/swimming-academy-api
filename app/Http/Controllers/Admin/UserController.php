@@ -139,8 +139,8 @@ class UserController extends Controller
             'academy_id.exists' => 'هذه الاكاديمية غير موجوده ',
             'photo.required' => 'لابد من رفع صوره  الاعب  ',
             'photo.mimes' => ' أمتداد الصوره غير مسموح به ',
-            "teams.required" => 'لأابد من أختيار الفرق ',
-            "teams.exists" => ' الفريق عير موجود لدينا  ',
+            "team_id.required" => 'لأابد من أختيار الفرق ',
+            "team_id.exists" => ' الفريق عير موجود لدينا  ',
             'birth_date.required' => 'تاريخ الميلاد مطلوب',
             'date-format' => ' صيغة التاريخ عير صحيحه لابد من ادخالها Y-m-d',
 
@@ -168,6 +168,14 @@ class UserController extends Controller
         if ($validator->fails()) {
             notify()->error('هناك خطا برجاء المحاوله مجددا ');
             return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+
+
+        if($user -> academysubscribed == 1){  // if there is current subscription cannot move user from team to another
+            if($user -> team_id != $request -> team_id  or $user  -> category_id != $request -> category_id or $user -> academy_id != $request -> academy_id){
+                notify()->error('لا يمكن تغيير فرقه الاعب بوجود اشتراك حالي مفعل  ');
+                return redirect()->back()->withErrors(['team_id' => 'لابمكن تغيير فريق الاعب حيث ان هناك اشتراك حالي لم ينتهي بعد  '])->withInput($request->all());
+            }
         }
 
         try {

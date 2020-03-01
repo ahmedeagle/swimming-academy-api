@@ -126,6 +126,7 @@
                            href="{{route('admin.subscriptions',['type' => 'current'])}}" data-i18n="nav.dash.crypto">
                             الاشتراكات  الحالية </a>
                     </li>
+
                 </ul>
             </li>
 

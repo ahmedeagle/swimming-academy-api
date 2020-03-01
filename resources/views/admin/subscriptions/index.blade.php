@@ -8,6 +8,7 @@
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
                     <h3 class="content-header-title">   {{$text}} </h3>
+
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -27,7 +28,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">   {{$text}} </h4>
+                                    <h4 class="card-title">   {{$text}}
+
+                                    </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">

@@ -7,7 +7,7 @@
                            value="{{$user -> id}}"
                            class="hidden">
                     <img data-toggle="tooltip"  data-placement="top" title="{{$user -> name_ar}}" data-original-title="{{$user -> name_ar}}"
-                         style="max-width: 100px; max-height: 100px;"
+                         style="max-width: 100px; max-height: 80px;"
                          src="{{$user -> photo}}"
                          alt="..." class="check img-thumbnail">
                 </label>

@@ -88,7 +88,7 @@ class SubscriptionController extends Controller
                 'end_date' => $endDate,
                 'price' => $request->price,
             ]);
-            $user->update(['subscribed' => 1, 'status' => 1]);
+            $user->update(['subscribed' => 1]);
             return $this->returnSuccessMessage('S001', trans('messages.userSubscribedSucessfullyAndWaitForAdminApproved'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());

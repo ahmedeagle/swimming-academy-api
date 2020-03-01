@@ -99,8 +99,17 @@
                                                                     التفاصيل
                                                                 </button>
 
-                                                                <a href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
+                                                                <a title="عرض اشتراكات الاكاديمية " href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">أشتراكات الاكاديمية </a>
+
+                                                                <button type="button"
+                                                                        value="{{$user->id}}"
+                                                                        class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                        data-toggle="modal"
+                                                                        data-target="#rotateInUpRightSubscription{{$user->id}}">
+                                                                    اشتراك تطبيق نقدي
+                                                                </button>
+
 
                                                             </div>
                                                         </td>
@@ -123,8 +132,11 @@
     @if(isset($users) && $users -> count() > 0 )
         @foreach($users as $user)
             @include('admin.includes.modals.userDetails',$user)
+            @include('admin.includes.modals.applicationCashSubscription',$user)
         @endforeach
     @endif
+
+
     @include('admin.includes.modals.deleteModal',['text' =>' هل بالفعل تريد حذف الاعب ؟']);
 @stop
 
@@ -134,6 +146,11 @@
             var a = document.getElementById('yes');
             a.href = "{{ url('admin/users/delete/') }}" + "/" + val;
         }
+
+        @if(Session::has('subscriptionModalId'))
+        $("#rotateInUpRightSubscription{{Session::get('subscriptionModalId')}}").modal('toggle');
+        @endif
+
     </script>
 @stop
 

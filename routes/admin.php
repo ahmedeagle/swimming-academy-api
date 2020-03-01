@@ -123,6 +123,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
     Route::group(['prefix' => 'subscriptions'], function () {
         Route::get("/", "SubscriptionController@subscriptions")->name('admin.subscriptions');
         Route::post("/", "SubscriptionController@changeSubscriptionStatus")->name('admin.subscriptions.status');
+        Route::get("add/cash", "SubscriptionController@addCashSubscription")->name('admin.subscriptions.creatCash');
+        Route::post("add/cash", "SubscriptionController@storeCashSubscription")->name('admin.subscriptions.storeCash');
     });
 
     Route::group(['prefix' => 'events'], function () {
