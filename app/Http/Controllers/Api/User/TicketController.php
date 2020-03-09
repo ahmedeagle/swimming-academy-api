@@ -54,8 +54,7 @@ class TicketController extends Controller
                 $tickets->getCollection()->each(function ($ticket) {
                     $replayCount = Replay::where('ticket_id', $ticket->id)->where('FromUser', 0)->count();   // user 0 means replay from admin
                     $lastReplay = Replay::where('ticket_id', $ticket->id)->orderBy('created_at', 'DESC')->first();   // user 0 means replay from admin
-                    $unreadMessages = Replay::where('ticket_id', $ticket->id)->where('FromUser', 0)->where('seen','0') -> count();
-
+                    $unreadMessages = Replay::where('ticket_id', $ticket->id)->where('FromUser', 0)->where('seenByUser', '0')->count();
 
                     if ($replayCount == 0) {
                         $ticket->replay_status = 0;  // بانتظار الرد
@@ -65,7 +64,7 @@ class TicketController extends Controller
 
                     $ticket->last_replay = $lastReplay->message;
                     $ticket->unreadMessages = $unreadMessages;
-                     if ($ticket->importance == 1)
+                    if ($ticket->importance == 1)
                         $ticket->importance_text = trans('messages.Quick');
                     else if ($ticket->importance == 2)
                         $ticket->importance_text = trans('messages.Normal');
@@ -78,8 +77,8 @@ class TicketController extends Controller
                     else if ($ticket->type == 4)
                         $ticket->type_text = trans('messages.Others');
 
-                    unset($ticket -> ticketable_type);
-                    unset($ticket -> ticketable_id);
+                    unset($ticket->ticketable_type);
+                    unset($ticket->ticketable_id);
                     return $ticket;
                 });
 
@@ -172,9 +171,9 @@ class TicketController extends Controller
             $actor_type = $request->actor_type;
             if ($actor_type == 1 or $actor_type == '1')
                 $user = $this->auth('user-api');
-                else{
-                    //no more uptill no
-                }
+            else {
+                //no more uptill no
+            }
             $id = $request->id;
             $message = $request->message;
             $ticket = Ticket::find($id);
@@ -213,8 +212,7 @@ class TicketController extends Controller
                 "actor_type" => "required|in:1,2"
             ]);
 
-            DB::beginTransaction();
-            if ($validator->fails()) {
+             if ($validator->fails()) {
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
@@ -232,18 +230,17 @@ class TicketController extends Controller
                 return $this->returnError('D000', trans('messages.User not found'));
             }
 
-             if ($ticket) {
-                if ($ticket->	ticketable_id != $user->id) {
+            if ($ticket) {
+                if ($ticket->ticketable_id != $user->id) {
                     return $this->returnError('D000', trans('messages.cannot access this converstion'));
                 }
             }
+            $ticket->replies()->update(['seenByUser' => '1']);
 
             $messages = Replay::where('ticket_id', $id)->paginate(10);
 
             if (count($messages->toArray()) > 0) {
-
                 $total_count = $messages->total();
-
                 $messages = json_decode($messages->toJson());
                 $messagesJson = new \stdClass();
                 $messagesJson->current_page = $messages->current_page;
@@ -251,30 +248,25 @@ class TicketController extends Controller
                 $messagesJson->total_count = $total_count;
                 $messagesJson->data = $messages->data;
                 //add photo
-
                 foreach ($messages->data as $message) {
                     if ($message->FromUser == 0) {//admin
                         $message->logo = "";
                     } elseif ($message->FromUser == 1) { //user
                         $ticket = Ticket::find($id);
                         if ($ticket) {
-                            $logo = User::where('id', $ticket->	ticketable_id)->value('photo');
+                            $logo = User::where('id', $ticket->ticketable_id)->value('photo');
                             $message->logo = $logo;
                         } else {
 
                             $message->logo = "";
                         }
                     } elseif ($message->FromUser == 2) { //coach
-                     } else {
-                     }
+                    } else {
+                    }
                 }
                 return $this->returnData('messages', $messagesJson);
             }
-
-            return $this->returnError('E001', trans("messages.No messages founded"));
-
-            DB::commit();
-
+             return $this->returnError('E001', trans("messages.No messages founded"));
 
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
@@ -296,14 +288,14 @@ class TicketController extends Controller
             }
 
             $actor_type = $request->actor_type;
-            $unreadMessagesCount= 0;
+            $unreadMessagesCount = 0;
             if ($actor_type == 1 or $actor_type == '1') {
                 $user = $this->auth('user-api');
                 if (!$user) {
                     return $this->returnError('D000', trans('messages.User not found'));
                 }
-                    $unreadMessagesCount = $this->getUnreadMessagesCount($user->id, $actor_type);
-                    return $this->returnData('unreadMessagesCount', $unreadMessagesCount);
+                $unreadMessagesCount = $this->getUnreadMessagesCount($user->id, $actor_type);
+                return $this->returnData('unreadMessagesCount', $unreadMessagesCount);
             } else {
                 //not other type until now
             }

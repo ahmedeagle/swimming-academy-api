@@ -9,9 +9,8 @@ class Replay extends Model
 {
 	protected $table    ="ticket_replies";
     public $timestamps  = true;
-    protected $fillable = ['message','seen','FromUser','ticket_id','created_at'];
+    protected $fillable = ['message','seen','seenByUser','FromUser','ticket_id','created_at'];
     protected $hidden   = ['updated_at'];
-
 
     function ticket()
     {

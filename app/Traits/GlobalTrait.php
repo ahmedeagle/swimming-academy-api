@@ -18,9 +18,11 @@ use App\Models\Provider;
 use App\Models\ProviderType;
 use App\Models\Reservation;
 use App\Models\Specification;
+use App\Models\Token;
 use App\Models\User;
 use App\Models\InsuranceCompany;
 use App\Models\PaymentMethod;
+use App\Models\UserToken;
 use DB;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -333,7 +335,6 @@ trait GlobalTrait
     }
 
 
-
     public function getAgreementText()
     {
         return Mix::select(DB::raw('agreement_' . $this->getCurrentLang() . ' as content'))->first();
@@ -368,38 +369,41 @@ trait GlobalTrait
     public function auth($guard, $relations = [])
     {
         $user = null;
-
         if (isset(request()->api_token)) {
             $api_token = request()->api_token;
             if ($guard == 'user-api') {
-                 $user = User::whereHas('tokens', function ($q) use ($api_token) {
-                    $q->where('api_token', $api_token);
-                });
+                $user = UserToken::where('api_token', request()->api_token)->first();
+                $id = $user ? $user->user_id : 0;
+                $user = User::where('id', $id);
+
             } else if ($guard == 'coach-api') {
-                $user = Coach::whereHas('tokens', function ($q) use ($api_token) {
-                    $q->where('api_token', $api_token);
-                });
+                $user = Token::where('api_token', request()->api_token)->first();
+                $id = $user ? $user->provider_id : 0;
+                $user = Provider::where('id', $id);
+            } else if ($guard == 'manager-api') {
+                $user = Manager::where('api_token', request()->api_token);
             }
             if ($relations && is_array($relations))
                 $user->with($relations);
+
             $user = $user->first();
         }
         return $user;
     }
 
-   /* function getRandomString($length)
-    {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $string = '';
-        for ($i = 0; $i < $length; $i++) {
-            $string .= $characters[mt_rand(0, strlen($characters) - 1)];
-        }
-        $chkCode = User::where('activation_code', $string)->first();
-        if ($chkCode) {
-            $this->getRandomString(6);
-        }
-        return $string;
-    }*/
+    /* function getRandomString($length)
+     {
+         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+         $string = '';
+         for ($i = 0; $i < $length; $i++) {
+             $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+         }
+         $chkCode = User::where('activation_code', $string)->first();
+         if ($chkCode) {
+             $this->getRandomString(6);
+         }
+         return $string;
+     }*/
 
 
 }

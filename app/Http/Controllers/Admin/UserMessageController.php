@@ -101,8 +101,6 @@ class UserMessageController extends Controller
         return response()->json([
             'content' => $view['main'],
         ]);
-
-
     }
 
 }

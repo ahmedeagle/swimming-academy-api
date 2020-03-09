@@ -89,7 +89,7 @@
                                                                 href="{{route('admin.users.tickets.all')}}"> جميع التذاكر </a></li>
                         </ul>
                     </li>
-                    <li class="dropdown dropdown-notification nav-item  dropdown-messages">
+                    <li class="dropdown dropdown-notification nav-item dropdown-notifications">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
                             <i class="ficon ft-bell"> </i>
                             <span

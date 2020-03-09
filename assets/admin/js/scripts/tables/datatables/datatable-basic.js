@@ -88,7 +88,8 @@ $('.dynamic-height').DataTable( {
 ***************************************/
 
 $('.scroll-horizontal').DataTable( {
-    "scrollX": true
+    "scrollX": true,
+    "order": false
 } );
 
 /**************************************************

@@ -24,7 +24,7 @@ trait TicketTrait
         $ticketable_type = ($actor_type == 1) ? 'App\Models\User' : '';
         $ticketable_id = $actorId;
        return  Replay::where('FromUser', 0)  //from admin
-            ->where('seen', '0')
+            ->where('seenByUser', '0')
             ->whereHas('Ticket', function ($q) use ($ticketable_type, $ticketable_id) {
                 $q->where('ticketable_type', $ticketable_type)->where('ticketable_id', $ticketable_id);
             })

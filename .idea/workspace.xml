@@ -2,8 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Events/NewNotification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/admin/js/pusherMessages.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/admin/js/pusherNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Replay.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Replay.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/TicketTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/TicketTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/admin/js/scripts/tables/datatables/datatable-basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/scripts/tables/datatables/datatable-basic.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,6 +27,13 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -133,18 +151,18 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/includes/modals" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Events" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Events" />
+      <recent name="C:\wamp\www\swimming\assets\admin\js" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\subscriptions" />
       <recent name="C:\wamp\www\swimming\app\Observers" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\coaches" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
@@ -250,7 +268,9 @@
       <workItem from="1582744101975" duration="6088000" />
       <workItem from="1582792151896" duration="2081000" />
       <workItem from="1582824353723" duration="114000" />
-      <workItem from="1583084362198" duration="10366000" />
+      <workItem from="1583084362198" duration="14592000" />
+      <workItem from="1583312926613" duration="571000" />
+      <workItem from="1583778154072" duration="6706000" />
     </task>
     <servers />
   </component>

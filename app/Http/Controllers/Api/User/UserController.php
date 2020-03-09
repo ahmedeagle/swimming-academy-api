@@ -448,16 +448,24 @@ class UserController extends Controller
                     'date' => $request->date,
                 ]);
 
+                $content_ar = __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment;
                 // only admin how can see the coaches rates
-                Notification::create([
+                $notification = Notification::create([
                     'title_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . ':' . $request->rate,
                     'title_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . $request->rate,
-                    'content_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_ar' => $content_ar,
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\Admin',
                     'notificationable_id' => 1, // hardcoded must be edit
                 ]);
 
+                $notify = [
+                    'coach_name' => $user->team->coach->name_ar,
+                    'user_name' => $user->team->name_ar,
+                    'content' => $content_ar,
+                    'notification_id' => $notification->id];
+                //fire pusher  notification for admin
+                event(new \App\Events\NewNotification($notify));   // fire pusher message event notification
                 DB::commit();
                 return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
             } catch (\Exception $ex) {
