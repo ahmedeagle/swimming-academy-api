@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Events/NewNotification.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/js/pusherMessages.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/js/pusherNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/TicketController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Replay.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Replay.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/GlobalTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/TicketTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/TicketTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/js/scripts/tables/datatables/datatable-basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/scripts/tables/datatables/datatable-basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/basic.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -270,7 +263,7 @@
       <workItem from="1582824353723" duration="114000" />
       <workItem from="1583084362198" duration="14592000" />
       <workItem from="1583312926613" duration="571000" />
-      <workItem from="1583778154072" duration="6706000" />
+      <workItem from="1583778154072" duration="10210000" />
     </task>
     <servers />
   </component>
@@ -415,7 +408,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>
-          <line>105</line>
+          <line>106</line>
           <properties>
             <option name="className" value="\App\Http\Controllers\Admin\CoachController" />
             <option name="methodName" value="edit" />

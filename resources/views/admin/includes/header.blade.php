@@ -94,7 +94,7 @@
                             <i class="ficon ft-bell"> </i>
                             <span
                                 class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
-                                data-count="5">5</span>
+                                data-count="{{\App\Models\Notification::new() -> count()}}">{{\App\Models\Notification::new() -> count()}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
@@ -103,32 +103,35 @@
                                 </h6>
                             </li>
                             <li class="scrollable-container ps-container ps-active-y media-list w-100" >
-
-                                        <a href="{{route('admin.users.tickets.getreply',3)}}">
+                                @if(takeLastNotifications(5))
+                                    @foreach(takeLastNotifications(5) as $notify)
+                                        <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">
                                             <div class="media">
                                                 <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
 
-                                              <img src=""
+                                              <img src="{{$notify -> notificationable -> photo}}"
                                                    alt="avatar"><i></i></span>
                                                 </div>
                                                 <div class="media-body">
-                                                    <h6 class="media-heading">يبنيينسينسيسيسي</h6>
-                                                    <p class="notification-text font-small-3 text-muted"> ينسنيسنينسيسييس</p>
+                                                    <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
+                                                    <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
                                                     <small style="direction: ltr;">
-                                                        <time class="media-meta text-muted" style="direction: ltr;">يتسيتسيسيسييسي
+                                                        <time class="media-meta text-muted" style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
                                                         </time>
                                                         <br>
-                                                       يسننسينسينسييس
+                                                        {{date("h:i A", strtotime($notify -> created_at))}}
 
                                                     </small>
                                                 </div>
                                             </div>
                                         </a>
+                                    @endforeach
+                                @endif
 
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                href="{{route('admin.users.tickets.all')}}"> جميع  الاشعارات </a></li>
+                                                                href="{{route('admin.coaches.rates')}}"> جميع  الاشعارات </a></li>
                         </ul>
                     </li>
 

@@ -10,6 +10,10 @@ function takeLastMessage($count)
     })->where('FromUser', 1)->latest()->take($count)->get();
 
 }
+function takeLastNotifications($count)
+{
+    return \App\Models\Notification::where('notificationable_type','App\Models\Admin')->latest()->take($count)->get();
+}
 
 /**
  * Checks if the given string is valid json string.

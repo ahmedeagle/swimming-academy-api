@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Academy;
 use App\Models\Coach;
+use App\Models\Notification;
 use App\Models\Rate;
 use App\Models\Team;
 use App\Models\TeamTime;
@@ -300,6 +301,9 @@ class CoachController extends Controller
     {
         // rates for coaches  "users rate coach"
         $rates = Rate::whereHas('user')->whereHas('coach')->whereHas('team')->coaches()->get();
+
+        //will remove in seperate notifications
+        Notification::where('notificationable_type', 'App\Models\Admin')->where('seen', '0')->update(['seen' => '1']);
         return view('admin.coaches.rates', compact('rates'));
     }
 }

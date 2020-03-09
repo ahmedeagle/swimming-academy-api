@@ -18,12 +18,12 @@ trait NotificationTrait
         $unSeenNotifications = Notification::where([
             ['notificationable_type', $notificationable_type],
             ['notificationable_id', $notificationable_id],
-            ['seen', '0'],
+            ['seenByUser', '0'],
         ])->get();
 
         if (isset($unSeenNotifications) && $unSeenNotifications->count() > 0) {
             foreach ($unSeenNotifications as $unSeenNotification) {
-                $unSeenNotification->update(['seen' => '1']);
+                $unSeenNotification->update(['seenByUser' => '1']);
             }
         }
 
@@ -38,7 +38,7 @@ trait NotificationTrait
         return $unSeenNotifications = Notification::where([
             ['notificationable_type', $notificationable_type],
             ['notificationable_id', $notificationable_id],
-            ['seen', '0'],
+            ['seenByUser', '0'],
         ])->count();
     }
 
