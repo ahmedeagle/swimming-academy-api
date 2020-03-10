@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckUserStatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckUserStatus.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -263,7 +259,8 @@
       <workItem from="1582824353723" duration="114000" />
       <workItem from="1583084362198" duration="14592000" />
       <workItem from="1583312926613" duration="571000" />
-      <workItem from="1583778154072" duration="10210000" />
+      <workItem from="1583778154072" duration="10600000" />
+      <workItem from="1583862075764" duration="1595000" />
     </task>
     <servers />
   </component>
