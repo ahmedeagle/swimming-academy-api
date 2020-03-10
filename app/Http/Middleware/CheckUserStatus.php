@@ -24,7 +24,6 @@ class CheckUserStatus
         $user = $this->auth('user-api');
         /* if (!$user->status)
              return $this->returnError('E331', trans('messages.underRevision'));*/
-        dd($user->subscribed);
         if (!$user->subscribed)
             return $this->returnError('E338', trans('messages.unsubscribe'));
 

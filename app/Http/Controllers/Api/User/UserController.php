@@ -129,23 +129,12 @@ class UserController extends Controller
         $user = $this->authUserByMobile($request->mobile, $request->password);
 
         if ($user != null) {
-            if ($user->status == 0) {
-                if ($request->device_token != null) {
-                    $user->device_token = $request->device_token;
-                }
-                $user->update();
-                return $this->returnError('E331', __('messages.unsubscribed'));
-            } elseif ($user->subscribed == 0) {
-                if ($request->device_token != null) {
-                    $user->device_token = $request->device_token;
-                }
-                $user->update();
-                return $this->returnError('E331', __('messages.unsubscribe'));
+
+            if ($user->subscribed == 0) {
+                return $this->returnError('E338', __('messages.unsubscribe'));
             } else {
                 DB::beginTransaction();
-                if ($request->device_token != null) {
-                    $user->device_token = $request->device_token;
-                }
+                $user->device_token = $request->device_token;
                 $user->update();
                 $user->name = $user->getTranslatedName();
                 DB::commit();
