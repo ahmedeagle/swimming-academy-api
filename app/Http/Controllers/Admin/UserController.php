@@ -303,7 +303,7 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['msg' => 'جميع الحقول مطلوبه'], '422');
+                return response()->json(['msg' => $validator -> errors() -> first()], '422');
             }
             $user = User::find($request->userId);
             if (!$user) {
