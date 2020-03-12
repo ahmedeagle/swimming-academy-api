@@ -61,11 +61,13 @@
                                                 <th>الاكاديمية</th>
                                                 <th> القسم</th>
                                                 <th> الفرقة</th>
+                                                <th> يوم بدا الاشتراك</th>
                                                 <th> بدأ الاشتراك</th>
+                                                <th> يوم انتهاء الاشتراك الاشتراك</th>
                                                 <th> أنتهاء الاشتراك</th>
                                                 <th> قيمه الاشتراك</th>
-                                                <th> حاله الاشتراك </th>
-                                               {{--  <th> الاجراءات</th>  --}}
+                                                <th> حاله الاشتراك</th>
+                                                {{--  <th> الاجراءات</th>  --}}
 
                                             </tr>
                                             </thead>
@@ -79,15 +81,17 @@
                                                         <td>{{$subscription -> user-> academy -> name_ar}}</td>
                                                         <td>{{$subscription ->user ->  category -> name_ar}}</td>
                                                         <td>{{$subscription ->user   -> team -> name_ar}}</td>
-                                                        <td>   {{ __('messages.'.date('l',strtotime($subscription -> start_date)))}}
-                                                            - {{ date('d-m-Y',strtotime($subscription -> start_date))}}  </td>
-                                                        </td>
-                                                        <td>   {{ __('messages.'.date('l',strtotime($subscription -> end_date)))}}
-                                                            - {{ date('d-m-Y',strtotime($subscription -> end_date))}}  </td>
-                                                        </td>
+                                                        <td>   {{ __('messages.'.date('l',strtotime($subscription -> start_date)))}}</td>
+                                                        <td>   {{ date('d-m-Y',strtotime($subscription -> start_date))}}  </td>
+                                                        <td> {{ __('messages.'.date('l',strtotime($subscription -> end_date)))}}</td>
+                                                        <td>
+                                                            {{ date('d-m-Y',strtotime($subscription -> end_date))}}  </td>
+
                                                         <td>{{$subscription ->price}}</td>
                                                         <td>
-                                                            <span class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
+                                                            <span
+                                                                class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i
+                                                                    class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
 
                                                         </td>
                                                         {{-- <td>

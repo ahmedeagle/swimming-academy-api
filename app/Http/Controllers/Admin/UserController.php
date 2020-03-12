@@ -171,8 +171,8 @@ class UserController extends Controller
         }
 
 
-        if($user -> academysubscribed == 1){  // if there is current subscription cannot move user from team to another
-            if($user -> team_id != $request -> team_id  or $user  -> category_id != $request -> category_id or $user -> academy_id != $request -> academy_id){
+        if ($user->academysubscribed == 1) {  // if there is current subscription cannot move user from team to another
+            if ($user->team_id != $request->team_id or $user->category_id != $request->category_id or $user->academy_id != $request->academy_id) {
                 notify()->error('لا يمكن تغيير فرقه الاعب بوجود اشتراك حالي مفعل  ');
                 return redirect()->back()->withErrors(['team_id' => 'لابمكن تغيير فريق الاعب حيث ان هناك اشتراك حالي لم ينتهي بعد  '])->withInput($request->all());
             }
@@ -320,7 +320,15 @@ class UserController extends Controller
                 $userAlreadyTakeAttendanceToday->update(['attend' => $request->attend]);
             } else {
 
-                $currentSubscription = AcadSubscription::current()->where('user_id', $request->userId)->select('id')->first();  //we allow only one subscription
+                 $currentSubscription = AcadSubscription::current()
+                    ->where('user_id', $request->userId)
+                    ->whereDate('start_date', '<=', $request->date)
+                    ->whereDate('end_date', '>=', $request->date)
+                    ->select('id')
+                    ->first();  //we allow only one subscription
+
+                    if(!$currentSubscription)
+                         return response()->json([], '500');
 
                 $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
