@@ -266,7 +266,7 @@
                 success: function (data) {
                     toastr.success('تمت العمليه بنجاح ');
                 }, error: function (reject) {
-                    toastr.error(reject.msg);
+                    toastr.error(reject);
                 }
             });
         });
