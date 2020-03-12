@@ -264,8 +264,9 @@
                     'date': $('#dateAttend').val(),
                 },
                 success: function (data) {
+                    toastr.success('تمت العمليه بنجاح ');
                 }, error: function (reject) {
-                    toastr.error('هناك خطا جميع الحقول مطلوبة ');
+                    toastr.error(reject.msg);
                 }
             });
         });

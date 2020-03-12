@@ -303,11 +303,11 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json([], '422');
+                return response()->json(['msg' => 'جميع الحقول مطلوبه'], '422');
             }
             $user = User::find($request->userId);
             if (!$user) {
-                return response()->json([], '500');
+                return response()->json(['msg' => 'الاعب غير موجود '], '500');
             }
 
             $userAlreadyTakeAttendanceToday = Attendance::where([
@@ -328,7 +328,7 @@ class UserController extends Controller
                     ->first();  //we allow only one subscription
 
                     if(!$currentSubscription)
-                         return response()->json([], '500');
+                         return response()->json(['msg' => "اليوم ليس من ايام الفرقه"], '500');
 
                 $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
