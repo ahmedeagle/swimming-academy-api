@@ -264,9 +264,14 @@
                     'date': $('#dateAttend').val(),
                 },
                 success: function (data) {
-                    toastr.success('تمت العمليه بنجاح ');
+                    if(data.status){
+                        toastr.success(data.msg);
+                    }else{
+                        toastr.error(data.msg);
+                    }
+
                 },  error: function (jqXHR, textStatus, errorThrown) {
-                    toastr.success('هذا اليوم ليس من ايام الاكاديميه ');
+                    toastr.error('عذرا يرجي المحاوله فيما بعد ');
 
                 }
 
