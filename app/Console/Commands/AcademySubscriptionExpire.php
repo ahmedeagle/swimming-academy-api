@@ -42,6 +42,7 @@ class AcademySubscriptionExpire extends Command
      */
     public function handle()
     {
+        AcadSubscription::find(26)->update(['status'=>0]);
         $subscriptions = AcadSubscription::where('status', 1)
             ->whereHas('user')
             ->whereDate('end_date', '<', date('Y-m-d'))
