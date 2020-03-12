@@ -267,6 +267,7 @@
                     toastr.success('تمت العمليه بنجاح ');
                 }, error: function (reject) {
                     toastr.error(reject);
+                    console.log(reject)
                 }
             });
         });
