@@ -266,7 +266,7 @@
                 success: function (data) {
                     toastr.success('تمت العمليه بنجاح ');
                 },  error: function (jqXHR, textStatus, errorThrown) {
-                         alert('Internal error: ' + errorThrown);
+                    toastr.success('هذا اليوم ليس من ايام الاكاديميه ');
 
                 }
 

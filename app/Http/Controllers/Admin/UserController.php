@@ -307,7 +307,7 @@ class UserController extends Controller
             }
             $user = User::find($request->userId);
             if (!$user) {
-                return response()->json(['error' => 'الاعب غير موجود '], '500');
+                return response()->json(['msg' => 'الاعب غير موجود '], '500');
             }
 
             $userAlreadyTakeAttendanceToday = Attendance::where([
@@ -328,7 +328,7 @@ class UserController extends Controller
                     ->first();  //we allow only one subscription
 
                     if(!$currentSubscription)
-                         return response()->json(['error' => "اليوم ليس من ايام الفرقه"], '500');
+                         return response()->json(['msg' => "اليوم ليس من ايام الفرقه"], '500');
 
                 $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
@@ -340,7 +340,7 @@ class UserController extends Controller
                 $user->attendances()->save($attendance);
             }
         } catch (\Exception $ex) {
-            return response()->json(['error'=>$ex], 500);
+            return response()->json(['msg'=>$ex], 500);
         }
     }
 
