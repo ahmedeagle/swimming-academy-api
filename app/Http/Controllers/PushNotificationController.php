@@ -9,12 +9,10 @@ use Carbon\Carbon;
 
 class PushNotificationController extends Controller
 {
+    protected $device_token;
     protected $title;
-    protected $notificationType;
     protected $body;
-    protected $id;
-    protected const API_ACCESS_KEY_USER = 'AAAAc1Y3kCA:APA91bGJNpIGQQo2LeIbiGzcNZQyITAbyR9zHQXkFKGifEj9cLdvaOy3n8YV8_vLzMPRrY0kUJm2634OUjApRf7PTJ4aj8PHRfZKgyy_05-0JxI7S_5AQ6IMEB9QF_HfG2fybbehpxQL';
-
+    protected const API_ACCESS_KEY = 'AAAAPpWS3Og:APA91bEEis8JjxkEt6N5vQfATT9YTVdevj0Iaq1DFrG806QljAvx6HDnAnWorjpXAhhCUkjtdZmv2D9lRm3VP-0nUOLF3C0V-XVKOt9GwjJg7RIDAPDHMrU0C2cfQzzZSVRvuzxKCvz1';
     private const fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
     //
@@ -28,37 +26,88 @@ class PushNotificationController extends Controller
     {
         $this->title = $data['title'];
         $this->body = $data['body'];
-        $this->notificationType = $data['notification_type'];
-        $this->id = $data['id'];
     }
 
-    public function sendUser(User $user)
+    public function send($device_token = null)
     {
-        // $data['device_token'] = $User->device_token;
         $notification = [
             'title' => $this->title,
             'body' => $this->body,
             "click_action" => "action"
         ];
 
-        $extraNotificationData = [
-            'notification_type' => $this->notificationType,
-            'id' => $this->id
-        ];
 
         $fcmNotification = [
-            'to' => $user->device_token,
+            //'registration_ids' => $tokenList, //multple token array
+            'to' => $device_token,
             'notification' => $notification,
-            'data' => $extraNotificationData
         ];
 
-        return $this->sendFCM($fcmNotification);
+        return $this->sendFCM($fcmNotification, 'user');
     }
 
 
-    private function sendFCM($fcmNotification)
+    public function sendProviderWeb(Provider $notify, $reservation_no = null, $type = 'new_reservation')
     {
-        $key = self::API_ACCESS_KEY_USER;
+
+        if ($reservation_no != null) {
+            $notification = [
+                'title' => $this->title,
+                'body' => $this->body,
+                "reservation_no" => $reservation_no,
+                "type" => $type
+            ];
+        } else {
+
+            $notification = [
+                'title' => $this->title,
+                'body' => $this->body,
+                "type" => $type
+            ];
+        }
+
+        $notificationData = new \stdClass();
+        $notificationData->notification = $notification;
+        // $extraNotificationData = ["message" => $notification,"moredata" =>'New Data'];
+        $fcmNotification = [
+            //'registration_ids' => $tokenList, //multple token array
+            'to' => $notify->web_token,//'/topics/alldevices',// $User->device_token, //single token
+            'data' => $notificationData
+
+        ];
+        return $this->sendFCM($fcmNotification, 'provider');
+
+    }
+
+
+    /*  // weBrowser Push Format
+      public function sendProviderWebBrowser(Provider $notify)
+      {
+
+          $notification = [
+              'title' => $this->title,
+              'body' => $this->body,
+          ];
+
+          $notificationData = new \stdClass();
+          $notificationData->notification = $notification;
+          // $extraNotificationData = ["message" => $notification,"moredata" =>'New Data'];
+          $fcmNotification = [
+              //'registration_ids' => $tokenList, //multple token array
+              'to' => $notify->web_token,//'/topics/alldevices',// $User->device_token, //single token
+              'data' => $notificationData
+
+          ];
+
+
+          $this->sendFCM($fcmNotification, 'provider');
+      }*/
+
+
+    private function sendFCM($fcmNotification, $type = 'user')
+    {
+
+        $key = self::API_ACCESS_KEY;
         $headers = [
             'Authorization: key=' . $key,
             'Content-Type: application/json'
@@ -76,4 +125,10 @@ class PushNotificationController extends Controller
         return $result;
     }
 
+    public function setData(Array $data)
+    {
+        $this->device_token = $data['device_token'];
+        $this->title = $data['title'];
+        $this->body = $data['body'];
+    }
 }

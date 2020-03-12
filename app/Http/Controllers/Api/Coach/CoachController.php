@@ -223,9 +223,10 @@ class CoachController extends Controller
 
             $coach = $this->auth('coach-api');
             $user = User::find($request->user_id);
-            if (!$coach) {
+            if (!$coach or !$user) {
                 return $this->returnError('E001', trans('messages.no user found'));
             }
+
 
             $ratedBefore = Rate::where([
                 ['user_id', $user->id],
@@ -254,6 +255,8 @@ class CoachController extends Controller
                     'date' => $request->date,
                 ]);
 
+                 $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment;
+
                 //send notification
                 Notification::create([
                     'title_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . __('messages.with rate') . ':' . $request->rate,
@@ -261,17 +264,18 @@ class CoachController extends Controller
                     'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',
-                    'notificationable_id' =>$user  -> id,
+                    'notificationable_id' => $user->id,
                 ]);
 
                 DB::commit();
+                //send push notification to user
+                (new \App\Http\Controllers\PushNotificationController(['title' => 'تقييم جديد ', 'body' => $content]))->send($user -> device_token);
+
                 return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
                 return $this->returnError($ex->getCode(), $ex->getMessage());
             }
-
-            //send push notification to user
 
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());

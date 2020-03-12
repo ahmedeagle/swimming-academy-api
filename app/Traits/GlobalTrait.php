@@ -378,8 +378,8 @@ trait GlobalTrait
 
             } else if ($guard == 'coach-api') {
                 $user = Token::where('api_token', request()->api_token)->first();
-                $id = $user ? $user->provider_id : 0;
-                $user = Provider::where('id', $id);
+                $id = $user ? $user->coach_id : 0;
+                $user = Coach::where('id', $id);
             } else if ($guard == 'manager-api') {
                 $user = Manager::where('api_token', request()->api_token);
             }
