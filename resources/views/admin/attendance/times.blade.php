@@ -266,7 +266,7 @@
                 success: function (data) {
                     toastr.success('تمت العمليه بنجاح ');
                 },  error: function (jqXHR, textStatus, errorThrown) {
-                         alert('Internal error: ' + jqXHR.responseText.msg);
+                         alert('Internal error: ' + errorThrown);
 
                 }
 
