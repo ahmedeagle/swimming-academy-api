@@ -265,12 +265,14 @@
                 },
                 success: function (data) {
                     toastr.success('تمت العمليه بنجاح ');
-                }, error: function (reject) {
-                    toastr.error(reject);
-                    console.log(reject)
-                    console.log(reject['msg']);
-                    console.log(reject.msg);
-                 }
+                },  error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 500) {
+                        alert('Internal error: ' + jqXHR.responseText);
+                    } else {
+                        alert('Unexpected error.');
+                    }
+                }
+
             });
         });
 
