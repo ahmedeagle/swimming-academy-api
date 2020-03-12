@@ -266,11 +266,8 @@
                 success: function (data) {
                     toastr.success('تمت العمليه بنجاح ');
                 },  error: function (jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.status == 500) {
-                        alert('Internal error: ' + jqXHR.responseText);
-                    } else {
-                        alert('Unexpected error.');
-                    }
+                         alert('Internal error: ' + jqXHR.responseText.msg);
+
                 }
 
             });
