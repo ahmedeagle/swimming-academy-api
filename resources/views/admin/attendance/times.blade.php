@@ -268,7 +268,9 @@
                 }, error: function (reject) {
                     toastr.error(reject);
                     console.log(reject)
-                }
+                    console.log(reject['msg']);
+                    console.log(reject.msg);
+                 }
             });
         });
 
