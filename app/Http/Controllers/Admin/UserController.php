@@ -340,7 +340,7 @@ class UserController extends Controller
                 $user->attendances()->save($attendance);
             }
         } catch (\Exception $ex) {
-            return response()->json([], 500);
+            return response()->json(['msg'=>$ex], 500);
         }
     }
 
