@@ -12,6 +12,7 @@ header('Access-Control-Allow-Origin: *');
 */
 Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], function () {
     Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
+    Route::post('getAcademy', 'GeneralController@getAcademyByCode');
     Route::group(['prefix' => 'academies'], function () {
         Route::post('/', 'AcademyController@getAcademies')->name('academies.all');
         Route::post('/categories', 'AcademyController@getAcademyCategories')->name('academies.categories');
