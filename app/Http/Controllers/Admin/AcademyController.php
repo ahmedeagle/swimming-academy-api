@@ -22,7 +22,7 @@ class AcademyController extends Controller
 
     public function index()
     {
-        $academies = Academy::get();
+        $academies = Academy::orderBy('id','DESC')->get();
         return view('admin.academies.index', compact('academies'));
     }
 

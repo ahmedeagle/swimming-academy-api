@@ -15,7 +15,7 @@ return [
     "User not found" => "هذا المستخدم غير موجود",
     "user not found" => "هذا المستخدم غير موجود",
     "Please enter id number or mobile" => "من فضلك إدخل الموبيل أو رقم البطاقة",
-    "No result, please check your registration before" => "لم يتم العثور على نتائج مطابقة لمدخلاتك يرجى التأكد من تسجيلك لدينا سابقا",
+    "No result, please check your registration before" => "عفوا هناك خطا برقم الهاتف او كلمه المرور",
     "Location saved successfully" => "تم حفظ الموقع بنجاح",
     "No data founded" => "نأسف, ولكن لا يوجد نتائج لبحثك",
     "No provider with this id" => "لا يوجد مقدم خدمة بهذا الكود",

@@ -355,6 +355,8 @@ class UserController extends Controller
                 }]);
             }, 'category' => function ($qq) {
                 $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+            },'AcademySubscriptions' => function($qq){
+                $qq -> where('status',1) -> first();
             }])->select('id', 'team_id', 'academy_id', 'category_id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($user->id);
 
             if ($userData) {
