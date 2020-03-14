@@ -103,7 +103,7 @@ class UserController extends Controller
                 $user->name = $user->getTranslatedName();
                 $user->makeVisible(['status', 'name_en', 'name_ar']);
                 DB::commit();
-                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))));
+                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))),_('messages.registered succussfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
             }

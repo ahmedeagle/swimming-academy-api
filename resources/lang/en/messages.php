@@ -308,6 +308,7 @@ return [
     'with rate' => 'with rate',
     'the coach' => 'the coach',
     'rate the user' => 'rate the user',
+    'registered succussfully'  => 'Register Successfully Done.',
 
 
 ];

@@ -311,5 +311,6 @@ return [
     'the coach' => 'لقد قام الكابتن',
     'rate the user' => ' بتقييم الاعب',
     'saterday'  => 'السبت',
+    'registered succussfully'  => 'تم التسجيل بنجاح ',
 
 ];
