@@ -92,13 +92,24 @@ trait SubscriptionTrait
 
     public function getRate($date, $coachId, $teamId, $userId, $rateable)
     {
-        return $rated = Rate::where([
+        $rate = Rate::where([
             ['coach_id', $coachId],
             ['team_id', $teamId],
             ['user_id', $userId],
             ['rateable', $rateable],
             ['date', $date],
-        ])->first();
+        ])->select('id', 'comment', 'rate')
+            ->first();
+
+        if ($rate)
+            return $rate;
+        else {
+            $rate = new \stdClass();
+            $rate->id = "";
+            $rate->comment = "";
+            $rate->rate = "";
+            return   $rate;
+        }
     }
 
     public function checkIfDateRated($date, $coachId, $teamId, $userId, $rateable)
@@ -109,7 +120,8 @@ trait SubscriptionTrait
             ['user_id', $userId],
             ['rateable', $rateable],
             ['date', $date],
-        ])->first();
+        ])
+            ->first();
 
         if ($rated)
             return 1;
