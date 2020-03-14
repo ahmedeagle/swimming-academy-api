@@ -289,7 +289,7 @@ class SubscriptionController extends Controller
                 $app_subscription = new \stdClass();
                 $app_subscription -> id="";
 
-                $subscriptions->app_subscription = $curren_app_subscriptions_fo_user? $curren_app_subscriptions_fo_user ->first()? : $app_subscription ;
+                $subscriptions->app_subscription = $curren_app_subscriptions_fo_user? $curren_app_subscriptions_fo_user ->first() : $app_subscription ;
 
                 return $this->returnData('academySubscriptions', $subscriptions);
             } else {
