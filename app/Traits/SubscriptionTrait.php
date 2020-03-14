@@ -90,6 +90,17 @@ trait SubscriptionTrait
 
     }
 
+    public function getRate($date, $coachId, $teamId, $userId, $rateable)
+    {
+        return $rated = Rate::where([
+            ['coach_id', $coachId],
+            ['team_id', $teamId],
+            ['user_id', $userId],
+            ['rateable', $rateable],
+            ['date', $date],
+        ])->first();
+    }
+
     public function checkIfDateRated($date, $coachId, $teamId, $userId, $rateable)
     {
         $rated = Rate::where([
@@ -110,7 +121,7 @@ trait SubscriptionTrait
     {
         return Rate::with(['coach' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id','day_name','date')
+        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->where('subscription_id', $subscriptionId)
             ->where('rateable', 1)
             ->paginate(10);
@@ -120,7 +131,7 @@ trait SubscriptionTrait
     {
         return Rate::with(['coach' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id','day_name','date')
+        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->whereIn('subscription_id', $previousSubscriptionsIds)
             ->where('rateable', 1)
             ->paginate(10);

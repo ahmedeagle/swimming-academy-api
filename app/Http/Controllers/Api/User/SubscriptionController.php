@@ -265,7 +265,10 @@ class SubscriptionController extends Controller
             if ($subscriptions) {
                 $teamDays = $this->getTeamTimes($subscriptions->team_id);
                 $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
-                $userAttendanceDays = Attendance::where('user_id', $user->id)->where('subscription_id', $subscriptions->id)->pluck('attend', 'date')->toArray();
+                $userAttendanceDays = Attendance::where('user_id', $user->id)
+                    ->where('subscription_id', $subscriptions->id)
+                    ->pluck('attend', 'date')
+                    ->toArray();
                 //if this date has been rated before by user "user rate the coach of his team"
                 $teamId = $subscriptions->team_id;
                 $coach = Coach::whereHas('teams', function ($q) use ($teamId) {
@@ -274,22 +277,26 @@ class SubscriptionController extends Controller
                 $coachId = $coach->id;  // coach of user's team
                 //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
                 foreach ($subscriptionsDays as $day) {
-                    if (array_key_exists($day->date, $userAttendanceDays))
+                    if (array_key_exists($day->date, $userAttendanceDays)) {
                         $day->attend = (int)$userAttendanceDays[$day->date];
-                    else
+                    }
+                    else {
                         $day->attend = (int)0; //if not has attendance always use be  absence
+                    }
                     if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id, 1))   //1 means if who make the rate is coach
                         $day->rated = (int)1;
                     else
                         $day->rated = (int)0;
+
+                    $day->rate = $this->getRate($day->date, $coachId, $teamId, $user->id, 1);
                 }
 
                 $subscriptions->attendances = $subscriptionsDays;
-                $curren_app_subscriptions_fo_user = $user -> subscriptions -> where('status',1) -> first();
+                $curren_app_subscriptions_fo_user = $user->subscriptions->where('status', 1)->first();
                 $app_subscription = new \stdClass();
-                $app_subscription -> id="";
+                $app_subscription->id = "";
 
-                $subscriptions->app_subscription = $curren_app_subscriptions_fo_user? $curren_app_subscriptions_fo_user   : $app_subscription ;
+                $subscriptions->app_subscription = $curren_app_subscriptions_fo_user ? $curren_app_subscriptions_fo_user : $app_subscription;
 
                 return $this->returnData('academySubscriptions', $subscriptions);
             } else {
