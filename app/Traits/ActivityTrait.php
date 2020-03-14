@@ -16,12 +16,18 @@ trait ActivityTrait
 
     public function getAllActivities(User $user)
     {
-        return Activity::active()->where('category_id',$user -> category -> id)->select('id', 'videoLink as link', DB::raw('title_' . $this->getCurrentLang() . ' as title'))->paginate(10);
+        return Activity::active()
+            ->where('team_id', $user->team_id)
+            ->select('id', 'videoLink as link', DB::raw('title_' . $this->getCurrentLang() . ' as title'))
+            ->paginate(10);
     }
 
     public function getAllCoachActivities(Coach $coach)
     {
-        return Activity::active()->where('category_id',$coach -> category -> id)->select('id', 'videoLink as link', DB::raw('title_' . $this->getCurrentLang() . ' as title'))->paginate(10);
+        return Activity::active()
+            ->whereIn('team_id', $coach->teams-> pluck('id'))
+            ->select('id', 'videoLink as link', DB::raw('title_' . $this->getCurrentLang() . ' as title'))
+            ->paginate(10);
     }
 
 }

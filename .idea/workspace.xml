@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/activities/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/activities/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/ActivityTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/ActivityTrait.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -265,7 +265,7 @@
       <workItem from="1583999330949" duration="370000" />
       <workItem from="1584044636243" duration="10605000" />
       <workItem from="1584114507049" duration="2663000" />
-      <workItem from="1584123988801" duration="49876000" />
+      <workItem from="1584123988801" duration="50399000" />
     </task>
     <servers />
   </component>
@@ -412,6 +412,11 @@
           <url>file://$PROJECT_DIR$/resources/views/admin/users/create.blade.php</url>
           <line>10</line>
           <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Traits/ActivityTrait.php</url>
+          <line>30</line>
+          <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>
