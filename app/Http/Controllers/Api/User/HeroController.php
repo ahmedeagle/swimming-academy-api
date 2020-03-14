@@ -8,6 +8,8 @@ use App\Models\Team;
 use App\Models\User;
 use App\Traits\GlobalTrait;
 use App\Traits\HeroTrait;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
@@ -30,17 +32,17 @@ class HeroController extends Controller
         if (!$user) {
             return $this->returnError('D000', trans('messages.User not found'));
         }
-
-        // $weekStartEnd = currentWeekStartEndDate();
-          $heroes = $this->getHeroes($user);
+        $heroes = $this->getHeroes($user);
         if (isset($heroes) && $heroes->count() > 0) {
-            foreach ($heroes as $_hero) {
-                $note = $_hero->hero->{'note_' . app()->getLocale()};
-                $_hero->note = $note;
-                $_hero->date =date('Y-m-d',strtotime($_hero->hero->created_at));
-                $_hero->hero_photo =$_hero->hero->hero_photo;
-                unset($_hero->hero);
+            foreach ($heroes as $hero) {
+                $startEndOfWeek = getStartAnEndWeekByDate($hero->created_at);
+                $hero->week_start_date = $startEndOfWeek['startWeek'];
+                $hero->week_end_date = $startEndOfWeek['endWeek'];
+               // unset($hero -> user -> team -> times);
             }
+
+          // $heroes =  $heroes -> keyBy('week_start_date');
+           $heroes =  $heroes -> sortByDesc('week_start_date') -> values() -> all();
             return $this->returnData('heroes', $heroes);
         }
         return $this->returnError('E001', trans('messages.There are no data found'));
@@ -56,7 +58,7 @@ class HeroController extends Controller
         }
 
         // $weekStartEnd = currentWeekStartEndDate();
-         $champions = $this->getChampions($user);
+        $champions = $this->getChampions($user);
         if (count($champions) > 0) {
             $total_count = $champions->total();
             $champions = json_decode($champions->toJson());

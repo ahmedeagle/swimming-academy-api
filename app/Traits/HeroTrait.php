@@ -16,14 +16,30 @@ trait HeroTrait
 
     public function getHeroes(User $user)
     {
-        return User::with(['team' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }, 'hero'])
-            ->where('users.team_id', $user->team_id)
-            ->whereHas('hero')
-            ->select('id', 'team_id', 'name_' . app()
-                    ->getLocale() . ' as name', 'photo')->orderBy('id', 'DESC')
-            ->get();
+        /* return User::with(['team' => function ($q) {
+             $q->select('id', 'name_' . app()->getLocale() . ' as name');
+         }, 'hero'])
+             ->where('users.team_id', $user->team_id)
+             ->whereHas('hero')
+             ->select('id', 'team_id', 'name_' . app()
+                     ->getLocale() . ' as name', 'photo')->orderBy('id', 'DESC')
+             ->limit(3)->get();*/
+
+
+        return $heros = Hero::whereHas('user') ->with(['user' => function ($q) {
+            $q->select('id', 'name_' . app()->getLocale() . ' as name','photo','team_id');
+            $q->with(['team' => function($q){
+                 $q -> select('id','name_'.app()->getLocale().' as name','photo');
+            }]);
+        }])
+            ->where('team_id', $user->team_id)
+            ->select('id','user_id','hero_photo','created_at','note_'.app()->getLocale().' as note')
+            ->get() ;
+            /*  ->groupBy(function ($data) {
+                return Carbon::parse($data->created_at, 'Africa/Cairo')
+                    ->startOfWeek(Carbon::SATURDAY)
+                    ->format('W');
+            });*/
     }
 
     public function getTeamHasHero(Coach $coach)
@@ -56,7 +72,7 @@ trait HeroTrait
 
     public function getChampions(User $user)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note','champion_photo')
+        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note', 'champion_photo')
             ->whereHas('user', function ($q) use ($user) {
                 $q->where('users.category_id', $user->category_id);
             })

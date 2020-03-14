@@ -126,6 +126,18 @@ class Team extends Model
         return $this->hasMany('App\Models\Subscription', 'team_id', 'id');
     }
 
+    public function getNoteArAttribute($val){
+        if ($val === null or $val == '') {
+            return "";
+        }
+        return $val;
+    }
+    public function getNoteEnAttribute($val){
+        if ($val === null or $val == '') {
+            return "";
+        }
+        return $val;
+    }
     public function getTimesAttribute()
     {
         try {

@@ -74,6 +74,23 @@ function currentWeekStartEndDate()
 
     return $data;
 }
+function getStartAnEndWeekByDate($date)
+{
+    $last_Saturday_Before_Given_Day = date('Y-m-d', strtotime('last saturday', strtotime($date)));
+    $dt_min = DateTime::createFromFormat('Y-m-d', $last_Saturday_Before_Given_Day);
+    if (date('D', strtotime($date)) == 'Sat') {
+        $dt_min = new DateTime($date);
+    }
+    $dt_max = clone($dt_min);
+    $dt_max->modify('+6 days');
+    $startOfWeek = $dt_min->format('d-m-Y');
+    $endtOfWeek = $dt_max->format('d-m-Y');
+    $data = [];
+    $data['startWeek'] = $startOfWeek;
+    $data['endWeek'] = $endtOfWeek;
+
+    return $data;
+}
 
 
 function getDiffBetweenTwoDate($startDate, $endDate, $formate = 'a')

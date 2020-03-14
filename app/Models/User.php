@@ -191,7 +191,12 @@ class User extends Authenticatable implements JWTSubject
         $weekStartEnd = currentWeekStartEndDate();
         $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
         $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
-        return $this->hasOne('App\Models\Hero', 'user_id', 'id')->whereBetween('created_at', [$startWeek, $endWeek]);
+        return $this->hasOne('App\Models\Hero', 'user_id', 'id')
+            /*->where(function ($q) use ($startWeek, $endWeek) {
+                $q->whereBetween('created_at', [$startWeek, $endWeek])
+                    ->orWhereDate('created_at', '=', $startWeek)
+                    ->orWhereDate('created_at', '=', $endWeek);
+            })*/;
     }
 
     public function champions()

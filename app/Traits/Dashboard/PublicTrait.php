@@ -83,7 +83,7 @@ trait PublicTrait
 
     public function sendPushNotification(User $user, $notif_data = [])
     {
-        (new PushNotificationController($notif_data))->sendUser($user);
+        (new PushNotificationController($notif_data))->send($user);
     }
 
     public function authCoachByMobile($mobile, $password)

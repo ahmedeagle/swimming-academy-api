@@ -3,10 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AcademyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckPassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -149,19 +154,19 @@
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\app\Events" />
-      <recent name="C:\wamp\www\swimming\assets\admin\js" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\subscriptions" />
-      <recent name="C:\wamp\www\swimming\app\Observers" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Events" />
+      <recent name="C:\wamp\www\swimming\assets\admin\js" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\includes\modals" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\subscriptions" />
+      <recent name="C:\wamp\www\swimming\app\Observers" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -268,7 +273,7 @@
       <workItem from="1583999330949" duration="370000" />
       <workItem from="1584044636243" duration="10605000" />
       <workItem from="1584114507049" duration="2663000" />
-      <workItem from="1584123988801" duration="821000" />
+      <workItem from="1584123988801" duration="25511000" />
     </task>
     <servers />
   </component>

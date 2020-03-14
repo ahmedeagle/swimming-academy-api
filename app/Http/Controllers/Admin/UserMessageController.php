@@ -94,7 +94,7 @@ class UserMessageController extends Controller
         $notif_data['id'] = $request->ticket_id;
         $notif_data['notification_type'] = 1; // notify about new message reply
         $user = $message->ticketable;   //get user of this ticket
-        $this->sendPushNotification($user, $notif_data);
+       // $this->sendPushNotification($user , $notif_data);
         //$this->saveNotification($user, $notif_data);
         DB::commit();
         $view = view('admin.includes.content.adminMsg', compact('newMessage'))->renderSections();
