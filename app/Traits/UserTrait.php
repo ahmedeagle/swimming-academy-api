@@ -23,7 +23,8 @@ trait UserTrait
         }, 'category' => function ($q) {
             $q->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name');
         }, 'AcademySubscriptions' => function ($q) {
-            $q->select('id','user_id','start_date', 'end_date', 'price');
+            $q->where('academysubscriptions.status', 1);
+            $q->select('id', 'user_id', 'start_date', 'end_date', 'price');
         }])->where('users.mobile', $mobile)->first();
 
         $token = Auth::guard('user-api')->attempt(['mobile' => $mobile, 'password' => $password]);

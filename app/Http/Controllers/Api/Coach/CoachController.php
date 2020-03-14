@@ -204,7 +204,7 @@ class CoachController extends Controller
             ];
             $validator = Validator::make($request->all(), [
                 "rate" => "required|in:1,2,3,4,5",
-                "subscription_id" => "required|exists:academysubscriptions,id",
+                "subscription_id" => "required|exists:subscriptions,id",
                 "day_name" => "required|max:100",
                 "date" => "required|date-format:Y-m-d",
                 "user_id" => "required|exists:users,id"
