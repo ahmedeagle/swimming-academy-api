@@ -285,7 +285,7 @@ class SubscriptionController extends Controller
                 }
 
                 $subscriptions->attendances = $subscriptionsDays;
-                $subscriptions->app_subscription = $user -> subscriptions -> where('status',1) ->  value('id');
+                $subscriptions->app_subscription = $user -> subscriptions -> where('status',1) ->  first();
 
                 return $this->returnData('academySubscriptions', $subscriptions);
             } else {
