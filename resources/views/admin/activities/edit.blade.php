@@ -65,7 +65,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر الاكاديمية </label>
-                                                            <select name="academy_id" class="select2 form-control">
+                                                            <select name="academy_id" id="academy" class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر الاكاديمية">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
