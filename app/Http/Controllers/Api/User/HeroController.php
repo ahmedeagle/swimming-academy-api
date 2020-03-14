@@ -38,12 +38,28 @@ class HeroController extends Controller
                 $startEndOfWeek = getStartAnEndWeekByDate($hero->created_at);
                 $hero->week_start_date = $startEndOfWeek['startWeek'];
                 $hero->week_end_date = $startEndOfWeek['endWeek'];
-               // unset($hero -> user -> team -> times);
+                //unset($hero -> user -> team -> times);
             }
 
-          // $heroes =  $heroes -> keyBy('week_start_date');
-           $heroes =  $heroes -> sortByDesc('week_start_date') -> values() -> all();
-            return $this->returnData('heroes', $heroes);
+            $heroes = $heroes->groupBy('week_start_date');
+            $weeks = [];
+            foreach ($heroes as $startWeek => $hero) {
+                $obj = new \stdClass();
+                $obj->week_start_date = date('Y-m-d', strtotime($startWeek));
+                $obj->week_end_date = date('Y-m-d', strtotime($startWeek . "+6 days"));
+
+                foreach ($hero as $her) {
+                    unset($her->user_id);
+                    unset($her->created_at);
+                    unset($her->week_start_date);
+                    unset($her->week_end_date);
+                    //unset($hero['user'] -> team -> times );
+                }
+                $obj->heroes = $hero;
+                array_push($weeks, $obj);
+            }
+            $weeks = collect($weeks)->sortByDesc('week_start_date')->values()->all();
+            return $this->returnData('weeks', $weeks);
         }
         return $this->returnError('E001', trans('messages.There are no data found'));
     }

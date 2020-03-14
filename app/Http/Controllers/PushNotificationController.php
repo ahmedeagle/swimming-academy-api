@@ -131,4 +131,6 @@ class PushNotificationController extends Controller
         $this->title = $data['title'];
         $this->body = $data['body'];
     }
+
+
 }

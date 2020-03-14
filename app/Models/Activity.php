@@ -12,7 +12,7 @@ class Activity extends Model
     protected $casts = [
         'status' => 'integer',
     ];
-    protected $fillable = ['title_ar','title_en', 'videoLink','created_at','status','academy_id','category_id'];
+    protected $fillable = ['title_ar','title_en', 'videoLink','created_at','status','academy_id','category_id','team_id'];
     protected $hidden = ['created_at', 'updated_at'];
 
     public function setAttribute($key, $value)

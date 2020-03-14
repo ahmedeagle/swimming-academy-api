@@ -59,18 +59,15 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2"> الاكاديمية </label>
-                                                            <select name="academy_id" id="academy"
+                                                            <label for="projectinput2"> أختر الاكاديمية </label>
+                                                            <select id="academy" name="academy_id"
                                                                     class="select2 form-control">
-                                                                <optgroup label="من فضلك أختر الاكاديمية ">
+                                                                <optgroup label="من فضلك أختر أكاديمية ">
                                                                     @if($academies && $academies -> count() > 0)
                                                                         @foreach($academies as $academy)
                                                                             <option
-                                                                                @if(old('academy_id') == $academy -> id)
-                                                                                selected
-                                                                                @endif
                                                                                 value="{{$academy -> id }}"
-                                                                            >{{$academy -> name_ar}}</option>
+                                                                                @if(old('academy_id')  ==  $academy -> id) selected @endif>{{$academy -> name}}</option>
                                                                         @endforeach
                                                                     @endif
                                                                 </optgroup>
@@ -84,7 +81,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput2"> أختر القسم </label>
-                                                            <select name="category_id"
+                                                            <select name="category_id" id="category"
                                                                     class="select2 form-control appendCategories">
                                                             </select>
                                                             @error('category_id')
@@ -93,74 +90,46 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> العنوان بالعربي </label>
-                                                            <input type="text" value="{{old('title_ar')}}" id="title_ar"
-                                                                   class="form-control"
-                                                                   placeholder="ادخل  العنوان  باللغة العربية "
-                                                                   name="title_ar">
-                                                            @error('title_ar')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="projectinput1"> رابط الفيديو </label>
+                                                                <input type="text" value="{{old('videoLink')}}"
+                                                                       id="videoLink"
+                                                                       class="form-control"
+                                                                       placeholder="ادخل رابط فيديو اليوتيوب "
+                                                                       name="videoLink">
+                                                                @error('videoLink')
+                                                                <span class="text-danger"> {{$message}}</span>
+                                                                @enderror
+                                                            </div>
                                                         </div>
+                                                        <span class="text-info">يجب ان يكون رابط يوتيوب مثل (https://www.youtube.com/embed/tr7AcjcE0BQ)</span>
                                                     </div>
 
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> العنوان بالانجليزي </label>
-                                                            <input type="text" value="{{old('title_en')}}" id="title_en"
-                                                                   class="form-control"
-                                                                   placeholder="ادخل   العنوان  باللغة  الانجليزية  "
-                                                                   name="title_en">
-                                                            @error('title_en')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group mt-1">
+                                                                <input type="checkbox" name="status"
+                                                                       id="switcheryColor4"
+                                                                       class="switchery" data-color="success"
+                                                                       checked/>
+                                                                <label for="switcheryColor4"
+                                                                       class="card-title ml-1">الحالة </label>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> رابط الفيديو </label>
-                                                            <input type="text" value="{{old('videoLink')}}"
-                                                                   id="videoLink"
-                                                                   class="form-control"
-                                                                   placeholder="ادخل رابط فيديو اليوتيوب "
-                                                                   name="videoLink">
-                                                            @error('videoLink')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <span class="text-info">يجب ان يكون رابط يوتيوب مثل (https://www.youtube.com/embed/tr7AcjcE0BQ)</span>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mt-1">
-                                                            <input type="checkbox" name="status"
-                                                                   id="switcheryColor4"
-                                                                   class="switchery" data-color="success"
-                                                                   checked/>
-                                                            <label for="switcheryColor4"
-                                                                   class="card-title ml-1">الحالة </label>
-                                                        </div>
+                                                    <div class="form-actions">
+                                                        <button type="button" class="btn btn-warning mr-1"
+                                                                onclick="history.back();">
+                                                            <i class="ft-x"></i> تراجع
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="la la-check-square-o"></i> حفظ
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div class="form-actions">
-                                                    <button type="button" class="btn btn-warning mr-1"
-                                                            onclick="history.back();">
-                                                        <i class="ft-x"></i> تراجع
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary">
-                                                        <i class="la la-check-square-o"></i> حفظ
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -177,7 +146,6 @@
 
 @section('script')
     <script>
-
 
 
         $(document).ready(function () {
@@ -226,3 +194,4 @@
 
     </script>
 @stop
+

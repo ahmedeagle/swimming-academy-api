@@ -65,14 +65,16 @@ class HeroController extends Controller
         if (!$coach) {
             return $this->returnError('D000', trans('messages.User not found'));
         }
-        $heroes = $this->getHeroesByTeamId($request -> team_id);
-
-        if (isset($heroes) &&  $heroes -> count() > 0) {
-            foreach ($heroes as $_hero){
-                $note =   $_hero -> hero -> {'note_'.app()->getLocale()};
-                $_hero -> note =$note  ;
-                unset($_hero -> hero);
+        $heroes = $this->getHeroesByTeamId($request->team_id);
+        if (isset($heroes) && $heroes->count() > 0) {
+            foreach ($heroes as $hero) {
+                $startEndOfWeek = getStartAnEndWeekByDate($hero->created_at);
+                $hero->week_start_date = $startEndOfWeek['startWeek'];
+                $hero->week_end_date = $startEndOfWeek['endWeek'];
+                //unset($hero -> user -> team -> times);
             }
+            // $heroes =  $heroes -> keyBy('week_start_date');
+            $heroes = $heroes->sortByDesc('week_start_date')->values()->all();
             return $this->returnData('heroes', $heroes);
         }
         return $this->returnError('E001', trans('messages.There are no data found'));
@@ -129,4 +131,4 @@ class HeroController extends Controller
         return $this->returnError('E001', trans('messages.There are no data found'));
     }
 
- }
+}

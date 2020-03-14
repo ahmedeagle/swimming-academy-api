@@ -26,20 +26,20 @@ trait HeroTrait
              ->limit(3)->get();*/
 
 
-        return $heros = Hero::whereHas('user') ->with(['user' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . ' as name','photo','team_id');
-            $q->with(['team' => function($q){
-                 $q -> select('id','name_'.app()->getLocale().' as name','photo');
+        return $heros = Hero::whereHas('user')->with(['user' => function ($q) {
+            $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
+            $q->with(['team' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
             }]);
         }])
             ->where('team_id', $user->team_id)
-            ->select('id','user_id','hero_photo','created_at','note_'.app()->getLocale().' as note')
-            ->get() ;
-            /*  ->groupBy(function ($data) {
-                return Carbon::parse($data->created_at, 'Africa/Cairo')
-                    ->startOfWeek(Carbon::SATURDAY)
-                    ->format('W');
-            });*/
+            ->select('id', 'user_id', 'hero_photo', 'created_at', 'note_' . app()->getLocale() . ' as note')
+            ->get();
+        /*  ->groupBy(function ($data) {
+            return Carbon::parse($data->created_at, 'Africa/Cairo')
+                ->startOfWeek(Carbon::SATURDAY)
+                ->format('W');
+        });*/
     }
 
     public function getTeamHasHero(Coach $coach)
@@ -58,14 +58,25 @@ trait HeroTrait
 
     public function getHeroesByTeamId($teamId)
     {
-        return User::select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo')
-            ->where('users.team_id', $teamId)
-            ->whereHas('hero')
-            ->whereHas('hero')
-            ->with(['team' => function ($q) {
-                $q->select('id', 'name_' . app()->getLocale() . ' as name', 'level_' . app()->getLocale() . ' as level');
-            }])->orderBy('id', 'DESC')
-            ->limit(3)
+        /* return User::select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo')
+             ->where('users.team_id', $teamId)
+             ->whereHas('hero')
+             ->whereHas('hero')
+             ->with(['team' => function ($q) {
+                 $q->select('id', 'name_' . app()->getLocale() . ' as name', 'level_' . app()->getLocale() . ' as level');
+             }])->orderBy('id', 'DESC')
+             ->limit(3)
+             ->get();*/
+
+        return $heros = Hero::whereHas('user')
+            ->with(['user' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
+                $q->with(['team' => function ($q) {
+                    $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
+                }]);
+            }])
+            ->where('team_id', $teamId)
+            ->select('id', 'user_id', 'hero_photo', 'created_at', 'note_' . app()->getLocale() . ' as note')
             ->get();
     }
 

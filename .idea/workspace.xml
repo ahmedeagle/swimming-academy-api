@@ -3,15 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/Helpers/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserMessageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/CheckPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/CheckPassword.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Team.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Team.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/Dashboard/PublicTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PushNotificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PushNotificationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Activity.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/activities/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/activities/create.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -273,7 +270,7 @@
       <workItem from="1583999330949" duration="370000" />
       <workItem from="1584044636243" duration="10605000" />
       <workItem from="1584114507049" duration="2663000" />
-      <workItem from="1584123988801" duration="25511000" />
+      <workItem from="1584123988801" duration="31870000" />
     </task>
     <servers />
   </component>
@@ -415,6 +412,11 @@
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/SubscriptionController.php</url>
           <line>235</line>
           <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/resources/views/admin/users/create.blade.php</url>
+          <line>10</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/CoachController.php</url>
