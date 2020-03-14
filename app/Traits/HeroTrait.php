@@ -26,14 +26,15 @@ trait HeroTrait
              ->limit(3)->get();*/
 
 
-        return $heros = Hero::whereHas('user')->with(['user' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
-            $q->with(['team' => function ($q) {
-                $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
-            }]);
-        }])
+        return $heros = Hero::whereHas('user')
+            ->with(['user' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo', 'team_id');
+                $q->with(['team' => function ($q) {
+                    $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
+                }]);
+            }])
             ->where('team_id', $user->team_id)
-            ->select('id', 'user_id', 'hero_photo', 'created_at', 'note_' . app()->getLocale() . ' as note')
+            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'))
             ->get();
         /*  ->groupBy(function ($data) {
             return Carbon::parse($data->created_at, 'Africa/Cairo')
@@ -76,14 +77,14 @@ trait HeroTrait
                 }]);
             }])
             ->where('team_id', $teamId)
-            ->select('id', 'user_id', 'hero_photo', 'created_at', 'note_' . app()->getLocale() . ' as note')
+            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'))
             ->get();
     }
 
 
     public function getChampions(User $user)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'note_' . app()->getLocale() . ' as  note', 'champion_photo')
+        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'), 'champion_photo')
             ->whereHas('user', function ($q) use ($user) {
                 $q->where('users.category_id', $user->category_id);
             })

@@ -20,13 +20,6 @@ class Hero extends Model
         return parent::setAttribute($key, $value);
     }
 
-    public function getNoteArAttribute($val)
-    {
-        if ($val === null) {
-            return "";
-        }
-        return $val;
-    }
 
     public function getHeroPhotoAttribute($val)
     {
@@ -34,6 +27,16 @@ class Hero extends Model
             return "";
         }
         return asset($val);
+    }
+
+
+    public function getNoteArAttribute($val)
+    {
+
+        if ($val === null) {
+            return "";
+        }
+        return $val;
     }
 
     public function getNoteEnAttribute($val)
