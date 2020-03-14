@@ -18,7 +18,7 @@ class ActivityController extends Controller
 
     public function index()
     {
-       return  $activities = Activity::orderBy('id','DESC') -> get();
+         $activities = Activity::orderBy('id','DESC') -> get();
         return view('admin.activities.index', compact('activities'));
     }
 
@@ -68,7 +68,7 @@ class ActivityController extends Controller
             return redirect()->route('admin.activities.all')->with(['success' => 'تم اضافه النشاط بنجاح ']);
         } catch (\Exception $ex) {
             DB::rollback();
-            return $ex;//abort('404');
+            return abort('404');
         }
     }
 
