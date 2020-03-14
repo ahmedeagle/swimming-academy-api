@@ -69,7 +69,9 @@
         body {
             font-family: 'Cairo', sans-serif;
         }
-
+        .select2 {
+            width:100%!important;
+        }
     </style>
 </head>
 <body

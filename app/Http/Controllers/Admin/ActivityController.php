@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Academy;
 use App\Models\Activity;
 
+use App\Models\Team;
 use App\Traits\Dashboard\PublicTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class ActivityController extends Controller
 
     public function index()
     {
-        $activities = Activity::get();
+        $activities = Activity::orderBy('id','DESC') -> get();
         return view('admin.activities.index', compact('activities'));
     }
 
@@ -39,6 +40,8 @@ class ActivityController extends Controller
                 'academy_id.exists' => 'الأكاديمية غير موجوده لدينا',
                 'category_id.required' => 'لابد من أختيار القسم  ',
                 'category_id.exists' => 'القسم  غير موجوده لدينا',
+                'team_id.required' => 'لابد من أختيار فرقه اولا',
+                'team_id.exists' => 'الفرقه غير موجوده لدينا',
             ];
 
             $validator = Validator::make($request->all(), [
@@ -46,7 +49,9 @@ class ActivityController extends Controller
                 'title_en' => 'required|max:100',
                 'videoLink' => 'required|max:225',
                 'academy_id' => 'required|exists:academies,id',
-                'category_id' => 'required|exists:categories,id'
+                'category_id' => 'required|exists:categories,id',
+                'team_id' => 'required|exists:teams,id'
+
 
             ], $messages);
 
@@ -74,6 +79,7 @@ class ActivityController extends Controller
         $data['academies'] = Academy::active()->get();
         $data['activity'] = Activity::findOrFail($id);
         $data['categories'] = $data['activity']->academy->categories;
+        $data['teams'] = Team::where('category_id', $data['activity']->category->id)->get();
         return view('admin.activities.edit', $data);
     }
 

@@ -97,7 +97,7 @@
 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="projectinput2"> فرقه اللاعب <span class="text-info">(ملاحظة يتم فقط عرض الفرق التي تم ادخال ايام العمل لها )</span>
+                                                        <label for="projectinput2">الفرقة <span class="text-info">(ملاحظة يتم فقط عرض الفرق التي تم ادخال ايام العمل لها )</span>
                                                         </label>
                                                         <select class="select2 form-control appendTeams" name="team_id" >
                                                         </select>
@@ -241,7 +241,19 @@
                 }
             });
         });
-
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
 
         CKEDITOR.replace('ckeditor-language', {
             extraPlugins: 'language',

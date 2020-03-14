@@ -107,6 +107,31 @@
 
                                                 </div>
 
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput2"> فرقه اللاعب
+                                                            </label>
+                                                            <select class="select2 form-control appendTeams"
+                                                                    name="team_id">
+                                                                @if($teams && $teams -> count() > 0)
+                                                                    <optgroup label=" الفرق ">
+                                                                        @foreach($teams as $team)
+                                                                            <option value="{{$team->id}}"
+                                                                                    @if($team -> id == $activity -> team_id) selected @endif
+                                                                            >{{$team -> name_ar}}</option>
+                                                                        @endforeach
+                                                                    </optgroup>
+                                                                @endif
+                                                            </select>
+                                                            @error('team_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -187,3 +212,60 @@
     </div>
 @stop
 
+
+@section('script')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
+        //get academy teams branches
+        $(document).on('change', '#academy', function (e) {
+            e.preventDefault();
+            $.ajax({
+
+                type: 'post',
+                url: "{{Route('admin.categories.loadCategories')}}",
+                data: {
+                    'academy_id': $(this).val(),
+                },
+                success: function (data) {
+                    $('.appendCategories').empty().append(data.content);
+
+                    $.ajax({
+                        type: 'post',
+                        url: "{{Route('admin.categories.loadTeams')}}",
+                        data: {
+                            'category_id': $('#category').val(),
+                        },
+                        success: function (data) {
+                            $('.appendTeams').empty().append(data.content);
+                        },error: function (reject) {
+                            $('.appendTeams').empty().append("<optgroup label='الفرق'>");
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('change', '#category', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: "{{Route('admin.categories.loadTeams')}}",
+                data: {
+                    'category_id': $('#category').val(),
+                },
+                success: function (data) {
+                    $('.appendTeams').empty().append(data.content);
+                }
+            });
+        });
+
+
+
+    </script>
+@stop

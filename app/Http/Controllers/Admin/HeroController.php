@@ -26,7 +26,7 @@ class HeroController extends Controller
 
     public function index()
     {
-         $heroes = Hero::get();
+         $heroes = Hero::orderBy('id','DESC') ->get();
         return view('admin.heroes.index', compact('heroes'));
     }
 

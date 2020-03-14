@@ -25,7 +25,7 @@ class CoachController extends Controller
 
     public function index()
     {
-        $coaches = Coach::selection()->get();
+        $coaches = Coach::selection()->orderBy('id','DESC') ->get();
         return view('admin.coaches.index', compact('coaches'));
     }
 

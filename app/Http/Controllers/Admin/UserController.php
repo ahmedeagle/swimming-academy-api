@@ -27,7 +27,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::selection()->get();
+            $users = User::selection()->orderBy('id','DESC') ->get();
             return view('admin.users.index', compact('users'));
         } catch (\Exception $ex) {
             return abort('404');
