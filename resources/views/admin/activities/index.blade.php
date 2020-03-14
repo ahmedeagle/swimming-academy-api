@@ -53,6 +53,7 @@
                                                 <th> العنوان بالانجليزي</th>
                                                 <th>الأكاديمية</th>
                                                 <th>القسم</th>
+                                                <th>الفرقه</th>
                                                 <th> الفيديو</th>
                                                 <th>الحالة</th>
                                                 <th>الأجراءات</th>
@@ -66,6 +67,7 @@
                                                         <td>{{Str::limit($activity ->title_en,100)}}</td>
                                                         <td>{{$activity -> academy -> name_ar}}</td>
                                                         <td>{{$activity -> category -> name_ar}}</td>
+                                                        <td>{{$activity -> team -> name_ar}}</td>
                                                         <td>
                                                             <div class="embed-responsive embed-responsive-4by3">
                                                                 <iframe class="border-0"
