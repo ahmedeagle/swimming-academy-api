@@ -68,7 +68,7 @@ class ActivityController extends Controller
             return redirect()->route('admin.activities.all')->with(['success' => 'تم اضافه النشاط بنجاح ']);
         } catch (\Exception $ex) {
             DB::rollback();
-            return abort('404');
+            return $ex;//abort('404');
         }
     }
 
