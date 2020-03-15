@@ -30,7 +30,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         return getAllDateBetweenTwoDate('2020-02-15','2020-04-15');
     });
 
+
+
     Route::get("/", "DashboardController@dashboard")->name('admin.dashboard');
+    Route::get("tickets", "UserMessageController@tickets")->name('admin.tickets');
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get("/", "CategoryController@index")->name('admin.categories.all');
@@ -96,6 +99,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/teams/{id}", "CoachController@teams")->name('admin.coaches.teams');
         Route::get('/delete/{id}', 'CoachController@deleteCoach')->name('admin.coaches.delete');
         Route::get('rates', 'CoachController@coachRates')->name('admin.coaches.rates');
+        Route::group(['prefix' => 'tickets'], function () {
+            Route::get('/', 'CoachMessageController@index')->name('admin.coaches.tickets.all');
+            Route::get('/delete/{id}', 'CoachMessageController@destroy')->name('admin.coaches.tickets.delete');
+            Route::get('/solved/{id}', 'CoachMessageController@solvedMessage')->name('admin.coaches.tickets.solved');
+            Route::get('/show/{id}', 'CoachMessageController@view')->name('admin.coaches.tickets.view');
+            Route::get('/reply/{id}', 'CoachMessageController@getReply')->name('admin.coaches.tickets.getreply');
+            Route::post('/reply', 'CoachMessageController@reply')->name('admin.coaches.tickets.reply');
+        });
     });
 
     Route::group(['prefix' => 'users'], function () {

@@ -19,21 +19,16 @@ use Validator;
 use DB;
 use Auth;
 
-class UserMessageController extends Controller
+class CoachMessageController extends Controller
 {
     use MessageTrait, PublicTrait, GlobalTrait;
 
     public function index()
     {
-          $tickets = $this->getAllUserMessages();
-        return view('admin.messages.users.index', compact('tickets'));
+         $tickets = $this->getAllCoachMessages();
+        return view('admin.messages.coaches.index', compact('tickets'));
     }
 
-    public function tickets()
-    {
-         $tickets = $this->getAllTickets();  //user and coach
-        return view('admin.messages.index', compact('tickets'));
-    }
 
     public function getReply($id)
     {
@@ -45,8 +40,8 @@ class UserMessageController extends Controller
         });
         if (isset($replies) && $replies->count() > 0)
             $ticket->replies()->update(['seen' => '1']); // update all tickets to seen
-        $lastMessage = $ticket->replies()->where('FromUser', 1)->get()->last();
-        return view('admin.messages.users.view', compact('ticket', 'replies', 'lastMessage'));
+        $lastMessage = $ticket->replies()->where('FromUser', 2)->get()->last();
+        return view('admin.messages.coaches.view', compact('ticket', 'replies', 'lastMessage'));
     }
 
     public function destroy($id)
@@ -98,7 +93,7 @@ class UserMessageController extends Controller
         $notif_data['body'] = $push_notif_content;
         $notif_data['id'] = $request->ticket_id;
         $notif_data['notification_type'] = 1; // notify about new message reply
-        $user = $message->ticketable;   //get user of this ticket
+        $actor  = $message->ticketable;   //get user of this ticket
        // $this->sendPushNotification($user , $notif_data);
         //$this->saveNotification($user, $notif_data);
         DB::commit();

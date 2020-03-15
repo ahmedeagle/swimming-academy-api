@@ -226,6 +226,11 @@
                             class="menu-item" href="{{route('admin.users.tickets.all')}}"
                             data-i18n="nav.dash.ecommerce"> تذاكر الاعبين </a>
                     </li>
+
+                    <li class=" @if(Route::current()->getName() == 'admin.coaches.tickets.all') active @endif"><a
+                            class="menu-item" href="{{route('admin.coaches.tickets.all')}}"
+                            data-i18n="nav.dash.ecommerce"> تذاكر  الكاباتن </a>
+                    </li>
                 </ul>
             </li>
 

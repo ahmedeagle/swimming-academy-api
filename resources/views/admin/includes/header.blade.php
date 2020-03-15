@@ -58,35 +58,42 @@
                                     <span class="grey darken-2"> الرسائل</span>
                                 </h6>
                             </li>
-                            <li class="scrollable-container ps-container ps-active-y media-list w-100" >
+                            <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastMessage(5))
                                     @foreach(takeLastMessage(5) as $message)
-                                        <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">
-                                            <div class="media">
-                                                <div class="media-left">
+                                        @if($message -> ticket -> ticketable_type =='App\Models\User')
+                                            <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">
+                                                @else
+                                                    <a href="{{route('admin.coaches.tickets.getreply',$message -> ticket  -> id)}}">
+                                                        @endif
+
+                                                        <div class="media">
+                                                            <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
 
                                               <img src="{{$message -> ticket -> ticketable -> photo}}"
                                                    alt="avatar"><i></i></span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="media-heading">{{\Illuminate\Support\Str::limit($message -> ticket -> title,50)}}</h6>
-                                                    <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($message -> message,70)}}</p>
-                                                    <small style="direction: ltr;">
-                                                        <time class="media-meta text-muted" style="direction: ltr;">{{date("Y M d", strtotime($message -> created_at))}}
-                                                        </time>
-                                                        <br>
-                                                        {{date("h:i A", strtotime($message -> created_at))}}
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h6 class="media-heading">{{\Illuminate\Support\Str::limit($message -> ticket -> title,50)}}</h6>
+                                                                <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($message -> message,70)}}</p>
+                                                                <small style="direction: ltr;">
+                                                                    <time class="media-meta text-muted"
+                                                                          style="direction: ltr;">{{date("Y M d", strtotime($message -> created_at))}}
+                                                                    </time>
+                                                                    <br>
+                                                                    {{date("h:i A", strtotime($message -> created_at))}}
 
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                @endif
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                            @endforeach
+                                        @endif
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                href="{{route('admin.users.tickets.all')}}"> جميع التذاكر </a></li>
+                                                                href="{{route('admin.tickets')}}"> جميع التذاكر </a>
+                            </li>
                         </ul>
                     </li>
                     <li class="dropdown dropdown-notification nav-item dropdown-notifications">
@@ -102,7 +109,7 @@
                                     <span class="grey darken-2"> الاشعارات</span>
                                 </h6>
                             </li>
-                            <li class="scrollable-container ps-container ps-active-y media-list w-100" >
+                            <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
                                         <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">
@@ -117,7 +124,8 @@
                                                     <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
                                                     <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
                                                     <small style="direction: ltr;">
-                                                        <time class="media-meta text-muted" style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
+                                                        <time class="media-meta text-muted"
+                                                              style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
                                                         </time>
                                                         <br>
                                                         {{date("h:i A", strtotime($notify -> created_at))}}
@@ -131,7 +139,8 @@
 
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                href="{{route('admin.coaches.rates')}}"> جميع  الاشعارات </a></li>
+                                                                href="{{route('admin.coaches.rates')}}"> جميع
+                                    الاشعارات </a></li>
                         </ul>
                     </li>
 

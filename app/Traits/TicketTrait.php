@@ -14,14 +14,14 @@ trait TicketTrait
 
     public function getTicketsByType($actorId, $actorType)
     {
-        $ticketable_type = ($actorType == 1) ? 'App\Models\User' : '';
+        $ticketable_type = ($actorType == 1) ? 'App\Models\User' : 'App\Models\Coach';
         $ticketable_id = $actorId;
         return Ticket::where('ticketable_type', $ticketable_type)->where('ticketable_id', $ticketable_id)->orderBy('id', 'DESC')->paginate(10);
     }
 
     public function getUnreadMessagesCount($actorId, $actor_type)
     {
-        $ticketable_type = ($actor_type == 1) ? 'App\Models\User' : '';
+        $ticketable_type = ($actor_type == 1) ? 'App\Models\User' : 'App\Models\Coach';
         $ticketable_id = $actorId;
        return  Replay::where('FromUser', 0)  //from admin
             ->where('seenByUser', '0')

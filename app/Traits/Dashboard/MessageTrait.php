@@ -15,7 +15,16 @@ trait MessageTrait
 
     public function getAllUserMessages()
     {
-        return Ticket::where('ticketable_type','App\Models\User') -> orderBy('created_at','DESC') ->  get();
+        return Ticket::where('ticketable_type', 'App\Models\User')->orderBy('created_at', 'DESC')->get();
+    }
+    public function getAllTickets()
+    {
+        return Ticket::orderBy('created_at', 'DESC')->get();
+    }
+
+    public function getAllCoachMessages()
+    {
+        return Ticket::where('ticketable_type', 'App\Models\Coach')->orderBy('created_at', 'DESC')->get();
     }
 
     public function getAllProviderMessages()

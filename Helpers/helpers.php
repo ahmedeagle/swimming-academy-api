@@ -7,12 +7,21 @@ function takeLastMessage($count)
 {
     return \App\Models\Replay::with('ticket')->whereHas('ticket', function ($q) {
         $q->whereHasMorph('ticketable', 'App\Models\User');
-    })->where('FromUser', 1)->latest()->take($count)->get();
+        $q->orWhereHasMorph('ticketable', 'App\Models\Coach');
+    })
+        ->where(function ($q) {
+            $q->where('FromUser', 1);
+            $q->orWhere('FromUser', 2);
+        })
+        ->latest()
+        ->take($count)
+        ->get();
 
 }
+
 function takeLastNotifications($count)
 {
-    return \App\Models\Notification::where('notificationable_type','App\Models\Admin')->latest()->take($count)->get();
+    return \App\Models\Notification::where('notificationable_type', 'App\Models\Admin')->latest()->take($count)->get();
 }
 
 /**
@@ -74,6 +83,7 @@ function currentWeekStartEndDate()
 
     return $data;
 }
+
 function getStartAnEndWeekByDate($date)
 {
     $last_Saturday_Before_Given_Day = date('Y-m-d', strtotime('last saturday', strtotime($date)));

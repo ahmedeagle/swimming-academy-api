@@ -105,7 +105,7 @@ trait SubscriptionTrait
             return $rate;
         else {
             $rate = new \stdClass();
-            $rate->id = "";
+            $rate->id = 0;
             $rate->comment = "";
             $rate->rate = "";
             return   $rate;

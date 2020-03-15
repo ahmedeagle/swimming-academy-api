@@ -11,6 +11,15 @@ header('Access-Control-Allow-Origin: *');
 |--------------------------------------------------------------------------
 */
 Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLanguage', 'api']], function () {
+
+    Route::group(['prefix' => 'tickets'], function () {
+        Route::post('/', 'TicketController@getTickets')->name('user.tickets');
+        Route::post('replies', 'TicketController@GetTicketMessages');
+        Route::post('new', 'TicketController@newTicket')->name('user.add.ticket');
+        Route::post('AddMessage', 'TicketController@AddMessage')->name('user.AddMessage');
+        Route::post('unreadMessagesCount', 'TicketController@get_unread_messages_count');
+
+    });
     Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
     Route::post('getAcademy', 'GeneralController@getAcademyByCode');
     Route::group(['prefix' => 'academies'], function () {
@@ -70,14 +79,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
                 Route::post('rates', 'UserController@getRates');
-                Route::group(['prefix' => 'tickets'], function () {
-                    Route::post('/', 'TicketController@getTickets')->name('user.tickets');
-                    Route::post('replies', 'TicketController@GetTicketMessages');
-                    Route::post('new', 'TicketController@newTicket')->name('user.add.ticket');
-                    Route::post('AddMessage', 'TicketController@AddMessage')->name('user.AddMessage');
-                    Route::post('unreadMessagesCount', 'TicketController@get_unread_messages_count');
-
-                });
             });
         });
     });
