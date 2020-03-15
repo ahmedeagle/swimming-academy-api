@@ -125,7 +125,7 @@ class CoachController extends Controller
             "password" => "sometimes|nullable|confirmed|max:255",
             "password_confirmation" => "required_with:password",
             "old_password" => "required_with:password",
-            "photo" => "sometimes|nullable|mimes:jpeg,jpg,png",
+            "photo" => "sometimes|nullable",
         ]);
 
         if ($validator->fails()) {

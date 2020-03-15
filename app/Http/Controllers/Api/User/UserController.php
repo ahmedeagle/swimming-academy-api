@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Academy;
+use App\Models\AcadSubscription;
 use App\Models\Coach;
 use App\Models\Notification;
 use App\Models\Rate;
@@ -103,7 +104,7 @@ class UserController extends Controller
                 $user->name = $user->getTranslatedName();
                 $user->makeVisible(['status', 'name_en', 'name_ar']);
                 DB::commit();
-                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))),_('messages.registered succussfully'));
+                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))), _('messages.registered succussfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
             }
@@ -355,8 +356,8 @@ class UserController extends Controller
                 }]);
             }, 'category' => function ($qq) {
                 $qq->select('id', 'name_' . app()->getLocale() . ' as name');
-            },'AcademySubscriptions' => function($qq){
-                $qq -> where('status',1) -> first();
+            }, 'AcademySubscriptions' => function ($qq) {
+                $qq->where('status', 1)->first();
             }])->select('id', 'team_id', 'academy_id', 'category_id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($user->id);
 
             if ($userData) {
@@ -487,7 +488,7 @@ class UserController extends Controller
             }
 
             if ($request->type == 'current') {
-                $currentSubscription = Subscription::current()->where('user_id', $user->id)->first();
+                $currentSubscription = AcadSubscription::where('status', 1)->where('user_id', $user->id)->first();
                 $rates = $this->currentRates($currentSubscription->id);
             } else {
                 $previousSubscriptionsIds = Subscription::expired()->where('user_id', $user->id)->pluck('id')->toArray();
