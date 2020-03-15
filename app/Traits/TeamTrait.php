@@ -17,7 +17,6 @@ trait TeamTrait
     {
         return Team::find($teamId)
             -> users()
-            ->where('users.acasemy')
             ->with(['team' => function ($city) {
             $city->select('id',DB::raw('name_' . app()->getLocale() . ' as name'),DB::raw('level_' . app()->getLocale() . ' as level'));
         }])
