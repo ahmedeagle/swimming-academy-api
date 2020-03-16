@@ -207,7 +207,7 @@ class SubscriptionController extends Controller
                         else
                             $day->rated = (int)0;
 
-                        $day->rate = $this->getRate($day->date, $coachId, $teamId, $user->id, 1);
+                        $day->rate = $this->getRate($day->date, $coachId, $teamId, $user->id, 0);
                     }
 
                     $subscriptions->attendances = $subscriptionsDays;

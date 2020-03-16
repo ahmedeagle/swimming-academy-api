@@ -312,5 +312,6 @@ return [
     'rate the user' => ' بتقييم الاعب',
     'saterday'  => 'السبت',
     'registered succussfully'  => 'تم التسجيل بنجاح ',
+    'new player registration' => 'تسجيل جديد للطالب '
 
 ];
