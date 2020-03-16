@@ -66,7 +66,7 @@ class TeamController extends Controller
             }
             $coach = $this->auth('coach-api');
 
-            $students = $this->getStudentsInTeam($request->id);
+            $students = $this->getStudentsInTeam($request->id,$request);
 
             if (count($students->toArray()) > 0) {
                 $total_count = $students->total();
