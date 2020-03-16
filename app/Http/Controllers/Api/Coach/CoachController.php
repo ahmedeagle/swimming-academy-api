@@ -72,7 +72,7 @@ class CoachController extends Controller
     {
         try {
             $coach = $this->auth('coach-api');
-            $teams = $this->getTeams($coach);
+            $teams = $this->getTeams($coach,$request);
             if (count($teams->toArray()) > 0) {
                 $total_count = $teams->total();
                 $teams->getCollection()->each(function ($team) {

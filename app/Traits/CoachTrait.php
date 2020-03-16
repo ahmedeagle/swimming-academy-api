@@ -37,9 +37,16 @@ trait CoachTrait
     }
 
     public
-    function getTeams($coach)
+    function getTeams($coach, $request)
     {
-        return $coach->teams()->active()->paginate(10);
+        if ($request->queryStr)
+            return $coach->teams()
+                ->where('teams.name_ar', 'LIKE', '%' . trim($request->queryStr) . '%')
+                ->orWhere('teams.name_en', 'LIKE', '%' . trim($request->queryStr) . '%')
+                ->active()
+                ->paginate(10);
+        else
+            return $coach->teams()->active()->paginate(10);
     }
 
 
