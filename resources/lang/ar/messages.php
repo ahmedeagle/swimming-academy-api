@@ -312,6 +312,9 @@ return [
     'rate the user' => ' بتقييم الاعب',
     'saterday'  => 'السبت',
     'registered succussfully'  => 'تم التسجيل بنجاح ',
-    'new player registration' => 'تسجيل جديد للطالب '
+    'new player registration' => 'تسجيل جديد للطالب ',
+    'in category'  => 'في قسم',
+    'in team'   => 'بالفرقة '
+
 
 ];

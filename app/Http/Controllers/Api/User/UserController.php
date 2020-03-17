@@ -123,7 +123,7 @@ class UserController extends Controller
                 event(new \App\Events\NewRegisteration($notify));   // fire pusher message event notification*/
 
                 DB::commit();
-                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))), _('messages.registered succussfully'));
+                return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))), __('messages.registered succussfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
             }
