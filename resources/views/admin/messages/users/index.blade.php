@@ -49,11 +49,9 @@
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
-                                                <th>رقم الرسالة</th>
-                                                <th> عنوان المراسلة</th>
+                                                <th>الصوره</th>
                                                 <th>اسم المستخدم</th>
-                                                <th>النوع</th>
-                                                <th>الأهمية</th>
+                                                <th> عنوان المراسلة</th>
                                                 <th>رسائل</th>
                                                 <th>التاريخ</th>
                                                 <th>العمليات</th>
@@ -63,11 +61,14 @@
                                             @if(isset($tickets) && $tickets -> count() > 0 )
                                                 @foreach($tickets as $ticket)
                                                     <tr>
-                                                        <td>{{$ticket -> message_no}}</td>
-                                                        <td>{{$ticket ->title}}</td>
+
+                                                        <td><span class="avatar avatar-md ">
+                                                        <img class="media-object rounded-circle"
+                                                             src="{{$ticket -> ticketable -> photo}}" alt="User Photo">
+                                                      </span>
+                                                        </td>
                                                         <td>{{$ticket -> ticketable -> name_ar}}</td>
-                                                        <td>{{$ticket -> type}}</td>
-                                                        <td>{{$ticket -> importance}}</td>
+                                                        <td>{{$ticket ->title}}</td>
                                                         <td>@if($ticket  -> replies()  ->where('FromUser',1) ->  where('seen','0') -> count() > 0)
                                                                 <span
                                                                     class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()  ->where('FromUser',1) -> where('seen','0') -> count()}} جديدة </span>
@@ -83,7 +84,8 @@
                                                                 <button type="button"
                                                                         class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
-                                                                        data-target="#rotateInUpLeft{{$ticket -> id}}">التفاصيل
+                                                                        data-target="#rotateInUpLeft{{$ticket -> id}}">
+                                                                    التفاصيل
                                                                 </button>
 
                                                                 <a href="{{route('admin.users.tickets.delete',$ticket->id)}}"

@@ -49,12 +49,10 @@
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
-                                                <th>رقم الرسالة</th>
-                                                <th> عنوان المراسلة</th>
+                                                <th>الصوره</th>
                                                 <th>اسم صاحب التذكره</th>
+                                                <th> عنوان المراسلة</th>
                                                 <th>المسمي</th>
-                                                <th>النوع</th>
-                                                <th>الأهمية</th>
                                                 <th>رسائل</th>
                                                 <th>التاريخ</th>
                                                 <th>العمليات</th>
@@ -64,9 +62,13 @@
                                             @if(isset($tickets) && $tickets -> count() > 0 )
                                                 @foreach($tickets as $ticket)
                                                     <tr>
-                                                        <td>{{$ticket -> message_no}}</td>
-                                                        <td>{{$ticket ->title}}</td>
+                                                        <td><span class="avatar avatar-md ">
+                                                        <img class="media-object rounded-circle"
+                                                             src="{{$ticket -> ticketable -> photo}}" alt="User Photo">
+                                                      </span>
+                                                        </td>
                                                         <td>{{$ticket -> ticketable -> name_ar}}</td>
+                                                        <td>{{$ticket ->title}}</td>
                                                         <td>
                                                             @if($ticket -> ticketable_type =='App\Models\User')
                                                                 لاعب
@@ -74,8 +76,6 @@
                                                                 كابتن
                                                             @endif
                                                         </td>
-                                                        <td>{{$ticket -> type}}</td>
-                                                        <td>{{$ticket -> importance}}</td>
                                                         <td>@if($ticket  -> replies()   ->  where('seen','0') -> count() > 0)
                                                                 <span
                                                                     class="notification-tag badge badge-default badge-danger float-right m-0">{{$ticket  -> replies()    -> where('seen','0') -> count()}} جديدة </span>
