@@ -11,17 +11,14 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Str;
 
-class NewNotification implements ShouldBroadcast
+class NewRegisteration implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $title;
-
     public $content;
-
     public $date;
     public $time;
-
     public $id;
 
     /**
@@ -31,7 +28,7 @@ class NewNotification implements ShouldBroadcast
      */
     public function __construct($notification = [])
     {
-        $this->title =   'تقييم للكابتن ' . $notification['coach_name'];
+        $this->title =   ' تسجيل لاعب جديد ' ;
         $this->content = Str::limit($notification['content'], 70);
         $this->date = date("Y M d", strtotime(Carbon::now()));
         $this->time = date("h:i A", strtotime(Carbon::now()));
@@ -46,6 +43,6 @@ class NewNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['new-notification'];
+        return ['new-registration'];
     }
 }

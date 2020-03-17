@@ -249,7 +249,7 @@
 
 @section('script')
     <script>
-        $(document).ready(function () {
+    {{--    $(document).ready(function () {
             $.ajax({
                 type: 'post',
                 url: "{{Route('admin.categories.loadCategories')}}",
@@ -272,7 +272,7 @@
 
                 }
             });
-        });
+        }); --}}
 
         $(document).on('change', '#academy', function (e) {
             e.preventDefault();

@@ -104,24 +104,23 @@ class UserController extends Controller
                 $user->name = $user->getTranslatedName();
                 $user->makeVisible(['status', 'name_en', 'name_ar']);
 
-              /*  $content_ar = __('messages.new player registration') . ' ' . $user -> name_ar . ' '.__('messages.in category').' '. $user -> category -> name_ar.' '.__('messages.in team').' '. $user -> team ->name_ar ;
+                $content_ar = __('messages.new player registration') . ' ' . $user->name_ar . ' ' . __('messages.in category') . ' ' . $user->category->name_ar . ' ' . __('messages.in team') . ' ' . $user->team->name_ar;
                 // only admin how can see the coaches rates
                 $notification = Notification::create([
                     'title_ar' => 'تسجيل لاعب جديد',
                     'title_en' => 'تسجيل لاعب جديد',
                     'content_ar' => $content_ar,
-                    'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => $content_ar,
                     'notificationable_type' => 'App\Models\Admin',
-                    'notificationable_id' => 1, // hardcoded must be edit
+                    'notificationable_id' => 1, // hardcoded must be edit  ---->  admin
                 ]);
 
                 $notify = [
-                    'coach_name' => $user->team->coach->name_ar,
-                    'user_name' => $user->team->name_ar,
+                    'user_name' => $user->name_ar,
                     'content' => $content_ar,
                     'notification_id' => $notification->id];
                 //fire pusher  notification for admin
-                event(new \App\Events\NewNotification($notify));   // fire pusher message event notification*/
+                event(new \App\Events\NewRegisteration($notify));   // fire pusher message event notification*/
 
                 DB::commit();
                 return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))), _('messages.registered succussfully'));

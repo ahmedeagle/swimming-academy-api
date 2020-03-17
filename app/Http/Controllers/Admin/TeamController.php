@@ -99,8 +99,8 @@ class TeamController extends Controller
             $data['team'] = Team::selection()->find($id);
             $teamAcademy = $data['team']->category->academy;
             $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
-            $data['categories'] = $teamAcademy->categories;
-            $data['coaches'] = Coach::active()->select('id', 'name_ar as name')->get();
+             $data['categories'] = $teamAcademy->categories;
+            $data['coaches'] = Coach::active()->select('id','name_ar as name')->get();
             $coaches = Coach::active()->select('id', 'name_ar as name')->get();
 
             if (!$data['team']) {
