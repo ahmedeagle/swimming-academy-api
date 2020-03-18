@@ -118,7 +118,9 @@ class UserController extends Controller
                 $notify = [
                     'user_name' => $user->name_ar,
                     'content' => $content_ar,
-                    'notification_id' => $notification->id];
+                    'notification_id' => $notification->id,
+                    'photo' => $user->photo
+                ];
                 //fire pusher  notification for admin
                 event(new \App\Events\NewRegisteration($notify));   // fire pusher message event notification*/
 

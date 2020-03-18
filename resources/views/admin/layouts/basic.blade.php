@@ -161,7 +161,9 @@
 
 <script src="{{asset('assets/admin/js/pusherMessages.js')}}"></script>
 <script src="{{asset('assets/admin/js/pusherNotifications.js')}}"></script>
-<script>
+<script src="{{asset('assets/admin/js/pusherNewRegisteration.js')}}"></script>
+
+ <script>
     $('#meridians1').timeDropper({
         meridians: true,
         setCurrentTime: false

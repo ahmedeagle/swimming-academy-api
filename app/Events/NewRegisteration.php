@@ -20,6 +20,8 @@ class NewRegisteration implements ShouldBroadcast
     public $date;
     public $time;
     public $id;
+    public $photo;
+
 
     /**
      * Create a new event instance.
@@ -32,7 +34,7 @@ class NewRegisteration implements ShouldBroadcast
         $this->content = Str::limit($notification['content'], 70);
         $this->date = date("Y M d", strtotime(Carbon::now()));
         $this->time = date("h:i A", strtotime(Carbon::now()));
-        //$this->photo = $ticket->photo;
+        $this->photo = $ticket->photo;
         $this->id = $notification['notification_id'];
     }
 
