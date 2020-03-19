@@ -1,4 +1,4 @@
-if ($paginator->hasPages())
+@if ($paginator->hasPages())
     <ul class="pagination justify-content-center pagination-separate pagination-round">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
