@@ -112,30 +112,36 @@
                             <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
-                                        <a href="{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}">
-                                            <div class="media">
-                                                <div class="media-left">
+                                        @if($notification  -> type == 1 )
+                                            <a href="{{route('admin.users.all')}}">
+                                                @elseif($notification  -> type == 2 )
+                                                    <a href="{{route('admin.coaches.all')}}">
+                                                        @else
+                                                            <a href="">
+                                                                @endif
+                                                                <div class="media">
+                                                                    <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
 
                                               <img src="{{$notify -> notificationable -> photo}}"
                                                    alt="avatar"><i></i></span>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
-                                                    <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
-                                                    <small style="direction: ltr;">
-                                                        <time class="media-meta text-muted"
-                                                              style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
-                                                        </time>
-                                                        <br>
-                                                        {{date("h:i A", strtotime($notify -> created_at))}}
+                                                                    </div>
+                                                                    <div class="media-body">
+                                                                        <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
+                                                                        <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
+                                                                        <small style="direction: ltr;">
+                                                                            <time class="media-meta text-muted"
+                                                                                  style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
+                                                                            </time>
+                                                                            <br>
+                                                                            {{date("h:i A", strtotime($notify -> created_at))}}
 
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                @endif
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                            @endforeach
+                                        @endif
 
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
