@@ -44,6 +44,8 @@
                         @endforeach
                     @endif
                 </div>
+
+                {!! $notifications ->appends(request()->input())->links('admin.pagination.default') !!}
             </div>
         </div>
     </div>
