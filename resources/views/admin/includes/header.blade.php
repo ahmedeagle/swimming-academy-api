@@ -112,7 +112,7 @@
                             <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
-                                        <a href="{{{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}">
+                                        <a href="{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}">
                                             <div class="media">
                                                 <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
