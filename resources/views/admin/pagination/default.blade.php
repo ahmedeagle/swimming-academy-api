@@ -1,5 +1,5 @@
-@if ($paginator->hasPages())
-    <ul class="pagination d-flex justify-content-center">
+if ($paginator->hasPages())
+    <ul class="pagination justify-content-center pagination-separate pagination-round">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
             <li class="page-item disabled"><span>السابق</span></li>
