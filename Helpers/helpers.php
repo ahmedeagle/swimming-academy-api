@@ -21,7 +21,7 @@ function takeLastMessage($count)
 
 function takeLastNotifications($count)
 {
-    return \App\Models\Notification::where('notificationable_type', 'App\Models\Admin')->latest()->take($count)->get();
+    return \App\Models\Notification::latest()->take($count)->get();
 }
 
 /**

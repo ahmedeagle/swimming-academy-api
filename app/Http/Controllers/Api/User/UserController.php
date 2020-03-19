@@ -111,8 +111,8 @@ class UserController extends Controller
                     'title_en' => 'تسجيل لاعب جديد',
                     'content_ar' => $content_ar,
                     'content_en' => $content_ar,
-                    'notificationable_type' => 'App\Models\Admin',
-                    'notificationable_id' => 1, // hardcoded must be edit  ---->  admin
+                    'notificationable_type' => 'App\Models\User',
+                    'notificationable_id' => $user->id,
                 ]);
 
                 $notify = [
@@ -121,14 +121,18 @@ class UserController extends Controller
                     'notification_id' => $notification->id,
                     'photo' => $user->photo
                 ];
+
+                DB::commit();
+
                 //fire pusher  notification for admin
                 event(new \App\Events\NewRegisteration($notify));   // fire pusher message event notification*/
 
-                DB::commit();
                 return $this->returnData('user', json_decode(json_encode($this->authUserByMobile($request->mobile, $request->password))), __('messages.registered succussfully'));
             } catch (\Exception $ex) {
                 DB::rollback();
+                return $this->returnError($ex->getCode(), $ex->getMessage());
             }
+
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
@@ -468,15 +472,17 @@ class UserController extends Controller
                     'title_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . $request->rate,
                     'content_ar' => $content_ar,
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
-                    'notificationable_type' => 'App\Models\Admin',
-                    'notificationable_id' => 1, // hardcoded must be edit
+                    'notificationable_type' => 'App\Models\User',
+                    'notificationable_id' => $user->id,
                 ]);
 
                 $notify = [
                     'coach_name' => $user->team->coach->name_ar,
                     'user_name' => $user->team->name_ar,
                     'content' => $content_ar,
-                    'notification_id' => $notification->id];
+                    'notification_id' => $notification->id,
+                    'photo' => $user->photo,
+                ];
                 //fire pusher  notification for admin
                 event(new \App\Events\NewNotification($notify));   // fire pusher message event notification
                 DB::commit();

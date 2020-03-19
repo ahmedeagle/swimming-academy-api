@@ -39,6 +39,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/forms/icheck/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/ui/prism.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/pages/email-application.css')}}">
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/app.css')}}">
@@ -134,8 +135,7 @@
         type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/extensions/date-time-dropper.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/vendors/js/ui/prism.min.js')}}" type="text/javascript"></script>
-
-
+<script src="{{asset('assets/admin/js/scripts/pages/email-application.js')}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>

@@ -27,13 +27,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
     Route::get('test', function () {
 
-        return getAllDateBetweenTwoDate('2020-02-15','2020-04-15');
+        return getAllDateBetweenTwoDate('2020-02-15', '2020-04-15');
     });
-
 
 
     Route::get("/", "DashboardController@dashboard")->name('admin.dashboard');
     Route::get("tickets", "UserMessageController@tickets")->name('admin.tickets');
+    Route::get("notifications", "NotificationsController@index")->name('admin.notifications');
 
     Route::group(['prefix' => 'categories'], function () {
         Route::get("/", "CategoryController@index")->name('admin.categories.all');

@@ -21,8 +21,9 @@ class NewNotification implements ShouldBroadcast
 
     public $date;
     public $time;
-
+    public $photo;
     public $id;
+    public $path;
 
     /**
      * Create a new event instance.
@@ -31,12 +32,13 @@ class NewNotification implements ShouldBroadcast
      */
     public function __construct($notification = [])
     {
-        $this->title =   'تقييم للكابتن ' . $notification['coach_name'];
+        $this->title = 'تقييم للكابتن ' . $notification['coach_name'];
         $this->content = Str::limit($notification['content'], 70);
         $this->date = date("Y M d", strtotime(Carbon::now()));
         $this->time = date("h:i A", strtotime(Carbon::now()));
-        //$this->photo = $ticket->photo;
+        $this->photo = $notification['photo'];
         $this->id = $notification['notification_id'];
+        $this -> path = route('admin.notifications');
     }
 
     /**

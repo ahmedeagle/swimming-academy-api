@@ -27,6 +27,8 @@ class NewMessage implements ShouldBroadcast
 
     public $id;
 
+    public $path;
+
     /**
      * Create a new event instance.
      *
@@ -34,6 +36,7 @@ class NewMessage implements ShouldBroadcast
      */
     public function __construct($replay = [])
     {
+        $ticketableType = Ticket::find($replay['ticket_id']);
         $ticket = Ticket::find($replay['ticket_id'])->ticketable;
         $this->title = Str::limit(Ticket::find($replay['ticket_id'])->title, 50);
         $this->message = Str::limit($replay['message'], 70);
@@ -41,6 +44,7 @@ class NewMessage implements ShouldBroadcast
         $this->time = date("h:i A", strtotime(Carbon::now()));
         $this->photo = $ticket->photo;
         $this->id = $replay['ticket_id'];
+        $this->path = ($ticketableType -> ticketable_type == 'App\Models\User') ? url('admin/users/tickets/reply') : url('admin/coaches/tickets/reply');
 
     }
 

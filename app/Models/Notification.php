@@ -33,11 +33,10 @@ class Notification extends Model
     public function scopeSelection($query){
         return $query -> select('title_'.app()->getLocale().' as title','title_'.app()->getLocale().' as content','created_at');
     }
-
-
+    
       //new notifications to admin
     public function scopeNew($query){
-        return $query -> where('notificationable_type','App\Models\Admin') -> where('seen','0');
+        return $query -> where('seen','0');
     }
 }
 

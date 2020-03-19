@@ -112,7 +112,7 @@
                             <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
-                                        <a href="{{route('admin.users.tickets.getreply',$message -> ticket  -> id)}}">
+                                        <a href="{{route('admin.notifications')}}">
                                             <div class="media">
                                                 <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
@@ -139,7 +139,7 @@
 
                             </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                                                href="{{route('admin.coaches.rates')}}"> جميع
+                                                                href="{{route('admin.notifications')}}"> جميع
                                     الاشعارات </a></li>
                         </ul>
                     </li>
