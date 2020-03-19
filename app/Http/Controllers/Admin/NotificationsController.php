@@ -28,6 +28,7 @@ class NotificationsController extends Controller
     public function index()
     {
         $notifications = Notification::latest() -> paginate(5);
+        Notification::where('seen','0')->update(['seen'=> '1']);
         return view('admin.notifications.index',compact('notifications'));
 
     }

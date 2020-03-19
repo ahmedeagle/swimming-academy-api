@@ -42,6 +42,11 @@
                             </a>
                         </div>
                         @endforeach
+                    @else
+                        <br><br><br><br><br><br><br>
+                        <div class="text-info d-flex justify-content-center " >
+                                <h2><b> لا يوجد أشعارات حتي اللحظة</b></h2>
+                        </div>
                     @endif
                 </div>
 
