@@ -474,8 +474,8 @@ class UserController extends Controller
                     'title_en' =>  __('messages.rate for coach') .' ' . $user->team->coach->name_ar ,
                     'content_ar' => $content_ar,
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
-                    'notificationable_type' => 'App\Models\User',
-                    'notificationable_id' => $user->id,
+                    'notificationable_type' => 'App\Models\Coach',
+                    'notificationable_id' => $user->team->coach->id,
                     'type' => 2 // rate coach notifications
                 ]);
 
