@@ -112,9 +112,9 @@
                             <li class="scrollable-container ps-container ps-active-y media-list w-100">
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
-                                        @if($notification  -> type == 1 )
+                                        @if($notify  -> type == 1)
                                             <a href="{{route('admin.users.all')}}">
-                                                @elseif($notification  -> type == 2 )
+                                                @elseif($notify  -> type == 2 )
                                                     <a href="{{route('admin.coaches.all')}}">
                                                         @else
                                                             <a href="">
