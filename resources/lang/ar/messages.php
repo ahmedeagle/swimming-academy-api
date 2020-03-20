@@ -319,4 +319,5 @@ return [
     'stars'  => 'نجوم ',
     'rate for coach' => 'تقييم للكابتن ',
     'rate for user'   =>'تقييم للمستخدم ',
+    'new rating'=>'تقييم جديد',
 ];

@@ -270,7 +270,7 @@ class CoachController extends Controller
 
                 DB::commit();
                 //send push notification to user
-                (new \App\Http\Controllers\PushNotificationController(['title' => 'تقييم جديد ', 'body' => $content]))->send($user -> device_token);
+                (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.new rating'), 'body' => $content]))->send($user -> device_token);
 
                 return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
             } catch (\Exception $ex) {

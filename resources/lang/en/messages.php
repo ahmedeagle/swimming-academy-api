@@ -316,6 +316,8 @@ return [
     'stars'  => 'stars',
     'rate for coach' => 'Rate for coach',
     'rate for user'   =>'Rate for user',
+    'new rating'=>'New Rating',
+
 
 
 ];
