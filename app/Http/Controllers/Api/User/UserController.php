@@ -484,6 +484,7 @@ class UserController extends Controller
                     'user_name' => $user->team->name_ar,
                     'content' => $content_ar,
                     'notification_id' => $notification->id,
+                    'coach_id' => $user->team->coach->id,
                     'photo' => $user->photo,
                 ];
                 //fire pusher  notification for admin

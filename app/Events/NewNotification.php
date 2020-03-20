@@ -24,6 +24,7 @@ class NewNotification implements ShouldBroadcast
     public $photo;
     public $id;
     public $path;
+    public $coachId;
 
     /**
      * Create a new event instance.
@@ -38,7 +39,8 @@ class NewNotification implements ShouldBroadcast
         $this->time = date("h:i A", strtotime(Carbon::now()));
         $this->photo = $notification['photo'];
         $this->id = $notification['notification_id'];
-        $this -> path = route('admin.notifications');
+        $this-> coachId = $notification['coach_id'];
+        $this -> path = route('admin.coaches.view',$notification['coach_id']);
     }
 
     /**

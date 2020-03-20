@@ -115,7 +115,7 @@
                                         @if($notify  -> type == 1)
                                             <a href="{{route('admin.users.view',$notify -> notificationable -> id)}}">
                                                 @elseif($notify  -> type == 2 )
-                                                    <a href="{{route('admin.coaches.all')}}">
+                                                    <a href="{{route('admin.coaches.view',$notify -> notificationable -> id)}}">
                                                         @elseif($notify  -> type == 3 )
                                                             <a href="{{route('admin.users.view',$notify -> notificationable -> id)}}">
                                                         @else

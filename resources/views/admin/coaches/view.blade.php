@@ -84,28 +84,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> كلمة المرو (فقط في حاله الحاجه
-                                                                لتغير الحالية )</label>
-                                                            <input readonly type="password" id="password"
-                                                                   class="form-control"
-                                                                   name="password">
 
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput3">تأكيد كلمة المرور </label>
-                                                            <input readonly type="password" id="password_cnformation"
-                                                                   class="form-control"
-                                                                   name="password_confirmation">
-
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
