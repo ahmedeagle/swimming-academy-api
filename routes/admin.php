@@ -91,6 +91,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
     Route::group(['prefix' => 'coaches'], function () {
         Route::get("/", "CoachController@index")->name('admin.coaches.all');
+        Route::get("/view/{id}", "CoachController@view")->name('admin.coaches.view');
         Route::get("/create", "CoachController@create")->name('admin.coaches.create');
         Route::post("/store", "CoachController@store")->name('admin.coaches.store');
         Route::get("/edit/{id}", "CoachController@edit")->name('admin.coaches.edit');

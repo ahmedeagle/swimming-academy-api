@@ -25,7 +25,7 @@ class CoachController extends Controller
 
     public function index()
     {
-        $coaches = Coach::selection()->orderBy('id','DESC') ->get();
+        $coaches = Coach::selection()->orderBy('id', 'DESC')->get();
         return view('admin.coaches.index', compact('coaches'));
     }
 
@@ -101,7 +101,7 @@ class CoachController extends Controller
             DB::rollback();
         }
         notify()->success('تم اضافه المدرب بنجاح ');
-        return redirect()->route('admin.coaches.all')->with(['success' => 'تم اضافه المدرب بنجاح ']);
+        return redirect()->route('admin.teams.create')->with(['success' => 'تم اضافه المدرب بنجاح برجاء اضافه فرقه له  ']);
     }
 
     public function edit($id)
@@ -116,6 +116,20 @@ class CoachController extends Controller
          $data['categoryTeams'] = $data['coach']->category->teams;*/
 
         return view('admin.coaches.edit', $data);
+    }
+
+    public function view($id)
+    {
+
+        $data = [];
+        $data['coach'] = Coach::findOrFail($id);
+        $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
+        $data['categories'] = $data['coach']->academy->categories;
+
+        /* $data['coachTeamsIds'] = $data['coach']->teams->pluck('id')->toArray();
+         $data['categoryTeams'] = $data['coach']->category->teams;*/
+
+        return view('admin.coaches.view', $data);
     }
 
     public function update($id, Request $request)

@@ -49,15 +49,13 @@
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                <th>الاسم بالانجليزي</th>
-                                                <th>الأكاديمية</th>
+                                                 <th>الأكاديمية</th>
                                                 <th>القسم</th>
                                                 <th>الهاتف </th>
                                                 <th> صورة الشخصية </th>
                                                 <th> النوع  </th>
                                                 <th>الحالة</th>
-                                                <th>التقييم العام </th>
-                                                <th>الأجراءات</th>
+                                                 <th>الأجراءات</th>
 
 
                                             </tr>
@@ -67,19 +65,21 @@
                                                 @foreach($coaches as $coach)
                                                     <tr>
                                                         <td>{{$coach -> name_ar}}</td>
-                                                        <td>{{$coach ->name_en}}</td>
-                                                        <td>{{$coach -> academy -> name_ar}}</td>
+                                                         <td>{{$coach -> academy -> name_ar}}</td>
                                                         <td>{{$coach ->category -> name_ar}}</td>
                                                         <td>{{$coach -> mobile}}</td>
                                                         <td><img src="{{$coach -> photo}}" height="40px;"></td>
                                                         <td>{{$coach -> getGender()}}</td>
                                                         <td>{{$coach -> getStatus()}}</td>
-                                                        <td>{{$coach -> rate}}</td>
-                                                        <td>
+                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.coaches.edit',$coach->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+
+                                                                <a href="{{route('admin.coaches.view',$coach->id)}}"
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">ألتفاصيل </a>
+
                                                                 <button type="button"
                                                                         value="{{$coach->id}}"  onclick="deletefn(this.value)"
                                                                         class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"

@@ -77,15 +77,16 @@
                                                 @foreach($subscriptions as $subscription)
                                                     <tr>
                                                         <td>{{$subscription -> user -> name_ar}}</td>
+
                                                         <td><img src="{{$subscription -> user -> photo}}"
                                                                  height="40px;"></td>
-                                                        <td>{{$subscription -> user-> academy -> name_ar}}</td>
                                                         <td>
                                                             <span
                                                                 class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i
                                                                     class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
 
                                                         </td>
+                                                        <td>{{$subscription -> user-> academy -> name_ar}}</td>
                                                         <td>{{$subscription ->user ->  category -> name_ar}}</td>
                                                         <td>{{$subscription ->user   -> team -> name_ar}}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($subscription -> start_date)))}}</td>
