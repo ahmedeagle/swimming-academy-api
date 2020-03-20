@@ -118,6 +118,7 @@ class UserController extends Controller
 
                 $notify = [
                     'user_name' => $user->name_ar,
+                    'user_id'  => $user -> id,
                     'content' => $content_ar,
                     'notification_id' => $notification->id,
                     'photo' => $user->photo

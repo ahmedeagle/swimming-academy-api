@@ -22,6 +22,7 @@ class NewRegisteration implements ShouldBroadcast
     public $id;
     public $photo;
     public $path;
+    public $userId;
 
 
     /**
@@ -37,7 +38,9 @@ class NewRegisteration implements ShouldBroadcast
         $this->time = date("h:i A", strtotime(Carbon::now()));
         $this->photo = $notification['photo'];
         $this->id = $notification['notification_id'];
-        $this -> path = route('admin.notifications');
+        $this->userId = $notification['user_id'];
+        $this->path = route('admin.users.view',$notification['user_id']);
+
     }
 
     /**
