@@ -58,6 +58,7 @@
                                             <tr>
                                                 <th> الاسم الاعب</th>
                                                 <th> صورة الاعب</th>
+                                                <th> حاله الاشتراك</th>
                                                 <th>الاكاديمية</th>
                                                 <th> القسم</th>
                                                 <th> الفرقة</th>
@@ -66,7 +67,7 @@
                                                 <th> يوم انتهاء الاشتراك الاشتراك</th>
                                                 <th> أنتهاء الاشتراك</th>
                                                 <th> قيمه الاشتراك</th>
-                                                <th> حاله الاشتراك</th>
+
                                                 {{--  <th> الاجراءات</th>  --}}
 
                                             </tr>
@@ -79,6 +80,12 @@
                                                         <td><img src="{{$subscription -> user -> photo}}"
                                                                  height="40px;"></td>
                                                         <td>{{$subscription -> user-> academy -> name_ar}}</td>
+                                                        <td>
+                                                            <span
+                                                                class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i
+                                                                    class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
+
+                                                        </td>
                                                         <td>{{$subscription ->user ->  category -> name_ar}}</td>
                                                         <td>{{$subscription ->user   -> team -> name_ar}}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($subscription -> start_date)))}}</td>
@@ -88,12 +95,7 @@
                                                             {{ date('d-m-Y',strtotime($subscription -> end_date))}}  </td>
 
                                                         <td>{{$subscription ->price}}</td>
-                                                        <td>
-                                                            <span
-                                                                class="badge badge badge-{{$subscription ->status == 1 ? 'success': 'danger'}} badge-pill float-right mr-2"> <i
-                                                                    class="la la-{{$subscription ->status == 1 ? 'check': 'remove'}}"></i></span>
 
-                                                        </td>
                                                         {{-- <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
