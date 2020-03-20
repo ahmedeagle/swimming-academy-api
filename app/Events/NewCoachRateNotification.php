@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Str;
 
-class NewNotification implements ShouldBroadcast
+class NewCoachRateNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,7 +24,7 @@ class NewNotification implements ShouldBroadcast
     public $photo;
     public $id;
     public $path;
-    public $coachId;
+    public $userId;
 
     /**
      * Create a new event instance.
@@ -35,14 +35,14 @@ class NewNotification implements ShouldBroadcast
     //user rate coach
     public function __construct($notification = [])
     {
-        $this->title = 'تقييم للكابتن ' . $notification['coach_name'];
+        $this->title = 'تقييم للاعب ' . $notification['user_name'];
         $this->content = Str::limit($notification['content'], 70);
         $this->date = date("Y M d", strtotime(Carbon::now()));
         $this->time = date("h:i A", strtotime(Carbon::now()));
         $this->photo = $notification['photo'];
         $this->id = $notification['notification_id'];
-        $this-> coachId = $notification['coach_id'];
-        $this -> path = route('admin.coaches.view',$notification['coach_id']);
+        $this-> userId = $notification['user_id'];
+        $this -> path = route('admin.users.view',$notification['user_id']);
     }
 
     /**

@@ -72,7 +72,7 @@ class CoachController extends Controller
     {
         try {
             $coach = $this->auth('coach-api');
-            $teams = $this->getTeams($coach,$request);
+            $teams = $this->getTeams($coach, $request);
             if (count($teams->toArray()) > 0) {
                 $total_count = $teams->total();
                 $teams->getCollection()->each(function ($team) {
@@ -255,22 +255,33 @@ class CoachController extends Controller
                     'date' => $request->date,
                 ]);
 
-                 $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment;
+                $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment;
 
                 //send notification
-                Notification::create([
-                    'title_ar' => __('messages.rate for user') .' ' .  $user->name_ar ,
-                    'title_en' => __('messages.rate for user') .' ' .  $user->name_ar ,
-                    'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
-                    'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
+                $notification = Notification::create([
+                    'title_ar' => __('messages.rate for user') . ' ' . $user->name_ar,
+                    'title_en' => __('messages.rate for user') . ' ' . $user->name_ar,
+                    'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',
                     'notificationable_id' => $user->id,
                     'type' => 3 //  coach rate user
                 ]);
 
+                $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment;
+                $notify = [
+                    'user_name' => $user->name_ar,
+                    'content' => $content,
+                    'notification_id' => $notification->id,
+                    'user_id' => $user->id,
+                    'photo' => $user->photo,
+                ];
+                //fire pusher  notification for admin
+                event(new \App\Events\NewCoachRateNotification($notify));   // fire pusher message event notification
+
                 DB::commit();
                 //send push notification to user
-                (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.new rating'), 'body' => $content]))->send($user -> device_token);
+                (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.new rating'), 'body' => $content]))->send($user->device_token);
 
                 return $this->returnSuccessMessage(trans('messages.rate sent successfully'));
             } catch (\Exception $ex) {

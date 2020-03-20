@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Events/NewCoachRateNotification.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/admin/js/pusherCoachNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/NotificationTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/NewNotification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/NewNotification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/messages.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +145,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/coaches" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Events" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
@@ -155,11 +159,11 @@
       <recent name="C:\wamp\www\swimming\Helpers" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\app\Events" />
+      <recent name="C:\wamp\www\swimming\assets\admin\js" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\coaches" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\users" />
       <recent name="C:\wamp\www\swimming\resources\views\admin" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
-      <recent name="C:\wamp\www\swimming\assets\admin\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -272,7 +276,7 @@
       <workItem from="1584384548180" duration="4938000" />
       <workItem from="1584479060624" duration="5597000" />
       <workItem from="1584558245275" duration="18103000" />
-      <workItem from="1584702508016" duration="18108000" />
+      <workItem from="1584702508016" duration="18725000" />
     </task>
     <servers />
   </component>

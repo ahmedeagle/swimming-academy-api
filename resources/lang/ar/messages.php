@@ -318,6 +318,6 @@ return [
     'there are replay on your ticket'  =>'هناك رد علي التذكره الخاصه بكم بعنوان :',
     'stars'  => 'نجوم ',
     'rate for coach' => 'تقييم للكابتن ',
-    'rate for user'   =>'تقييم للمستخدم ',
+    'rate for user'   =>'تقييم للاعب ',
     'new rating'=>'تقييم جديد',
 ];
