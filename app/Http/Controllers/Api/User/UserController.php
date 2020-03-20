@@ -485,7 +485,7 @@ class UserController extends Controller
                     'content' => $content_ar,
                     'notification_id' => $notification->id,
                     'coach_id' => $user->team->coach->id,
-                    'photo' => $user->photo,
+                    'photo' =>  $user->team->coach->photo,
                 ];
                 //fire pusher  notification for admin
                 event(new \App\Events\NewNotification($notify));   // fire pusher message event notification
