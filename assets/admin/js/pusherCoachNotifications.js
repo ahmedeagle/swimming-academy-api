@@ -5,7 +5,7 @@ var notificationsCount = parseInt(notificationsCountElem.data('count'));
 var notifications = notificationsWrapper.find('li.scrollable-container');
 
 // Subscribe to the channel we specified in our Laravel Event
-var channel = pusher.subscribe('new-notification');
+var channel = pusher.subscribe('new-coach-notification');
 // Bind a function to a Event (the full Laravel class)
 channel.bind('App\\Events\\NewCoachRateUserNotification', function (data) {
     var existingNotifications = notifications.html();

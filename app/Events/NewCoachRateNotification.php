@@ -52,6 +52,6 @@ class NewCoachRateNotification implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['new-notification'];
+        return ['new-coach-notification'];
     }
 }
