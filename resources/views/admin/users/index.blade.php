@@ -50,10 +50,10 @@
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                 <th>الأكاديمية</th>
+                                                <th>الأكاديمية</th>
                                                 <th>القسم</th>
                                                 <th>الفرق</th>
-                                                 <th> صورة الشخصية</th>
+                                                <th> صورة الشخصية</th>
                                                 <th>الحالة</th>
                                                 <th>أشتراك الاكاديمية</th>
                                                 <th>أشتراك التطبيق</th>
@@ -65,10 +65,20 @@
                                                 @foreach($users as $user)
                                                     <tr>
                                                         <td>{{$user -> name_ar}}</td>
-                                                         <td>{{$user ->academy -> name_ar}}</td>
+                                                        <td>{{$user ->academy -> name_ar}}</td>
                                                         <td>{{$user ->category -> name_ar}}</td>
                                                         <td>{{$user ->team -> name_ar}}</td>
-                                                         <td><img src="{{$user -> photo}}" height="40px;"></td>
+                                                        <td>
+                                                            <div class="chat-avatar">
+                                                                <a class="avatar" data-toggle="tooltip" href="#"
+                                                                   data-placement="left" title=""
+                                                                   data-original-title=""
+                                                                   style="width: 60px">
+                                                                    <img src="{{$user -> photo}}" style="height:70px">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+
                                                         <td>{{$user -> getStatus()}}</td>
                                                         <td>{{$user -> getAcademySubscribed()}}</td>
                                                         <td>{{$user -> getApplicationSubscribed()}}</td>
@@ -86,8 +96,9 @@
                                                                     حذف
                                                                 </button>
 
-                                                                <a href="{{route('admin.users.view',$user -> id)}}" type="button"
-                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
+                                                                <a href="{{route('admin.users.view',$user -> id)}}"
+                                                                   type="button"
+                                                                   class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     التفاصيل
                                                                 </a>
 

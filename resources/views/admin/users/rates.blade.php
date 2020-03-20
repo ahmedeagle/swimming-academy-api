@@ -1,19 +1,21 @@
 @extends('admin.layouts.basic')
 @section('title')
-    فعاليات الاكاديمية
+    سجل التقييمات
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title"> الفاعليات </h3>
+                    <h3 class="content-header-title"> سجل التقييمات </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> الفاعليات
+                                <li class="breadcrumb-item"><a href="{{route('admin.users.all')}}">الاعبين</a>
+                                </li>
+                                <li class="breadcrumb-item active"> التقييمات
                                 </li>
                             </ol>
                         </div>
@@ -27,7 +29,6 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع الفاعليات </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -40,56 +41,50 @@
                                     </div>
                                 </div>
 
-                                @include('admin.includes.alerts.success')
-                                @include('admin.includes.alerts.errors')
-
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         <table
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
-                                                <th> العنوان بالعربي</th>
-                                                <th> العنوان بالانجليزي</th>
-                                                <th>الأكاديمية</th>
-                                                <th>القسم</th>
-                                                <th> صورة</th>
-                                                <th>الحالة</th>
-                                                <th>الأجراءات</th>
+                                                <th> الكابتن</th>
+                                                <th> الصوره</th>
+                                                <th> الفريق</th>
+                                                <th> التقييم</th>
+                                                <th> التعليق</th>
+                                                <th>تاريخ التقييم</th>
+                                                <th>يوم التقييم</th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @if(isset($events) && $events -> count() > 0 )
-                                                @foreach($events as $event)
+                                            @if(isset($rates) && $rates -> count() > 0 )
+                                                @foreach($rates as $rates)
                                                     <tr>
-                                                        <td>{{ Str::limit($event -> title_ar,100)}}</td>
-                                                        <td>{{Str::limit($event ->title_en,100)}}</td>
-                                                        <td>{{$event -> academy -> name_ar}}</td>
-                                                        <td>{{$event -> category -> name_ar}}</td>
+
+                                                        <td>{{$rates -> coach -> name_ar}}</td>
                                                         <td>
                                                             <div class="chat-avatar">
                                                                 <a class="avatar" data-toggle="tooltip" href="#"
                                                                    data-placement="left" title=""
                                                                    data-original-title=""
                                                                    style="width: 60px">
-                                                                    <img src="{{$event -> photo}}"
+                                                                    <img src="{{$rates ->coach-> photo}}"
                                                                          style="height:70px">
                                                                 </a>
                                                             </div>
                                                         </td>
-                                                        <td>{{$event -> getStatus()}}</td>
+                                                        <td>{{$rates -> team  ->name_ar}}</td>
                                                         <td>
-                                                            <div class="btn-group" role="group"
-                                                                 aria-label="Basic example">
-                                                                <a href="{{route('admin.events.edit',$event->id)}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-
-                                                                <a href="{{route('admin.events.delete',$event->id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">
-                                                                    حذف</a>
-
-                                                            </div>
+                                                            @for($i=0;$i < $rates -> rate;$i++)
+                                                                <i class="la la-star yellow"></i>
+                                                            @endfor
                                                         </td>
+
+
+                                                        <td>{{$rates -> comment}}</td>
+                                                        <td>{{$rates -> date}}</td>
+                                                        <td>{{__('messages.'.$rates -> day_name)}}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -104,4 +99,6 @@
             </div>
         </div>
     </div>
+
 @stop
+

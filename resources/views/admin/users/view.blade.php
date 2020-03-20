@@ -183,7 +183,7 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  القسم </label>
+                                                            <label for="projectinput2"> القسم </label>
                                                             <input readonly type="text"
                                                                    value="{{$user ->category -> name_ar}}"
                                                                    class="form-control"
@@ -195,7 +195,7 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput2">  الفرقه  </label>
+                                                            <label for="projectinput2"> الفرقه </label>
                                                             <input readonly type="text"
                                                                    value="{{$user -> team -> name_ar}}"
                                                                    class="form-control"
@@ -229,10 +229,21 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-actions d-flex justify-content-center">
-                                                    <a href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}" type="button" class="btn btn-primary">
-                                                        <i class="la la-check-square-o"></i>   عرض و أضافه اشتراك اكاديمية للطالب
-                                                    </a>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <div class="m-2">
+                                                        <a href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
+                                                           type="button" class="btn btn-primary">
+                                                            <i class="la la-check-square-o"></i> عرض و أضافه اشتراك
+                                                            اكاديمية للطالب
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="m-2">
+                                                        <a href="{{route('admin.users.rates',$user->id)}}" type="button"
+                                                           class="btn btn-success">
+                                                            <i class="la la-star"></i> سجل تقييمات الاعب
+                                                        </a>
+                                                    </div>
 
 
                                                 </div>

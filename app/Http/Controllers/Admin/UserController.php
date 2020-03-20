@@ -6,6 +6,7 @@ use App\Models\Academy;
 use App\Models\AcadSubscription;
 use App\Models\Attendance;
 use App\Models\Coach;
+use App\Models\Rate;
 use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\TeamTime;
@@ -27,14 +28,15 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::selection()->orderBy('id','DESC') ->get();
+            $users = User::selection()->orderBy('id', 'DESC')->get();
             return view('admin.users.index', compact('users'));
         } catch (\Exception $ex) {
             return abort('404');
         }
     }
 
-    public function view($id){
+    public function view($id)
+    {
         $data = [];
         $data['user'] = User::findOrFail($id);
         $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
@@ -114,7 +116,7 @@ class UserController extends Controller
             DB::commit();
 
             notify()->success('تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ');
-            return redirect()->route('admin.academy.create.subscriptions',$user -> id)->with(['success' => 'تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ']);
+            return redirect()->route('admin.academy.create.subscriptions', $user->id)->with(['success' => 'تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ']);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -130,7 +132,6 @@ class UserController extends Controller
         $data['teams'] = Team::where('category_id', $userCategoryId)->get();
         return view('admin.users.edit', $data);
     }
-
 
 
     public function update($id, Request $request)
@@ -315,11 +316,11 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return response()->json(['msg' => $validator -> errors() -> first()], '422');
+                return response()->json(['msg' => $validator->errors()->first()], '422');
             }
             $user = User::find($request->userId);
             if (!$user) {
-                return response()->json(['status'=> false,'msg' => 'الاعب غير موجود ']);
+                return response()->json(['status' => false, 'msg' => 'الاعب غير موجود ']);
             }
 
             $userAlreadyTakeAttendanceToday = Attendance::where([
@@ -332,15 +333,15 @@ class UserController extends Controller
                 $userAlreadyTakeAttendanceToday->update(['attend' => $request->attend]);
             } else {
 
-                 $currentSubscription = AcadSubscription::current()
+                $currentSubscription = AcadSubscription::current()
                     ->where('user_id', $request->userId)
                     ->whereDate('start_date', '<=', $request->date)
                     ->whereDate('end_date', '>=', $request->date)
                     ->select('id')
                     ->first();  //we allow only one subscription
 
-                    if(!$currentSubscription)
-                         return response()->json(['status'=> false,'msg' => "اليوم ليس من ايام الفرقه"]);
+                if (!$currentSubscription)
+                    return response()->json(['status' => false, 'msg' => "اليوم ليس من ايام الفرقه"]);
 
                 $date = date('Y-m-d', strtotime($request->date));
                 $attendance = new Attendance();
@@ -351,10 +352,10 @@ class UserController extends Controller
                 $attendance->date = $date;
                 $user->attendances()->save($attendance);
 
-                return response()->json(['status'=> true,'msg' => "تمت العمليه بنجاح"]);
+                return response()->json(['status' => true, 'msg' => "تمت العمليه بنجاح"]);
             }
         } catch (\Exception $ex) {
-            return response()->json(['msg'=>$ex], 500);
+            return response()->json(['msg' => $ex], 500);
         }
     }
 
@@ -411,6 +412,14 @@ class UserController extends Controller
 
         return response()->json(['attend' => $attend], 200);
 
+    }
+
+
+    public function rates($userId)
+    {
+        User::findOrFail($userId);
+        $rates = Rate::where('user_id', $userId)->users()->orderBy('id','DESC')->get();
+        return view('admin.users.rates', compact('rates'));
     }
 
 }

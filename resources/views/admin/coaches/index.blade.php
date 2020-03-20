@@ -1,13 +1,13 @@
 @extends('admin.layouts.basic')
 @section('title')
-     الكاباتن
+    الكاباتن
 @stop
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">الكاباتن  </h3>
+                    <h3 class="content-header-title">الكاباتن </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -27,7 +27,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">جميع  الكاباتن  </h4>
+                                    <h4 class="card-title">جميع الكاباتن </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -45,17 +45,18 @@
 
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
+                                        <table
+                                            class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                 <th>الأكاديمية</th>
+                                                <th>الأكاديمية</th>
                                                 <th>القسم</th>
-                                                <th>الهاتف </th>
-                                                <th> صورة الشخصية </th>
-                                                <th> النوع  </th>
+                                                <th>الهاتف</th>
+                                                <th> صورة الشخصية</th>
+                                                <th> النوع</th>
                                                 <th>الحالة</th>
-                                                 <th>الأجراءات</th>
+                                                <th>الأجراءات</th>
 
 
                                             </tr>
@@ -65,30 +66,41 @@
                                                 @foreach($coaches as $coach)
                                                     <tr>
                                                         <td>{{$coach -> name_ar}}</td>
-                                                         <td>{{$coach -> academy -> name_ar}}</td>
+                                                        <td>{{$coach -> academy -> name_ar}}</td>
                                                         <td>{{$coach ->category -> name_ar}}</td>
                                                         <td>{{$coach -> mobile}}</td>
-                                                        <td><img src="{{$coach -> photo}}" height="40px;"></td>
+                                                        <td>
+                                                            <div class="chat-avatar">
+                                                                <a class="avatar" data-toggle="tooltip" href="#"
+                                                                   data-placement="left" title=""
+                                                                   data-original-title=""
+                                                                     style="width: 60px">
+                                                                    <img src="{{$coach -> photo}}" style="height:70px">
+                                                                </a>
+                                                            </div>
+                                                        </td>
                                                         <td>{{$coach -> getGender()}}</td>
                                                         <td>{{$coach -> getStatus()}}</td>
-                                                         <td>
+                                                        <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
                                                                 <a href="{{route('admin.coaches.edit',$coach->id)}}"
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
                                                                 <a href="{{route('admin.coaches.view',$coach->id)}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">ألتفاصيل </a>
+                                                                   class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">ألتفاصيل </a>
 
                                                                 <button type="button"
-                                                                        value="{{$coach->id}}"  onclick="deletefn(this.value)"
+                                                                        value="{{$coach->id}}"
+                                                                        onclick="deletefn(this.value)"
                                                                         class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"
                                                                         data-toggle="modal"
                                                                         data-target="#rotateInUpRight">
-                                                                     حذف
+                                                                    حذف
                                                                 </button>
 
-                                                                <a href="{{route('admin.coaches.teams',$coach->id)}}"  class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">الفرق</a>
+                                                                <a href="{{route('admin.coaches.teams',$coach->id)}}"
+                                                                   class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">الفرق</a>
 
                                                                 <a href="{{route('admin.coaches.users',$coach->id)}}"
                                                                    class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">الطلاب</a>
@@ -114,9 +126,9 @@
 
 @section('script')
     <script>
-        function deletefn(val){
+        function deletefn(val) {
             var a = document.getElementById('yes');
-            a.href = "{{ url('admin/coaches/delete/') }}"+ "/" +val;
+            a.href = "{{ url('admin/coaches/delete/') }}" + "/" + val;
         }
     </script>
 @stop

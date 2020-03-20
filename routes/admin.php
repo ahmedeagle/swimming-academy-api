@@ -100,6 +100,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get("/teams/{id}", "CoachController@teams")->name('admin.coaches.teams');
         Route::get('/delete/{id}', 'CoachController@deleteCoach')->name('admin.coaches.delete');
         Route::get('rates', 'CoachController@coachRates')->name('admin.coaches.rates');
+        Route::get('/coach-rates/{id}', 'CoachController@getRates')->name('admin.coachrates');
         Route::group(['prefix' => 'tickets'], function () {
             Route::get('/', 'CoachMessageController@index')->name('admin.coaches.tickets.all');
             Route::get('/delete/{id}', 'CoachMessageController@destroy')->name('admin.coaches.tickets.delete');
@@ -121,6 +122,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
         Route::get('/delete/{id}', 'UserController@deleteUser')->name('admin.users.delete');
         Route::post('/attend', 'UserController@attendUser')->name('admin.users.attend');
         Route::post('/attend/all', 'UserController@attendAll')->name('admin.users.attendAll');
+        Route::get('/rates/{id}', 'UserController@rates')->name('admin.users.rates');
 
 
         Route::group(['prefix' => 'tickets'], function () {

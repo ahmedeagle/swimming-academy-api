@@ -320,6 +320,15 @@ class CoachController extends Controller
         Notification::where('notificationable_type', 'App\Models\Admin')->where('seen', '0')->update(['seen' => '1']);
         return view('admin.coaches.rates', compact('rates'));
     }
+
+
+    public function getRates($coachId)
+    {
+        Coach::findOrFail($coachId);
+        $rates = Rate::where('coach_id', $coachId)->coaches()->orderBy('id', 'DESC')->get();
+        return view('admin.coaches.coachRates', compact('rates'));
+    }
+
 }
 
 

@@ -57,7 +57,7 @@
                                                 <th> القسم</th>
                                                 <th> الفرقة</th>
                                                 <th> التفاصيل</th>
-                                                <th>  التفاصيل انجليزي</th>
+                                                <th> التفاصيل انجليزي</th>
                                                 <th> التاريخ</th>
                                                 <th> الاجراءات</th>
 
@@ -68,13 +68,33 @@
                                                 @foreach($heroes as $hero)
                                                     <tr>
                                                         <td>{{$hero -> user -> name_ar}}</td>
-                                                        <td><img src="{{$hero -> user -> photo}}" height="40px;"></td>
-                                                        <td> @if(isset($hero -> hero_photo ) &&  $hero -> hero_photo !="")<img src="{{$hero  -> hero_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
+                                                        <td>
+                                                            <div class="chat-avatar">
+                                                                <a class="avatar" data-toggle="tooltip" href="#"
+                                                                   data-placement="left" title=""
+                                                                   data-original-title=""
+                                                                   style="width: 60px">
+                                                                    <img src="{{$hero -> user -> photo}}"
+                                                                         style="height:70px">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td> @if(isset($hero -> hero_photo ) &&  $hero -> hero_photo !="")
+                                                                <div class="chat-avatar">
+                                                                    <a class="avatar" data-toggle="tooltip" href="#"
+                                                                       data-placement="left" title=""
+                                                                       data-original-title=""
+                                                                       style="width: 60px">
+                                                                        <img src="{{$hero  -> hero_photo}}"
+                                                                             style="height:70px">
+                                                                    </a>
+                                                                </div>
+                                                            @else 'لم يتم اضافهتا' @endif</td>
                                                         <td>{{$hero -> academy -> name_ar}}</td>
                                                         <td>{{$hero -> category -> name_ar}}</td>
                                                         <td>{{$hero  -> team -> name_ar}}</td>
-                                                        <td >{!!  $hero  -> note_ar ?  (strlen($hero -> note_ar) >= 50 ? Str::limit($hero -> note_ar,50) ."<button class='btn btn-success' value='{$hero -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_ar) : '---' !!}</td>
-                                                        <td >{!!  $hero  -> note_en ?  (strlen($hero -> note_en) >= 50 ? Str::limit($hero -> note_en,50) ."<button class='btn btn-success' value='{$hero -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_en) : '---' !!}</td>
+                                                        <td>{!!  $hero  -> note_ar ?  (strlen($hero -> note_ar) >= 50 ? Str::limit($hero -> note_ar,50) ."<button class='btn btn-success' value='{$hero -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_ar) : '---' !!}</td>
+                                                        <td>{!!  $hero  -> note_en ?  (strlen($hero -> note_en) >= 50 ? Str::limit($hero -> note_en,50) ."<button class='btn btn-success' value='{$hero -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $hero -> note_en) : '---' !!}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($hero -> created_at)))}}
 
                                                             - {{ date('d-m-Y',strtotime($hero -> created_at))}}  </td>

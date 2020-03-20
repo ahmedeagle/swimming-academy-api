@@ -1,6 +1,6 @@
 @extends('admin.layouts.basic')
 @section('title')
-     أبطال الفرق
+    أبطال الفرق
 @stop
 @section('content')
     <div class="app-content content">
@@ -13,7 +13,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active">  ابطال الفرق
+                                <li class="breadcrumb-item active"> ابطال الفرق
                                 </li>
                             </ol>
                         </div>
@@ -54,7 +54,7 @@
                                                 <th>صورة الطالب بالمسابقه</th>
                                                 <th> الاكاديمية</th>
                                                 <th> القسم</th>
-                                                <th> عنوان المسابقة </th>
+                                                <th> عنوان المسابقة</th>
                                                 <th> التفاصيل</th>
                                                 <th> التفاصيل بالانجليزي</th>
                                                 <th> التاريخ</th>
@@ -67,13 +67,33 @@
                                                 @foreach($champions as $champion)
                                                     <tr>
                                                         <td>{{$champion -> user -> name_ar}}</td>
-                                                        <td><img src="{{$champion -> user -> photo}}" height="40px;"></td>
-                                                        <td> @if(isset($champion -> champion_photo) &&  $champion -> champion_photo !="")<img src="{{$champion  -> champion_photo}}" height="40px;"> @else 'لم يتم اضافهتا' @endif</td>
+                                                        <td>
+                                                            <div class="chat-avatar">
+                                                                <a class="avatar" data-toggle="tooltip" href="#"
+                                                                   data-placement="left" title=""
+                                                                   data-original-title=""
+                                                                   style="width: 60px">
+                                                                    <img src="{{$champion -> user -> photo}}"
+                                                                         style="height:70px">
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td> @if(isset($champion -> champion_photo) &&  $champion -> champion_photo !="")
+                                                                <div class="chat-avatar">
+                                                                    <a class="avatar" data-toggle="tooltip" href="#"
+                                                                       data-placement="left" title=""
+                                                                       data-original-title=""
+                                                                       style="width: 60px">
+                                                                        <img src="{{$champion  -> champion_photo}}"
+                                                                             style="height:70px">
+                                                                    </a>
+                                                                </div>
+                                                            @else 'لم يتم اضافهتا' @endif</td>
                                                         <td>{{$champion -> academy -> name_ar}}</td>
                                                         <td>{{$champion -> category -> name_ar}}</td>
                                                         <td>{{$champion  -> name_ar}}</td>
-                                                        <td >{!!  $champion  -> note_ar ?  (strlen($champion -> note_ar) >= 50 ? Str::limit($champion -> note_ar,50) ."<button class='btn btn-success' value='{$champion -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_ar) : '---' !!}</td>
-                                                        <td >{!!  $champion  -> note_en ?  (strlen($champion -> note_en) >= 50 ? Str::limit($champion -> note_en,50) ."<button class='btn btn-success' value='{$champion -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_en) : '---' !!}</td>
+                                                        <td>{!!  $champion  -> note_ar ?  (strlen($champion -> note_ar) >= 50 ? Str::limit($champion -> note_ar,50) ."<button class='btn btn-success' value='{$champion -> note_ar}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_ar) : '---' !!}</td>
+                                                        <td>{!!  $champion  -> note_en ?  (strlen($champion -> note_en) >= 50 ? Str::limit($champion -> note_en,50) ."<button class='btn btn-success' value='{$champion -> note_en}' data-toggle='modal' data-target='#rotateInUpRightMore'  onclick='showMorefn(this.value)'>المزيد</button>"  :  $champion -> note_en) : '---' !!}</td>
                                                         <td>   {{ __('messages.'.date('l',strtotime($champion -> created_at)))}}
                                                             - {{ date('d-m-Y',strtotime($champion -> created_at))}}  </td>
                                                         </td>
@@ -121,7 +141,7 @@
 @section('script')
     <script>
         @if(Session::has('modalId'))
-         $("#rotateInUpRightChampion{{Session::get('modalId')}}").modal('toggle');
+        $("#rotateInUpRightChampion{{Session::get('modalId')}}").modal('toggle');
         @endif
     </script>
 @stop

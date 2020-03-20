@@ -60,7 +60,17 @@
                                             @if(isset($academies) && $academies -> count() > 0 )
                                                 @foreach($academies as $academy)
                                                     <tr>
-                                                        <td><img src="{{$academy -> logo}}" height="40px;"></td>
+                                                        <td>
+                                                            <div class="chat-avatar">
+                                                                <a class="avatar" data-toggle="tooltip" href="#"
+                                                                   data-placement="left" title=""
+                                                                   data-original-title=""
+                                                                   style="width: 60px">
+                                                                    <img src="{{$academy -> logo}}"
+                                                                         style="height:70px">
+                                                                </a>
+                                                            </div>
+                                                        </td>
                                                         <td>{{$academy -> name_ar}}</td>
                                                         <td>{{$academy ->name_en}}</td>
                                                         <td>{{$academy -> address_ar}}</td>
