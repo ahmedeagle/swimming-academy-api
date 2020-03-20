@@ -113,7 +113,7 @@
                                 @if(takeLastNotifications(5))
                                     @foreach(takeLastNotifications(5) as $notify)
                                         @if($notify  -> type == 1)
-                                            <a href="{{route('admin.users.all')}}">
+                                            <a href="{{route('admin.users.view',$notify -> notificationable -> id)}}">
                                                 @elseif($notify  -> type == 2 )
                                                     <a href="{{route('admin.coaches.all')}}">
                                                         @else

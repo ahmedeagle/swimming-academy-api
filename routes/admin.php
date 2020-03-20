@@ -111,6 +111,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:admin']], function 
 
     Route::group(['prefix' => 'users'], function () {
         Route::get("/", "UserController@index")->name('admin.users.all');
+        Route::get("/view/{id}", "UserController@view")->name('admin.users.view');
         Route::get("/create", "UserController@create")->name('admin.users.create');
         Route::post("/store", "UserController@store")->name('admin.users.store');
         Route::get("/edit/{id}", "UserController@edit")->name('admin.users.edit');

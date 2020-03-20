@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/users/view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/Coach/CoachController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/includes/header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,25 +144,25 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/users" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\resources\views\admin" />
-      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
-      <recent name="C:\wamp\www\swimming\assets\admin\js" />
-      <recent name="C:\wamp\www\swimming\app\Events" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\messages" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp\www\swimming\resources\views\admin\users" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin" />
+      <recent name="C:\wamp\www\swimming\app\Http\Controllers\Admin" />
+      <recent name="C:\wamp\www\swimming\assets\admin\js" />
+      <recent name="C:\wamp\www\swimming\app\Events" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -271,7 +275,7 @@
       <workItem from="1584384548180" duration="4938000" />
       <workItem from="1584479060624" duration="5597000" />
       <workItem from="1584558245275" duration="18103000" />
-      <workItem from="1584702508016" duration="10113000" />
+      <workItem from="1584702508016" duration="13264000" />
     </task>
     <servers />
   </component>
@@ -440,7 +444,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php-line-method">
           <url>file://$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php</url>
-          <line>294</line>
+          <line>306</line>
           <properties>
             <option name="className" value="\App\Http\Controllers\Admin\UserController" />
             <option name="methodName" value="attendUser" />

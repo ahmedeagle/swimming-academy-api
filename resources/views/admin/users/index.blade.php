@@ -50,13 +50,10 @@
                                             <thead>
                                             <tr>
                                                 <th> الاسم بالعربي</th>
-                                                <th>الاسم بالانجليزي</th>
-                                                <th>الأكاديمية</th>
+                                                 <th>الأكاديمية</th>
                                                 <th>القسم</th>
                                                 <th>الفرق</th>
-                                                <th>الهاتف</th>
-                                                <th>البريد الالكتروني</th>
-                                                <th> صورة الشخصية</th>
+                                                 <th> صورة الشخصية</th>
                                                 <th>الحالة</th>
                                                 <th>أشتراك الاكاديمية</th>
                                                 <th>أشتراك التطبيق</th>
@@ -68,13 +65,10 @@
                                                 @foreach($users as $user)
                                                     <tr>
                                                         <td>{{$user -> name_ar}}</td>
-                                                        <td>{{$user ->name_en}}</td>
-                                                        <td>{{$user ->academy -> name_ar}}</td>
+                                                         <td>{{$user ->academy -> name_ar}}</td>
                                                         <td>{{$user ->category -> name_ar}}</td>
                                                         <td>{{$user ->team -> name_ar}}</td>
-                                                        <td>{{$user -> mobile}}</td>
-                                                        <td>{{$user -> email}}</td>
-                                                        <td><img src="{{$user -> photo}}" height="40px;"></td>
+                                                         <td><img src="{{$user -> photo}}" height="40px;"></td>
                                                         <td>{{$user -> getStatus()}}</td>
                                                         <td>{{$user -> getAcademySubscribed()}}</td>
                                                         <td>{{$user -> getApplicationSubscribed()}}</td>
@@ -92,15 +86,10 @@
                                                                     حذف
                                                                 </button>
 
-                                                                <button type="button"
-                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1 userModalDetails"
-                                                                        data-toggle="modal"
-                                                                        data-target="#rotateInUpRight{{$user -> id}}">
+                                                                <a href="{{route('admin.users.view',$user -> id)}}" type="button"
+                                                                        class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     التفاصيل
-                                                                </button>
-
-                                                                <a title="عرض اشتراكات الاكاديمية " href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">أشتراكات الاكاديمية </a>
+                                                                </a>
 
                                                                 <button type="button"
                                                                         value="{{$user->id}}"

@@ -34,6 +34,16 @@ class UserController extends Controller
         }
     }
 
+    public function view($id){
+        $data = [];
+        $data['user'] = User::findOrFail($id);
+        $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
+        $data['categories'] = $data['user']->academy->categories;
+        $userCategoryId = $data['user']->category->id;
+        $data['teams'] = Team::where('category_id', $userCategoryId)->get();
+        return view('admin.users.view', $data);
+    }
+
     public function create()
     {
         try {
@@ -100,11 +110,11 @@ class UserController extends Controller
                 $fileName = $this->uploadImage('users', $request->photo);
             }
             $status = $request->has('status') ? 1 : 0;
-            User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
+            $user = User::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             DB::commit();
 
             notify()->success('تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ');
-            return redirect()->route('admin.users.all')->with(['success' => 'تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ']);
+            return redirect()->route('admin.academy.create.subscriptions',$user -> id)->with(['success' => 'تم اضافه الاعب  بنجاح برجاء اضافه اشتراك الاكاديمية ']);
         } catch (\Exception $ex) {
             return abort('404');
         }
@@ -120,6 +130,8 @@ class UserController extends Controller
         $data['teams'] = Team::where('category_id', $userCategoryId)->get();
         return view('admin.users.edit', $data);
     }
+
+
 
     public function update($id, Request $request)
     {
