@@ -27,7 +27,11 @@ trait NotificationTrait
             }
         }
 
-        return Notification::selection()->where('notificationable_type', $notificationable_type)->where('notificationable_id', $notificationable_id)->orderBy('id', 'DESC')->paginate(10);
+        return Notification::selection()
+            ->where('notificationable_type', $notificationable_type)
+            ->where('notificationable_id', $notificationable_id)
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
     }
 
     public function getUnseenNotificationsCount($actorId, $actorType)

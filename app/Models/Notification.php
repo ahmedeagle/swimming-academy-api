@@ -31,7 +31,7 @@ class Notification extends Model
     }
 
     public function scopeSelection($query){
-        return $query -> select('title_'.app()->getLocale().' as title','title_'.app()->getLocale().' as content','created_at');
+        return $query -> select('title_'.app()->getLocale().' as title','content_'.app()->getLocale().' as content','created_at');
     }
 
       //new notifications to admin
