@@ -255,14 +255,14 @@ class CoachController extends Controller
                     'date' => $request->date,
                 ]);
 
-                 $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment;
+                 $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment;
 
                 //send notification
                 Notification::create([
                     'title_ar' => __('messages.rate for user') .' ' .  $user->name_ar ,
                     'title_en' => __('messages.rate for user') .' ' .  $user->name_ar ,
-                    'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
-                    'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
+                    'content_ar' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',
                     'notificationable_id' => $user->id,
                     'type' => 3 //  coach rate user
