@@ -265,6 +265,7 @@ class CoachController extends Controller
                     'content_en' => __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',
                     'notificationable_id' => $user->id,
+                    'type' => 3 //  coach rate user
                 ]);
 
                 DB::commit();

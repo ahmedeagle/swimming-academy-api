@@ -113,6 +113,7 @@ class UserController extends Controller
                     'content_en' => $content_ar,
                     'notificationable_type' => 'App\Models\User',
                     'notificationable_id' => $user->id,
+                    'type' => 1 //new user  registration
                 ]);
 
                 $notify = [
@@ -474,6 +475,7 @@ class UserController extends Controller
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',
                     'notificationable_id' => $user->id,
+                    'type' => 2 // rate coach notifications
                 ]);
 
                 $notify = [

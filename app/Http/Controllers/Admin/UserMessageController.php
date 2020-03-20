@@ -25,13 +25,13 @@ class UserMessageController extends Controller
 
     public function index()
     {
-          $tickets = $this->getAllUserMessages();
+        $tickets = $this->getAllUserMessages();
         return view('admin.messages.users.index', compact('tickets'));
     }
 
     public function tickets()
     {
-         $tickets = $this->getAllTickets();  //user and coach
+        $tickets = $this->getAllTickets();  //user and coach
         return view('admin.messages.index', compact('tickets'));
     }
 
@@ -97,9 +97,14 @@ class UserMessageController extends Controller
         $notif_data['title'] = $push_notif_title;
         $notif_data['body'] = $push_notif_content;
         $notif_data['id'] = $request->ticket_id;
-        $notif_data['notification_type'] = 1; // notify about new message reply
-        $user = $message->ticketable;   //get user of this ticket
-       // $this->sendPushNotification($user , $notif_data);
+        $notif_data['notification_type'] = 4; // notify about new message reply
+        $actor  = $message->ticketable;   //get user of this ticket
+
+        $content = __('messages.there are replay on your ticket ') . ' ' .($message-> title) ;
+
+        //send push notification to coach/user
+        (new \App\Http\Controllers\PushNotificationController(['title' => 'رد من الاكاديمية', 'body' => $content]))->send($actor->device_token);
+
         //$this->saveNotification($user, $notif_data);
         DB::commit();
         $view = view('admin.includes.content.adminMsg', compact('newMessage'))->renderSections();
