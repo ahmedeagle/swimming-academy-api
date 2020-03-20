@@ -118,30 +118,30 @@
                                                     <a href="{{route('admin.coaches.view',$notify -> notificationable -> id)}}">
                                                         @elseif($notify  -> type == 3 )
                                                             <a href="{{route('admin.users.view',$notify -> notificationable -> id)}}">
-                                                        @else
-                                                            <a href="">
-                                                                @endif
-                                                                <div class="media">
-                                                                    <div class="media-left">
+                                                                @else
+                                                                    <a href="">
+                                                                        @endif
+                                                                        <div class="media">
+                                                                            <div class="media-left">
                                           <span class="avatar avatar-sm avatar-online rounded-circle">
 
                                               <img src="{{$notify -> notificationable -> photo}}"
                                                    alt="avatar"><i></i></span>
-                                                                    </div>
-                                                                    <div class="media-body">
-                                                                        <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
-                                                                        <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
-                                                                        <small style="direction: ltr;">
-                                                                            <time class="media-meta text-muted"
-                                                                                  style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
-                                                                            </time>
-                                                                            <br>
-                                                                            {{date("h:i A", strtotime($notify -> created_at))}}
+                                                                            </div>
+                                                                            <div class="media-body">
+                                                                                <h6 class="media-heading">{{\Illuminate\Support\Str::limit($notify -> title_ar,50)}}</h6>
+                                                                                <p class="notification-text font-small-3 text-muted"> {{\Illuminate\Support\Str::limit($notify -> content_ar,70)}}</p>
+                                                                                <small style="direction: ltr;">
+                                                                                    <time class="media-meta text-muted"
+                                                                                          style="direction: ltr;">{{date("Y M d", strtotime($notify -> created_at))}}
+                                                                                    </time>
+                                                                                    <br>
+                                                                                    {{date("h:i A", strtotime($notify -> created_at))}}
 
-                                                                        </small>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
+                                                                                </small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
                                             @endforeach
                                         @endif
 

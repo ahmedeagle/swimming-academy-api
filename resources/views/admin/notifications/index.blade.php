@@ -25,8 +25,15 @@
                     @if(isset($notifications) && $notifications->count()>0)
                         @foreach($notifications as $notification)
                         <div id="headingCollapse1" class="card-header p-0">
-                            <a href="{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}"
-                               class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5">
+                            @if($notification  -> type == 1)
+                                <a class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5" href="{{route('admin.users.view',$notification -> notificationable -> id)}}">
+                                @elseif($notification  -> type == 2 )
+                                    <a class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5" href="{{route('admin.coaches.view',$notification -> notificationable -> id)}}">
+                                        @elseif($notification  -> type == 3 )
+                                            <a class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5" href="{{route('admin.users.view',$notification -> notificationable -> id)}}">
+                                                @else
+                                                    <a class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5"  href="">
+                                                        @endif
                                 <div class="media-left pr-1">
                       <span class="avatar avatar-md">
                         <img class="media-object rounded-circle" style="max-height: 100px;" src="{{ $notification -> notificationable -> photo}}"
