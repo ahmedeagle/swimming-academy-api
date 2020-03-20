@@ -129,7 +129,6 @@
     </div>
 @stop
 
-
 @section('script')
     <script>
         $.ajaxSetup({

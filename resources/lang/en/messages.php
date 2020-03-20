@@ -309,6 +309,13 @@ return [
     'the coach' => 'the coach',
     'rate the user' => 'rate the user',
     'registered succussfully'  => 'Register Successfully Done.',
+    'new player registration' => 'تسجيل جديد للطالب ',
+    'in category'  => 'in section ',
+    'in team'   => 'in team ',
+    'there are replay on your ticket' => 'there are replay on your ticket',
+    'stars'  => 'stars',
+    'rate for coach' => 'Rate for coach',
+    'rate for user'   =>'Rate for user',
 
 
 ];

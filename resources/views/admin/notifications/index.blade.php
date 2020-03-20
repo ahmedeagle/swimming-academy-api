@@ -25,7 +25,7 @@
                     @if(isset($notifications) && $notifications->count()>0)
                         @foreach($notifications as $notification)
                         <div id="headingCollapse1" class="card-header p-0">
-                            <a data-toggle="collapse" href="{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}" aria-expanded="true" aria-controls="collapse1"
+                            <a href="{{$notification  -> type == 1 ?route('admin.users.all'):route('admin.coaches.all')}}"
                                class="collapsed email-app-sender media border-0 bg-blue-grey bg-lighten-5">
                                 <div class="media-left pr-1">
                       <span class="avatar avatar-md">

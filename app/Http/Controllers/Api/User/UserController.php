@@ -469,8 +469,8 @@ class UserController extends Controller
                 $content_ar = __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment;
                 // only admin how can see the coaches rates
                 $notification = Notification::create([
-                    'title_ar' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . ':' . $request->rate,
-                    'title_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . __('messages.with rate') . $request->rate,
+                    'title_ar' => __('messages.rate for coach') .' ' . $user->team->coach->name_ar ,
+                    'title_en' =>  __('messages.rate for coach') .' ' . $user->team->coach->name_ar ,
                     'content_ar' => $content_ar,
                     'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\User',

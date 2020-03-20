@@ -314,7 +314,9 @@ return [
     'registered succussfully'  => 'تم التسجيل بنجاح ',
     'new player registration' => 'تسجيل جديد للطالب ',
     'in category'  => 'في قسم',
-    'in team'   => 'بالفرقة '
-
-
+    'in team'   => 'بالفرقة ',
+    'there are replay on your ticket'  =>'هناك رد علي التذكره الخاصه بكم بعنوان :',
+    'stars'  => 'نجوم ',
+    'rate for coach' => 'تقييم للكابتن ',
+    'rate for user'   =>'تقييم للمستخدم ',
 ];

@@ -103,7 +103,7 @@ class UserMessageController extends Controller
         $content = __('messages.there are replay on your ticket ') . ' ' .($message-> title) ;
 
         //send push notification to coach/user
-        (new \App\Http\Controllers\PushNotificationController(['title' => 'رد من الاكاديمية', 'body' => $content]))->send($actor->device_token);
+          (new \App\Http\Controllers\PushNotificationController(['title' => 'رد من الاكاديمية', 'body' => $content]))->send($actor->device_token);
 
         //$this->saveNotification($user, $notif_data);
         DB::commit();
