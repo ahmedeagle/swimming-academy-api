@@ -322,6 +322,6 @@ return [
     'new rating'=>'تقييم جديد',
     'academy subscription'   => 'أشتراك الاكاديمية ',
     'application subscription'   => 'أشتراك التطبيق',
-    'academy subscription is activated' => 'تهانينا .. تم تفعيل اشتراك الاكاديمية الخاص بكم ',
-    'application subscription is activated' => 'تهانينا .. تم تفعيل اشتراك ألتطبيق يمكن الدخول لحسابكم الان ',
+    'academy subscription is activated' => 'تهانينا .. تم تفعيل اشتراك الاكاديمية الخاص ب ',
+    'application subscription is activated' => 'تهانينا .. تم تفعيل اشتراك ألتطبيق  يمكن الدخول لحسابكم الان ',
 ];

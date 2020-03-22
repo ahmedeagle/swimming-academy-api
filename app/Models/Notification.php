@@ -38,6 +38,10 @@ class Notification extends Model
     public function scopeNew($query){
         return $query -> where('seen','0');
     }
+
+    public function scopeAdmin($query){
+        return $query -> whereNotIn ('type',[5,6]);
+    }
 }
 
 
