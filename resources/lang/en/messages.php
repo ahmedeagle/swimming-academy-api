@@ -308,7 +308,7 @@ return [
     'with rate' => 'with rate',
     'the coach' => 'the coach',
     'rate the user' => 'rate the user',
-    'registered succussfully'  => 'Register Successfully Done.',
+    'registered succussfully'  => 'Registered successfully and is awaiting management approval.',
     'new player registration' => 'تسجيل جديد للطالب ',
     'in category'  => 'in section ',
     'in team'   => 'in team ',

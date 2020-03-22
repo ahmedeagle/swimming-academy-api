@@ -232,7 +232,8 @@
                                                 <div class="col-12 d-flex justify-content-center">
                                                     <div class="m-2">
                                                         <a href="{{route('admin.academy.subscriptions',['user_id' => $user->id,'type' => 'all'])}}"
-                                                           type="button" class="btn btn-primary">
+                                                           type="button"
+                                                           class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1">
                                                             <i class="la la-check-square-o"></i> عرض و أضافه اشتراك
                                                             اكاديمية للطالب
                                                         </a>
@@ -240,11 +241,20 @@
 
                                                     <div class="m-2">
                                                         <a href="{{route('admin.users.rates',$user->id)}}" type="button"
-                                                           class="btn btn-success">
+                                                           class="btn btn-outline-warning btn-min-width box-shadow-3 mr-1 mb-1">
                                                             <i class="la la-star"></i> سجل تقييمات الاعب
                                                         </a>
                                                     </div>
 
+                                                    <div class="m-2">
+                                                        <button type="button"
+                                                                value="{{$user->id}}"
+                                                                class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1"
+                                                                data-toggle="modal"
+                                                                data-target="#rotateInUpRightSubscription{{$user->id}}">
+                                                            اشتراك تطبيق نقدي
+                                                        </button>
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -259,5 +269,15 @@
             </div>
         </div>
     </div>
+
+    @include('admin.includes.modals.applicationCashSubscription',$user)
+
 @stop
 
+@section('script')
+    <script>
+        @if(Session::has('subscriptionModalId'))
+        $("#rotateInUpRightSubscription{{Session::get('subscriptionModalId')}}").modal('toggle');
+        @endif
+    </script>
+@endsection

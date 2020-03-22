@@ -164,14 +164,14 @@
                                                 <div class="col-12 d-flex justify-content-center">
                                                     <div class="m-2">
                                                         <a href="{{route('admin.coaches.teams',$coach->id)}}"
-                                                           type="button" class="btn btn-primary">
+                                                           type="button" class="btn btn-outline-primary">
                                                             <i class="la la-check-square-o"></i> عرض الفرق الخاصه
                                                             بالكابتن
                                                         </a>
                                                     </div>
                                                     <div class="m-2">
                                                         <a href="{{route('admin.coachrates',$coach->id)}}" type="button"
-                                                           class="btn btn-success">
+                                                           class="btn btn-outline-warning">
                                                             <i class="la la-star"></i> سجل تقييمات الكابتن
                                                         </a>
                                                     </div>

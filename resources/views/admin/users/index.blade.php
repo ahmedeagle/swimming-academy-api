@@ -101,16 +101,6 @@
                                                                    class="btn btn-outline-success btn-min-width box-shadow-3 mr-1 mb-1">
                                                                     التفاصيل
                                                                 </a>
-
-                                                                <button type="button"
-                                                                        value="{{$user->id}}"
-                                                                        class="btn btn-outline-info btn-min-width box-shadow-3 mr-1 mb-1"
-                                                                        data-toggle="modal"
-                                                                        data-target="#rotateInUpRightSubscription{{$user->id}}">
-                                                                    اشتراك تطبيق نقدي
-                                                                </button>
-
-
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -132,7 +122,7 @@
     @if(isset($users) && $users -> count() > 0 )
         @foreach($users as $user)
             @include('admin.includes.modals.userDetails',$user)
-            @include('admin.includes.modals.applicationCashSubscription',$user)
+           {{-- @include('admin.includes.modals.applicationCashSubscription',$user)--}}
         @endforeach
     @endif
 
@@ -146,10 +136,6 @@
             var a = document.getElementById('yes');
             a.href = "{{ url('admin/users/delete/') }}" + "/" + val;
         }
-
-        @if(Session::has('subscriptionModalId'))
-        $("#rotateInUpRightSubscription{{Session::get('subscriptionModalId')}}").modal('toggle');
-        @endif
 
     </script>
 @stop

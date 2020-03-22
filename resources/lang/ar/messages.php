@@ -311,7 +311,7 @@ return [
     'the coach' => 'لقد قام الكابتن',
     'rate the user' => ' بتقييم الاعب',
     'saterday'  => 'السبت',
-    'registered succussfully'  => 'تم التسجيل بنجاح ',
+    'registered succussfully'  => 'تم التسجيل بنجاح وبأنتظار التفعيل من قبل الادارة ',
     'new player registration' => 'تسجيل جديد للطالب ',
     'in category'  => 'في قسم',
     'in team'   => 'بالفرقة ',
@@ -324,4 +324,5 @@ return [
     'application subscription'   => 'أشتراك التطبيق',
     'academy subscription is activated' => 'تهانينا .. تم تفعيل اشتراك الاكاديمية الخاص ب ',
     'application subscription is activated' => 'تهانينا .. تم تفعيل اشتراك ألتطبيق  يمكن الدخول لحسابكم الان ',
+
 ];
