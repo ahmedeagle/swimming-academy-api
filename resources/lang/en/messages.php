@@ -317,7 +317,10 @@ return [
     'rate for coach' => 'Rate for coach',
     'rate for user'   =>'Rate for user',
     'new rating'=>'New Rating',
-
+    'academy subscription'   => 'Academy Subscription',
+    'application subscription'   => 'Application Subscription',
+     'academy subscription is activated' => 'Congratulations ... your Academy subscription has been activated',
+     'application subscription is activated' => 'Congratulations .. An application subscription has been activated. Your account can now be accessed',
 
 
 ];

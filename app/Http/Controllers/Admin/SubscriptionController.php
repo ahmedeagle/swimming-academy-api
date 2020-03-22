@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Academy;
 use App\Models\AcadSubscription;
 use App\Models\Category;
+use App\Models\Notification;
+use App\Models\Rate;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -129,6 +131,22 @@ class SubscriptionController extends Controller
                 'price' => $request->price,
             ]);
             $user->update(['subscribed' => 1]);
+
+
+            //send notification
+            $notification = Notification::create([
+                'title_ar' => __('messages.application subscription'),
+                'title_en' => __('messages.application subscription'),
+                'content_ar' => __('messages.application subscription is activated'),
+                'content_en' => __('messages.application subscription is activated'),
+                'notificationable_type' => 'App\Models\User',
+                'notificationable_id' => $user->id,
+                'type' => 6 //  application  subscription
+            ]);
+
+            //send push notification to user
+            (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.application subscription'), 'body' => __('messages.application subscription is activated')]))->send($user->device_token);
+
             notify()->success('تم تفعيل الاشتراك بنجاح');
             return redirect()->route('admin.users.all');
         } catch (\Exception $ex) {
@@ -136,7 +154,7 @@ class SubscriptionController extends Controller
         }
     }
 
-    ////////////////////aademy subscription ////////////////////////
+    ////////////////////academy subscription ////////////////////////
 
     public function academySubscriptions(Request $request)
     {
@@ -241,6 +259,22 @@ class SubscriptionController extends Controller
             // if($today >= date('Y-m-d', strtotime($request->start_date)) && $today <= date('Y-m-d', strtotime($request->end_date))){
             User::where('id', $user->id)->update(['status' => 1, 'academysubscribed' => 1]);
             //}
+
+
+            //send notification
+            $notification = Notification::create([
+                'title_ar' => __('messages.academy subscription'),
+                'title_en' => __('messages.academy subscription'),
+                'content_ar' => __('messages.academy subscription is activated'),
+                'content_en' => __('messages.academy subscription is activated'),
+                'notificationable_type' => 'App\Models\User',
+                'notificationable_id' => $user->id,
+                'type' => 5 //  academy  subscription
+            ]);
+
+            //send push notification to user
+            (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.academy subscription'), 'body' => __('messages.academy subscription is activated')]))->send($user->device_token);
+
 
             notify()->success('تم اضافه الاشتراك بنجاح ');
             return redirect()->route('admin.users.all');
