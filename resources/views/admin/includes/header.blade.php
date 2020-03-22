@@ -101,7 +101,7 @@
                             <i class="ficon ft-bell"> </i>
                             <span
                                 class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
-                                data-count="{{\App\Models\Notification::new() -> count()}}">{{\App\Models\Notification::new() -> count()}}</span>
+                                data-count="{{\App\Models\Notification::new() ->admin()-> count()}}">{{\App\Models\Notification::new() -> count()}}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
