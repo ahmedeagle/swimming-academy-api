@@ -9,6 +9,7 @@ use App\Models\Coach;
 use App\Models\Notification;
 use App\Models\Rate;
 use App\Models\Subscription;
+use App\Models\Team;
 use App\Models\Token;
 use App\Models\User;
 use App\Models\UserToken;
@@ -118,7 +119,7 @@ class UserController extends Controller
 
                 $notify = [
                     'user_name' => $user->name_ar,
-                    'user_id'  => $user -> id,
+                    'user_id' => $user->id,
                     'content' => $content_ar,
                     'notification_id' => $notification->id,
                     'photo' => $user->photo
@@ -374,6 +375,8 @@ class UserController extends Controller
             if (!$user) {
                 return $this->returnError('D000', trans('messages.User not found'));
             }
+
+
             $userData = User::with(['academy' => function ($q) {
                 $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
             }, 'team' => function ($q) {
@@ -387,10 +390,20 @@ class UserController extends Controller
                 $qq->where('status', 1)->first();
             }])->select('id', 'team_id', 'academy_id', 'category_id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($user->id);
 
-            if ($userData) {
-                return $this->returnData('user', $userData);
-            } else
-                return $this->returnError('E001', trans('messages.There are no activities found'));
+            $users = User::where('team_id', $user->team_id)->paginate(10);
+            if (count($users) > 0) {
+                $total_count = $users->total();
+                $users = json_decode($users->toJson());
+                $usersJson = new \stdClass();
+                $usersJson->current_page = $users->current_page;
+                $usersJson->total_pages = $users->last_page;
+                $usersJson->total_count = $total_count;
+                $usersJson->players = $users->data;
+                $usersJson->user = $userData;
+                return $this->returnData('data', $usersJson);
+            }
+
+            return $this->returnError('E001', trans('messages.There are no data found'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
@@ -467,13 +480,13 @@ class UserController extends Controller
                     'date' => $request->date,
                 ]);
 
-                $content_ar = __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment;
+                $content_ar = __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment;
                 // only admin how can see the coaches rates
                 $notification = Notification::create([
-                    'title_ar' => __('messages.rate for coach') .' ' . $user->team->coach->name_ar ,
-                    'title_en' =>  __('messages.rate for coach') .' ' . $user->team->coach->name_ar ,
+                    'title_ar' => __('messages.rate for coach') . ' ' . $user->team->coach->name_ar,
+                    'title_en' => __('messages.rate for coach') . ' ' . $user->team->coach->name_ar,
                     'content_ar' => $content_ar,
-                    'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment,
+                    'content_en' => __('messages.the player') . ' ' . $user->name_ar . ' ' . __('messages.rate the coach') . ' ' . $user->team->coach->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment,
                     'notificationable_type' => 'App\Models\Coach',
                     'notificationable_id' => $user->team->coach->id,
                     'type' => 2 //  user rate coach notifications
@@ -485,7 +498,7 @@ class UserController extends Controller
                     'content' => $content_ar,
                     'notification_id' => $notification->id,
                     'coach_id' => $user->team->coach->id,
-                    'photo' =>  $user->team->coach->photo,
+                    'photo' => $user->team->coach->photo,
                 ];
                 //fire pusher  notification for admin
                 event(new \App\Events\NewNotification($notify));   // fire pusher message event notification
