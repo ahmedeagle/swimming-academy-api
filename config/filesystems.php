@@ -109,6 +109,11 @@ return [
             'root' => base_path() . '/images/events/',
             'url' => env('APP_URL') . '/public',
             'visibility' => 'public',
+        ], 'champions' => [
+            'driver' => 'local',
+            'root' => base_path() . '/images/champions/',
+            'url' => env('APP_URL') . '/public',
+            'visibility' => 'public',
         ],
 
     ],

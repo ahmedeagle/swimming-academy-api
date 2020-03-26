@@ -30,7 +30,7 @@ class ChampionController extends Controller
     public function index()
     {
         try {
-            $champions = Champion::orderBy('id','DESC') ->get();
+            $champions = Champion::orderBy('id', 'DESC')->get();
             return view('admin.champions.index', compact('champions'));
         } catch (\Exception $ex) {
             return abort('404');
@@ -42,22 +42,19 @@ class ChampionController extends Controller
         try {
             $data['academies'] = Academy::active()->select('id', 'name_ar as name')->get();
             $data['categories'] = Category::with(['allUsers' => function ($q) {
-                $q->active() -> academySubScribed()
-
+                $q->active()->academySubScribed()
                     ->select('users.id', 'users.name_' . app()->getLocale() . ' as name', 'users.photo', 'users.category_id');
             }])
                 ->active()
                 ->select('categories.id', 'categories.name_' . app()->getLocale() . ' as name')
                 ->whereHas('allUsers', function ($qq) {
-                    $qq->active()
-                        ;
+                    $qq->active();
                 })->get();
             return view('admin.champions.create', $data);
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return abort('404');
         }
     }
-
 
     public function store(Request $request)
     {
@@ -75,6 +72,7 @@ class ChampionController extends Controller
             'name_en.required' => 'اسم المسابقه بالانجليزي مطلوب ',
             'name_ar.max' => 'اسم المسابقه بالعربي لابد الا يتجاوز ال 100 حرف بالمسافات ',
             'name_en.max' => 'اسم المسابقه بالانجليزي  لابد الا يتجاوز ال 100 حرف بالمسافات ',
+            'main_photo' => 'لابد من ادخال الصوره الرئيسية للمسابقه ',
 
         ];
 
@@ -85,7 +83,7 @@ class ChampionController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name_ar' => 'required|max:100',
             'name_en' => 'required|max:100',
-
+            'main_photo' => 'required|mimes:jpg,jpeg,png'
         ], $messages);
 
         if ($validator->fails()) {
@@ -94,15 +92,32 @@ class ChampionController extends Controller
         }
 
         $students = $request->studentIds;
+        $main_photo = "";
+        if (isset($request->main_photo) && !empty($request->main_photo)) {
+            $main_photo = $this->uploadImage('champions', $request->main_photo);
+        }
 
         if (count($students) > 0) {
-            foreach ($students as $student) {
-                Champion::insert([
-                    'user_id' => $student,
-                    'category_id' => $request->category_id,
-                    'name_ar' => $request->name_ar,
-                    'name_en' => $request->name_en,
-                ]);
+            $firstChampion = Champion::create([
+                'user_id' => $students[0],
+                'category_id' => $request->category_id,
+                'name_ar' => $request->name_ar,
+                'name_en' => $request->name_en,
+                'main_photo' => $main_photo
+            ]);
+            foreach ($students as $index => $student) {
+
+                if ($index != 0) {
+                    Champion::create([
+                        'user_id' => $student,
+                        'category_id' => $request->category_id,
+                        'name_ar' => $request->name_ar,
+                        'name_en' => $request->name_en,
+                        'main_photo' => $main_photo,
+                        'parent_id' => $firstChampion->id,
+                    ]);
+                }
+
             }
             notify()->success('تمت  الاضافة بنجاح ');
             return redirect()->route('admin.champions.all')->with(['success' => 'تمت الاضافة بنجاح ']);

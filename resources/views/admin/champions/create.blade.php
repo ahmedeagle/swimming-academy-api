@@ -51,7 +51,20 @@
                                               enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-body">
-
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label> الصوره الرئيسية للمسابقة </label>
+                                                            <label id="projectinput7" class="file center-block">
+                                                                <input type="file" id="file" name="main_photo">
+                                                                <span class="file-custom"></span>
+                                                            </label>
+                                                            @error('main_photo')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -68,7 +81,8 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  عنوان المسابقة بالانجليزي </label>
+                                                            <label for="projectinput1"> عنوان المسابقة
+                                                                بالانجليزي </label>
                                                             <input type="text" value="{{old('name_en')}}" id="name_en"
                                                                    class="form-control"
                                                                    placeholder="ادخل الأسم باللغة  الانجليزية  "

@@ -20,6 +20,9 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
         Route::post('unreadMessagesCount', 'TicketController@get_unread_messages_count');
 
     });
+
+    Route::post('champions/details', 'User\HeroController@championsDetails');
+
     Route::post('about-us', 'GeneralController@aboutUs')->name('academies.all');
     Route::post('getAcademy', 'GeneralController@getAcademyByCode');
     Route::group(['prefix' => 'academies'], function () {

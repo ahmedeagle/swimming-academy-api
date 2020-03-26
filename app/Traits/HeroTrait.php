@@ -34,7 +34,7 @@ trait HeroTrait
                 }]);
             }])
             ->where('team_id', $user->team_id)
-            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'))
+            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_' . app()->getLocale() . ', "") AS note'))
             ->get();
         /*  ->groupBy(function ($data) {
             return Carbon::parse($data->created_at, 'Africa/Cairo')
@@ -77,30 +77,42 @@ trait HeroTrait
                 }]);
             }])
             ->where('team_id', $teamId)
-            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'))
+            ->select('id', 'user_id', 'hero_photo', 'created_at', DB::raw('IFNULL(note_' . app()->getLocale() . ', "") AS note'))
             ->get();
     }
 
 
     public function getChampions(User $user)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_'.app()->getLocale().', "") AS note'), 'champion_photo')
+        return Champion::where('parent_id', null)
+            ->select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'main_photo')
             ->whereHas('user', function ($q) use ($user) {
                 $q->where('users.category_id', $user->category_id);
             })
-            ->with(['user' => function ($qq) {
-                $qq->select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
-            }])
+            ->orderBy('champions.id', 'DESC')
+            ->groupBy()
+            ->paginate(10);
+    }
+    
+
+    public function getCoachChampions(Coach $coach)
+    {
+        return Champion::where('parent_id', null)
+            ->select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', 'main_photo')
+            ->whereHas('user', function ($q) use ($coach) {
+                $q->where('users.category_id', $coach->category_id);
+            })
             ->orderBy('champions.id', 'DESC')
             ->paginate(10);
     }
 
-    public function getCoachChampions(Coach $coach)
+
+    public function getChampionUsers($championId)
     {
-        return Champion::select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_' . app()->getLocale() . ', "")  as  note'))
-            ->whereHas('user', function ($q) use ($coach) {
-                $q->where('users.category_id', $coach->category_id);
-            })
+        return Champion::where('id', $championId)
+            ->orWhere('parent_id', $championId)
+            ->select('id', 'user_id', 'name_' . app()->getLocale() . ' as name', DB::raw('IFNULL(note_' . app()->getLocale() . ', "") AS note'), 'champion_photo')
+            ->whereHas('user')
             ->with(['user' => function ($qq) {
                 $qq->select('id', 'team_id', 'name_' . app()->getLocale() . ' as name', 'photo');
             }])

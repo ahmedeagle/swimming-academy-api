@@ -376,7 +376,6 @@ class UserController extends Controller
                 return $this->returnError('D000', trans('messages.User not found'));
             }
 
-
             $userData = User::with(['academy' => function ($q) {
                 $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
             }, 'team' => function ($q) {
@@ -390,7 +389,7 @@ class UserController extends Controller
                 $qq->where('status', 1)->first();
             }])->select('id', 'team_id', 'academy_id', 'category_id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($user->id);
 
-            $users = User::where('team_id', $user->team_id)->paginate(10);
+            $users = User::where('team_id', $user->team_id)->select('id', 'photo', 'name_' . app()->getLocale() . ' as name')->paginate(10);
             if (count($users) > 0) {
                 $total_count = $users->total();
                 $users = json_decode($users->toJson());
@@ -402,7 +401,6 @@ class UserController extends Controller
                 $usersJson->user = $userData;
                 return $this->returnData('data', $usersJson);
             }
-
             return $this->returnError('E001', trans('messages.There are no data found'));
         } catch (\Exception $ex) {
             return $this->returnError($ex->getCode(), $ex->getMessage());

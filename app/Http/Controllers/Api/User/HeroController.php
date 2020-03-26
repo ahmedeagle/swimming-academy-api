@@ -88,4 +88,35 @@ class HeroController extends Controller
         return $this->returnError('E001', trans('messages.There are no data found'));
     }
 
+    public function championsDetails(Request $request)
+    {
+        $messages = [
+            "id.required" => __('messages.championRequired'),
+            "id.exists" => __('messages.championExists'),
+        ];
+        $validator = Validator::make($request->all(), [
+            "id" => "required|exists:champions,id",
+        ], $messages);
+
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+
+        // $weekStartEnd = currentWeekStartEndDate();
+         $champions = $this->getChampionUsers($request -> id);
+        if (count($champions) > 0) {
+            $total_count = $champions->total();
+            $champions = json_decode($champions->toJson());
+            $championsJson = new \stdClass();
+            $championsJson->current_page = $champions->current_page;
+            $championsJson->total_pages = $champions->last_page;
+            $championsJson->total_count = $total_count;
+            $championsJson->data = $champions->data;
+            return $this->returnData('users', $championsJson);
+        }
+        return $this->returnError('E001', trans('messages.There are no data found'));
+    }
+
+
 }

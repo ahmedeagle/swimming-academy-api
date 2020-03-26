@@ -3,7 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ChampionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/HeroController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/User/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Champion.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Champion.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/HeroTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/HeroTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/ar/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/ar/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/champions/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/champions/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -272,7 +280,8 @@
       <workItem from="1584479060624" duration="5597000" />
       <workItem from="1584558245275" duration="18103000" />
       <workItem from="1584702508016" duration="26680000" />
-      <workItem from="1584900734476" duration="5902000" />
+      <workItem from="1584900734476" duration="11624000" />
+      <workItem from="1584954533291" duration="574000" />
     </task>
     <servers />
   </component>
@@ -457,6 +466,15 @@
             <option name="methodName" value="attendUser" />
           </properties>
           <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/app/Http/Controllers/Api/Coach/HeroController.php</url>
+          <line>109</line>
+          <properties>
+            <option name="className" value="\App\Http\Controllers\Api\Coach\HeroController" />
+            <option name="methodName" value="champions" />
+          </properties>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
