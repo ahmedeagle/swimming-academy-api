@@ -72,8 +72,10 @@ trait SubscriptionTrait
 
     public function CurrentAcademyMemberShip(User $user)
     {
-        return AcadSubscription::with(['coach' => function($q){
-            $q -> select('coaches.id','coaches.photo','coaches.name_'.app()->get().' as name');
+        return AcadSubscription::with(['team' => function($q){
+            $q -> with(['coach'=> function($q){
+                $q->select('coaches.id','coaches.photo','coaches.name_'.app()->get().' as name');
+            }]);
         }])->current()
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date')
