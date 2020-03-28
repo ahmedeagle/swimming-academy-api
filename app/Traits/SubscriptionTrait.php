@@ -60,10 +60,7 @@ trait SubscriptionTrait
         $attendance = "(SELECT count(id) FROM attendance WHERE attendance.subscription_id = academysubscriptions.id AND attendance.attend = 1 ) AS attendanceCount";
 
         return AcadSubscription::with(['team' => function ($q) {
-            $q->select('id', 'coach_id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas')
-                ->with(['coach' => function ($q) {
-                    $q->select('id', 'photo', 'name_' . app()->getLocale() . ' as name');
-                }]);
+            $q->select('id', 'coach_id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas');
         }])
             ->expired()
             ->where('user_id', $user->id)
@@ -76,12 +73,6 @@ trait SubscriptionTrait
     public function CurrentAcademyMemberShip(User $user)
     {
         return AcadSubscription::current()
-            ->with(['team' => function ($query) {
-                $query->select('id', 'coach_id', 'photo', 'name_' . app()->getLocale() . ' as name','quotas')
-                    ->with(['coach' => function ($q) {
-                        $q->select('id', 'photo', 'name_' . app()->getLocale() . ' as name');
-                    }]);
-            }])
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date')
             ->orderBy('end_date', 'DESC')
@@ -101,13 +92,16 @@ trait SubscriptionTrait
 
     public function getRate($date, $coachId, $teamId, $userId, $rateable)
     {
-        $rate = Rate::where([
+        $rate = Rate::with(['coach' => function($q){
+            $q -> select('id','name_'.app()->getLocale().' as name','photo');
+        }])
+            ->where([
             ['coach_id', $coachId],
             ['team_id', $teamId],
             ['user_id', $userId],
             ['rateable', $rateable],
             ['date', $date],
-        ])->select('id', 'comment', 'rate')
+        ])->select('id', 'comment', 'rate','coach_id')
             ->first();
 
         if ($rate)
