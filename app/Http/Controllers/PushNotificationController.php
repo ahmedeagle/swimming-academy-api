@@ -51,14 +51,16 @@ class PushNotificationController extends Controller
         $notification = [
             'title' => $this->title,
             'body' => $this->body,
-            "click_action" => "action"
+            "click_action" => "action",
+            'vibrate' => 1,
+            'sound' => 1,
         ];
 
 
         $fcmNotification = [
             'registration_ids' => $device_tokens, //multple token array
             //'to' => $device_token,
-            'notification' => $notification,
+            'data' => $notification,
         ];
 
         return $this->sendFCM($fcmNotification, 'user');
