@@ -141,7 +141,7 @@ trait SubscriptionTrait
     public function currentRates($subscriptionId)
     {
         return Rate::with(['coach' => function ($qq) {
-            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name','photo');
         }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->where('subscription_id', $subscriptionId)
             ->where('rateable', 1)
@@ -151,7 +151,7 @@ trait SubscriptionTrait
     public function previousRates($previousSubscriptionsIds)
     {
         return Rate::with(['coach' => function ($qq) {
-            $qq->select('id', 'name_' . app()->getLocale() . ' as name');
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name','photo');
         }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->whereIn('subscription_id', $previousSubscriptionsIds)
             ->where('rateable', 1)
