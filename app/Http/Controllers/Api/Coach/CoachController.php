@@ -172,6 +172,7 @@ class CoachController extends Controller
             $token = $request->api_token;
             Token::where('api_token', $token)->delete();
             $coach->api_token = '';
+            $coach->device_token = '';
             $coach->update();
             return $this->returnData('message', trans('messages.Logged out successfully'));
 
@@ -268,7 +269,7 @@ class CoachController extends Controller
                     'type' => 3 //  coach rate user
                 ]);
 
-                $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' .__('messages.stars').' '. __('messages.comment') . ' ' . $request->comment;
+                $content = __('messages.the coach') . ' ' . $coach->name_ar . ' ' . __('messages.rate the user') . ' ' . $user->name_ar . ' ' . $request->rate . ' ' . __('messages.stars') . ' ' . __('messages.comment') . ' ' . $request->comment;
                 $notify = [
                     'user_name' => $user->name_ar,
                     'content' => $content,

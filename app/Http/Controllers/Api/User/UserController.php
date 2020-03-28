@@ -305,6 +305,7 @@ class UserController extends Controller
             $token = $request->api_token;
             UserToken::where('api_token', $token)->delete();
             $user->api_token = '';
+            $user->device_token = '';
             $user->update();
             return $this->returnData('message', trans('messages.Logged out successfully'));
         } catch (\Exception $ex) {

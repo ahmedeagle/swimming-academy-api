@@ -46,63 +46,23 @@ class PushNotificationController extends Controller
         return $this->sendFCM($fcmNotification, 'user');
     }
 
-
-    public function sendProviderWeb(Provider $notify, $reservation_no = null, $type = 'new_reservation')
+    public function sendMulti($device_tokens = null)
     {
-
-        if ($reservation_no != null) {
-            $notification = [
-                'title' => $this->title,
-                'body' => $this->body,
-                "reservation_no" => $reservation_no,
-                "type" => $type
-            ];
-        } else {
-
-            $notification = [
-                'title' => $this->title,
-                'body' => $this->body,
-                "type" => $type
-            ];
-        }
-
-        $notificationData = new \stdClass();
-        $notificationData->notification = $notification;
-        // $extraNotificationData = ["message" => $notification,"moredata" =>'New Data'];
-        $fcmNotification = [
-            //'registration_ids' => $tokenList, //multple token array
-            'to' => $notify->web_token,//'/topics/alldevices',// $User->device_token, //single token
-            'data' => $notificationData
-
+        $notification = [
+            'title' => $this->title,
+            'body' => $this->body,
+            "click_action" => "action"
         ];
-        return $this->sendFCM($fcmNotification, 'provider');
 
+
+        $fcmNotification = [
+            'registration_ids' => $device_tokens, //multple token array
+            //'to' => $device_token,
+            'notification' => $notification,
+        ];
+
+        return $this->sendFCM($fcmNotification, 'user');
     }
-
-
-    /*  // weBrowser Push Format
-      public function sendProviderWebBrowser(Provider $notify)
-      {
-
-          $notification = [
-              'title' => $this->title,
-              'body' => $this->body,
-          ];
-
-          $notificationData = new \stdClass();
-          $notificationData->notification = $notification;
-          // $extraNotificationData = ["message" => $notification,"moredata" =>'New Data'];
-          $fcmNotification = [
-              //'registration_ids' => $tokenList, //multple token array
-              'to' => $notify->web_token,//'/topics/alldevices',// $User->device_token, //single token
-              'data' => $notificationData
-
-          ];
-
-
-          $this->sendFCM($fcmNotification, 'provider');
-      }*/
-
 
     private function sendFCM($fcmNotification, $type = 'user')
     {

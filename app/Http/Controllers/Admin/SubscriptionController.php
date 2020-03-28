@@ -275,7 +275,6 @@ class SubscriptionController extends Controller
             //send push notification to user
             (new \App\Http\Controllers\PushNotificationController(['title' => __('messages.academy subscription'), 'body' => __('messages.academy subscription is activated')]))->send($user->device_token);
 
-
             notify()->success('تم اضافه الاشتراك بنجاح ');
             return redirect()->route('admin.users.all');
         } catch (\Exception $ex) {

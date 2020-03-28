@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function index()
     {
-        $events = Event::orderBy('id','DESC') ->get();
+        $events = Event::orderBy('id', 'DESC')->get();
         return view('admin.events.index', compact('events'));
     }
 
@@ -104,6 +104,11 @@ class EventController extends Controller
 
         DB::commit();
 
+        //send push notification to user in this category
+        $devices_tokens = User::subScribed()->where('categroy_id', $request->category_id)->pluck('device_token')->toArray();
+        if (count($devices_tokens) > 0)
+            (new \App\Http\Controllers\PushNotificationController(['title' =>'اضافه فاعليه للاكاديمية ', 'body' => $request -> title_ar]))->sendMulti($devices_tokens);
+
         notify()->success('تم اضافه الفاعلية  بنجاح ');
         return redirect()->route('admin.events.all')->with(['success' => 'تم اضافه  الفاعلية   بنجاح ']);
     }
@@ -123,7 +128,7 @@ class EventController extends Controller
                 $imageStr = substr($image->photo, strpos($image->photo, "images"));
                 $size = File::size(base_path($imageStr));
                 $name = File::basename(base_path($imageStr));
-                $file_list[] = array('name' => $name, 'size' => $size, 'path' => $imageStr ,'allPath' => $image->photo);
+                $file_list[] = array('name' => $name, 'size' => $size, 'path' => $imageStr, 'allPath' => $image->photo);
             }
         }
         $data['event']->images = $file_list;
@@ -175,7 +180,7 @@ class EventController extends Controller
             $event->update($request->except('photo'));
 
             //delete previous images
-            Image::where('imageable_id',$event->id) -> where('imageable_type','App\Models\Event') -> delete();
+            Image::where('imageable_id', $event->id)->where('imageable_type', 'App\Models\Event')->delete();
             // save dropzone images
             if ($request->has('document') && count($request->document) > 0) {
                 //insert new images
@@ -193,7 +198,7 @@ class EventController extends Controller
             return redirect()->route('admin.events.all');
         } catch (\Exception $ex) {
             DB::rollback();
-            return $ex -> getMessage();
+            return $ex->getMessage();
         }
     }
 
