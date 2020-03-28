@@ -50,7 +50,9 @@ class PushNotificationController extends Controller
     {
         $notification = [
             'title' => $this->title,
+            'content' => $this->body,
             'body' => $this->body,
+            'message' => $this->body,
             "click_action" => "action",
             'vibrate' => 1,
             'sound' => 1,
