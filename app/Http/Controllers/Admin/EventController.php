@@ -113,7 +113,7 @@ class EventController extends Controller
             ->toArray();
 
         if (count($devices_tokens) > 0)
-            return response()->json((new \App\Http\Controllers\PushNotificationController(['title' => 'اضافه فاعليه للاكاديمية ', 'body' => $request->title_ar]))->sendMulti($devices_tokens));
+             response()->json((new \App\Http\Controllers\PushNotificationController(['title' => 'اضافه فاعليه للاكاديمية ', 'body' => $request->title_ar]))->sendMulti($devices_tokens));
 
         notify()->success('تم اضافه الفاعلية  بنجاح ');
         return redirect()->route('admin.events.all')->with(['success' => 'تم اضافه  الفاعلية   بنجاح ']);
