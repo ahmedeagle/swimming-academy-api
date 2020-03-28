@@ -67,7 +67,7 @@ class ActivityController extends Controller
             DB::commit();
 
             //send push notification to user in this category
-            $devices_tokens = User::subScribed()->where('team_id', $request->team_id)->pluck('device_token')->toArray();
+            $devices_tokens = User::subScribed()->whereNotNull('device_token')->where('device_token', '!=', '')->where('team_id', $request->team_id)->pluck('device_token')->toArray();
             if (count($devices_tokens) > 0)
                 (new \App\Http\Controllers\PushNotificationController(['title' => 'اضافه نشاط جديد للاكاديمية ', 'body' => $request->title_ar]))->sendMulti($devices_tokens);
 
