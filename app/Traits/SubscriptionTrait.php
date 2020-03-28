@@ -60,8 +60,11 @@ trait SubscriptionTrait
         $attendance = "(SELECT count(id) FROM attendance WHERE attendance.subscription_id = academysubscriptions.id AND attendance.attend = 1 ) AS attendanceCount";
 
         return AcadSubscription::with(['team' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas');
-        },'team.coach'])
+            $q->select('id', 'coach_id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas')
+                ->with(['coach' => function ($q) {
+                    $q->select('id', 'photo', 'name_' . app()->getLocale() . ' as name');
+                }]);
+        }])
             ->expired()
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date', DB::raw($attendance))
@@ -72,11 +75,13 @@ trait SubscriptionTrait
 
     public function CurrentAcademyMemberShip(User $user)
     {
-        return AcadSubscription::with(['team' => function($q){
-            $q -> with(['coach'=> function($q){
-                $q->select('coaches.id','coaches.photo','coaches.name_'.app()->get().' as name');
-            }]);
-        }])->current()
+        return AcadSubscription::current()
+            ->with(['team' => function ($query) {
+                $query->select('id', 'coach_id', 'photo', 'name_' . app()->getLocale() . ' as name','quotas')
+                    ->with(['coach' => function ($q) {
+                        $q->select('id', 'photo', 'name_' . app()->getLocale() . ' as name');
+                    }]);
+            }])
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date')
             ->orderBy('end_date', 'DESC')
@@ -112,7 +117,7 @@ trait SubscriptionTrait
             $rate->id = 0;
             $rate->comment = "";
             $rate->rate = "";
-            return   $rate;
+            return $rate;
         }
     }
 
