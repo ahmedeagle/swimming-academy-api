@@ -168,6 +168,7 @@ class SubscriptionController extends Controller
         }
     }
 
+
     public function getAcademyMemberShip(Request $request)
     {
         try {

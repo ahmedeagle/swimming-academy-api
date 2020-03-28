@@ -61,7 +61,7 @@ trait SubscriptionTrait
 
         return AcadSubscription::with(['team' => function ($q) {
             $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo', 'quotas');
-        }])
+        },'team.coach'])
             ->expired()
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date', DB::raw($attendance))
@@ -72,7 +72,7 @@ trait SubscriptionTrait
 
     public function CurrentAcademyMemberShip(User $user)
     {
-        return AcadSubscription::current()
+        return AcadSubscription::with('team.coach')->current()
             ->where('user_id', $user->id)
             ->select('id', 'team_id', 'start_date', 'end_date')
             ->orderBy('end_date', 'DESC')
