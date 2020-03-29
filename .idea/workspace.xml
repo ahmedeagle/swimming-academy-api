@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fc732a61-d3ea-4bab-b931-e7850b73e255" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TeamController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/EventTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/EventTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/teams/edit.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,25 +142,25 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Events" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/app/Traits/EventTrait.php" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp\www\swimming\resources\views\admin\coaches" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin\users" />
-      <recent name="C:\wamp\www\swimming\app\Events" />
-      <recent name="C:\wamp\www\swimming\assets\admin\js" />
-      <recent name="C:\wamp\www\swimming\resources\views\admin" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Coach" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\User" />
       <recent name="C:\wamp\www\swimming\resources\views\admin\categories" />
       <recent name="C:\wamp\www\swimming\app\Http\Controllers\Api\Team" />
       <recent name="C:\wamp\www\swimming\Helpers" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\swimming\app\Events" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\coaches" />
+      <recent name="C:\wamp\www\swimming\resources\views\admin\users" />
+      <recent name="C:\wamp\www\swimming\app\Events" />
+      <recent name="C:\wamp\www\swimming\assets\admin\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -275,7 +277,9 @@
       <workItem from="1584900734476" duration="11624000" />
       <workItem from="1584954533291" duration="574000" />
       <workItem from="1585393703472" duration="3686000" />
-      <workItem from="1585410666768" duration="10848000" />
+      <workItem from="1585410666768" duration="12291000" />
+      <workItem from="1585474416139" duration="257000" />
+      <workItem from="1585510242672" duration="2426000" />
     </task>
     <servers />
   </component>

@@ -82,6 +82,12 @@ class TeamController extends Controller
             if (isset($request->photo) && !empty($request->photo)) {
                 $fileName = $this->uploadImage('teams', $request->photo);
             }
+
+           /* $coach = Coach::find($request -> coach_id);
+            if($coach -> category_id != $request -> category_id){
+                return redirect()->back()->withError(['coach_id' => 'لا يمكن اضافه الكابتن حيث ان قسم الكابتن غير قسم الفاعليه '])->withInput($request->all());
+            }*/
+
             $status = $request->has('status') ? 1 : 0;
             $id = Team::create(['photo' => $fileName, 'status' => $status] + $request->except('_token'));
             notify()->success('تمت الاضافة بنجاح ');
