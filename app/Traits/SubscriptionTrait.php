@@ -80,6 +80,16 @@ trait SubscriptionTrait
     }
 
 
+    public function academyMemberShipById($subscription_id)
+    {
+        return AcadSubscription::where('id', $subscription_id)
+            ->select('id', 'team_id', 'start_date', 'end_date')
+            ->orderBy('end_date', 'DESC')
+            ->first();
+    }
+
+
+
     public function getTeamTimes($teamId)
     {
         return $times = Time::where('team_id', $teamId)->pluck('day_name');

@@ -79,6 +79,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('notifications', 'NotificationController@get_notifications')->name('user.notifications');
                 Route::post('membership', 'SubscriptionController@getMemberShip');
                 Route::post('academyMembership', 'SubscriptionController@getAcademyMemberShip');
+                Route::post('academyMembershipBySubscribtionId', 'SubscriptionController@getAcademyMemberShipBySubscribtionId');
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
                 Route::post('rates', 'UserController@getRates');
