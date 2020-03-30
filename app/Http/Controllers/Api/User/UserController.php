@@ -513,6 +513,48 @@ class UserController extends Controller
     }
 
 
+    public function getRates(Request $request)
+    {
+        try {
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+
+            $validator = Validator::make($request->all(), [
+                "type" => "required|in:current,previous",
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            if ($request->type == 'current') {
+                $currentSubscription = AcadSubscription::where('status', 1)->where('user_id', $user->id)->first();
+                $rates = $this->currentRates($currentSubscription->id);
+            } else {
+                $previousSubscriptionsIds = Subscription::expired()->where('user_id', $user->id)->pluck('id')->toArray();
+                $rates = $this->previousRates($previousSubscriptionsIds);
+            }
+
+            if (count($rates) > 0) {
+                $total_count = $rates->total();
+                $rates = json_decode($rates->toJson());
+                $ratesJson = new \stdClass();
+                $ratesJson->current_page = $rates->current_page;
+                $ratesJson->total_pages = $rates->last_page;
+                $ratesJson->total_count = $total_count;
+                $ratesJson->data = $rates->data;
+                return $this->returnData('rates', $ratesJson);
+            }
+
+            return $this->returnError('E001', trans('messages.There are no data found'));
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function getRatesBySupscriptionId(Request $request)
     {
         try {
