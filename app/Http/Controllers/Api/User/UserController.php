@@ -572,6 +572,16 @@ class UserController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
+            $subscription = AcadSubscription::find($request -> subscription_id);
+
+            if ($user->id != $subscription->user_id) {
+                return $this->returnError('E001', trans('messages.cannot access this subscription'));
+            }
+
+            if ($subscription->status == 1) {
+                return $this->returnError('E001', trans('messages.only previous subscription can access'));
+            }
+
             $rates = $this->previousRatesBySubscriptionId($request -> subscription_id);
 
             if (count($rates) > 0) {
