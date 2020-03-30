@@ -120,6 +120,7 @@ trait SubscriptionTrait
             $rate = new \stdClass();
             $rate->id = 0;
             $rate->comment = "";
+            $rate->coach = Coach::select('id','name_'.app()->getLocale().' as name','photo')-> find($coachId);
             $rate->rate = "";
             return $rate;
         }
