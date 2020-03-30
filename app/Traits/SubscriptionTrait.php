@@ -89,7 +89,6 @@ trait SubscriptionTrait
     }
 
 
-
     public function getTeamTimes($teamId)
     {
         return $times = Time::where('team_id', $teamId)->pluck('day_name');
@@ -102,16 +101,16 @@ trait SubscriptionTrait
 
     public function getRate($date, $coachId, $teamId, $userId, $rateable)
     {
-        $rate = Rate::with(['coach' => function($q){
-            $q -> select('id','name_'.app()->getLocale().' as name','photo');
+        $rate = Rate::with(['coach' => function ($q) {
+            $q->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
         }])
             ->where([
-            ['coach_id', $coachId],
-            ['team_id', $teamId],
-            ['user_id', $userId],
-            ['rateable', $rateable],
-            ['date', $date],
-        ])->select('id', 'comment', 'rate','coach_id')
+                ['coach_id', $coachId],
+                ['team_id', $teamId],
+                ['user_id', $userId],
+                ['rateable', $rateable],
+                ['date', $date],
+            ])->select('id', 'comment', 'rate', 'coach_id')
             ->first();
 
         if ($rate)
@@ -120,7 +119,7 @@ trait SubscriptionTrait
             $rate = new \stdClass();
             $rate->id = 0;
             $rate->comment = "";
-            $rate->coach = Coach::select('id','name_'.app()->getLocale().' as name','photo')-> find($coachId);
+            $rate->coach = Coach::select('id', 'name_' . app()->getLocale() . ' as name', 'photo')->find($coachId);
             $rate->rate = "";
             return $rate;
         }
@@ -146,7 +145,7 @@ trait SubscriptionTrait
     public function currentRates($subscriptionId)
     {
         return Rate::with(['coach' => function ($qq) {
-            $qq->select('id', 'name_' . app()->getLocale() . ' as name','photo');
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
         }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->where('subscription_id', $subscriptionId)
             ->where('rateable', 1)
@@ -156,9 +155,19 @@ trait SubscriptionTrait
     public function previousRates($previousSubscriptionsIds)
     {
         return Rate::with(['coach' => function ($qq) {
-            $qq->select('id', 'name_' . app()->getLocale() . ' as name','photo');
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
         }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
             ->whereIn('subscription_id', $previousSubscriptionsIds)
+            ->where('rateable', 1)
+            ->paginate(10);
+    }
+
+    public function previousRatesBySubscriptionId($subscriptionId)
+    {
+        return Rate::with(['coach' => function ($qq) {
+            $qq->select('id', 'name_' . app()->getLocale() . ' as name', 'photo');
+        }])->select('id', 'rate', 'comment', 'coach_id', 'subscription_id', 'day_name', 'date')
+            ->where('subscription_id', $subscriptionId)
             ->where('rateable', 1)
             ->paginate(10);
     }

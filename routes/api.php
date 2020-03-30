@@ -83,7 +83,8 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
                 Route::post('rates', 'UserController@getRates');
-            });
+                Route::post('rates/bySubscriptionId', 'UserController@getRatesBySupscriptionId');
+             });
         });
     });
 });

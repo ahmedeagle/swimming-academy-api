@@ -513,7 +513,7 @@ class UserController extends Controller
     }
 
 
-    public function getRates(Request $request)
+    public function getRatesBySupscriptionId(Request $request)
     {
         try {
             $user = $this->auth('user-api');
@@ -522,7 +522,7 @@ class UserController extends Controller
             }
 
             $validator = Validator::make($request->all(), [
-                "type" => "required|in:current,previous",
+                "subscription_id" => "required|exists:academysubscriptions,id",
             ]);
 
             if ($validator->fails()) {
@@ -530,13 +530,7 @@ class UserController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
-            if ($request->type == 'current') {
-                $currentSubscription = AcadSubscription::where('status', 1)->where('user_id', $user->id)->first();
-                $rates = $this->currentRates($currentSubscription->id);
-            } else {
-                $previousSubscriptionsIds = Subscription::expired()->where('user_id', $user->id)->pluck('id')->toArray();
-                $rates = $this->previousRates($previousSubscriptionsIds);
-            }
+            $rates = $this->previousRatesBySubscriptionId($request -> subscription_id);
 
             if (count($rates) > 0) {
                 $total_count = $rates->total();
