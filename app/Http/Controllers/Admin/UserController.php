@@ -418,7 +418,7 @@ class UserController extends Controller
     public function rates($userId)
     {
         User::findOrFail($userId);
-        $rates = Rate::where('user_id', $userId)->users()->orderBy('id','DESC')->get();
+        $rates = Rate::users()->where('user_id', $userId)->orderBy('id','DESC')->get();
         return view('admin.users.rates', compact('rates'));
     }
 
