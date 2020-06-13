@@ -80,11 +80,12 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('membership', 'SubscriptionController@getMemberShip');
                 Route::post('academyMembership', 'SubscriptionController@getAcademyMemberShip');
                 Route::post('academyMembershipBySubscribtionId', 'SubscriptionController@getAcademyMemberShipBySubscribtionId');
+                Route::post('academyMembership-By-SubscribtionId-for-exercise-rate', 'SubscriptionController@getAcademyMemberShipBySubscribtionId2');
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
                 Route::post('rates', 'UserController@getRates');
                 Route::post('rates/bySubscriptionId', 'UserController@getRatesBySupscriptionId');
-             });
+              });
         });
     });
 });
