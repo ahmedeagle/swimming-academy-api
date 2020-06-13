@@ -272,7 +272,7 @@ class SubscriptionController extends Controller
             }
 
             if ($subscription->status == 1) {
-                return $this->returnError('E001', trans('messages.only previous subscription can access'));
+              //  return $this->returnError('E001', trans('messages.only previous subscription can access'));
             }
 
             $subscriptions = $this->academyMemberShipById($request -> subscription_id);
