@@ -14,9 +14,9 @@ trait UserTrait
     {
         $userId = null;
         $user = User::with(['academy' => function ($q) {
-            $q->select('academies.id', 'academies.name_' . app()->getLocale() . ' as name', 'academies.code', 'academies.logo');
+            $q->select('academies.id', 'academies.name_' . app()->getLocale() . ' as name','academies.name_ar','academies.name_en', 'academies.code', 'academies.logo');
         }, 'team' => function ($q) {
-            $q->select('teams.id', 'teams.coach_id', 'teams.name_' . app()->getLocale() . ' as name', 'teams.photo');
+            $q->select('teams.id', 'teams.coach_id', 'teams.name_' . app()->getLocale() . ' as name','teams.name_ar','teams.name_en', 'teams.photo');
             $q->with(['coach' => function ($qq) {
                 $qq->select('id', 'name_' . app()->getLocale() . ' as name');
             }]);
@@ -58,9 +58,9 @@ trait UserTrait
     public function getAllData($id)
     {
         $user = User::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'),'name_ar','name_en','code', 'logo');
         }, 'team' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'photo');
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'),'name_ar','name_en', 'photo');
         }, 'category' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->find($id);

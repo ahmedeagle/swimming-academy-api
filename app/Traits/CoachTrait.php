@@ -15,7 +15,7 @@ trait CoachTrait
     {
         $coachID = null;
         $coach = Coach::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'),'name_ar','name_en', 'code', 'logo');
         }, 'category' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->where('mobile', $mobile)
@@ -53,7 +53,7 @@ trait CoachTrait
     public function getAllData($id)
     {
         $coach = Coach::with(['academy' => function ($q) {
-            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'code', 'logo');
+            $q->select('id', DB::raw('name_' . app()->getLocale() . ' as name'), 'name_ar','name_en','code', 'logo');
         }, 'category' => function ($qq) {
             $qq->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->find($id);

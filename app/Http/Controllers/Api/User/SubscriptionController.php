@@ -173,7 +173,10 @@ class SubscriptionController extends Controller
     public function getAcademyMemberShip(Request $request)
     {
         try {
-            $user = $this->auth('user-api');
+            if (isset($request->user_id)) {
+                $user = User::find($request->user_id);
+            } else
+                $user = $this->auth('user-api');
             if (!$user) {
                 return $this->returnError('D000', trans('messages.User not found'));
             }
@@ -248,10 +251,16 @@ class SubscriptionController extends Controller
         }
     }
 
+
     public function getAcademyMemberShipBySubscribtionId(Request $request)
     {
         try {
-            $user = $this->auth('user-api');
+            
+            if (isset($request->user_id)) {
+                $user = User::find($request->user_id);
+            } else
+                $user = $this->auth('user-api');
+
             if (!$user) {
                 return $this->returnError('D000', trans('messages.User not found'));
             }
@@ -265,17 +274,17 @@ class SubscriptionController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
-            $subscription = AcadSubscription::find($request -> subscription_id);
+            $subscription = AcadSubscription::find($request->subscription_id);
 
             if ($user->id != $subscription->user_id) {
                 return $this->returnError('E001', trans('messages.cannot access this subscription'));
             }
 
             if ($subscription->status == 1) {
-                return $this->returnError('E001', trans('messages.only previous subscription can access'));
+                //  return $this->returnError('E001', trans('messages.only previous subscription can access'));
             }
 
-            $subscriptions = $this->academyMemberShipById($request -> subscription_id);
+            $subscriptions = $this->academyMemberShipById($request->subscription_id);
             if ($subscriptions) {
                 $teamDays = $this->getTeamTimes($subscriptions->team_id);
                 $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
@@ -298,6 +307,76 @@ class SubscriptionController extends Controller
                         $day->rated = (int)0;
 
                     $day->rate = $this->getRate($day->date, $coachId, $teamId, $user->id, 0); //0 means  who make the rate is user
+                }
+
+                $subscriptions->attendances = $subscriptionsDays;
+                $curren_app_subscriptions_fo_user = $user->subscriptions->where('status', 1)->first();
+                $app_subscription = new \stdClass();
+                $app_subscription->id = "";
+                $subscriptions->app_subscription = $curren_app_subscriptions_fo_user ? $curren_app_subscriptions_fo_user : $app_subscription;
+
+                return $this->returnData('academySubscriptions', $subscriptions);
+            } else {
+                return $this->returnError('E001', trans('messages.There are no data found'));
+            }
+        } catch (\Exception $ex) {
+            return $this->returnError($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function getAcademyMemberShipBySubscribtionId2(Request $request)
+    {
+        try {
+            $user = $this->auth('user-api');
+            if (!$user) {
+                return $this->returnError('D000', trans('messages.User not found'));
+            }
+
+            $validator = Validator::make($request->all(), [
+                "subscription_id" => "required|exists:academysubscriptions,id",
+            ]);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            $subscription = AcadSubscription::find($request->subscription_id);
+
+            if ($user->id != $subscription->user_id) {
+                return $this->returnError('E001', trans('messages.cannot access this subscription'));
+            }
+
+            if ($subscription->status == 1) {
+                //  return $this->returnError('E001', trans('messages.only previous subscription can access'));
+            }
+
+            $subscriptions = $this->academyMemberShipById($request->subscription_id);
+            if ($subscriptions) {
+                $teamDays = $this->getTeamTimes($subscriptions->team_id);
+                $subscriptionsDays = getAllDateBetweenTwoDate($subscriptions->start_date, $subscriptions->end_date, $teamDays);
+                $userAttendanceDays = Attendance::where('user_id', $user->id)->where('subscription_id', $subscriptions->id)->pluck('attend', 'date')->toArray();
+                //if this date has been rated before by user "user rate the coach of his team"
+                $teamId = $subscriptions->team_id;
+                $coach = Coach::whereHas('teams', function ($q) use ($teamId) {
+                    $q->where('id', $teamId);
+                })->select('id')->first();
+                $coachId = $coach->id;  // coach of user's team
+                //$this -> addUserAttendanceToEachDay($subscriptionsDays,$userAttendanceDays);
+                foreach ($subscriptionsDays as $day) {
+                    if (array_key_exists($day->date, $userAttendanceDays))
+                        $day->attend = (int)$userAttendanceDays[$day->date];
+                    else
+                        $day->attend = (int)0; //if not has attendance alway use be  absence
+
+                    $day->rate = $this->getRate($day->date, $coachId, $teamId, $user->id, 0); //0 means  who make the rate is user
+
+                    if ($this->checkIfDateRated($day->date, $coachId, $teamId, $user->id, 0)) //0 means  who make the rate is user
+                        $day->rated = (int)1;
+                    else {
+                        $day->rated = (int)0;
+                        unset($day);
+                    }
                 }
 
                 $subscriptions->attendances = $subscriptionsDays;
@@ -382,5 +461,6 @@ class SubscriptionController extends Controller
             return $this->returnError($ex->getCode(), $ex->getMessage());
         }
     }
+
 
 }
