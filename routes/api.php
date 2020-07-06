@@ -68,6 +68,8 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
         Route::post('resetPassword', "UserController@passwordReset");
         Route::post('checkSubscription', "SubscriptionController@checkSubscribtion");
         Route::post('paySubscription', "SubscriptionController@paySubscription");
+        Route::post('academyMembership', 'SubscriptionController@getAcademyMemberShip');
+        Route::post('academyMembershipBySubscribtionId', 'SubscriptionController@getAcademyMemberShipBySubscribtionId');
         Route::group(['middleware' => ['CheckUserToken']], function () {
             Route::post('logout', 'UserController@logout')->name('user.logout');
             Route::group(['middleware' => ['CheckUserStatus']], function () {
@@ -78,8 +80,6 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
                 Route::post('profile/update', 'UserController@update_user_profile')->name('user.update.profile');
                 Route::post('notifications', 'NotificationController@get_notifications')->name('user.notifications');
                 Route::post('membership', 'SubscriptionController@getMemberShip');
-                Route::post('academyMembership', 'SubscriptionController@getAcademyMemberShip');
-                Route::post('academyMembershipBySubscribtionId', 'SubscriptionController@getAcademyMemberShipBySubscribtionId');
                 Route::post('academyMembership-By-SubscribtionId-for-exercise-rate', 'SubscriptionController@getAcademyMemberShipBySubscribtionId2');
                 Route::post('myTeam', 'UserController@myTeam');
                 Route::post('rateCoach', 'UserController@rateCoach');
