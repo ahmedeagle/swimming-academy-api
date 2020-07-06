@@ -30,7 +30,7 @@ class HeroController extends Controller
         if (!$coach) {
             return $this->returnError('D000', trans('messages.User not found'));
         }
-      return   $heroes = $this->getTeamHasHero($coach);
+         $heroes = $this->getTeamHasHero($coach);
         if (count($heroes) > 0) {
             $total_count = $heroes->total();
             $heroes = json_decode($heroes->toJson());

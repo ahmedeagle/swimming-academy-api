@@ -45,7 +45,7 @@ trait HeroTrait
 
     public function getTeamHasHero(Coach $coach)
     {
-        return $weekStartEnd = currentWeekStartEndDate();
+         $weekStartEnd = currentWeekStartEndDate();
         $startWeek = date('Y-m-d', strtotime($weekStartEnd['startWeek']));
         $endWeek = date('Y-m-d', strtotime($weekStartEnd['endWeek']));
 
