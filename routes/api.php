@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['CheckPassword', 'ChangeLan
     });
     Route::group(['prefix' => 'coach', 'namespace' => 'User', 'middleware' => ['CheckCoachToken', 'CheckCoachStatus']], function () {
         Route::post('user/membership/current', 'SubscriptionController@getCurrentMemberShip');
+        Route::post('user/membership/previous', 'SubscriptionController@getPreviousMemberShip');
     });
     Route::group(['prefix' => 'teams', 'namespace' => 'Team'], function () {
         Route::post('/', 'TeamController@getAllTeamsByAcademyCode')->name('team.all');
